@@ -1,6 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -8,10 +6,10 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import LockIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import logo from '../../assets/images/logo.png';
 
 const styles = theme => ({
   main: {
@@ -26,7 +24,7 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing.unit * 15,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -43,33 +41,36 @@ const styles = theme => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+  logo: {
+    width: '60%',
+    height: 'auto',
+    paddingBottom: '13px',
+  },
 });
 
-function SignIn(props) {
+function Login(props) {
   const { classes } = props;
 
   return (
     <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockIcon />
-        </Avatar>
+        <img src={logo} className={classes.logo} alt="logo"/>
         <Typography component="h1" variant="h5">
-          Sign in
+          Prihlásenie
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
+            <InputLabel htmlFor="email">E-mail</InputLabel>
             <Input id="email" name="email" autoComplete="email" autoFocus />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
+            <InputLabel htmlFor="password">Heslo</InputLabel>
             <Input name="password" type="password" id="password" autoComplete="current-password" />
           </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
+            label="Zapamätať"
           />
           <Button
             type="submit"
@@ -86,8 +87,4 @@ function SignIn(props) {
   );
 }
 
-SignIn.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(Login);

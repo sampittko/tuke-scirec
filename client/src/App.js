@@ -4,8 +4,10 @@ import routes from './routes';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { SCIREC_THEME } from './themes';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { AppBar } from '@material-ui/core';
-import Login from './components/Login';
+import Login from './components/user/Login';
+import Navigation from './components/common/Navigation';
+import Dashboard from './components/Dashboard';
+import './index.css';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
   <Route
@@ -29,8 +31,8 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
 const App = (props) => 
   <Router basename={window.basename}>
     <MuiThemeProvider theme={SCIREC_THEME}>
-      <AppBar />
-      <PrivateRoute exact path={routes.home} component={Login} isAuth={props.isAuth} />
+      <Navigation />
+      <PrivateRoute exact path={routes.home} component={Dashboard} isAuth={props.isAuth} />
       <Route exact path={routes.login} component={Login} />
     </MuiThemeProvider>
   </Router>;

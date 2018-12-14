@@ -1,5 +1,9 @@
 const actionTypes = {
-    
+    SIGN_IN_REQUEST: 'SIGN_IN_REQUEST',
+    SIGN_IN_SUCCESS: 'SIGN_IN_SUCCESS',
+    SIGN_IN_FAILURE: 'SIGN_IN_FAILURE',
+    CREATE_PROJECT: 'CREATE_PROJECT',
+    FINISH_PROJECT: 'FINISH_PROJECT',
 }
 
 export default actionTypes;
