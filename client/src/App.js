@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import routes from './routes';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { SCIREC_THEME } from './themes';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { SCIREC_THEME } from './theme';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Login from './components/user/Login';
-import Navigation from './components/common/Navigation';
-import Dashboard from './components/Dashboard';
+import Register from './components/user/Register';
+import AppBar from './components/common/AppBar';
+import Dashboard from './components/category/Dashboard';
 import './index.css';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
@@ -31,9 +32,12 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
 const App = (props) => 
   <Router basename={window.basename}>
     <MuiThemeProvider theme={SCIREC_THEME}>
-      <Navigation />
+      <AppBar />
       <PrivateRoute exact path={routes.home} component={Dashboard} isAuth={props.isAuth} />
-      <Route exact path={routes.login} component={Login} />
+      <Switch>
+        <Route exact path={routes.register} component={Register} />
+        <Route exact path={routes.login} component={Login} />
+      </Switch>
     </MuiThemeProvider>
   </Router>;
 

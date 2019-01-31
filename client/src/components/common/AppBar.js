@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import HamburgerMenu from './HamburgerMenu';
+import AppMenu from './AppMenu';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ const Navigation = props => {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <HamburgerMenu />
+          <AppMenu />
           <Typography variant="h6" color="inherit" className={classes.grow}>
             SCIREC
           </Typography>

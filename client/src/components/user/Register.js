@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import logo from '../../assets/images/logo.png';
+import logo from '../../images/logo.png';
 
 const styles = theme => ({
   main: {
@@ -24,7 +24,7 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 15,
+    marginTop: '15vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -48,16 +48,16 @@ const styles = theme => ({
   },
 });
 
-function SignIn(props) {
+function Register(props) {
   const { classes } = props;
 
   return (
     <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
-        <img src={logo} className={classes.logo} alt="logo"/>
+        <img src={logo} className={classes.logo} alt="logo" />
         <Typography component="h1" variant="h5">
-          Prihlásenie
+          Registrácia
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
@@ -79,7 +79,7 @@ function SignIn(props) {
             color="primary"
             className={classes.submit}
           >
-            Sign in
+            Registrovať
           </Button>
         </form>
       </Paper>
@@ -87,4 +87,4 @@ function SignIn(props) {
   );
 }
 
-export default withStyles(styles)(SignIn);
+export default withStyles(styles)(Register);

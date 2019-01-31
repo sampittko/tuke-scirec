@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import FormControl from '@material-ui/core/FormControl';
@@ -9,7 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import logo from '../../assets/images/logo.png';
+import logo from './../../images/logo.png';
 
 const styles = theme => ({
   main: {
@@ -24,15 +25,11 @@ const styles = theme => ({
     },
   },
   paper: {
-    marginTop: theme.spacing.unit * 15,
+    marginTop: theme.spacing.unit * 8,
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
-  },
-  avatar: {
-    margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: '100%', // Fix IE 11 issue.
@@ -42,9 +39,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 3,
   },
   logo: {
-    width: '60%',
     height: 'auto',
-    paddingBottom: '13px',
+    width: '250px',
+    paddingBottom: '20px',
   },
 });
 
@@ -55,22 +52,22 @@ function Login(props) {
     <main className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
-        <img src={logo} className={classes.logo} alt="logo"/>
+        <img className={classes.logo} src={logo} alt="logo" />
         <Typography component="h1" variant="h5">
-          Prihlásenie
+          Sign in
         </Typography>
         <form className={classes.form}>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">E-mail</InputLabel>
+            <InputLabel htmlFor="email">Email Address</InputLabel>
             <Input id="email" name="email" autoComplete="email" autoFocus />
           </FormControl>
           <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Heslo</InputLabel>
+            <InputLabel htmlFor="password">Password</InputLabel>
             <Input name="password" type="password" id="password" autoComplete="current-password" />
           </FormControl>
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
-            label="Zapamätať"
+            label="Remember me"
           />
           <Button
             type="submit"
@@ -86,5 +83,9 @@ function Login(props) {
     </main>
   );
 }
+
+Login.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(Login);
