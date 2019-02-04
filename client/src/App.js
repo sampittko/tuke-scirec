@@ -6,9 +6,9 @@ import { SCIREC_THEME } from './theme';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
-import AppBar from './components/common/AppBar';
 import Dashboard from './components/user/Dashboard';
-import './index.css';
+import Container from './components/common/Container';
+import './index.scss';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
   <Route
@@ -32,12 +32,13 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
 const App = (props) => 
   <Router basename={window.basename}>
     <MuiThemeProvider theme={SCIREC_THEME}>
-      <AppBar />
-      <PrivateRoute exact path={routes.home} component={Dashboard} isAuth={props.isAuth} />
-      <Switch>
-        <Route exact path={routes.register} component={Register} />
-        <Route exact path={routes.login} component={Login} />
-      </Switch>
+      <Container isAuth={props.isAuth}>
+        <PrivateRoute exact path={routes.home} component={Dashboard} />
+        <Switch>
+          <Route exact path={routes.register} component={Register} />
+          <Route exact path={routes.login} component={Login} />
+        </Switch>
+      </Container>
     </MuiThemeProvider>
   </Router>;
 

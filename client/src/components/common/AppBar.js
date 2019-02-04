@@ -26,32 +26,30 @@ class AppBarComponent extends React.Component {
 
   render() {
     return (
-      <div className="root">
-        <AppBar position="static">
-          <Toolbar>
-            <SideBar />
-            <Typography variant="h6" color="inherit" className="brand">
-              <Link onClick={this.onBrandClick} className="link" to="/">
-                SCIREC
-              </Link>
-            </Typography>
-            {!this.state.registerPage &&
-              <Link className="link" to="/registracia">
-                <Button onClick={this.onClick} color="inherit">
-                  Registrácia
-                </Button>
-              </Link>
-            }
-            {this.state.registerPage &&
-              <Link className="link" to="/prihlasenie">
-                <Button onClick={this.onClick} color="inherit">
-                  Prihlásenie
-                </Button>
-              </Link>
-            }
-          </Toolbar>
-        </AppBar>
-      </div>
+      <AppBar position="static">
+        <Toolbar>
+          <SideBar />
+          <Typography variant="h6" color="inherit" className="brand">
+            <Link onClick={this.onBrandClick} className="link" to="/">
+              SCIREC
+            </Link>
+          </Typography>
+          {!this.state.registerPage &&
+            <Link className="link" to="/registracia">
+              <Button onClick={this.onClick} color="inherit">
+                Registrácia
+              </Button>
+            </Link>
+          }
+          {this.state.registerPage &&
+            <Link className="link" to="/prihlasenie">
+              <Button onClick={this.onClick} color="inherit">
+                Prihlásenie
+              </Button>
+            </Link>
+          }
+        </Toolbar>
+      </AppBar>
     );
   }
 }
