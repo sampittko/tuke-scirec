@@ -1,82 +1,50 @@
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import IconButton from '@material-ui/core/IconButton';
+import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@material-ui/core';
+import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Link } from 'react-router-dom';
+import './SideBar.scss';
 
-const styles = {
-  list: {
-    width: 250,
-  },
-  fullList: {
-    width: 'auto',
-  },
-  menuButton: {
-    marginLeft: 0,
-    marginRight: 20,
-  },
-};
+class SideBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      left: false,
+    };
+  }
 
-class SwipeableTemporaryDrawer extends React.Component {
-  state = {
-    left: false,
-  };
-
-  toggleDrawer = (side, open) => () => {
+  handleDrawerToggle = (side, open) => () => {
     this.setState({
       [side]: open,
     });
   };
 
   render() {
-    const { classes } = this.props;
-
-    const sideList = (
-      <div className={classes.list}>
-        <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </div>
-    );
-
     return (
       <div>
-        <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.toggleDrawer('left', true)}>
+        <IconButton className="menu-button" color="inherit" aria-label="Menu" onClick={this.handleDrawerToggle('left', true)}>
           <MenuIcon />
         </IconButton>
         <SwipeableDrawer
           open={this.state.left}
-          onClose={this.toggleDrawer('left', false)}
-          onOpen={this.toggleDrawer('left', true)}
+          onClose={this.handleDrawerToggle('left', false)}
+          onOpen={this.handleDrawerToggle('left', true)}
         >
           <div
             tabIndex={0}
             role="button"
-            onClick={this.toggleDrawer('left', false)}
-            onKeyDown={this.toggleDrawer('left', false)}
+            onClick={this.handleDrawerToggle('left', false)}
           >
-            {sideList}
+            <div className="list">
+              <List>
+                <ListItem button>
+                  <ListItemIcon><HomeIcon /></ListItemIcon>
+                  <ListItemText>
+                    <Link className="link" to="/">Domov</Link>
+                  </ListItemText>
+                </ListItem>
+              </List>
+            </div>
           </div>
         </SwipeableDrawer>
       </div>
@@ -84,4 +52,4 @@ class SwipeableTemporaryDrawer extends React.Component {
   }
 }
 
-export default withStyles(styles)(SwipeableTemporaryDrawer);
+export default SideBar;

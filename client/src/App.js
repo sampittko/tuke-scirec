@@ -7,7 +7,7 @@ import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
 import AppBar from './components/common/AppBar';
-import Dashboard from './components/category/Dashboard';
+import Dashboard from './components/user/Dashboard';
 import './index.css';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
