@@ -37,12 +37,12 @@ class SideBar extends React.Component {
           >
             <div className="list">
               <List>
-                <ListItem button>
-                  <ListItemIcon><HomeIcon /></ListItemIcon>
-                  <ListItemText>
-                    <Link className="link" to="/">Domov</Link>
-                  </ListItemText>
-                </ListItem>
+                <Link className="link" to="/">
+                  <ListItem button>
+                    <ListItemIcon><HomeIcon /></ListItemIcon>
+                    <ListItemText>Domov</ListItemText>
+                  </ListItem>
+                </Link>
               </List>
             </div>
           </div>

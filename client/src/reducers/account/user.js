@@ -1,15 +1,17 @@
 import actionTypes from '../../actions/actionTypes';
 
-const user = (state = JSON.parse(sessionStorage.getItem('user')), action) => {
-  switch (action.type) {
-    case actionTypes.SIGN_IN_SUCCESS:
-      sessionStorage.setItem('user', JSON.stringify(action.user));
-      return action.user;
+const initialState = {};
 
-    case actionTypes.SIGN_OUT_SUCCESS:
-      sessionStorage.removeItem('user');
-      return null;
-  
+const user = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.LOGIN_SUCCESS:
+      // sessionStorage.setItem('user', JSON.stringify(action.user));
+      console.log("Login successful");
+      return state;
+    case actionTypes.LOGIN_FAILURE:
+      // sessionStorage.removeItem('user');
+      console.log("Login failed");
+      return state;
     default:
       return state
   }

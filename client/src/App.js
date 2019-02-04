@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import routes from './routes';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import { SCIREC_THEME } from './theme';
@@ -48,4 +49,7 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(withTheme()(App));
+export default compose(
+  connect(mapStateToProps),
+  withTheme()
+)(App);
