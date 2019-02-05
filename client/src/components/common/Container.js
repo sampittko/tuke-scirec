@@ -8,7 +8,7 @@ class Container extends React.Component {
         return (
             <Grid container>
                 <Grid item xs={12}>
-                    <AppBar isAuth={this.props.isAuth} />
+                    <AppBar />
                 </Grid>
                 <Grid item xs={12}>
                     {this.props.children}

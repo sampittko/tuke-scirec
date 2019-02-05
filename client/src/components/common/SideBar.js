@@ -1,4 +1,5 @@
 import React from 'react';
+import routes from './../../routes';
 import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -37,7 +38,7 @@ class SideBar extends React.Component {
           >
             <div className="list">
               <List>
-                <Link className="link" to="/">
+                <Link className="link" to={routes.home}>
                   <ListItem button>
                     <ListItemIcon><HomeIcon /></ListItemIcon>
                     <ListItemText>Domov</ListItemText>

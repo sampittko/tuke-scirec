@@ -1,8 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
 import routes from './routes';
-import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { SCIREC_THEME } from './theme';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import Login from './components/user/Login';
@@ -33,23 +31,12 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
 const App = (props) => 
   <Router basename={window.basename}>
     <MuiThemeProvider theme={SCIREC_THEME}>
-      <Container isAuth={props.isAuth}>
+      <Container>
         <PrivateRoute exact path={routes.home} component={Dashboard} />
-        <Switch>
-          <Route exact path={routes.register} component={Register} />
-          <Route exact path={routes.login} component={Login} />
-        </Switch>
+        <Route exact path={routes.register} component={Register} />
+        <Route exact path={routes.login} component={Login} />
       </Container>
     </MuiThemeProvider>
   </Router>;
 
-const mapStateToProps = state => {
-  return {
-    isAuth: state.user !== null
-  }
-}
-
-export default compose(
-  connect(mapStateToProps),
-  withTheme()
-)(App);
+export default withTheme()(App);
