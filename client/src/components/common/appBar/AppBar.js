@@ -53,7 +53,7 @@ AppBarComponent.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.isAuth ? state.user.isAuth : false
+    isAuth: state.user.isAuth
   }
 }
 
