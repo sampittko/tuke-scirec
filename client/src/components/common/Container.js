@@ -1,6 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import AppBar from './AppBar';
+import AppBar from './appBar/AppBar';
 import './Container.scss';
 
 class Container extends React.Component {
