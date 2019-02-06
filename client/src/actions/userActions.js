@@ -3,12 +3,10 @@ import actionTypes from './actionTypes';
 export const login = (credentials) => {
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
-        console.log(getState());
         firebase.auth().signInWithEmailAndPassword(
             credentials.email,
             credentials.password
         ).then(() => {
-            console.log(getState());
             dispatch({
                 type: actionTypes.LOGIN_SUCCESS
             });
@@ -24,7 +22,6 @@ export const login = (credentials) => {
 export const logout = () => {
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
-        console.log(getState());
         firebase.auth().signOut().then(() => {
             dispatch({
                 type: actionTypes.LOGOUT_SUCCESS,

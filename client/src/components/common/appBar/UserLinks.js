@@ -10,7 +10,7 @@ import { logout } from '../../../actions/userActions';
 const UserLinks = props =>
     <Link className="link" to={routes.login}>
         <Button onClick={props.logout} color="inherit">
-            Odhlásiť
+            User: {props.user.email}
         </Button>
     </Link>
 
@@ -24,4 +24,13 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(UserLinks);
+const mapStateToProps = state => {
+    return {
+        user: {
+            id: state.firebase.auth.uid,
+            email: state.firebase.auth.email
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserLinks);
