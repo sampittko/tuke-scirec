@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import routes from '../../../routes';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import './AppBar.scss';
+import './Appbar.scss';
 
 const Links = props =>
     <div>

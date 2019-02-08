@@ -46,8 +46,17 @@ main {
     .action-buttons {
         margin-top: 16px;
 
+        button[class*="Primary"] {
+            width: 105.11px !important;
+        }
+
         button + button {
             margin-left: 10px;
         }
+    }
+
+    div[class*="MuiCircularProgress-"] {
+        width: 20.8px !important;
+        height: 20.8px !important;
     }
 }

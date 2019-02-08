@@ -3,17 +3,16 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import routes from '../../../routes';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import SideBar from '../SideBar';
+import Sidebar from '../Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
 import { Link } from 'react-router-dom';
-import './AppBar.scss';
+import './Appbar.scss';
 
-class AppBarComponent extends React.Component {
+class AppbarComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isAuth: props.isAuth,
       registerPage: false
     }
   }
@@ -34,20 +33,20 @@ class AppBarComponent extends React.Component {
     return (
       <AppBar position="static">
         <Toolbar>
-          <SideBar />
+          <Sidebar />
           <Typography variant="h6" color="inherit" className="brand">
             <Link onClick={this.handleBrandClick} className="link" to={routes.home}>
               SCIREC
             </Link>
           </Typography>
-          {this.state.isAuth ? <UserLinks /> : <Links onClick={this.handleLinkClick} registerPage={this.state.registerPage} />}
+          {this.props.isAuth ? <UserLinks /> : <Links onClick={this.handleLinkClick} registerPage={this.state.registerPage} />}
         </Toolbar>
       </AppBar>
     );
   }
 }
 
-AppBarComponent.propTypes = {
+AppbarComponent.propTypes = {
   isAuth: PropTypes.bool.isRequired,
 }
 
@@ -57,4 +56,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(AppBarComponent);
+export default connect(mapStateToProps)(AppbarComponent);

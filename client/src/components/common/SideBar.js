@@ -1,10 +1,10 @@
 import React from 'react';
-import routes from './../../routes';
+import routes from '../../routes';
 import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import { Link } from 'react-router-dom';
-import './SideBar.scss';
+import './Sidebar.scss';
 
 class SideBar extends React.Component {
   constructor(props) {

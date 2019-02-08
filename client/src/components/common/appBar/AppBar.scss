@@ -6,3 +6,7 @@
     text-decoration: none;
     color: inherit;
 }
+
+div[class*="MuiAvatar-"] {
+    background-color: inherit;
+}

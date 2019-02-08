@@ -1,19 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Login.scss';
-import { Typography, Button, TextField, Paper } from '@material-ui/core';
+import { Typography, Button, TextField, Paper, CircularProgress } from '@material-ui/core';
 import { login } from '../../actions/userActions';
 import { connect } from 'react-redux';
 import logo from './../../images/logo.png';
+
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
   }
-
+  
   handleForgottenPassword = () => {
     
   }
@@ -37,28 +39,30 @@ class Login extends React.Component {
           </Typography>
         </div>
         <form onSubmit={this.handleSubmit}>
+          
           <TextField
             label="E-mail"
             type="email"
             name="email"
-            autoComplete="email"
             margin="normal"
             variant="outlined"
+            error={this.props.error}
             onChange={this.handleChange}
           />
           <TextField
             label="Heslo"
             type="password"
-            autoComplete="current-password"
             margin="normal"
             variant="outlined"
+            helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
+            error={this.props.error}
             onChange={this.handleChange}
           />
           <div className="action-buttons">
-            <Button type="submit" variant="contained" color="primary">
-              Prihlásiť
+            <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
+              {this.props.isLoading ? <CircularProgress color="primary" /> : "Prihlásiť"}
             </Button>
-            <Button onClick={this.handleForgottenPassword}>
+            <Button disabled={this.props.isLoading} onClick={this.handleForgottenPassword}>
               Zabudnuté heslo
             </Button>
           </div>
@@ -68,10 +72,23 @@ class Login extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
+Login.propTypes = {
+  login: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  error: PropTypes.bool.isRequired
+}
+
+const mapDispatchToProps = dispatch => {
   return {
     login: (credentials) => dispatch(login(credentials))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = state => {
+  return {
+    isLoading: state.user.isLoading,
+    error: state.user.error ? true : false
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -1,21 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import userPropTypes from './../../../propTypes/userPropTypes';
 import routes from '../../../routes';
-import { Button } from '@material-ui/core';
+import { Button, Avatar, Tooltip } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import './AppBar.scss';
 import { connect } from 'react-redux';
 import { logout } from '../../../actions/userActions';
+import './Appbar.scss';
 
 const UserLinks = props =>
     <Link className="link" to={routes.login}>
-        <Button onClick={props.logout} color="inherit">
-            User: {props.user.email}
-        </Button>
+        <Tooltip title={props.user.email} placement="left">
+            <Button>
+                <Avatar onClick={props.logout}>
+                    {props.user.email.charAt(0)}
+                </Avatar>
+            </Button>
+        </Tooltip>
     </Link>
 
 UserLinks.propTypes = {
-    logout: PropTypes.func.isRequired
+    user: userPropTypes.user.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
