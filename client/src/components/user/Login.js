@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { Typography, Button, TextField, Paper, CircularProgress } from '@material-ui/core';
 import { login } from '../../actions/userActions';
 import { connect } from 'react-redux';
@@ -27,7 +27,9 @@ class Login extends React.Component {
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.type]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   }
   
   render() {
@@ -48,15 +50,18 @@ class Login extends React.Component {
             variant="outlined"
             error={this.props.error}
             onChange={this.handleChange}
+            required
           />
           <TextField
             label="Heslo"
             type="password"
+            name="password"
             margin="normal"
             variant="outlined"
             helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
             error={this.props.error}
             onChange={this.handleChange}
+            required
           />
           <div className="action-buttons">
             <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
@@ -75,15 +80,15 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  isAuth: PropTypes.bool.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired
+  login: propTypes.func.isRequired,
+  isAuth: propTypes.bool.isRequired,
+  isLoading: propTypes.bool.isRequired,
+  error: propTypes.bool.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (credentials) => dispatch(login(credentials))
+    login: (user) => dispatch(login(user))
   }
 }
 

@@ -16,7 +16,7 @@ const user = (state = _initialState, action) => {
         ...state,
         isLoading: true
       }
-      
+
     case actionTypes.LOGIN_SUCCESS:
       console.log(actionTypes.LOGIN_SUCCESS);
       localStorage.setItem(USER_KEY, JSON.stringify(action.user));
@@ -26,6 +26,7 @@ const user = (state = _initialState, action) => {
         isLoading: false,
         error: null
       };
+
     case actionTypes.LOGIN_FAILURE:
       console.log(actionTypes.LOGIN_FAILURE);
       return {
@@ -33,6 +34,7 @@ const user = (state = _initialState, action) => {
         isLoading: false,
         error: action.error
       };
+
     case actionTypes.LOGOUT_SUCCESS:
       console.log(actionTypes.LOGOUT_SUCCESS);
       localStorage.removeItem(USER_KEY);
@@ -40,6 +42,30 @@ const user = (state = _initialState, action) => {
         ...state,
         data: null,
       };
+
+    case actionTypes.REGISTER_REQUEST:
+      console.log(actionTypes.REGISTER_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      }
+
+    case actionTypes.REGISTER_FAILURE:
+      console.log(actionTypes.REGISTER_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
+    case actionTypes.REGISTER_SUCCESS:
+      console.log(actionTypes.REGISTER_SUCCESS);
+      return {
+        ...state,
+        isLoading: false,
+        error: null
+      };
+
     default:
       return state
   }
