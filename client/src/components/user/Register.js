@@ -18,8 +18,9 @@ class Register extends React.Component {
       password: '',
       verifiedPassword: '',
     }
-    let formSubmitted = false;
   }
+
+  formSubmitted = false;
 
   errorCodesMatches(errorCode) {
     return errorCode === this.props.errorCode;

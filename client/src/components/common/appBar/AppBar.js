@@ -12,32 +12,13 @@ import { logout } from '../../../actions/userActions';
 import './Appbar.scss';
 
 class AppbarComponent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      registerPage: false
-    }
-  }
-
-  handleClick = () => {
-    this.setState((state) => {
-      return { registerPage: !state.registerPage };
-    });
-  }
-
-  handleBrandClick = () => {
-    if (this.state.registerPage) {
-      this.handleClick();
-    }
-  }
-
   render() {
     return (
       <AppBar position="static">
         <Toolbar>
           <Sidebar />
           <Typography variant="h6" color="inherit" className="brand">
-            <Link onClick={this.handleBrandClick} className="link" to={routes.home}>
+            <Link className="link" to={routes.home}>
               SCIREC
             </Link>
           </Typography>
@@ -49,7 +30,6 @@ class AppbarComponent extends React.Component {
           ) : (
             <Links
               onClick={this.handleClick}
-              registerPage={this.state.registerPage}
             />
           )}
         </Toolbar>

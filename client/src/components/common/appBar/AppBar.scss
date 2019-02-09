@@ -3,8 +3,13 @@
 }
 
 .link {
+    display: initial;
     text-decoration: none;
     color: inherit;
+}
+
+.active-link {
+    text-decoration: underline;
 }
 
 div[class*="MuiAvatar-"] {
