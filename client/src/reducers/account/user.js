@@ -11,9 +11,7 @@ const user = (state = _initialState, action) => {
       console.log(actionTypes.LOGIN_REQUEST);
       return {
         ...state,
-        isLoading: true,
-        isAuth: false,
-        error: null
+        isLoading: true
       }
       
     case actionTypes.LOGIN_SUCCESS:
@@ -21,24 +19,20 @@ const user = (state = _initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        isAuth: true,
-        error: null
+        isAuth: true
       };
     case actionTypes.LOGIN_FAILURE:
       console.log(actionTypes.LOGIN_FAILURE);
       return {
         ...state,
         isLoading: false,
-        isAuth: false,
         error: action.error
       };
     case actionTypes.LOGOUT_SUCCESS:
       console.log(actionTypes.LOGOUT_SUCCESS);
       return {
         ...state,
-        isLoading: false,
-        isAuth: false,
-        error: null
+        isAuth: false
       };
     default:
       return state

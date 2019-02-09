@@ -1,8 +1,12 @@
 import React from 'react';
 import './Register.scss';
+import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import Redirect from 'react-router/Redirect';
 import { Checkbox, Typography, Button, TextField, Paper } from '@material-ui/core';
-import logo from './../../images/logo.png';
+import logo from '../../images/logo.png';
+import routes from '../../routes';
+import { connect } from 'react-redux';
 
 class Register extends React.Component {
   handleRegister = () => {
@@ -10,7 +14,7 @@ class Register extends React.Component {
   }
 
   render() {
-    return (
+    return !this.props.isAuth ? (
       <Paper className="register">
         <div className="header">
           <img src={logo} alt="SCIREC logo" />
@@ -69,8 +73,20 @@ class Register extends React.Component {
           </div>
         </form>
       </Paper>
-    );
+    ) : (
+        <Redirect to={routes.home} />
+    )
   }
 }
 
-export default Register;
+Register.propTypes = {
+  isAuth: propTypes.bool.isRequired
+}
+
+const mapStateToProps = state => {
+  return {
+    isAuth: state.user.isAuth
+  }
+}
+
+export default connect(mapStateToProps)(Register);

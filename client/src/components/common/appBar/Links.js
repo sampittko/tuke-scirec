@@ -8,15 +8,15 @@ import './Appbar.scss';
 const Links = props =>
     <div>
         {props.registerPage ? (
-            <Link className="link" to={routes.register}>
-                <Button onClick={props.onClick} color="inherit">
-                    Registrácia
-                </Button>
-            </Link>
-        ) : (
             <Link className="link" to={routes.login}>
                 <Button onClick={props.onClick} color="inherit">
                     Prihlásenie
+                </Button>
+            </Link>
+        ) : (
+            <Link className="link" to={routes.register}>
+                <Button onClick={props.onClick} color="inherit">
+                    Registrácia
                 </Button>
             </Link>
             )

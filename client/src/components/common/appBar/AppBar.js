@@ -17,7 +17,7 @@ class AppbarComponent extends React.Component {
     }
   }
 
-  handleLinkClick = () => {
+  handleClick = () => {
     this.setState((state) => {
       return { registerPage: !state.registerPage };
     });
@@ -25,7 +25,7 @@ class AppbarComponent extends React.Component {
 
   handleBrandClick = () => {
     if (this.state.registerPage) {
-      this.handleLinkClick();
+      this.handleClick();
     }
   }
 
@@ -39,7 +39,7 @@ class AppbarComponent extends React.Component {
               SCIREC
             </Link>
           </Typography>
-          {this.props.isAuth ? <UserLinks /> : <Links onClick={this.handleLinkClick} registerPage={this.state.registerPage} />}
+          {this.props.isAuth ? <UserLinks /> : <Links onClick={this.handleClick} registerPage={this.state.registerPage} />}
         </Toolbar>
       </AppBar>
     );

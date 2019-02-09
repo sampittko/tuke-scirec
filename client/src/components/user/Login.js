@@ -5,7 +5,8 @@ import { Typography, Button, TextField, Paper, CircularProgress } from '@materia
 import { login } from '../../actions/userActions';
 import { connect } from 'react-redux';
 import logo from './../../images/logo.png';
-
+import routes from '../../routes';
+import Redirect from 'react-router/Redirect';
 
 class Login extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ class Login extends React.Component {
   }
   
   render() {
-    return (
+    return !this.props.isAuth ? (
       <Paper className="login">
         <div className="header">
           <img src={logo} alt="SCIREC logo" />
@@ -39,7 +40,6 @@ class Login extends React.Component {
           </Typography>
         </div>
         <form onSubmit={this.handleSubmit}>
-          
           <TextField
             label="E-mail"
             type="email"
@@ -68,12 +68,15 @@ class Login extends React.Component {
           </div>
         </form>
       </Paper>
-    );
+    ) : (
+      <Redirect to={routes.home} />
+    )
   }
 }
 
 Login.propTypes = {
   login: PropTypes.func.isRequired,
+  isAuth: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
   error: PropTypes.bool.isRequired
 }
@@ -86,6 +89,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
+    isAuth: state.user.isAuth,
     isLoading: state.user.isLoading,
     error: state.user.error ? true : false
   }
