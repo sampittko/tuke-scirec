@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './Login.scss';
 import { Typography, Button, TextField, Paper, CircularProgress } from '@material-ui/core';
 import { login } from '../../actions/userActions';
 import { connect } from 'react-redux';
-import logo from './../../images/logo.png';
+import { Redirect } from 'react-router';
 import routes from '../../routes';
-import Redirect from 'react-router/Redirect';
+import logo from './../../images/logo.png';
+import './Login.scss';
 
 class Login extends React.Component {
   constructor(props) {
@@ -89,7 +89,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.isAuth,
+    isAuth: state.user.data !== null,
     isLoading: state.user.isLoading,
     error: state.user.error ? true : false
   }

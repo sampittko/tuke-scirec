@@ -5,8 +5,12 @@ const loginFailure = error => ({
     error
 })
 
-const loginSuccess = () => ({
-    type: actionTypes.LOGIN_SUCCESS
+const loginSuccess = result => ({
+    type: actionTypes.LOGIN_SUCCESS,
+    user: {
+        id: result.user.uid,
+        email: result.user.email
+    }
 })
 
 const loginRequest = () => ({
@@ -20,8 +24,8 @@ export const login = (credentials) => {
         firebase.auth().signInWithEmailAndPassword(
             credentials.email,
             credentials.password
-        ).then(() => {
-            dispatch(loginSuccess());
+        ).then((result) => {
+            dispatch(loginSuccess(result));
         }).catch((error) => {
             dispatch(loginFailure(error));
         });

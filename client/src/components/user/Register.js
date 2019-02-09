@@ -1,12 +1,12 @@
 import React from 'react';
-import './Register.scss';
 import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Redirect from 'react-router/Redirect';
-import { Checkbox, Typography, Button, TextField, Paper } from '@material-ui/core';
-import logo from '../../images/logo.png';
-import routes from '../../routes';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
+import { Checkbox, Typography, Button, TextField, Paper } from '@material-ui/core';
+import routes from '../../routes';
+import logo from '../../images/logo.png';
+import './Register.scss';
 
 class Register extends React.Component {
   handleRegister = () => {
@@ -85,7 +85,7 @@ Register.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.isAuth
+    isAuth: state.user.data !== null
   }
 }
 

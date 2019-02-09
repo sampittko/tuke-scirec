@@ -43,7 +43,7 @@ App.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.isAuth
+    isAuth: state.user.data !== null
   }
 }
 

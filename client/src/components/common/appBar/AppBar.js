@@ -1,12 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
+import userPropTypes from '../../../propTypes/userPropTypes';
 import routes from '../../../routes';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
 import { Link } from 'react-router-dom';
+import { logout } from '../../../actions/userActions';
 import './Appbar.scss';
 
 class AppbarComponent extends React.Component {
@@ -39,7 +41,17 @@ class AppbarComponent extends React.Component {
               SCIREC
             </Link>
           </Typography>
-          {this.props.isAuth ? <UserLinks /> : <Links onClick={this.handleClick} registerPage={this.state.registerPage} />}
+          {this.props.isAuth ? (
+            <UserLinks
+              logout={this.props.logout}
+              user={this.props.user}
+            />
+          ) : (
+            <Links
+              onClick={this.handleClick}
+              registerPage={this.state.registerPage}
+            />
+          )}
         </Toolbar>
       </AppBar>
     );
@@ -47,13 +59,22 @@ class AppbarComponent extends React.Component {
 }
 
 AppbarComponent.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
+  logout: propTypes.func.isRequired,
+  isAuth: propTypes.bool.isRequired,
+  user: userPropTypes.user
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout())
+  }
 }
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.isAuth
+    isAuth: state.user.data !== null,
+    user: state.user.data
   }
 }
 
-export default connect(mapStateToProps)(AppbarComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AppbarComponent);
