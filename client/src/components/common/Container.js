@@ -1,20 +1,15 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import AppBar from './appbar/Appbar';
+import Appbar from './appbar/Appbar';
 
-class Container extends React.Component {
-    render() {
-        return (
-            <Grid container>
-                <Grid item xs={12}>
-                    <AppBar />
-                </Grid>
-                <Grid item xs={12}>
-                    {this.props.children}
-                </Grid>
-            </Grid>
-        );
-    }
-}
+const Container = props =>
+    <Grid container>
+        <Grid item xs={12}>
+            <Appbar />
+        </Grid>
+        <Grid item xs={12}>
+            {props.children}
+        </Grid>
+    </Grid>;
 
 export default Container;

@@ -11,32 +11,25 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../actions/userActions';
 import './Appbar.scss';
 
-class AppbarComponent extends React.Component {
-  render() {
-    return (
-      <AppBar position="static">
-        <Toolbar>
-          <Sidebar />
-          <Typography variant="h6" color="inherit" className="brand">
-            <Link className="link" to={routes.home}>
-              SCIREC
-            </Link>
-          </Typography>
-          {this.props.isAuth ? (
-            <UserLinks
-              logout={this.props.logout}
-              user={this.props.user}
-            />
-          ) : (
-            <Links
-              onClick={this.handleClick}
-            />
-          )}
-        </Toolbar>
-      </AppBar>
-    );
-  }
-}
+const AppbarComponent = props =>
+  <AppBar position="static">
+    <Toolbar>
+      <Sidebar />
+      <Typography variant="h6" color="inherit" className="brand">
+        <Link className="link" to={routes.home}>
+          SCIREC
+        </Link>
+      </Typography>
+      {props.isAuth ? (
+        <UserLinks
+          logout={props.logout}
+          user={props.user}
+        />
+      ) : (
+          <Links />
+        )}
+    </Toolbar>
+  </AppBar>;
 
 AppbarComponent.propTypes = {
   logout: propTypes.func.isRequired,
