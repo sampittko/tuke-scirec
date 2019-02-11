@@ -1,9 +1,4 @@
-main {
-    margin: {
-        left: 35%;
-        right: 35%;
-    }
-}
+@import '../../variables';
 
 .login {
     width: 400px;
@@ -44,7 +39,7 @@ main {
     }
 
     .action-buttons {
-        margin-top: 16px;
+        margin-top: 2 * $spacing-unit;
 
         button[class*="Primary"] {
             width: 105.11px !important;

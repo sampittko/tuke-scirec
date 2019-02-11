@@ -1,3 +1,5 @@
+@import '../../variables';
+
 main {
     margin: {
         left: 35%;
@@ -46,7 +48,7 @@ main {
     div[class*="MuiTypography-"] {
         max-width: 225px;
         display: inline-block;
-        margin-bottom: 8px;
+        margin-bottom: $spacing-unit;
     }
 
     span[class*="MuiCheckbox-"] {
@@ -57,7 +59,7 @@ main {
 
     .action-buttons {
         text-align: center;
-        margin-top: 16px;
+        margin-top: 2 * $spacing-unit;
 
         button[class*="Primary"] {
             width: 128.1px !important;
