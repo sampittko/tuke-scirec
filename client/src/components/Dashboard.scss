@@ -1,0 +1,28 @@
+@import '../variables';
+
+.dashboard {
+    margin: 4 * $spacing-unit auto;
+    padding: 2 * $spacing-unit;
+    width: 75%;
+}
+
+.fab {
+    position: absolute !important;
+    bottom: 8 * $spacing-unit;
+    right: 8 * $spacing-unit;
+}
+
+.title {
+    margin-left: 20px !important;
+}
+
+@media (max-width: $media-query-1) {
+    .dashboard {
+        width: inherit;
+    }
+
+    .fab {
+        bottom: 4 * $spacing-unit;
+        right: 4 * $spacing-unit;
+    }
+}

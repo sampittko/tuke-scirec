@@ -26,11 +26,11 @@ main {
         display: block;
     }
 
-    div[class*="MuiFormControl-"] {
+    div[class*="MuiFormControl"] {
         display: block;
         width: 280px;
 
-        & > div[class*="MuiInputBase-"] {
+        & > div[class*="MuiInputBase"] {
             width: 100%;
         }
     }
@@ -45,7 +45,7 @@ main {
         text-align: center;
     }
 
-    div[class*="MuiTypography-"] {
+    div[class*="MuiTypography"] {
         max-width: 225px;
         display: inline-block;
         margin-bottom: $spacing-unit;
@@ -66,7 +66,7 @@ main {
         }
     }
 
-    div[class*="MuiCircularProgress-"] {
+    div[class*="MuiCircularProgress"] {
         width: 20.8px !important;
         height: 20.8px !important;
     }

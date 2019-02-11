@@ -19,11 +19,11 @@
         display: block;
     }
 
-    div[class*="MuiFormControl-"] {
+    div[class*="MuiFormControl"] {
         display: block;
         width: 280px;
 
-        & > div[class*="MuiInputBase-"] {
+        & > div[class*="MuiInputBase"] {
             width: 100%;
         }
     }
@@ -50,7 +50,7 @@
         }
     }
 
-    div[class*="MuiCircularProgress-"] {
+    div[class*="MuiCircularProgress"] {
         width: 20.8px !important;
         height: 20.8px !important;
     }

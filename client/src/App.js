@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import Login from './components/user/Login';
 import Register from './components/user/Register';
-import Dashboard from './components/user/Dashboard';
+import Dashboard from './components/Dashboard';
 import Container from './components/common/Container';
 import './index.scss';
 
