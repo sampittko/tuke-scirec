@@ -7,6 +7,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
+import CategoryHandler from '../../CategoryHandler';
 import { Link } from 'react-router-dom';
 import { logout } from '../../../actions/userActions';
 import './Appbar.scss';
@@ -26,9 +27,16 @@ const AppbarComponent = props =>
           user={props.user}
         />
       ) : (
-          <Links />
-        )}
+        <Links />
+      )}
     </Toolbar>
+    {props.isAuth ? (
+      <Toolbar>
+        <CategoryHandler />
+      </Toolbar>
+    ) : (
+      ""
+    )}
   </AppBar>;
 
 AppbarComponent.propTypes = {
