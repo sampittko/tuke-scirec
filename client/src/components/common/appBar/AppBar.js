@@ -7,9 +7,9 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
-import CategoryHandler from '../../CategoryHandler';
+import CategoryHandler from '../../dashboard/CategoryHandler';
 import { Link } from 'react-router-dom';
-import { logout } from '../../../actions/userActions';
+import { logout } from '../../../store/actions/userActions';
 import './Appbar.scss';
 
 const AppbarComponent = props =>

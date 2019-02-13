@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Typography, Button, TextField, Paper, CircularProgress } from '@material-ui/core';
-import { login } from '../../actions/userActions';
+import { login } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import routes from '../../routes';
-import logo from './../../images/logo.png';
+import logo from './../../static/media/logo.png';
 import './Login.scss';
 
 class Login extends React.Component {

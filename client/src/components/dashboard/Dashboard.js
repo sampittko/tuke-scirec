@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import routes from '../routes';
+import routes from '../../routes';
 import { Fab, Typography, Paper } from '@material-ui/core';
-import ProjectsList from './project/ProjectsList';
+import ProjectsList from './ProjectsList';
 import AddIcon from '@material-ui/icons/Add';
 import './Dashboard.scss';
 

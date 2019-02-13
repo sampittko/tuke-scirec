@@ -5,9 +5,9 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { Checkbox, Typography, Button, TextField, Paper, CircularProgress } from '@material-ui/core';
 import routes from '../../routes';
-import { register } from '../../actions/userActions';
-import { firebaseErrorCodes } from '../../actions/actionErrorCodes';
-import logo from '../../images/logo.png';
+import { register } from '../../store/actions/userActions';
+import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
+import logo from '../../static/media/logo.png';
 import './Register.scss';
 
 class Register extends React.Component {

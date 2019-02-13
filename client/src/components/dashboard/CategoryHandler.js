@@ -2,6 +2,7 @@ import React from 'react';
 import { FormControl, Select, MenuItem, Dialog, DialogTitle, DialogContent, Input, DialogActions, Button, InputAdornment, DialogContentText, InputLabel } from '@material-ui/core';
 import './CategoryHandler.scss';
 
+const MAX_CATEGORIES = 5;
 const CATEGORY_MIN_LENGTH = 3;
 const CATEGORY_MAX_LENGTH = 20;
 const NEW_CATEGORY_ID = 0;
@@ -18,12 +19,15 @@ class CategorySelector extends React.Component {
 
   handleDialogClose = () => {
     this.setState({
-        category: DEFAULT_CATEGORY_ID
+      category: DEFAULT_CATEGORY_ID
     });
   }
 
-  handleInputChange = event => {
-    console.log(event.target.value);
+  handleNewCategoryCreation = () => {
+    
+  }
+
+  handleChange = event => {
     if (this.state.newCategoryName.length === CATEGORY_MAX_LENGTH && event.target.value.length > CATEGORY_MAX_LENGTH) {
       return;
     }
@@ -40,8 +44,8 @@ class CategorySelector extends React.Component {
 
   render() {
     return (
-      <div>
-        <FormControl className="category-handler">
+      <div className="category-handler">
+        <FormControl>
           <Select
             disableUnderline
             value={this.state.category}
@@ -55,7 +59,7 @@ class CategorySelector extends React.Component {
           <DialogTitle>Vytvorenie novej kategórie</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {CATEGORY_MIN_LENGTH} do {CATEGORY_MAX_LENGTH} znakov.
+              Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {CATEGORY_MIN_LENGTH} do {CATEGORY_MAX_LENGTH} znakov. Maximálny počet kategórií je {MAX_CATEGORIES}.
             </DialogContentText>
             <FormControl>
               <InputLabel>
@@ -69,7 +73,7 @@ class CategorySelector extends React.Component {
                 endAdornment={<InputAdornment position="end">{this.state.newCategoryName.length}/20</InputAdornment>}
                 type="text"
                 fullWidth
-                onChange={this.handleInputChange}
+                onChange={this.handleChange}
               />
             </FormControl>
           </DialogContent>
@@ -80,7 +84,7 @@ class CategorySelector extends React.Component {
               Zrušiť
             </Button>
             <Button
-              onClick={this.handleNewCategorySave}
+              onClick={this.handleNewCategoryCreation}
               color="secondary"
               disabled={this.state.newCategoryName.length < CATEGORY_MIN_LENGTH}
               >
