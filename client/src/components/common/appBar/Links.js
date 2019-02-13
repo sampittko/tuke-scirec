@@ -5,17 +5,20 @@ import { Link } from 'react-router-dom';
 import './Appbar.scss';
 
 const Links = props =>
-    <div>
+  <div>
+    {props.location.pathname === routes.login ? (
+      <Link className="link" to={routes.register}>
+        <Button color="inherit">
+            Registrácia
+          </Button>
+      </Link>
+    ) : (
         <Link className="link" to={routes.login}>
-            <Button color="inherit">
-                Prihlásenie
-            </Button>
+          <Button color="inherit">
+            Prihlásenie
+          </Button>
         </Link>
-        <Link className="link" to={routes.register}>
-            <Button color="inherit">
-                Registrácia
-            </Button>
-        </Link>
-    </div>;
+      )}
+  </div>;
 
 export default Links;

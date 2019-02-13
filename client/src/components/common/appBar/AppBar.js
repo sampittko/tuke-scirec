@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import userPropTypes from '../../../propTypes/userPropTypes';
 import routes from '../../../routes';
+import { withRouter } from 'react-router';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../Sidebar';
 import Links from './Links';
@@ -27,10 +28,10 @@ const AppbarComponent = props =>
           user={props.user}
         />
       ) : (
-        <Links />
+        <Links location={props.location} />
       )}
     </Toolbar>
-    {props.isAuth ? (
+    {props.isAuth && props.location.pathname === routes.home ? (
       <Toolbar>
         <CategoryHandler />
       </Toolbar>
@@ -58,4 +59,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppbarComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppbarComponent));
