@@ -1,18 +1,23 @@
 import React from 'react';
-import { List, ListItem, ListItemText } from '@material-ui/core';
+import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 import './ProjectsList.scss';
 
 class ProjectsList extends React.Component {
     render() {
         return (
+          <div>
+            <Typography className="title" variant="h5">
+              Projects
+            </Typography>
             <List>
-                <ListItem button>
-                    <ListItemText inset primary="Môj projekt 1" />
-                </ListItem>
-                <ListItem button>
-                    <ListItemText inset primary="Môj projekt 2" />
-                </ListItem>
+              <ListItem button>
+                <ListItemText inset primary="Môj projekt 1" />
+              </ListItem>
+              <ListItem button>
+                <ListItemText inset primary="Môj projekt 2" />
+              </ListItem>
             </List>
+          </div>
         );
     }
 }

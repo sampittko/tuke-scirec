@@ -126,7 +126,7 @@ class Register extends React.Component {
             </Button>
           </div>
           {(this.formSubmitted && this.props.errorCode === '' && !this.props.isLoading) ?
-            <Redirect to={routes.login} /> : ""
+            <Redirect to={routes.user.login} /> : ""
           }
         </form>
       </Paper>

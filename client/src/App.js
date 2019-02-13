@@ -10,6 +10,7 @@ import Login from './components/user/Login';
 import Register from './components/user/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Container from './components/common/Container';
+import NewProject from './components/project/NewProject';
 import './index.scss';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
@@ -18,7 +19,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
     ) : (
       <Redirect
         to={{
-          pathname: routes.login,
+          pathname: routes.user.login,
           state: { from: props.location }
         }}
       />
@@ -31,8 +32,9 @@ const App = (props) =>
     <MuiThemeProvider theme={SCIREC_THEME}>
       <Container>
         <PrivateRoute exact path={routes.home} component={Dashboard} isAuth={props.isAuth} />
-        <Route exact path={routes.register} component={Register} />
-        <Route exact path={routes.login} component={Login} />
+        <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={props.isAuth} />
+        <Route exact path={routes.user.register} component={Register} />
+        <Route exact path={routes.user.login} component={Login} />
       </Container>
     </MuiThemeProvider>
   </Router>;

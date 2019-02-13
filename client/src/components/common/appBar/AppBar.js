@@ -43,6 +43,7 @@ const AppbarComponent = props =>
 AppbarComponent.propTypes = {
   logout: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
+  location: propTypes.object.isRequired,
   user: userPropTypes.user
 }
 

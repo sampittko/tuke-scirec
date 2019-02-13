@@ -52,7 +52,7 @@ const registerFailure = error => ({
   error
 })
 
-const registerSuccess = result => ({
+const registerSuccess = () => ({
   type: actionTypes.REGISTER_SUCCESS
 })
 
@@ -72,19 +72,10 @@ export const register = newUser => {
         return firestore.collection(firestoreCollections.USERS)
           .doc(result.user.uid)
           .set({
-            email: newUser.email,
-            categories: [{
-              id: 0,
-              title: "Predvolená kategória",
-              projects: [{
-                id: firestore.doc("projects/0"),
-                title: "Ukážkový projekt"
-              }],
-              color: 'theme'
-            }]
+            email: newUser.email
           })
-    }).then((result) => {
-      dispatch(registerSuccess(result));
+    }).then(() => {
+      dispatch(registerSuccess());
     }).catch((error) => {
       dispatch(registerFailure(error));
     });

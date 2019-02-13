@@ -69,7 +69,6 @@ class CategorySelector extends React.Component {
                 autoFocus
                 value={this.state.newCategoryName}
                 margin="dense"
-                label="Názov kategórie"
                 endAdornment={<InputAdornment position="end">{this.state.newCategoryName.length}/20</InputAdornment>}
                 type="text"
                 fullWidth

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import './Appbar.scss';
 
 const UserLinks = props =>
-    <Link className="link" to={routes.login}>
+    <Link className="link" to={routes.user.login}>
         <Tooltip
             title={props.user.email}
             placement="left"
