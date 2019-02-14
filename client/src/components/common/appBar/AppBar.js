@@ -5,7 +5,7 @@ import userPropTypes from '../../../propTypes/userPropTypes';
 import routes from '../../../routes';
 import { withRouter } from 'react-router';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import Sidebar from '../Sidebar';
+import Sidebar from '../sidebar/Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
 import CategoryHandler from '../../dashboard/CategoryHandler';
@@ -16,7 +16,7 @@ import './Appbar.scss';
 const AppbarComponent = props =>
   <AppBar position="static">
     <Toolbar>
-      <Sidebar />
+      <Sidebar isAuth={props.isAuth} location={props.location} />
       <Typography variant="h6" color="inherit" className="brand">
         <Link className="link" to={routes.home}>
           SCIREC

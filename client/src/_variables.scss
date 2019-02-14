@@ -1,3 +1,9 @@
 // general
 $spacing-unit: 8px;
 $media-query-1: 599px;
+
+// measurements
+$login-width: 400px;
+$register-width: $login-width;
+$new-project-width: $login-width;
+$new-project-height: 311px;

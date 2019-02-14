@@ -64,11 +64,11 @@ class Login extends React.Component {
             required
           />
           <div className="action-buttons">
-            <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
-              {this.props.isLoading ? <CircularProgress color="primary" /> : "Prihlásiť"}
-            </Button>
             <Button disabled={this.props.isLoading} onClick={this.handleForgottenPassword}>
               Zabudnuté heslo
+            </Button>
+            <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
+              {this.props.isLoading ? <CircularProgress color="primary" /> : "Prihlásiť"}
             </Button>
           </div>
         </form>

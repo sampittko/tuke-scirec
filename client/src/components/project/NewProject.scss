@@ -1,1 +1,30 @@
 @import '../../variables';
+
+.new-project {
+    width: $new-project-width;
+    height: $new-project-height;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: {
+        top: 50px;
+        left: auto;
+        right: auto;
+    }
+    padding: {
+        top: 23px;
+        bottom: 23px;
+    }
+
+    div[class*="Stepper"] {
+        width: 250px;
+
+        div[class*="wrapperInner"] {
+            height: 136px;
+        }
+    }
+
+    button + button {
+        margin-left: 10px;
+    }
+}

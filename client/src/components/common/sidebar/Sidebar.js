@@ -1,12 +1,12 @@
 import React from 'react';
-import routes from '../../routes';
-import { SwipeableDrawer, List, ListItem, ListItemIcon, ListItemText, IconButton } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
+import propTypes from 'prop-types';
+import { List, SwipeableDrawer, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import { Link } from 'react-router-dom';
+import Links from './Links';
+import UserLinks from './UserLinks';
 import './Sidebar.scss';
 
-class SideBar extends React.Component {
+class Sidebar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,16 +36,13 @@ class SideBar extends React.Component {
             role="button"
             onClick={this.handleDrawerToggle('left', false)}
           >
-            <div className="list">
-              <List>
-                <Link className="link" to={routes.home}>
-                  <ListItem button>
-                    <ListItemIcon><HomeIcon /></ListItemIcon>
-                    <ListItemText>Domov</ListItemText>
-                  </ListItem>
-                </Link>
-              </List>
-            </div>
+            <List className="sidebar-links">
+              {this.props.isAuth ? (
+                <UserLinks location={this.props.location} />
+              ) : (
+                <Links location={this.props.location} />
+              )}
+            </List>
           </div>
         </SwipeableDrawer>
       </div>
@@ -53,4 +50,9 @@ class SideBar extends React.Component {
   }
 }
 
-export default SideBar;
+Sidebar.propTypes = {
+  isAuth: propTypes.bool.isRequired,
+  location: propTypes.object.isRequired
+}
+
+export default Sidebar;

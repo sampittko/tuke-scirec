@@ -1,6 +1,6 @@
-@import '../../variables';
+@import '../../../variables';
 
-.list {
+.sidebar-links {
     width: 250px;
 }
 
@@ -11,4 +11,8 @@
 .link {
     text-decoration: none;
     color: inherit;
+ 
+    &.disabled {
+        pointer-events: none;
+    }
 }

@@ -69,11 +69,11 @@ export const register = newUser => {
       newUser.email,
       newUser.password
     ).then((result) => {
-        return firestore.collection(firestoreCollections.USERS)
-          .doc(result.user.uid)
-          .set({
-            email: newUser.email
-          })
+      return firestore.collection(firestoreCollections.USERS)
+        .doc(result.user.uid)
+        .set({
+          email: newUser.email
+        })
     }).then(() => {
       dispatch(registerSuccess());
     }).catch((error) => {
