@@ -1,9 +1,11 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import routes from '../../routes';
-import { Fab, Paper } from '@material-ui/core';
-import ProjectsList from './ProjectsList';
+import { Paper, Fade } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
+import ProjectsList from './ProjectsList';
+import Fab from '../common/Fab';
+import { transitions } from '../../config/ui';
 import './Dashboard.scss';
 
 class Dashboard extends React.Component {
@@ -23,15 +25,19 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        {this.state.toNewProject ? (
-          <Redirect to={routes.project.new} />
+        {!this.state.toNewProject ? (
+          <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+            <Paper className="dashboard">
+              <ProjectsList />
+              <Fab
+                // onClick={<Redirect to={routes.project.new} />}
+                onClick={this.handleNewProjectClick}
+                icon={<AddIcon />}
+              />
+            </Paper>
+          </Fade>
         ) : (
-          <Paper className="dashboard">
-            <ProjectsList />
-            <Fab onClick={this.handleNewProjectClick} className="fab" color="secondary">
-              <AddIcon />
-            </Fab>
-          </Paper>
+          <Redirect to={routes.project.new} />
         )}
       </div>
     );

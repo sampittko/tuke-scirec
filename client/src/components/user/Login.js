@@ -1,11 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Typography, Button, TextField, Paper, CircularProgress } from '@material-ui/core';
+import { Typography, Button, TextField, Paper, CircularProgress, Fade } from '@material-ui/core';
 import { login } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import routes from '../../routes';
 import logo from './../../static/media/logo.png';
+import { transitions } from '../../config/ui';
 import './Login.scss';
 
 class Login extends React.Component {
@@ -34,45 +35,47 @@ class Login extends React.Component {
   
   render() {
     return !this.props.isAuth ? (
-      <Paper className="login">
-        <div className="header">
-          <img src={logo} alt="SCIREC logo" />
-          <Typography variant="h5">
-            Prihlásenie
-          </Typography>
-        </div>
-        <form onSubmit={this.handleSubmit}>
-          <TextField
-            label="E-mail"
-            type="email"
-            name="email"
-            margin="normal"
-            variant="outlined"
-            error={this.props.error}
-            onChange={this.handleChange}
-            required
-          />
-          <TextField
-            label="Heslo"
-            type="password"
-            name="password"
-            margin="normal"
-            variant="outlined"
-            helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
-            error={this.props.error}
-            onChange={this.handleChange}
-            required
-          />
-          <div className="action-buttons">
-            <Button disabled={this.props.isLoading} onClick={this.handleForgottenPassword}>
-              Zabudnuté heslo
-            </Button>
-            <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
-              {this.props.isLoading ? <CircularProgress color="primary" /> : "Prihlásiť"}
-            </Button>
+      <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+        <Paper className="login">
+          <div className="header">
+            <img src={logo} alt="SCIREC logo" />
+            <Typography variant="h5">
+              Prihlásenie
+            </Typography>
           </div>
-        </form>
-      </Paper>
+          <form onSubmit={this.handleSubmit}>
+            <TextField
+              label="E-mail"
+              type="email"
+              name="email"
+              margin="normal"
+              variant="outlined"
+              error={this.props.error}
+              onChange={this.handleChange}
+              required
+            />
+            <TextField
+              label="Heslo"
+              type="password"
+              name="password"
+              margin="normal"
+              variant="outlined"
+              helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
+              error={this.props.error}
+              onChange={this.handleChange}
+              required
+            />
+            <div className="action-buttons">
+              <Button disabled={this.props.isLoading} onClick={this.handleForgottenPassword}>
+                Zabudnuté heslo
+              </Button>
+              <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
+                {this.props.isLoading ? <CircularProgress color="primary" /> : "Prihlásiť"}
+              </Button>
+            </div>
+          </form>
+        </Paper>
+      </Fade>
     ) : (
       <Redirect to={routes.home} />
     )

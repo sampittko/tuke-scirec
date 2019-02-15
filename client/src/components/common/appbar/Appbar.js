@@ -13,32 +13,44 @@ import { Link } from 'react-router-dom';
 import { logout } from '../../../store/actions/userActions';
 import './Appbar.scss';
 
-const AppbarComponent = props =>
-  <AppBar position="static">
-    <Toolbar className={props.isAuth ? "user-toolbar" : ""}>
-      <Sidebar isAuth={props.isAuth} location={props.location} />
-      <Typography variant="h6" color="inherit" className="brand">
-        <Link className="link" to={routes.home}>
-          SCIREC
-        </Link>
-      </Typography>
-      {props.isAuth ? (
-        <UserLinks
-          logout={props.logout}
-          user={props.user}
-        />
-      ) : (
-        <Links location={props.location} />
-      )}
-    </Toolbar>
-    {props.isAuth && props.location.pathname === routes.home ? (
-      <Toolbar>
-        <CategoryHandler />
-      </Toolbar>
-    ) : (
-      ""
-    )}
-  </AppBar>;
+class AppbarComponent extends React.Component {
+  getBrandRoute() {
+    if (this.props.location.pathname !== routes.user.login && this.props.location.pathname !== routes.user.register) {
+      return routes.home;
+    }
+    return routes.user.login
+  }
+
+  render() {
+    return (
+      <AppBar position="static">
+        <Toolbar className={this.props.isAuth ? "user-toolbar" : ""}>
+          <Sidebar isAuth={this.props.isAuth} location={this.props.location} />
+          <Typography variant="h6" color="inherit" className="brand">
+            <Link className="link" to={this.getBrandRoute()}>
+              SCIREC
+            </Link>
+          </Typography>
+          {this.props.isAuth ? (
+            <UserLinks
+              logout={this.props.logout}
+              user={this.props.user}
+            />
+          ) : (
+            <Links location={this.props.location} />
+          )}
+        </Toolbar>
+        {this.props.isAuth && this.props.location.pathname === routes.home ? (
+          <Toolbar>
+            <CategoryHandler />
+          </Toolbar>
+        ) : (
+          ""
+        )}
+      </AppBar>
+    );
+  }
+}
 
 AppbarComponent.propTypes = {
   logout: propTypes.func.isRequired,

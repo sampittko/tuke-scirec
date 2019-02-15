@@ -1,7 +1,8 @@
 import React from 'react';
 import routes from '../../routes';
 import { Redirect } from 'react-router';
-import { Paper, TextField, Button, Stepper, Step, StepLabel, StepContent, Typography, MenuItem } from '@material-ui/core';
+import { Paper, TextField, Button, Stepper, Step, StepLabel, StepContent, Typography, MenuItem, Fade } from '@material-ui/core';
+import { transitions } from '../../config/ui';
 import './NewProject.scss';
 
 const TITLE_MIN_LENGTH = 3;
@@ -72,40 +73,42 @@ class NewProject extends React.Component {
 
   render() {
     return (
-      <Paper className="new-project">
-        <Typography variant="h5">
-          Vytvorenie nového projektu
-        </Typography>
-        <Stepper activeStep={this.state.activeStep} orientation="vertical">
-          {this.steps.map((label, index) => (
-            <Step key={label}>
-              <StepLabel>{label}</StepLabel>
-              <StepContent>
-                <Typography component="span">
-                    {this.getStepContent(index)}
-                </Typography>
-                <Button
-                  disabled={this.state.activeStep === 0}
-                  onClick={this.handleBack}
-                >
-                  Späť
-                </Button>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={this.handleNext}
-                  disabled={this.state.activeStep === 0 && this.state.title.length < 3}
-                >
-                  {this.state.activeStep === this.steps.length - 1 ? 'Pridať' : 'Ďalej'}
-                </Button>
-              </StepContent>
-            </Step>
-          ))}
-        </Stepper>
-        {this.state.activeStep === this.steps.length && (
-          <Redirect to={routes.home} />
-        )}
-      </Paper>
+      <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+        <Paper className="new-project">
+          <Typography variant="h5">
+            Vytvorenie nového projektu
+          </Typography>
+          <Stepper activeStep={this.state.activeStep} orientation="vertical">
+            {this.steps.map((label, index) => (
+              <Step key={label}>
+                <StepLabel>{label}</StepLabel>
+                <StepContent>
+                  <Typography component="span">
+                      {this.getStepContent(index)}
+                  </Typography>
+                  <Button
+                    disabled={this.state.activeStep === 0}
+                    onClick={this.handleBack}
+                  >
+                    Späť
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={this.handleNext}
+                    disabled={this.state.activeStep === 0 && this.state.title.length < 3}
+                  >
+                    {this.state.activeStep === this.steps.length - 1 ? 'Pridať' : 'Ďalej'}
+                  </Button>
+                </StepContent>
+              </Step>
+            ))}
+          </Stepper>
+          {this.state.activeStep === this.steps.length && (
+            <Redirect to={routes.home} />
+          )}
+        </Paper>
+      </Fade>
     );
   }
 }

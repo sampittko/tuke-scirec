@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.fab {
+    position: absolute !important;
+    bottom: 8 * $spacing-unit;
+    right: 8 * $spacing-unit;
+}
+
+@media (max-width: $media-query-1) {
+    .fab {
+        bottom: 4 * $spacing-unit;
+        right: 4 * $spacing-unit;
+    }
+}
