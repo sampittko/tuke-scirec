@@ -3,7 +3,7 @@
 .dashboard {
     margin: 4 * $spacing-unit auto;
     padding: 2 * $spacing-unit;
-    width: 75%;
+    width: $dashboard-width;
 }
 
 .fab {
@@ -18,7 +18,7 @@
 
 @media (max-width: $media-query-1) {
     .dashboard {
-        width: inherit;
+        width: $dashboard-media-query-1-width;
     }
 
     .fab {

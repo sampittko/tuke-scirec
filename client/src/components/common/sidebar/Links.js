@@ -4,7 +4,6 @@ import routes from '../../../routes';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Link from './Link';
-import './Sidebar.scss';
 
 const Links = props =>
   <div>

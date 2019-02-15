@@ -1,9 +1,18 @@
-// general
+/*
+    general
+*/
 $spacing-unit: 8px;
 $media-query-1: 599px;
-
-// measurements
+/*
+    measurements
+*/
+// misc
 $login-width: 400px;
 $register-width: $login-width;
+$sidebar-width: 250px;
+// Dashboard
+$dashboard-width: 75%;
+$dashboard-media-query-1-width: inherit;
+// NewProject
 $new-project-width: $login-width;
 $new-project-height: 311px;
