@@ -15,7 +15,7 @@ import './Appbar.scss';
 
 const AppbarComponent = props =>
   <AppBar position="static">
-    <Toolbar>
+    <Toolbar className={props.isAuth ? "user-toolbar" : ""}>
       <Sidebar isAuth={props.isAuth} location={props.location} />
       <Typography variant="h6" color="inherit" className="brand">
         <Link className="link" to={routes.home}>

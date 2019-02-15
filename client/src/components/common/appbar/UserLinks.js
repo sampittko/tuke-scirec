@@ -1,25 +1,65 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import userPropTypes from '../../../propTypes/userPropTypes';
-import routes from '../../../routes';
-import { Button, Avatar, Tooltip } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { IconButton, Menu, Divider } from '@material-ui/core';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import MenuItem from './MenuItem';
 import './Appbar.scss';
 
-const UserLinks = props =>
-    <Link className="link" to={routes.user.login}>
-        <Tooltip
-            title={props.user.email}
-            placement="left"
-            onClick={props.logout}
-        >
-            <Button>
-                <Avatar>
-                    {props.user.email.charAt(0)}
-                </Avatar>
-            </Button>
-        </Tooltip>
-    </Link>;
+class UserLinks extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      anchorEl: null
+    }
+  }
+
+  handleClick = event => {
+    this.setState({
+      anchorEl: event.currentTarget
+    });
+  }
+
+  handleClose = () => {
+    this.setState({
+      anchorEl: null
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <IconButton onClick={this.handleClick}>
+          <MoreVertIcon />
+        </IconButton>
+        <Menu
+          anchorEl={this.state.anchorEl}
+          open={Boolean(this.state.anchorEl)}
+          onClose={this.handleClose}>
+          <MenuItem 
+            disabled
+            icon={<AccountCircleIcon />}
+            text={this.props.user.email}
+          />
+          <Divider />
+          <MenuItem
+            icon={<SettingsIcon />}
+            text="Nastavenia učtu"
+            onClick={this.handleClose}
+          />
+          <MenuItem
+            icon={<RemoveCircleIcon />}
+            text="Odhlásiť"
+            onClick={this.props.logout}
+          />
+        </Menu>
+      </div>
+    );
+  }
+}
 
 UserLinks.propTypes = {
     logout: propTypes.func.isRequired,

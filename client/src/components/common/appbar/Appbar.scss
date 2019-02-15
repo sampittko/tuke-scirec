@@ -4,11 +4,13 @@
     flex-grow: 1;
 }
 
-.link {
-    text-decoration: none;
-    color: inherit;
+.user-toolbar svg[class*="SvgIcon"] {
+    color: white !important;
 }
 
-div[class*="MuiAvatar"] {
-    background-color: inherit;
+hr[class*="Divider"] {
+    margin: {
+        top: $spacing-unit !important;
+        bottom: $spacing-unit !important;
+    }
 }
