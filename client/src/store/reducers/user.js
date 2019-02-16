@@ -35,12 +35,20 @@ const user = (state = _initialState, action) => {
         error: action.error
       };
 
+    case actionTypes.LOGOUT_REQUEST:
+      console.log(actionTypes.LOGOUT_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
     case actionTypes.LOGOUT_SUCCESS:
       console.log(actionTypes.LOGOUT_SUCCESS);
       localStorage.removeItem(USER_KEY);
       return {
         ...state,
-        data: null,
+        isLoading: false,
+        data: null
       };
 
     case actionTypes.REGISTER_REQUEST:

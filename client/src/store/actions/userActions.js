@@ -1,5 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
+import { timeouts } from '../../config/ui';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
@@ -27,7 +28,9 @@ export const login = user => {
         user.email,
         user.password
     ).then((result) => {
-      dispatch(loginSuccess(result));
+      setTimeout(() => {
+        dispatch(loginSuccess(result))
+      }, timeouts.LOGIN);
     }).catch((error) => {
       dispatch(loginFailure(error));
     });
@@ -38,11 +41,18 @@ const logoutSuccess = () => ({
   type: actionTypes.LOGOUT_SUCCESS
 })
 
+const logoutRequest = () => ({
+  type: actionTypes.LOGOUT_REQUEST
+})
+
 export const logout = () => {
   return (dispatch, getState, { getFirebase }) => {
+    dispatch(logoutRequest());
     const firebase = getFirebase();
     firebase.auth().signOut().then(() => {
-      dispatch(logoutSuccess());
+      setTimeout(() => {
+        dispatch(logoutSuccess());
+      }, timeouts.LOGOUT);
     });
   }
 }
@@ -75,7 +85,9 @@ export const register = newUser => {
           email: newUser.email
         })
     }).then(() => {
-      dispatch(registerSuccess());
+      setTimeout(() => {
+        dispatch(registerSuccess());
+      }, timeouts.REGISTER);
     }).catch((error) => {
       dispatch(registerFailure(error));
     });

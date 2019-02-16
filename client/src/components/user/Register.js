@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { Checkbox, Typography, Button, TextField, Paper, CircularProgress, Fade } from '@material-ui/core';
+import { Checkbox, Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
 import routes from '../../routes';
 import { register } from '../../store/actions/userActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
@@ -124,12 +124,12 @@ class Register extends React.Component {
                 color="primary"
                 disabled={!this.matchingPasswords() || this.props.isLoading}
               >
-                {this.props.isLoading ? <CircularProgress color="primary" /> : "Registrovať"}
+                Registrovať
               </Button>
             </div>
-            {(this.formSubmitted && this.props.errorCode === '' && !this.props.isLoading) ?
-              <Redirect to={routes.user.login} /> : ""
-            }
+            {(this.formSubmitted && this.props.errorCode === '' && !this.props.isLoading) && (
+              <Redirect to={routes.user.login} />
+            )}
           </form>
         </Paper>
       </Fade>

@@ -1,6 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import userPropTypes from '../../../propTypes/userPropTypes';
+import { logout } from '../../../store/actions/userActions';
+import { connect } from 'react-redux';
 import { IconButton, Menu, Divider } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -62,8 +64,20 @@ class UserLinks extends React.Component {
 }
 
 UserLinks.propTypes = {
-    logout: propTypes.func.isRequired,
-    user: userPropTypes.user.isRequired
+  logout: propTypes.func.isRequired,
+  user: userPropTypes.user.isRequired
 }
 
-export default UserLinks;
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout())
+  }
+}
+
+const mapStateToProps = state => {
+  return {
+    user: state.user.data
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserLinks);

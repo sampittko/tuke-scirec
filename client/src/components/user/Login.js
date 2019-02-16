@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import { Typography, Button, TextField, Paper, CircularProgress, Fade } from '@material-ui/core';
+import { Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
 import { login } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
@@ -66,11 +66,19 @@ class Login extends React.Component {
               required
             />
             <div className="action-buttons">
-              <Button disabled={this.props.isLoading} onClick={this.handleForgottenPassword}>
+              <Button
+                disabled={this.props.isLoading}
+                onClick={this.handleForgottenPassword}
+              >
                 Zabudnuté heslo
               </Button>
-              <Button disabled={this.props.isLoading} type="submit" variant="contained" color="primary">
-                {this.props.isLoading ? <CircularProgress color="primary" /> : "Prihlásiť"}
+              <Button
+                disabled={this.props.isLoading}
+                type="submit"
+                variant="contained"
+                color="primary"
+              >
+                Prihlásiť
               </Button>
             </div>
           </form>
