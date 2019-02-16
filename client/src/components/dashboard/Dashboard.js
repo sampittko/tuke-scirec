@@ -30,7 +30,6 @@ class Dashboard extends React.Component {
             <Paper className="dashboard">
               <ProjectsList />
               <Fab
-                // onClick={<Redirect to={routes.project.new} />}
                 onClick={this.handleNewProjectClick}
                 icon={<AddIcon />}
               />

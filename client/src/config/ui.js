@@ -4,7 +4,9 @@ export const transitions = {
 }
 
 export const timeouts = {
-  LOGIN: 1500,
-  REGISTER: 1500,
-  LOGOUT: 500
+  LOGIN_SUCCESS: 1500,
+  LOGIN_FAILURE: 400,
+  REGISTER_SUCCESS: 1500,
+  REGISTER_FAILURE: 400,
+  LOGOUT_SUCCESS: 500
 }

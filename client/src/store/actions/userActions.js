@@ -30,9 +30,11 @@ export const login = user => {
     ).then((result) => {
       setTimeout(() => {
         dispatch(loginSuccess(result))
-      }, timeouts.LOGIN);
+      }, timeouts.LOGIN_SUCCESS);
     }).catch((error) => {
-      dispatch(loginFailure(error));
+      setTimeout(() => {
+        dispatch(loginFailure(error));
+      }, timeouts.LOGIN_FAILURE);
     });
   }
 }
@@ -52,7 +54,7 @@ export const logout = () => {
     firebase.auth().signOut().then(() => {
       setTimeout(() => {
         dispatch(logoutSuccess());
-      }, timeouts.LOGOUT);
+      }, timeouts.LOGOUT_SUCCESS);
     });
   }
 }
@@ -87,9 +89,11 @@ export const register = newUser => {
     }).then(() => {
       setTimeout(() => {
         dispatch(registerSuccess());
-      }, timeouts.REGISTER);
+      }, timeouts.REGISTER_SUCCESS);
     }).catch((error) => {
-      dispatch(registerFailure(error));
+      setTimeout(() => {
+        dispatch(registerFailure(error));
+      }, timeouts.REGISTER_FAILURE);
     });
   }
 }
