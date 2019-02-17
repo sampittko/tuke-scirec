@@ -12,6 +12,7 @@
 
 @media (max-width: $media-query-1) {
     .dashboard {
+        margin: 2 * $spacing-unit $spacing-unit;
         width: $dashboard-media-query-1-width;
     }
 }

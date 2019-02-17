@@ -8,6 +8,10 @@
     color: white !important;
 }
 
+button[class*="Button-outlined"] {
+    border: 1px solid rgba(255, 255, 255, 0.75) !important;
+}
+
 hr[class*="Divider"] {
     margin: {
         top: $spacing-unit !important;

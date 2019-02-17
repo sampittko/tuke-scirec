@@ -2,6 +2,7 @@
 
 .login {
     width: $login-width;
+    min-width: $login-min-width;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,5 +49,18 @@
         button + button {
             margin-left: 10px;
         }
+    }
+}
+
+@media (max-width: $media-query-1) {
+    .login {
+        margin: 2 * $spacing-unit auto;
+    }
+}
+
+@media (max-width: $media-query-2) {
+    .login {
+        margin: 2 * $spacing-unit $spacing-unit;
+        width: $login-media-query-2-width;
     }
 }

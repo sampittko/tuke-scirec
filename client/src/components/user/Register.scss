@@ -2,6 +2,7 @@
 
 .register {
     width: $register-width;
+    min-width: $register-min-width;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,5 +58,18 @@
         button[class*="Primary"] {
             width: 128.1px !important;
         }
+    }
+}
+
+@media (max-width: $media-query-1) {
+    .register {
+        margin: 2 * $spacing-unit auto;
+    }
+}
+
+@media (max-width: $media-query-2) {
+    .register {
+        margin: 2 * $spacing-unit $spacing-unit;
+        width: $register-media-query-2-width;
     }
 }
