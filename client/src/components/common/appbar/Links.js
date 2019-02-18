@@ -10,8 +10,8 @@ const Links = props =>
     {props.location.pathname === routes.user.login ? (
       <Link className="link" to={routes.user.register}>
         <Button variant="outlined" color="inherit">
-            Registrácia
-          </Button>
+          Registrácia
+        </Button>
       </Link>
     ) : (
         <Link className="link" to={routes.user.login}>

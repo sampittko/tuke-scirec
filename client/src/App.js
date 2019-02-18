@@ -11,6 +11,7 @@ import Register from './components/user/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Container from './components/common/Container';
 import NewProject from './components/project/NewProject';
+import Home from './components/Home';
 import './index.scss';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
@@ -27,12 +28,13 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
   />
 );
 
-const App = (props) => 
+const App = props => 
   <Router basename={window.basename}>
     <MuiThemeProvider theme={SCIREC_THEME}>
       <Container>
         <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={props.isAuth} />
         <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={props.isAuth} />
+        <Route exact path={routes.home} component={Home} />
         <Route exact path={routes.user.register} component={Register} />
         <Route exact path={routes.user.login} component={Login} />
       </Container>
