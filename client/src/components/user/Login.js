@@ -4,9 +4,10 @@ import { Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
 import { login } from '../../store/actions/userActions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
-import routes from '../../routes';
+import routes from '../../config/app/routes';
 import logo from './../../static/media/logo.png';
-import { transitions } from '../../config/ui';
+import { transitions } from '../../config/app/ui';
+import { getDocumentTitle } from '../../config/app/titles';
 import './Login.scss';
 
 class Login extends React.Component {
@@ -16,6 +17,10 @@ class Login extends React.Component {
       email: '',
       password: '',
     };
+  }
+
+  componentDidMount() {
+    document.title = getDocumentTitle(this);
   }
 
   handleForgottenPassword = () => {
@@ -85,7 +90,7 @@ class Login extends React.Component {
         </Paper>
       </Fade>
     ) : (
-      <Redirect to={routes.home} />
+      <Redirect to={routes.dashboard} />
     )
   }
 }

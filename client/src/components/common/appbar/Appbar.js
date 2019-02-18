@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
-import routes from '../../../routes';
+import routes from '../../../config/app/routes';
 import { withRouter } from 'react-router';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../sidebar/Sidebar';
@@ -14,9 +14,9 @@ import './Appbar.scss';
 class AppbarComponent extends React.Component {
   getBrandRoute() {
     if (this.props.location.pathname !== routes.user.login && this.props.location.pathname !== routes.user.register) {
-      return routes.home;
+      return routes.dashboard;
     }
-    return routes.user.login
+    return routes.home
   }
 
   render() {
@@ -35,7 +35,7 @@ class AppbarComponent extends React.Component {
             <Links location={this.props.location} />
           )}
         </Toolbar>
-        {this.props.isAuth && this.props.location.pathname === routes.home && (
+        {this.props.isAuth && this.props.location.pathname === routes.dashboard && (
           <Toolbar>
             <CategoryHandler />
           </Toolbar>

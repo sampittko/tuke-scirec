@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import routes from '../../../routes';
+import routes from '../../../config/app/routes';
 import PersonIcon from '@material-ui/icons/Person';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Link from './Link';

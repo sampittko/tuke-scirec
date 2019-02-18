@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { Checkbox, Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
-import routes from '../../routes';
+import routes from '../../config/app/routes';
 import { register } from '../../store/actions/userActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
 import logo from '../../static/media/logo.png';
-import { transitions } from '../../config/ui';
+import { transitions } from '../../config/app/ui';
+import { getDocumentTitle } from '../../config/app/titles';
 import './Register.scss';
 
 class Register extends React.Component {
@@ -22,6 +23,10 @@ class Register extends React.Component {
   }
 
   formSubmitted = false;
+
+  componentDidMount() {
+    document.title = getDocumentTitle(this);
+  }
 
   errorCodesMatches(errorCode) {
     return errorCode === this.props.errorCode;
@@ -134,7 +139,7 @@ class Register extends React.Component {
         </Paper>
       </Fade>
     ) : (
-        <Redirect to={routes.home} />
+        <Redirect to={routes.dashboard} />
     )
   }
 }

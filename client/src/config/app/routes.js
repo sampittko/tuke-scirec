@@ -1,5 +1,6 @@
 const routes = {
     home: '/',
+    dashboard: '/nastenka',
     user: {
       login: '/prihlasenie',
       register: '/registracia'

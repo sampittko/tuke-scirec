@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import routes from '../../../routes';
+import routes from '../../../config/app/routes';
 import { Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import './Appbar.scss';

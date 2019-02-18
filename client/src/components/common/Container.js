@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { Grid, LinearProgress, Fade } from '@material-ui/core';
 import Appbar from './appbar/Appbar';
 import { connect } from 'react-redux';
-import { transitions } from '../../config/ui';
+import { transitions } from '../../config/app/ui';
 import './Container.scss';
 
 const Container = props =>

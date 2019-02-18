@@ -1,8 +1,8 @@
 import React from 'react';
-import routes from './routes';
+import routes from './config/app/routes';
 import propTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { SCIREC_THEME } from './theme';
+import { SCIREC_THEME } from './config/app/theme';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -31,7 +31,7 @@ const App = (props) =>
   <Router basename={window.basename}>
     <MuiThemeProvider theme={SCIREC_THEME}>
       <Container>
-        <PrivateRoute exact path={routes.home} component={Dashboard} isAuth={props.isAuth} />
+        <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={props.isAuth} />
         <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={props.isAuth} />
         <Route exact path={routes.user.register} component={Register} />
         <Route exact path={routes.user.login} component={Login} />

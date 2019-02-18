@@ -1,8 +1,9 @@
 import React from 'react';
-import routes from '../../routes';
+import routes from '../../config/app/routes';
 import { Redirect } from 'react-router';
 import { Paper, TextField, Button, Stepper, Step, StepLabel, StepContent, Typography, MenuItem, Fade } from '@material-ui/core';
-import { transitions } from '../../config/ui';
+import { transitions } from '../../config/app/ui';
+import { getDocumentTitle } from '../../config/app/titles';
 import './NewProject.scss';
 
 const TITLE_MIN_LENGTH = 3;
@@ -18,6 +19,10 @@ class NewProject extends React.Component {
   }
 
   steps = ['Zvolenie názvu', 'Výber kategórie'];
+
+  componentDidMount() {
+    document.title = getDocumentTitle(this);
+  }
 
   handleChange = e => {
     this.setState({
@@ -105,7 +110,7 @@ class NewProject extends React.Component {
             ))}
           </Stepper>
           {this.state.activeStep === this.steps.length && (
-            <Redirect to={routes.home} />
+            <Redirect to={routes.dashboard} />
           )}
         </Paper>
       </Fade>

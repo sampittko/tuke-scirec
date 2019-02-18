@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import routes from '../../routes';
+import routes from '../../config/app/routes';
 import { Paper, Fade } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ProjectsList from './ProjectsList';
 import Fab from '../common/Fab';
-import { transitions } from '../../config/ui';
+import { transitions } from '../../config/app/ui';
+import { getDocumentTitle } from '../../config/app/titles';
 import './Dashboard.scss';
 
 class Dashboard extends React.Component {
@@ -14,6 +15,10 @@ class Dashboard extends React.Component {
     this.state = {
       toNewProject: false
     }
+  }
+
+  componentDidMount() {
+    document.title = getDocumentTitle(this);
   }
 
   handleNewProjectClick = () => {

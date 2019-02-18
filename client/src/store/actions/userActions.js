@@ -1,6 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { timeouts } from '../../config/ui';
+import { timeouts } from '../../config/app/ui';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,

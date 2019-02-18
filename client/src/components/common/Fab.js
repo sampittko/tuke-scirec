@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Zoom, Fab } from '@material-ui/core';
-import { transitions } from '../../config/ui'
+import { transitions } from '../../config/app/ui'
 import './Fab.scss';
 
 const FabComponent = props =>
