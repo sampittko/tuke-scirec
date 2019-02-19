@@ -55,6 +55,7 @@ class Login extends React.Component {
               name="email"
               margin="normal"
               variant="outlined"
+              autoComplete="email"
               error={this.props.error}
               onChange={this.handleChange}
               required
@@ -65,6 +66,7 @@ class Login extends React.Component {
               name="password"
               margin="normal"
               variant="outlined"
+              autoComplete="current-password"
               helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
               error={this.props.error}
               onChange={this.handleChange}

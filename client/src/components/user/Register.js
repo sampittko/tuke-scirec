@@ -72,6 +72,7 @@ class Register extends React.Component {
               name="email"
               margin="normal"
               variant="outlined"
+              autoComplete="email"
               onChange={this.handleChange}
               error={this.errorCodesMatches(firebaseErrorCodes.AUTH_EMAIL_ALREADY_IN_USE)}
               helperText={this.errorCodesMatches(firebaseErrorCodes.AUTH_EMAIL_ALREADY_IN_USE) ? "E-mail sa už používa" : ""}
@@ -83,6 +84,7 @@ class Register extends React.Component {
               name="password"
               margin="normal"
               variant="outlined"
+              autoComplete="new-password"
               onChange={this.handleChange}
               required
             />
@@ -92,6 +94,7 @@ class Register extends React.Component {
               name="verifiedPassword"
               margin="normal"
               variant="outlined"
+              autoComplete="new-password"
               onChange={this.handleChange}
               helperText={!this.sufficientPassword() ? "Heslo musí mať aspoň 6 znakov" : (!this.matchingPasswords() ? "Heslá sa nezhodujú" : "")}
               required

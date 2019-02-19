@@ -2,17 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
-import { withRouter } from 'react-router';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../sidebar/Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
 import CategoryHandler from '../../dashboard/CategoryHandler';
 import { Link } from 'react-router-dom';
+import { APP_NAME } from '../../../config/app/';
 import './Appbar.scss';
 
 class AppbarComponent extends React.Component {
-  getBrandRoute() {
+  getBrandRoute = () => {
     if (this.props.location.pathname !== routes.user.login && this.props.location.pathname !== routes.user.register) {
       return routes.dashboard;
     }
@@ -23,10 +23,20 @@ class AppbarComponent extends React.Component {
     return (
       <AppBar position="static">
         <Toolbar className={this.props.isAuth ? "user-toolbar" : ""}>
-          <Sidebar isAuth={this.props.isAuth} location={this.props.location} />
-          <Typography variant="h6" color="inherit" className="brand">
-            <Link className="link" to={this.getBrandRoute()}>
-              SCIREC
+          <Sidebar 
+            isAuth={this.props.isAuth}
+            location={this.props.location}
+          />
+          <Typography
+            variant="h6"
+            color="inherit"
+            className="brand"
+          >
+            <Link
+              className="link"
+              to={this.getBrandRoute()}
+            >
+              {APP_NAME}
             </Link>
           </Typography>
           {this.props.isAuth ? (
@@ -56,4 +66,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(AppbarComponent));
+export default connect(mapStateToProps)(AppbarComponent);

@@ -10,11 +10,18 @@ import './Container.scss';
 const Container = props =>
   <Grid container>
     <Grid item xs={12}>
-      <Appbar />
+      <Appbar location={props.location} />
       {props.isLoading &&
-        <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
-          <LinearProgress color="secondary" variant="indeterminate" />
-        </Fade>}
+        <Fade
+          in
+          timeout={transitions.FADE_IN_TIMEOUT}
+        >
+          <LinearProgress
+            color="secondary"
+            variant="indeterminate"
+          />
+        </Fade>
+      }
     </Grid>
     <Grid item xs={12}>
       {props.children}
@@ -23,7 +30,8 @@ const Container = props =>
 
 Container.propTypes = {
   isLoading: propTypes.bool.isRequired,
-  children: propTypes.array.isRequired
+  children: propTypes.array.isRequired,
+  location: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => {

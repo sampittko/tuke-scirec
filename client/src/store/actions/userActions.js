@@ -11,7 +11,8 @@ const loginSuccess = result => ({
   type: actionTypes.LOGIN_SUCCESS,
   user: {
     id: result.user.uid,
-    email: result.user.email
+    email: result.user.email,
+    token: result.user._lat
   }
 })
 
