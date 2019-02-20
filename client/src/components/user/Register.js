@@ -136,7 +136,14 @@ class Register extends React.Component {
               </Button>
             </div>
             {(this.formSubmitted && this.props.errorCode === '' && !this.props.isLoading) && (
-              <Redirect to={routes.user.login} />
+              <Redirect
+                to={{
+                  pathname: routes.user.login,
+                  state: {
+                    registered: true
+                  }
+                }}
+              />
             )}
           </form>
         </Paper>
@@ -156,7 +163,7 @@ Register.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: (newUser) => dispatch(register(newUser))
+    register: newUser => dispatch(register(newUser))
   }
 }
 

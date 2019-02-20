@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import routes from '../../config/app/routes';
 import logo from './../../static/media/logo.png';
+import Notification from '../common/Notification';
 import { transitions } from '../../config/app/ui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Login.scss';
@@ -89,6 +90,9 @@ class Login extends React.Component {
               </Button>
             </div>
           </form>
+          {this.props.location.state && this.props.location.state.registered && (
+            <Notification message="Účet bol úspešne vytvorený" />
+          )}
         </Paper>
       </Fade>
     ) : (
@@ -101,12 +105,13 @@ Login.propTypes = {
   login: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
   isLoading: propTypes.bool.isRequired,
+  location: propTypes.object.isRequired,
   error: propTypes.bool.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: (user) => dispatch(login(user))
+    login: user => dispatch(login(user))
   }
 }
 
