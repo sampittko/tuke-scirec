@@ -5,7 +5,7 @@ import { Paper, Fade } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ProjectsList from './ProjectsList';
 import Fab from '../common/Fab';
-import { transitions } from '../../config/app/ui';
+import { timeouts } from '../../config/app/ui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Dashboard.scss';
 
@@ -31,7 +31,7 @@ class Dashboard extends React.Component {
     return (
       <div>
         {!this.state.toNewProject ? (
-          <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+          <Fade in timeout={timeouts.FADE_IN}>
             <Paper className="dashboard">
               <ProjectsList />
               <Fab

@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import { Grid, LinearProgress, Fade } from '@material-ui/core';
 import Appbar from './appbar/Appbar';
 import { connect } from 'react-redux';
-import { transitions } from '../../config/app/ui';
+import { timeouts } from '../../config/app/ui';
 import './Container.scss';
 
 const Container = props =>
@@ -14,7 +14,7 @@ const Container = props =>
       {props.isLoading &&
         <Fade
           in
-          timeout={transitions.FADE_IN_TIMEOUT}
+          timeout={timeouts.FADE_IN}
         >
           <LinearProgress
             color="secondary"

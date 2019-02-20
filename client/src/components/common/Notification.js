@@ -1,6 +1,7 @@
 import React from 'react';
 import { Snackbar } from '@material-ui/core';
 import propTypes from 'prop-types';
+import { timeouts } from '../../config/app/ui';
 
 class Notification extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class Notification extends React.Component {
         open={this.state.open}
         message={this.props.message}
         onClose={this.handleClose}
-        autoHideDuration={2000}
+        autoHideDuration={timeouts.NOTIFICATION}
       />
     )
   }

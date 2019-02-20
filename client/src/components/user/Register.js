@@ -8,7 +8,7 @@ import routes from '../../config/app/routes';
 import { register } from '../../store/actions/userActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
 import logo from '../../static/media/logo.png';
-import { transitions } from '../../config/app/ui';
+import { timeouts } from '../../config/app/ui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Register.scss';
 
@@ -57,7 +57,7 @@ class Register extends React.Component {
 
   render() {
     return !this.props.isAuth ? (
-      <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+      <Fade in timeout={timeouts.FADE_IN}>
         <Paper className="register">
           <div className="header">
             <img src={logo} alt="SCIREC logo" />

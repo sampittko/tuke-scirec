@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 import routes from '../../config/app/routes';
 import logo from './../../static/media/logo.png';
 import Notification from '../common/Notification';
-import { transitions } from '../../config/app/ui';
+import { timeouts } from '../../config/app/ui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Login.scss';
 
@@ -41,7 +41,7 @@ class Login extends React.Component {
   
   render() {
     return !this.props.isAuth ? (
-      <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+      <Fade in timeout={timeouts.FADE_IN}>
         <Paper className="login">
           <div className="header">
             <img src={logo} alt="SCIREC logo" />

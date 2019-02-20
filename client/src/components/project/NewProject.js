@@ -2,7 +2,7 @@ import React from 'react';
 import routes from '../../config/app/routes';
 import { Redirect } from 'react-router';
 import { Paper, TextField, Button, Stepper, Step, StepLabel, StepContent, Typography, MenuItem, Fade } from '@material-ui/core';
-import { transitions } from '../../config/app/ui';
+import { timeouts } from '../../config/app/ui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './NewProject.scss';
 
@@ -78,7 +78,7 @@ class NewProject extends React.Component {
 
   render() {
     return (
-      <Fade in timeout={transitions.FADE_IN_TIMEOUT}>
+      <Fade in timeout={timeouts.FADE_IN}>
         <Paper className="new-project">
           <Typography variant="h5">
             Vytvorenie nového projektu
