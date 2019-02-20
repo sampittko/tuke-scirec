@@ -44,7 +44,10 @@ class Login extends React.Component {
       <Fade in timeout={timeouts.FADE_IN}>
         <Paper className="login">
           <div className="header">
-            <img src={logo} alt="SCIREC logo" />
+            <img
+              src={logo}
+              alt="SCIREC logo"
+            />
             <Typography variant="h5">
               Prihlásenie
             </Typography>

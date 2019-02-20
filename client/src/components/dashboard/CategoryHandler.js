@@ -1,26 +1,23 @@
 import React from 'react';
 import { FormControl, Select, MenuItem, Dialog, DialogTitle, DialogContent, Input, DialogActions, Button, InputAdornment, DialogContentText, InputLabel, Checkbox, FormControlLabel } from '@material-ui/core';
+import { category } from '../../config/app/';
 import './CategoryHandler.scss';
 
-const MAX_CATEGORIES = 5;
-const CATEGORY_MIN_LENGTH = 3;
-const CATEGORY_MAX_LENGTH = 20;
-const NEW_CATEGORY_ID = 0;
-const DEFAULT_CATEGORY_ID = 1;
-
-class CategorySelector extends React.Component {
+class CategoryHandler extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: DEFAULT_CATEGORY_ID,
-      newCategoryName: '',
-      setAsDefault: false
+      selectedCategory: 1,
+      newCategory: {
+        name: '',
+        isDefault: false
+      },
     }
   }
 
-  handleDialogClose = () => {
+  handleClose = () => {
     this.setState({
-      category: DEFAULT_CATEGORY_ID
+      selectedCategory: 1
     });
   }
 
@@ -29,12 +26,14 @@ class CategorySelector extends React.Component {
   }
 
   handleChange = event => {
-    if (event.target.name === "newCategoryName" && this.state.newCategoryName.length === CATEGORY_MAX_LENGTH && event.target.value.length > CATEGORY_MAX_LENGTH) {
-      return;
-    }
     if (event.target.name === "newCategoryName") {
+      if (this.state.newCategory.name.length === category.NAME_MAX_LENGTH && event.target.value.length > category.NAME_MAX_LENGTH) {
+        return;
+      }
       this.setState({
-        [event.target.name]: event.target.value
+        newCategory: {
+          name: event.target.value
+        }
       });
     }
     else {
@@ -46,7 +45,7 @@ class CategorySelector extends React.Component {
 
   handleCategoryChange = event => {
     this.setState({
-      category: event.target.value
+      selectedCategory: event.target.value
     });
   }
 
@@ -56,18 +55,18 @@ class CategorySelector extends React.Component {
         <FormControl>
           <Select
             disableUnderline
-            value={this.state.category}
+            value={this.state.selectedCategory}
             onChange={this.handleCategoryChange}
           >
-            <MenuItem value={DEFAULT_CATEGORY_ID}>Predvolená kategória</MenuItem>
-            <MenuItem value={NEW_CATEGORY_ID}>Nová kategória</MenuItem>
+            <MenuItem value={1}>Predvolená kategória</MenuItem>
+            <MenuItem value={0}>Nová kategória</MenuItem>
           </Select>
         </FormControl>
-        <Dialog open={this.state.category === NEW_CATEGORY_ID}>
+        <Dialog open={this.state.selectedCategory === 0}>
           <DialogTitle>Vytvorenie novej kategórie</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {CATEGORY_MIN_LENGTH} do {CATEGORY_MAX_LENGTH} znakov. Maximálny počet kategórií je {MAX_CATEGORIES}.
+              Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {category.NAME_MIN_LENGTH} do {category.NAME_MAX_LENGTH} znakov. Maximálny počet kategórií je {category.COUNT_MAX_LIMIT}.
             </DialogContentText>
             <FormControl>
               <InputLabel>
@@ -76,9 +75,9 @@ class CategorySelector extends React.Component {
               <Input
                 autoFocus
                 name="newCategoryName"
-                value={this.state.newCategoryName}
+                value={this.state.newCategory.name}
                 margin="dense"
-                endAdornment={<InputAdornment position="end">{this.state.newCategoryName.length}/20</InputAdornment>}
+                endAdornment={<InputAdornment position="end">{this.state.newCategory.name.length}/20</InputAdornment>}
                 type="text"
                 fullWidth
                 onChange={this.handleChange}
@@ -87,9 +86,10 @@ class CategorySelector extends React.Component {
             <FormControlLabel
               control={
                 <Checkbox
+                  checked={this.state.setAsDefault}
                   onChange={this.handleChange}
+                  value={this.state.setAsDefault ? "true" : "false"}
                   name="setAsDefault"
-                  value={this.state.setAsDefault}
                   color="primary"
                 />
               }
@@ -98,7 +98,7 @@ class CategorySelector extends React.Component {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={this.handleDialogClose}
+              onClick={this.handleClose}
               color="primary"
             >
               Zrušiť
@@ -106,7 +106,7 @@ class CategorySelector extends React.Component {
             <Button
               onClick={this.handleNewCategoryCreation}
               color="secondary"
-              disabled={this.state.newCategoryName.length < CATEGORY_MIN_LENGTH}
+              disabled={this.state.newCategory.name.length < category.NAME_MIN_LENGTH}
             >
               Vytvoriť
             </Button>
@@ -117,4 +117,4 @@ class CategorySelector extends React.Component {
   }
 }
 
-export default CategorySelector;
+export default CategoryHandler;

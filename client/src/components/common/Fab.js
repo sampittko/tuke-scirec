@@ -6,7 +6,11 @@ import './Fab.scss';
 
 const FabComponent = props =>
   <Zoom in timeout={timeouts.ZOOM_IN}>
-    <Fab onClick={props.onClick} className="fab" color="secondary">
+    <Fab
+      onClick={props.onClick}
+      className="fab"
+      color="secondary"
+    >
       {props.icon}
     </Fab>
   </Zoom>;
