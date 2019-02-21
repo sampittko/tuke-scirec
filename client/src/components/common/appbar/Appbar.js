@@ -6,7 +6,7 @@ import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../sidebar/Sidebar';
 import Links from './Links';
 import UserLinks from './UserLinks';
-import CategoryHandler from '../../dashboard/CategoryHandler';
+import CategorySelector from '../../dashboard/category/CategorySelector';
 import { Link } from 'react-router-dom';
 import { APP_NAME } from '../../../config/app/';
 import './Appbar.scss';
@@ -47,7 +47,7 @@ class AppbarComponent extends React.Component {
         </Toolbar>
         {this.props.isAuth && this.props.location.pathname === routes.dashboard && (
           <Toolbar>
-            <CategoryHandler />
+            <CategorySelector />
           </Toolbar>
         )}
       </AppBar>

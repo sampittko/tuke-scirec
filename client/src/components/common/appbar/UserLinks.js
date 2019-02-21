@@ -49,7 +49,7 @@ class UserLinks extends React.Component {
           <Divider />
           <MenuItem
             icon={<SettingsIcon />}
-            text="Nastavenia učtu"
+            text="Nastavenia účtu"
             onClick={this.handleClose}
           />
           <MenuItem

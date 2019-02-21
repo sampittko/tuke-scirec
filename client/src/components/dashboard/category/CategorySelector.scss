@@ -1,4 +1,4 @@
-@import '../../variables';
+@import '../../../variables';
 
 div[class*="Toolbar"]:nth-child(2) {
     margin: 0 auto;
@@ -18,9 +18,4 @@ div[class*="Toolbar"]:nth-child(2) {
             color: white !important;
         }
     }
-}
-
-div[class*="DialogContent"] div[class*="FormControl"] {
-    margin-top: 20px !important;
-    width: 100% !important;
 }
