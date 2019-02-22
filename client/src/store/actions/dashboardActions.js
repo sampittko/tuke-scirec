@@ -1,9 +1,10 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { category } from '../../config/app/';
+import { appErrorCodes } from '../../config/app/errorCodes';
 
-const createCategoryFailure = error => ({
-  type: actionTypes.CREATE_CATEGORY_SUCCESS
+const createCategoryFailure = () => ({
+  type: actionTypes.CREATE_CATEGORY_FAILURE
 })
 
 const createCategorySuccess = () => ({
@@ -15,36 +16,45 @@ const createCategoryRequest = () => ({
 })
 
 export const createCategory = newCategory => {
-  // TODO
-  // return (dispatch, getState, { getFirebase, getFirestore }) => {
-  //   dispatch(createCategoryRequest());
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(createCategoryRequest());
 
-  //   const firestore = getFirestore();
-  //   const usersRef = firestore.collection(firestoreCollections.USERS);
-  //   const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES);
-  //   const currentUserId = getState().user.data.id;
+    const firestore = getFirestore();
+    const usersRef = firestore.collection(firestoreCollections.USERS);
+    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES);
+    const currentUserId = getState().user.data.id;
+    let createdCategoryId = '';
+    let currentUserCategories = [];
 
-  //   categoriesRef
-  //     .doc(currentUserId).add({
-  //       user: currentUserId,
-  //       name: newCategory.name,
-  //       color: category.defaults.COLOR,
-  //       default: newCategory.default,
-  //       projects: {},
-  //       created: new Date()
-  //   }).then(() => {
-  //     return usersRef
-  //       .doc(currentUserId).get()
-  //   }).then(result => {
-  //     console.log(result);
-  //     return usersRef
-  //       .doc(currentUserId).update({
-  //         categories: 
-  //       })
-  //   }).then(() => {
-  //     dispatch(createCategorySuccess());
-  //   }).catch(error => {
-  //     dispatch(createCategoryFailure(error));
-  //   });
-  // }
+    usersRef
+      .doc(currentUserId).get()
+    .then(result => {
+      currentUserCategories = result.data().categories;
+      if (currentUserCategories.length >= category.COUNT_MAX_LIMIT) {
+        return Promise.reject(appErrorCodes.CATEGORY_COUNT_MAX_LIMIT_REACHED);
+      }
+      else {
+        return categoriesRef
+          .add({
+            user: currentUserId,
+            name: newCategory.name,
+            color: category.defaults.COLOR,
+            default: newCategory.default,
+            projects: [],
+            created: new Date()
+          })
+      }
+    }).then(result => {
+      createdCategoryId = result.id;
+      return usersRef
+        .doc(currentUserId).update({
+          categories: [...currentUserCategories, categoriesRef.doc(createdCategoryId)]
+        })
+    }).then(() => {
+      dispatch(createCategorySuccess());
+    }).catch(error => {
+      console.log(error);
+      dispatch(createCategoryFailure());
+    });
+  }
 }

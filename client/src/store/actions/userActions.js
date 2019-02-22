@@ -107,7 +107,7 @@ export const register = newUser => {
           name: category.defaults.TITLE,
           color: category.defaults.COLOR,
           default: category.defaults.DEFAULT,
-          projects: {},
+          projects: [],
           created: new Date()
         })
     }).then(result => {
