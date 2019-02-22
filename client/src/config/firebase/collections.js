@@ -1,5 +1,6 @@
 const firestoreCollections = {
-  USERS: 'users'
+  USERS: 'users',
+  CATEGORIES: 'categories'
 }
 
 export default firestoreCollections;

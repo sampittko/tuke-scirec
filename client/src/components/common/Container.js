@@ -36,7 +36,7 @@ Container.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.user.isLoading
+    isLoading: state.user.isLoading || state.dashboard.isLoading
   }
 }
 

@@ -1,6 +1,7 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { timeouts } from '../../config/app/ui';
+import { category } from '../../config/app/';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
@@ -23,20 +24,23 @@ const loginRequest = () => ({
 export const login = user => {
   return (dispatch, getState, { getFirebase }) => {
     dispatch(loginRequest());
+
     const firebase = getFirebase();
+
     firebase.auth()
       .signInWithEmailAndPassword(
         user.email,
         user.password
-    ).then((result) => {
-      setTimeout(() => {
-        dispatch(loginSuccess(result))
-      }, timeouts.LOGIN_SUCCESS);
-    }).catch((error) => {
-      setTimeout(() => {
-        dispatch(loginFailure(error));
-      }, timeouts.LOGIN_FAILURE);
-    });
+      ).then(result => {
+        setTimeout(() => {
+          dispatch(loginSuccess(result))
+        }, timeouts.LOGIN_SUCCESS);
+      }).catch(error => {
+        console.log(error);
+        setTimeout(() => {
+          dispatch(loginFailure(error));
+        }, timeouts.LOGIN_FAILURE);
+      });
   }
 }
 
@@ -52,7 +56,9 @@ export const logout = () => {
   return (dispatch, getState, { getFirebase }) => {
     dispatch(logoutRequest());
     const firebase = getFirebase();
-    firebase.auth().signOut().then(() => {
+    firebase.auth()
+      .signOut()
+    .then(() => {
       setTimeout(() => {
         dispatch(logoutSuccess());
       }, timeouts.LOGOUT_SUCCESS);
@@ -76,22 +82,45 @@ const registerRequest = () => ({
 export const register = newUser => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(registerRequest());
+
     const firebase = getFirebase();
     const firestore = getFirestore();
-    firebase.auth().createUserWithEmailAndPassword(
-      newUser.email,
-      newUser.password
-    ).then((result) => {
-      return firestore.collection(firestoreCollections.USERS)
-        .doc(result.user.uid)
-        .set({
-          email: newUser.email
+    const usersRef = firestore.collection(firestoreCollections.USERS);
+    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES);
+    let newRegisteredUserId = '';
+
+    firebase.auth()
+      .createUserWithEmailAndPassword(
+        newUser.email,
+        newUser.password
+    ).then(result => {
+      newRegisteredUserId = result.user.uid;
+      return usersRef
+        .doc(newRegisteredUserId).set({
+          email: newUser.email,
+          categories: []
+        })
+    }).then(() => {
+      return categoriesRef
+        .add({
+          user: newRegisteredUserId,
+          name: category.defaults.TITLE,
+          color: category.defaults.COLOR,
+          default: category.defaults.DEFAULT,
+          projects: {},
+          created: new Date()
+        })
+    }).then(result => {
+      return usersRef
+        .doc(newRegisteredUserId).update({
+          categories: [categoriesRef.doc(result.id)]
         })
     }).then(() => {
       setTimeout(() => {
         dispatch(registerSuccess());
       }, timeouts.REGISTER_SUCCESS);
-    }).catch((error) => {
+    }).catch(error => {
+      console.log(error);
       setTimeout(() => {
         dispatch(registerFailure(error));
       }, timeouts.REGISTER_FAILURE);

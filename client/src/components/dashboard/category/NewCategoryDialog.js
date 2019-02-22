@@ -1,6 +1,9 @@
 import React from 'react';
+import propTypes from 'prop-types';
 import { FormControl, Dialog, DialogTitle, DialogContent, Input, DialogActions, Button, InputAdornment, DialogContentText, InputLabel, Checkbox, FormControlLabel } from '@material-ui/core';
 import { category } from '../../../config/app';
+import { connect } from 'react-redux';
+import { createCategory } from '../../../store/actions/dashboardActions';
 import './NewCategoryDialog.scss';
 
 class NewCategoryDialog extends React.Component {
@@ -24,10 +27,6 @@ class NewCategoryDialog extends React.Component {
     this.setState({
       default: !this.state.default
     });
-  }
-
-  handleCategoryCreation = () => {
-
   }
 
   render() {
@@ -72,7 +71,7 @@ class NewCategoryDialog extends React.Component {
             Zrušiť
           </Button>
           <Button
-            onClick={this.handleCategoryCreation}
+            onClick={() => this.props.createCategory(this.state)}
             color="secondary"
             disabled={this.state.name.length < category.NAME_MIN_LENGTH}
           >
@@ -84,4 +83,15 @@ class NewCategoryDialog extends React.Component {
   }
 }
 
-export default NewCategoryDialog;
+NewCategoryDialog.propTypes = {
+  open: propTypes.bool.isRequired,
+  onClick: propTypes.func.isRequired
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createCategory: newCategory => dispatch(createCategory(newCategory))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(NewCategoryDialog);
