@@ -22,14 +22,16 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.CREATE_CATEGORY_SUCCESS);
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        error: null
       };
 
     case actionTypes.CREATE_CATEGORY_FAILURE:
       console.log(actionTypes.CREATE_CATEGORY_FAILURE);
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        error: action.error
       };
 
     case actionTypes.GET_CATEGORIES_REQUEST:
@@ -47,14 +49,16 @@ const dashboard = (state = _initialState, action) => {
           categories: action.categories.map(category => category.data()),
           projects: state.data.projects
         },
-        isLoading: false
+        isLoading: false,
+        error: null
       };
 
     case actionTypes.GET_CATEGORIES_FAILURE:
       console.log(actionTypes.GET_CATEGORIES_FAILURE);
       return {
         ...state,
-        isLoading: false
+        isLoading: false,
+        error: action.error
       };
 
     default:

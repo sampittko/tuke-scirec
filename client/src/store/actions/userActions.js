@@ -95,18 +95,18 @@ export const register = newUser => {
         newUser.password
     ).then(result => {
       newRegisteredUserId = result.user.uid;
-      return usersRef
-        .doc(newRegisteredUserId).set({
-          email: newUser.email
-        })
-    }).then(() => {
       return categoriesRef
         .add({
-          user: newRegisteredUserId,
+          user: usersRef.doc(newRegisteredUserId),
           name: category.defaults.TITLE,
           color: category.defaults.COLOR,
-          default: category.defaults.DEFAULT,
           created: new Date()
+        })
+    }).then(result => {
+      return usersRef
+        .doc(newRegisteredUserId).set({
+          email: newUser.email,
+          defaultCategory: categoriesRef.doc(result.id)
         })
     }).then(() => {
       setTimeout(() => {
