@@ -74,8 +74,8 @@ class Register extends React.Component {
               variant="outlined"
               autoComplete="email"
               onChange={this.handleChange}
-              error={this.errorCodesMatches(firebaseErrorCodes.AUTH_EMAIL_ALREADY_IN_USE)}
-              helperText={this.errorCodesMatches(firebaseErrorCodes.AUTH_EMAIL_ALREADY_IN_USE) ? "E-mail sa už používa" : ""}
+              error={this.errorCodesMatches(firebaseErrorCodes.auth.EMAIL_ALREADY_IN_USE)}
+              helperText={this.errorCodesMatches(firebaseErrorCodes.auth.EMAIL_ALREADY_IN_USE) ? "E-mail sa už používa" : ""}
               required
             />
             <TextField

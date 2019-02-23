@@ -16,7 +16,7 @@ class NewCategoryDialog extends React.Component {
   }
 
   handleNameChange = event => {
-    if (this.state.name.length !== category.NAME_MAX_LENGTH || event.target.value.length < category.NAME_MAX_LENGTH) {
+    if (this.state.name.length !== category.MAX_LENGTH || event.target.value.length < category.MAX_LENGTH) {
       this.setState({
         name: event.target.value
       });
@@ -35,7 +35,7 @@ class NewCategoryDialog extends React.Component {
         <DialogTitle>Vytvorenie novej kategórie</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {category.NAME_MIN_LENGTH} do {category.NAME_MAX_LENGTH} znakov. Maximálny počet kategórií je {category.COUNT_MAX_LIMIT}.
+            Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {category.MIN_LENGTH} do {category.MAX_LENGTH} znakov. Maximálny počet kategórií je {category.MAX_COUNT}.
           </DialogContentText>
           <FormControl>
             <InputLabel>
@@ -45,7 +45,7 @@ class NewCategoryDialog extends React.Component {
               autoFocus
               value={this.state.name}
               margin="dense"
-              endAdornment={<InputAdornment position="end">{this.state.name.length}/{category.NAME_MAX_LENGTH}</InputAdornment>}
+              endAdornment={<InputAdornment position="end">{this.state.name.length}/{category.MAX_LENGTH}</InputAdornment>}
               type="text"
               fullWidth
               onChange={this.handleNameChange}
@@ -67,13 +67,14 @@ class NewCategoryDialog extends React.Component {
           <Button
             onClick={this.props.onClick}
             color="primary"
+            disabled={this.props.isLoading}
           >
             Zrušiť
           </Button>
           <Button
             onClick={() => this.props.createCategory(this.state)}
             color="secondary"
-            disabled={this.state.name.length < category.NAME_MIN_LENGTH}
+            disabled={this.state.name.length < category.MIN_LENGTH || this.props.isLoading}
           >
             Vytvoriť
           </Button>
@@ -85,7 +86,8 @@ class NewCategoryDialog extends React.Component {
 
 NewCategoryDialog.propTypes = {
   open: propTypes.bool.isRequired,
-  onClick: propTypes.func.isRequired
+  onClick: propTypes.func.isRequired,
+  isLoading: propTypes.bool.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -94,4 +96,10 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(NewCategoryDialog);
+const mapStateToProps = state => {
+  return {
+    isLoading: state.dashboard.isLoading
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewCategoryDialog);

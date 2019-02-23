@@ -11,6 +11,10 @@ class CategorySelector extends React.Component {
     }
   }
 
+  componentDidMount() {
+    
+  }
+
   handleClick = () => {
     this.setState({
       selectedCategory: 1

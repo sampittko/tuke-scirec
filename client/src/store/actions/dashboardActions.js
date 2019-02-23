@@ -30,11 +30,10 @@ export const createCategory = newCategory => {
       .doc(currentUserId).get()
     .then(result => {
       currentUserCategories = result.data().categories;
-      if (currentUserCategories.length >= category.COUNT_MAX_LIMIT) {
-        return Promise.reject(appErrorCodes.CATEGORY_COUNT_MAX_LIMIT_REACHED);
-      }
-      else {
-        return categoriesRef
+      return currentUserCategories.length >= category.MAX_COUNT ? (
+          Promise.reject(appErrorCodes.category.COUNT_MAX_REACHED)
+        ) : (
+        categoriesRef
           .add({
             user: currentUserId,
             name: newCategory.name,
@@ -43,7 +42,7 @@ export const createCategory = newCategory => {
             projects: [],
             created: new Date()
           })
-      }
+        )
     }).then(result => {
       createdCategoryId = result.id;
       return usersRef
