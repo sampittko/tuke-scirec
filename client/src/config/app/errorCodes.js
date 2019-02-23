@@ -1,5 +1,5 @@
 export const appErrorCodes = {
-  category: {
+  dashboard: {
     COUNT_MAX_REACHED: 'app/count-max-reached'
   }
 }

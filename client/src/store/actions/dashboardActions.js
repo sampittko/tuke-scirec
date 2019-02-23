@@ -1,85 +1,85 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { category } from '../../config/app/';
+import { dashboard } from '../../config/app/';
 import { appErrorCodes } from '../../config/app/errorCodes';
 
-const getCategoriesFailure = error => ({
-  type: actionTypes.GET_CATEGORIES_FAILURE,
+const getDashboardsFailure = error => ({
+  type: actionTypes.GET_DASHBOARDS_FAILURE,
   error
 })
 
-const getCategoriesSuccess = result => ({
-  type: actionTypes.GET_CATEGORIES_SUCCESS,
-  categories: result.docs
+const getDashboardsSuccess = result => ({
+  type: actionTypes.GET_DASHBOARDS_SUCCESS,
+  dashboards: result.docs
 })
 
-const getCategoriesRequest = () => ({
-  type: actionTypes.GET_CATEGORIES_REQUEST
+const getDashboardsRequest = () => ({
+  type: actionTypes.GET_DASHBOARDS_REQUEST
 })
 
-export const getCategories = currentUserId => {
+export const getDashboards = currentUserId => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    dispatch(getCategoriesRequest());
+    dispatch(getDashboardsRequest());
 
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
 
-    categoriesRef
-      .where(firestoreCollections.CATEGORIES.fields.USER, "==", usersRef.doc(currentUserId))
+    dashboardsRef
+      .where(firestoreCollections.DASHBOARDS.fields.USER, "==", usersRef.doc(currentUserId))
       .get()
     .then(result => {
-      dispatch(getCategoriesSuccess(result));
+      dispatch(getDashboardsSuccess(result));
     }).catch(error => {
       console.log(error);
-      dispatch(getCategoriesFailure(error));
+      dispatch(getDashboardsFailure(error));
     });
   }
 }
 
-const createCategoryFailure = error => ({
-  type: actionTypes.CREATE_CATEGORY_FAILURE,
+const createDashboardFailure = error => ({
+  type: actionTypes.CREATE_DASHBOARD_FAILURE,
   error
 })
 
-const createCategorySuccess = () => ({
-  type: actionTypes.CREATE_CATEGORY_SUCCESS
+const createDashboardSuccess = () => ({
+  type: actionTypes.CREATE_DASHBOARD_SUCCESS
 })
 
-const createCategoryRequest = () => ({
-  type: actionTypes.CREATE_CATEGORY_REQUEST
+const createDashboardRequest = () => ({
+  type: actionTypes.CREATE_DASHBOARD_REQUEST
 })
 
-export const createCategory = newCategory => {
+export const createDashboard = newDashboard => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    dispatch(createCategoryRequest());
+    dispatch(createDashboardRequest());
 
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
     const currentUserId = getState().user.data.id;
 
-    categoriesRef
+    dashboardsRef
       .add({
         user: usersRef.doc(currentUserId),
-        name: newCategory.name,
-        color: category.defaults.COLOR,
+        name: newDashboard.name,
+        color: dashboard.defaults.COLOR,
         created: new Date()
     }).then(result => {
-      if (newCategory.default) {
+      if (newDashboard.default) {
         return usersRef.doc(currentUserId)
           .update({
-            defaultCategory: categoriesRef.doc(result.id)
+            defaultDashboard: dashboardsRef.doc(result.id)
           })
       }
       else {
         return Promise.resolve();
       }
     }).then(() => {
-      dispatch(createCategorySuccess());
+      dispatch(createDashboardSuccess());
     }).catch(error => {
       console.log(error);
-      dispatch(createCategoryFailure(error));
+      dispatch(createDashboardFailure(error));
     });
   }
 }

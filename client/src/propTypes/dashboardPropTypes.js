@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  category: PropTypes.shape({
+  dashboard: PropTypes.shape({
     user: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     color: PropTypes.number.isRequired,

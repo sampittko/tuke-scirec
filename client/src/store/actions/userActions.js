@@ -1,7 +1,7 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { timeouts } from '../../config/app/ui';
-import { category } from '../../config/app/';
+import { dashboard } from '../../config/app/';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
@@ -86,7 +86,7 @@ export const register = newUser => {
     const firebase = getFirebase();
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
     let newRegisteredUserId = '';
 
     firebase.auth()
@@ -95,18 +95,18 @@ export const register = newUser => {
         newUser.password
     ).then(result => {
       newRegisteredUserId = result.user.uid;
-      return categoriesRef
+      return dashboardsRef
         .add({
           user: usersRef.doc(newRegisteredUserId),
-          name: category.defaults.TITLE,
-          color: category.defaults.COLOR,
+          name: dashboard.defaults.TITLE,
+          color: dashboard.defaults.COLOR,
           created: new Date()
         })
     }).then(result => {
       return usersRef
         .doc(newRegisteredUserId).set({
           email: newUser.email,
-          defaultCategory: categoriesRef.doc(result.id)
+          defaultDashboard: dashboardsRef.doc(result.id)
         })
     }).then(() => {
       setTimeout(() => {

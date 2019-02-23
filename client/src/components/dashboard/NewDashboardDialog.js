@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { FormControl, Dialog, DialogTitle, DialogContent, Input, DialogActions, Button, InputAdornment, DialogContentText, InputLabel, Checkbox, FormControlLabel } from '@material-ui/core';
-import { category } from '../../../config/app';
+import { dashboard } from '../../config/app';
 import { connect } from 'react-redux';
-import './NewCategoryDialog.scss';
+import './NewDashboardDialog.scss';
 
-class NewCategoryDialog extends React.Component {
+class NewDashboardDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ class NewCategoryDialog extends React.Component {
   }
 
   handleNameChange = event => {
-    if (this.state.name.length !== category.MAX_LENGTH || event.target.value.length < category.MAX_LENGTH) {
+    if (this.state.name.length !== dashboard.MAX_LENGTH || event.target.value.length < dashboard.MAX_LENGTH) {
       this.setState({
         name: event.target.value
       });
@@ -31,20 +31,19 @@ class NewCategoryDialog extends React.Component {
   render() {
     return (
       <Dialog open={this.props.open}>
-        <DialogTitle>Vytvorenie novej kategórie</DialogTitle>
+        <DialogTitle>Vytvorenie novej nástenky</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pre vytvorenie novej kategórie zadajte nižšie jej názov pričom jeho dĺžka musí byť od {category.MIN_LENGTH} do {category.MAX_LENGTH} znakov. Maximálny počet kategórií je {category.MAX_COUNT}.
+            Pre vytvorenie novej nástenky zadajte nižšie jej názov pričom jeho dĺžka musí byť od {dashboard.MIN_LENGTH} do {dashboard.MAX_LENGTH} znakov. Maximálny počet násteniek je {dashboard.MAX_COUNT}.
           </DialogContentText>
           <FormControl>
             <InputLabel>
-              Názov kategórie
+              Názov nástenky
             </InputLabel>
             <Input
               autoFocus
               value={this.state.name}
-              margin="dense"
-              endAdornment={<InputAdornment position="end">{this.state.name.length}/{category.MAX_LENGTH}</InputAdornment>}
+              endAdornment={<InputAdornment position="end">{this.state.name.length}/{dashboard.MAX_LENGTH}</InputAdornment>}
               type="text"
               fullWidth
               onChange={this.handleNameChange}
@@ -59,7 +58,7 @@ class NewCategoryDialog extends React.Component {
                 color="primary"
               />
             }
-            label="Nastaviť ako predvolenú kategóriu"
+            label="Nastaviť ako predvolenú nástenku"
           />
         </DialogContent>
         <DialogActions>
@@ -71,9 +70,9 @@ class NewCategoryDialog extends React.Component {
             Zrušiť
           </Button>
           <Button
-            onClick={() => this.props.createCategory(this.state)}
+            onClick={() => this.props.createDashboard(this.state)}
             color="secondary"
-            disabled={this.state.name.length < category.MIN_LENGTH || this.props.isLoading}
+            disabled={this.state.name.length < dashboard.MIN_LENGTH || this.props.isLoading}
           >
             Vytvoriť
           </Button>
@@ -83,11 +82,11 @@ class NewCategoryDialog extends React.Component {
   }
 }
 
-NewCategoryDialog.propTypes = {
+NewDashboardDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
   isLoading: propTypes.bool.isRequired,
-  createCategory: propTypes.func.isRequired
+  createDashboard: propTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
@@ -96,4 +95,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(NewCategoryDialog);
+export default connect(mapStateToProps)(NewDashboardDialog);

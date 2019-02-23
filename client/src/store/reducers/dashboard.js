@@ -3,7 +3,7 @@ import actionTypes from '../actionTypes';
 const _initialState = {
   isLoading: false,
   data: {
-    categories: null,
+    dashboards: null,
     projects: null
   },
   error: null
@@ -11,50 +11,50 @@ const _initialState = {
 
 const dashboard = (state = _initialState, action) => {
   switch (action.type) {
-    case actionTypes.CREATE_CATEGORY_REQUEST:
-      console.log(actionTypes.CREATE_CATEGORY_REQUEST);
+    case actionTypes.CREATE_DASHBOARD_REQUEST:
+      console.log(actionTypes.CREATE_DASHBOARD_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
-    case actionTypes.CREATE_CATEGORY_SUCCESS:
-      console.log(actionTypes.CREATE_CATEGORY_SUCCESS);
+    case actionTypes.CREATE_DASHBOARD_SUCCESS:
+      console.log(actionTypes.CREATE_DASHBOARD_SUCCESS);
       return {
         ...state,
         isLoading: false,
         error: null
       };
 
-    case actionTypes.CREATE_CATEGORY_FAILURE:
-      console.log(actionTypes.CREATE_CATEGORY_FAILURE);
+    case actionTypes.CREATE_DASHBOARD_FAILURE:
+      console.log(actionTypes.CREATE_DASHBOARD_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       };
 
-    case actionTypes.GET_CATEGORIES_REQUEST:
-      console.log(actionTypes.GET_CATEGORIES_REQUEST);
+    case actionTypes.GET_DASHBOARDS_REQUEST:
+      console.log(actionTypes.GET_DASHBOARDS_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
-    case actionTypes.GET_CATEGORIES_SUCCESS:
-      console.log(actionTypes.GET_CATEGORIES_SUCCESS);
+    case actionTypes.GET_DASHBOARDS_SUCCESS:
+      console.log(actionTypes.GET_DASHBOARDS_SUCCESS);
       return {
         ...state,
         data: {
-          categories: action.categories.map(category => category.data()),
+          dashboards: action.dashboards.map(dashboard => dashboard.data()),
           projects: state.data.projects
         },
         isLoading: false,
         error: null
       };
 
-    case actionTypes.GET_CATEGORIES_FAILURE:
-      console.log(actionTypes.GET_CATEGORIES_FAILURE);
+    case actionTypes.GET_DASHBOARDS_FAILURE:
+      console.log(actionTypes.GET_DASHBOARDS_FAILURE);
       return {
         ...state,
         isLoading: false,

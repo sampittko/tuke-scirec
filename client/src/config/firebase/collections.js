@@ -2,8 +2,8 @@ const firestoreCollections = {
   USERS: {
     ID: 'users'
   },
-  CATEGORIES: {
-    ID: 'categories',
+  DASHBOARDS: {
+    ID: 'dashboards',
     fields: {
       USER: 'user'
     }

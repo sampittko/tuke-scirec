@@ -14,7 +14,7 @@ class NewProject extends React.Component {
     this.state = {
       activeStep: 0,
       title: '',
-      category: 0
+      dashboard: 0
     }
   }
 
@@ -64,7 +64,7 @@ class NewProject extends React.Component {
             select
             label="Kategória projektu"
             value={0}
-            name="category"
+            name="dashboard"
             margin="normal"
             variant="outlined"
           >
