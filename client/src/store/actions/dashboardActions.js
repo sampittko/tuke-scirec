@@ -3,6 +3,35 @@ import firestoreCollections from '../../config/firebase/collections';
 import { category } from '../../config/app/';
 import { appErrorCodes } from '../../config/app/errorCodes';
 
+const getCategoriesFailure = () => ({
+  type: actionTypes.GET_CATEGORIES_FAILURE
+})
+
+const getCategoriesSuccess = result => ({
+  type: actionTypes.GET_CATEGORIES_SUCCESS,
+  categories: result.docs
+})
+
+const getCategoriesRequest = () => ({
+  type: actionTypes.GET_CATEGORIES_REQUEST
+})
+
+export const getCategories = currentUserId => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(getCategoriesRequest());
+    const firestore = getFirestore();
+    firestore.collection(firestoreCollections.CATEGORIES.ID)
+      .where(firestoreCollections.CATEGORIES.fields.USER, "==", currentUserId)
+      .get()
+    .then(result => {
+      dispatch(getCategoriesSuccess(result));
+    }).catch(error => {
+      console.log(error);
+      dispatch(getCategoriesFailure());
+    });
+  }
+}
+
 const createCategoryFailure = () => ({
   type: actionTypes.CREATE_CATEGORY_FAILURE
 })
@@ -20,35 +49,17 @@ export const createCategory = newCategory => {
     dispatch(createCategoryRequest());
 
     const firestore = getFirestore();
-    const usersRef = firestore.collection(firestoreCollections.USERS);
-    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES);
+    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES.ID);
     const currentUserId = getState().user.data.id;
-    let createdCategoryId = '';
-    let currentUserCategories = [];
 
-    usersRef
-      .doc(currentUserId).get()
-    .then(result => {
-      currentUserCategories = result.data().categories;
-      return currentUserCategories.length >= category.MAX_COUNT ? (
-          Promise.reject(appErrorCodes.category.COUNT_MAX_REACHED)
-        ) : (
-        categoriesRef
-          .add({
-            user: currentUserId,
-            name: newCategory.name,
-            color: category.defaults.COLOR,
-            default: newCategory.default,
-            projects: [],
-            created: new Date()
-          })
-        )
-    }).then(result => {
-      createdCategoryId = result.id;
-      return usersRef
-        .doc(currentUserId).update({
-          categories: [...currentUserCategories, categoriesRef.doc(createdCategoryId)]
-        })
+    categoriesRef
+      .add({
+        user: currentUserId,
+        name: newCategory.name,
+        color: category.defaults.COLOR,
+        default: newCategory.default,
+        projects: [],
+        created: new Date()
     }).then(() => {
       dispatch(createCategorySuccess());
     }).catch(error => {

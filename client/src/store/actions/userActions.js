@@ -85,8 +85,8 @@ export const register = newUser => {
 
     const firebase = getFirebase();
     const firestore = getFirestore();
-    const usersRef = firestore.collection(firestoreCollections.USERS);
-    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES);
+    const usersRef = firestore.collection(firestoreCollections.USERS.ID);
+    const categoriesRef = firestore.collection(firestoreCollections.CATEGORIES.ID);
     let newRegisteredUserId = '';
 
     firebase.auth()
@@ -97,8 +97,7 @@ export const register = newUser => {
       newRegisteredUserId = result.user.uid;
       return usersRef
         .doc(newRegisteredUserId).set({
-          email: newUser.email,
-          categories: []
+          email: newUser.email
         })
     }).then(() => {
       return categoriesRef
@@ -107,13 +106,7 @@ export const register = newUser => {
           name: category.defaults.TITLE,
           color: category.defaults.COLOR,
           default: category.defaults.DEFAULT,
-          projects: [],
           created: new Date()
-        })
-    }).then(result => {
-      return usersRef
-        .doc(newRegisteredUserId).update({
-          categories: [categoriesRef.doc(result.id)]
         })
     }).then(() => {
       setTimeout(() => {

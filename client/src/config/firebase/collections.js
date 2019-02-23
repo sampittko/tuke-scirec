@@ -1,6 +1,13 @@
 const firestoreCollections = {
-  USERS: 'users',
-  CATEGORIES: 'categories'
+  USERS: {
+    ID: 'users'
+  },
+  CATEGORIES: {
+    ID: 'categories',
+    fields: {
+      USER: 'user'
+    }
+  }
 }
 
 export default firestoreCollections;
