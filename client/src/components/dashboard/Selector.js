@@ -13,7 +13,8 @@ class Selector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedDashboard: 0
+      selected: props.defaultDashboard ? props.defaultDashboard.created.seconds : 0,
+      previous: 0
     }
   }
 
@@ -21,22 +22,25 @@ class Selector extends React.Component {
     this.props.getDashboards(this.props.user.id);
   }
 
-  handleClick = () => {
-    this.setState({
-      selectedDashboard: 0
-    });
+  handleClick = (event, newDashboard) => {
+    if (newDashboard) {
+      this.handleClick();
+      this.props.createDashboard(newDashboard);
+      this.props.getDashboards(this.props.user.id);
+    }
+    else {
+      this.setState({
+        selected: this.state.previous,
+        previous: dashboardConfig.MAX_COUNT
+      });
+    }
   }
 
   handleChange = event => {
     this.setState({
-      selectedDashboard: event.target.value
+      selected: event.target.value,
+      previous: this.state.selected
     });
-  }
-
-  createDashboard = newDashboard => {
-    this.handleClick();
-    this.props.createDashboard(newDashboard);
-    this.props.getDashboards(this.props.user.id);
   }
 
   render() {
@@ -44,29 +48,31 @@ class Selector extends React.Component {
       <div>
         {this.props.dashboards && !this.props.isDashboardLoading && (
           <div className="selector">
-              <FormControl>
-                <Select
-                  disableUnderline
-                  value={this.state.selectedDashboard}
-                  onChange={this.handleChange}
-                >
-                  {this.props.dashboards.map((dashboard, i) =>
-                    <MenuItem key={i} value={i}>
-                      {dashboard.name}
-                    </MenuItem>
-                  )}
-                  <MenuItem 
-                    value={dashboardConfig.MAX_COUNT}
-                    disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
+            <FormControl>
+              <Select
+                disableUnderline
+                value={this.state.selected}
+                onChange={this.handleChange}
+              >
+                {this.props.dashboards.map((dashboard, i) =>
+                  <MenuItem
+                    key={i}
+                    value={dashboard.created.seconds}
                   >
-                    Nová nástenka
+                    {dashboard.name}
                   </MenuItem>
-                </Select>
-              </FormControl>
+                )}
+                <MenuItem 
+                  value={dashboardConfig.MAX_COUNT}
+                  disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
+                >
+                  Nová nástenka
+                </MenuItem>
+              </Select>
+            </FormControl>
             <NewDashboardDialog
-              open={this.state.selectedDashboard === dashboardConfig.MAX_COUNT}
-              createDashboard={newDashboard => this.createDashboard(newDashboard)}
-              onClick={this.handleClick}
+              open={this.state.selected === dashboardConfig.MAX_COUNT}
+              onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
             />
           </div>
         )}
@@ -80,6 +86,7 @@ Selector.propTypes = {
   getDashboards: propTypes.func.isRequired,
   user: userPropTypes.user.isRequired,
   dashboards: propTypes.array,
+  defaultDashboard: propTypes.object,
   isDashboardLoading: propTypes.bool.isRequired
 }
 
@@ -94,7 +101,8 @@ const mapStateToProps = state => {
   return {
     user: state.user.data,
     dashboards: state.dashboard.data.dashboards,
-    isDashboardLoading: state.dashboard.isLoading
+    isDashboardLoading: state.dashboard.isLoading,
+    defaultDashboard: state.dashboard.data.defaultDashboard
   }
 }
 

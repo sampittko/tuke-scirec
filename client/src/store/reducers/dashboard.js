@@ -47,7 +47,9 @@ const dashboard = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          dashboards: action.dashboards.map(dashboard => dashboard.data()),
+          dashboards: action.dashboards
+            .map(dashboard => dashboard.data())
+            .sort((dashboard1, dashboard2) => dashboard2.created.seconds - dashboard1.created.seconds),
           projects: state.data.projects,
           defaultDashboard: action.dashboards.filter(dashboard => dashboard.id === action.defaultDashboardId)[0].data()
         },
