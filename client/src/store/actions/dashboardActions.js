@@ -1,7 +1,41 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { dashboardConfig } from '../../config/app/';
-import { appErrorCodes } from '../../config/app/errorCodes';
+
+const getDefaultDashboardFailure = error => ({
+  type: actionTypes.GET_DEFAULT_DASHBOARD_FAILURE,
+  error
+})
+
+const getDefaultDashboardSuccess = result => ({
+  type: actionTypes.GET_DEFAULT_DASHBOARD_SUCCESS,
+  defaultDashboard: result.data()
+})
+
+const getDefaultDashboardRequest = () => ({
+  type: actionTypes.GET_DEFAULT_DASHBOARD_REQUEST
+})
+
+export const getDefaultDashboard = currentUserId => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(getDefaultDashboardRequest());
+
+    const firestore = getFirestore();
+    const usersRef = firestore.collection(firestoreCollections.USERS.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
+
+    usersRef
+      .doc(currentUserId).get()
+      .then(result => {
+        return dashboardsRef
+          .doc(result.data().defaultDashboard.id).get()
+      }).then(result => {
+        dispatch(getDefaultDashboardSuccess(result));
+      }).catch(error => {
+        console.log(error);
+        dispatch(getDefaultDashboardFailure(error));
+      });
+  }
+}
 
 const getDashboardsFailure = error => ({
   type: actionTypes.GET_DASHBOARDS_FAILURE,
@@ -10,7 +44,8 @@ const getDashboardsFailure = error => ({
 
 const getDashboardsSuccess = result => ({
   type: actionTypes.GET_DASHBOARDS_SUCCESS,
-  dashboards: result.docs
+  dashboards: result.dashboards,
+  defaultDashboardId: result.defaultDashboardId
 })
 
 const getDashboardsRequest = () => ({
@@ -24,12 +59,22 @@ export const getDashboards = currentUserId => {
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.USERS.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
+    let defaultDashboardId = null;
 
-    dashboardsRef
-      .where(firestoreCollections.DASHBOARDS.fields.USER, "==", usersRef.doc(currentUserId))
-      .get()
+    usersRef
+      .doc(currentUserId).get()
     .then(result => {
-      dispatch(getDashboardsSuccess(result));
+      defaultDashboardId = result.data().defaultDashboard.id;
+      return dashboardsRef
+        .where(firestoreCollections.DASHBOARDS.fields.USER, "==", usersRef.doc(currentUserId))
+        .get()
+      })
+    .then(result => {
+      dispatch(getDashboardsSuccess({
+          dashboards: result.docs,
+          defaultDashboardId
+        })
+      );
     }).catch(error => {
       console.log(error);
       dispatch(getDashboardsFailure(error));
@@ -63,7 +108,7 @@ export const createDashboard = newDashboard => {
       .add({
         user: usersRef.doc(currentUserId),
         name: newDashboard.name,
-        color: dashboardConfig.defaults.COLOR,
+        color: newDashboard.color,
         created: new Date()
     }).then(result => {
       if (newDashboard.default) {

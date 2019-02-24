@@ -63,14 +63,14 @@ class NewDashboardDialog extends React.Component {
           <Button
             onClick={this.props.onClick}
             color="primary"
-            disabled={this.props.isLoading}
+            disabled={this.props.isDashboardLoading}
           >
             Zrušiť
           </Button>
           <Button
             onClick={() => this.props.createDashboard(this.state)}
             color="secondary"
-            disabled={this.state.name.length < dashboardConfig.MIN_LENGTH || this.props.isLoading}
+            disabled={this.state.name.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}
           >
             Vytvoriť
           </Button>
@@ -83,13 +83,13 @@ class NewDashboardDialog extends React.Component {
 NewDashboardDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
-  isLoading: propTypes.bool.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   createDashboard: propTypes.func.isRequired
 }
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.dashboard.isLoading
+    isDashboardLoading: state.dashboard.isLoading
   }
 }
 

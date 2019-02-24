@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import userPropTypes from '../../propTypes/userPropTypes';
-import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboards } from '../../store/actions/dashboardActions';
 import { dashboardConfig } from '../../config/app';
 import { connect } from 'react-redux';
@@ -43,7 +42,7 @@ class Selector extends React.Component {
   render() {
     return (
       <div>
-        {this.props.dashboards && !this.props.isLoading && (
+        {this.props.dashboards && !this.props.isDashboardLoading && (
           <div className="selector">
               <FormControl>
                 <Select
@@ -77,10 +76,11 @@ class Selector extends React.Component {
 }
 
 Selector.propTypes = {
+  createDashboard: propTypes.func.isRequired,
   getDashboards: propTypes.func.isRequired,
   user: userPropTypes.user.isRequired,
   dashboards: propTypes.array,
-  isLoading: propTypes.bool.isRequired
+  isDashboardLoading: propTypes.bool.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -94,7 +94,7 @@ const mapStateToProps = state => {
   return {
     user: state.user.data,
     dashboards: state.dashboard.data.dashboards,
-    isLoading: state.dashboard.isLoading
+    isDashboardLoading: state.dashboard.isLoading
   }
 }
 

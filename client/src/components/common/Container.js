@@ -11,7 +11,7 @@ const Container = props =>
   <Grid container>
     <Grid item xs={12}>
       <Appbar location={props.location} />
-      {props.isLoading &&
+      {props.isAppLoading &&
         <Fade
           in
           timeout={timeouts.FADE_IN}
@@ -29,14 +29,14 @@ const Container = props =>
   </Grid>;
 
 Container.propTypes = {
-  isLoading: propTypes.bool.isRequired,
+  isAppLoading: propTypes.bool.isRequired,
   children: propTypes.array.isRequired,
   location: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => {
   return {
-    isLoading: state.user.isLoading || state.dashboard.isLoading
+    isAppLoading: state.user.isLoading || state.dashboard.isLoading
   }
 }
 

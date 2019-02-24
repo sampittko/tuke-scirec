@@ -130,12 +130,12 @@ class Register extends React.Component {
                 type="submit"
                 variant="contained"
                 color="primary"
-                disabled={!this.matchingPasswords() || this.props.isLoading}
+                disabled={!this.matchingPasswords() || this.props.isUserLoading}
               >
                 Registrovať
               </Button>
             </div>
-            {(this.formSubmitted && this.props.errorCode === '' && !this.props.isLoading) && (
+            {(this.formSubmitted && this.props.errorCode === '' && !this.props.isUserLoading) && (
               <Redirect
                 to={{
                   pathname: routes.user.login,
@@ -157,7 +157,7 @@ class Register extends React.Component {
 Register.propTypes = {
   register: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
-  isLoading: propTypes.bool.isRequired,
+  isUserLoading: propTypes.bool.isRequired,
   errorCode: propTypes.string.isRequired
 }
 
@@ -170,7 +170,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isAuth: state.user.data !== null,
-    isLoading: state.user.isLoading,
+    isUserLoading: state.user.isLoading,
     errorCode: state.user.error ? state.user.error.code : ''
   }
 }

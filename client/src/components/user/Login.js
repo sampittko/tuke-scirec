@@ -78,13 +78,13 @@ class Login extends React.Component {
             />
             <div className="action-buttons">
               <Button
-                disabled={this.props.isLoading}
+                disabled={this.props.isUserLoading}
                 onClick={this.handleForgottenPassword}
               >
                 Zabudnuté heslo
               </Button>
               <Button
-                disabled={this.props.isLoading}
+                disabled={this.props.isUserLoading}
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -107,7 +107,7 @@ class Login extends React.Component {
 Login.propTypes = {
   login: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
-  isLoading: propTypes.bool.isRequired,
+  isUserLoading: propTypes.bool.isRequired,
   location: propTypes.object.isRequired,
   error: propTypes.bool.isRequired
 }
@@ -121,7 +121,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isAuth: state.user.data !== null,
-    isLoading: state.user.isLoading,
+    isUserLoading: state.user.isLoading,
     error: state.user.error ? true : false
   }
 }
