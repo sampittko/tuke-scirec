@@ -1,6 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { dashboard } from '../../config/app/';
+import { dashboardConfig } from '../../config/app/';
 import { appErrorCodes } from '../../config/app/errorCodes';
 
 const getDashboardsFailure = error => ({
@@ -63,7 +63,7 @@ export const createDashboard = newDashboard => {
       .add({
         user: usersRef.doc(currentUserId),
         name: newDashboard.name,
-        color: dashboard.defaults.COLOR,
+        color: dashboardConfig.defaults.COLOR,
         created: new Date()
     }).then(result => {
       if (newDashboard.default) {

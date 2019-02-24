@@ -1,7 +1,7 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { timeouts } from '../../config/app/ui';
-import { dashboard } from '../../config/app/';
+import { dashboardConfig } from '../../config/app/';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
@@ -98,8 +98,8 @@ export const register = newUser => {
       return dashboardsRef
         .add({
           user: usersRef.doc(newRegisteredUserId),
-          name: dashboard.defaults.TITLE,
-          color: dashboard.defaults.COLOR,
+          name: dashboardConfig.defaults.TITLE,
+          color: dashboardConfig.defaults.COLOR,
           created: new Date()
         })
     }).then(result => {

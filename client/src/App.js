@@ -2,7 +2,7 @@ import React from 'react';
 import routes from './config/app/routes';
 import propTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { SCIREC_THEME } from './config/app/theme';
+import { getAppTheme } from './config/app/themes';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -30,7 +30,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
 
 const App = props => 
   <Router basename={window.basename}>
-    <MuiThemeProvider theme={SCIREC_THEME}>
+    <MuiThemeProvider theme={getAppTheme(props.themeColor)}>
       <Container>
         <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={props.isAuth} />
         <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={props.isAuth} />
@@ -42,12 +42,13 @@ const App = props =>
   </Router>;
 
 App.propTypes = {
-  isAuth: propTypes.bool.isRequired
+  isAuth: propTypes.bool.isRequired,
+  themeColor: propTypes.number.isRequired
 }
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.data !== null
+    isAuth: state.user.data !== null,
   }
 }
 

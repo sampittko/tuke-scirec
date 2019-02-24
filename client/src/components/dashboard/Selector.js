@@ -3,11 +3,11 @@ import propTypes from 'prop-types';
 import userPropTypes from '../../propTypes/userPropTypes';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboards } from '../../store/actions/dashboardActions';
-import { dashboard } from '../../config/app';
+import { dashboardConfig } from '../../config/app';
 import { connect } from 'react-redux';
 import { createDashboard } from '../../store/actions/dashboardActions';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
-import NewDashboardDialog from './NewDashboardDialog';
+import NewDashboardDialog from './dialog/NewDashboardDialog';
 import './Selector.scss';
 
 class Selector extends React.Component {
@@ -57,15 +57,15 @@ class Selector extends React.Component {
                     </MenuItem>
                   )}
                   <MenuItem 
-                    value={dashboard.MAX_COUNT}
-                    disabled={this.props.dashboards.length === dashboard.MAX_COUNT}
+                    value={dashboardConfig.MAX_COUNT}
+                    disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
                   >
                     Nová nástenka
                   </MenuItem>
                 </Select>
               </FormControl>
             <NewDashboardDialog
-              open={this.state.selectedDashboard === dashboard.MAX_COUNT}
+              open={this.state.selectedDashboard === dashboardConfig.MAX_COUNT}
               createDashboard={newDashboard => this.createDashboard(newDashboard)}
               onClick={this.handleClick}
             />
