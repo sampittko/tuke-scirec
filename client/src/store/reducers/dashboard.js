@@ -1,12 +1,15 @@
 import actionTypes from '../actionTypes';
 
 const _initialState = {
-  isLoading: false,
   data: {
-    dashboards: null,
-    projects: null,
-    defaultDashboard: null
+    list: [],
+    default: null
   },
+  selector: {
+    active: null,
+    previous: null
+  },
+  isLoading: false,
   error: null
 };
 
@@ -47,11 +50,10 @@ const dashboard = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          dashboards: action.dashboards
+          list: action.dashboards
             .map(dashboard => dashboard.data())
             .sort((dashboard1, dashboard2) => dashboard2.created.seconds - dashboard1.created.seconds),
-          projects: state.data.projects,
-          defaultDashboard: action.dashboards.filter(dashboard => dashboard.id === action.defaultDashboardId)[0].data()
+          default: action.dashboards.filter(dashboard => dashboard.id === action.defaultDashboardId)[0].data()
         },
         isLoading: false,
         error: null
@@ -76,12 +78,11 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.GET_DEFAULT_DASHBOARD_SUCCESS);
       return {
         ...state,
-        isLoading: false,
         data: {
-          dashboards: state.data.dashboards,
-          projects: state.data.projects,
-          defaultDashboard: action.defaultDashboard
+          list: state.list,
+          default: action.defaultDashboard
         },
+        isLoading: false,
         error: null
       };
 

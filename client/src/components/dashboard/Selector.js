@@ -87,7 +87,7 @@ Selector.propTypes = {
   user: userPropTypes.user.isRequired,
   dashboards: propTypes.array,
   defaultDashboard: propTypes.object,
-  isDashboardLoading: propTypes.bool.isRequired
+  isDashboardLoading: propTypes.bool.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
@@ -100,9 +100,9 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     user: state.user.data,
-    dashboards: state.dashboard.data.dashboards,
+    dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
-    defaultDashboard: state.dashboard.data.defaultDashboard
+    defaultDashboard: state.dashboard.data.default,
   }
 }
 

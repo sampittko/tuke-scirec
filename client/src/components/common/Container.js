@@ -12,10 +12,7 @@ const Container = props =>
     <Grid item xs={12}>
       <Appbar location={props.location} />
       {props.isAppLoading &&
-        <Fade
-          in
-          timeout={timeouts.FADE_IN}
-        >
+        <Fade in timeout={timeouts.FADE_IN}>
           <LinearProgress
             color="secondary"
             variant="indeterminate"
