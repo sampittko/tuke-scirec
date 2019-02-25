@@ -85,7 +85,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 const mapStateToProps = state => {
-  console.log(state.dashboard.selector.activeId);
   return {
     user: state.user.data,
     dashboards: state.dashboard.data.list,

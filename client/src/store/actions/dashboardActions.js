@@ -92,6 +92,11 @@ const createDashboardSuccess = created => ({
   activeId: created.getTime()
 })
 
+const addCreatedDashboard = createdDashboard => ({
+  type: actionTypes.ADD_CREATED_DASHBOARD,
+  createdDashboard
+})
+
 const createDashboardRequest = () => ({
   type: actionTypes.CREATE_DASHBOARD_REQUEST
 })
@@ -104,15 +109,17 @@ export const createDashboard = newDashboard => {
     const usersRef = firestore.collection(firestoreCollections.USERS.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
     const currentUserId = getState().user.data.id;
-    let created = new Date();
+
+    const createdDashboard = {
+      user: usersRef.doc(currentUserId),
+      name: newDashboard.name,
+      color: newDashboard.color,
+      created: new Date()
+    }
 
     dashboardsRef
-      .add({
-        user: usersRef.doc(currentUserId),
-        name: newDashboard.name,
-        color: newDashboard.color,
-        created
-    }).then(result => {
+      .add(createdDashboard)
+    .then(result => {
       if (newDashboard.default) {
         return usersRef.doc(currentUserId)
           .update({
@@ -122,12 +129,12 @@ export const createDashboard = newDashboard => {
       else {
         return Promise.resolve();
       }
+    }).then(() => {
+      dispatch(addCreatedDashboard(createdDashboard));
+      return Promise.resolve();
     })
-    // .then(() => {
-    // TODO getDashboards
-    // })
     .then(() => {
-      dispatch(createDashboardSuccess(created));
+      dispatch(createDashboardSuccess(createdDashboard.created));
     }).catch(error => {
       console.log(error);
       dispatch(createDashboardFailure(error));

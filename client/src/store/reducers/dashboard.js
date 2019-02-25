@@ -23,14 +23,25 @@ const dashboard = (state = _initialState, action) => {
         isLoading: true
       };
 
+    case actionTypes.ADD_CREATED_DASHBOARD:
+      console.log(actionTypes.ADD_CREATED_DASHBOARD);
+      return {
+        ...state,
+        data: {
+          list: [
+            ...state.data.list,
+            action.createdDashboard
+          ].sort((dashboard1, dashboard2) => dashboard2.created.seconds - dashboard1.created.seconds),
+          default: state.data.defaultDashboard
+        },
+      }
+
     case actionTypes.CREATE_DASHBOARD_SUCCESS:
       console.log(actionTypes.CREATE_DASHBOARD_SUCCESS);
-      console.log(state.data.list);
-      console.log(action.activeId);
       return {
         ...state,
         selector: {
-          active: state.data.list.filter(dashboard => dashboard.created.seconds === action.activeId)[0],
+          active: state.data.list.find(dashboard => dashboard.created.seconds === action.activeId),
           activeId: action.activeId,
           previousId: state.selector.activeId
         },
@@ -55,7 +66,7 @@ const dashboard = (state = _initialState, action) => {
 
     case actionTypes.GET_DASHBOARDS_SUCCESS:
       console.log(actionTypes.GET_DASHBOARDS_SUCCESS);
-      const defaultDashboard = action.dashboards.filter(dashboard => dashboard.id === action.defaultDashboardId)[0].data();
+      const defaultDashboard = action.dashboards.find(dashboard => dashboard.id === action.defaultDashboardId).data();
       return {
         ...state,
         data: {
@@ -114,9 +125,9 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: action.activeId ? (
-            state.data.list.filter(dashboard => dashboard.created.seconds === action.activeId)[0]
+            state.data.list.find(dashboard => dashboard.created.seconds === action.activeId)
             ) : (
-              state.data.list.filter(dashboard => dashboard.created.seconds === state.selector.previousId)[0]
+              state.data.list.find(dashboard => dashboard.created.seconds === state.selector.previousId)
             ),
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId
