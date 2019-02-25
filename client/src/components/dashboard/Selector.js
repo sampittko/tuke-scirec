@@ -4,43 +4,28 @@ import userPropTypes from '../../propTypes/userPropTypes';
 import { getDashboards } from '../../store/actions/dashboardActions';
 import { dashboardConfig } from '../../config/app';
 import { connect } from 'react-redux';
-import { createDashboard } from '../../store/actions/dashboardActions';
+import { createDashboard, changeDashboard } from '../../store/actions/dashboardActions';
 import { FormControl, Select, MenuItem } from '@material-ui/core';
 import NewDashboardDialog from './dialog/NewDashboardDialog';
 import './Selector.scss';
 
 class Selector extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: props.defaultDashboard ? props.defaultDashboard.created.seconds : 0,
-      previous: 0
-    }
-  }
-
   componentDidMount() {
     this.props.getDashboards(this.props.user.id);
   }
 
   handleClick = (event, newDashboard) => {
     if (newDashboard) {
-      this.handleClick();
+      this.props.changeDashboard();
       this.props.createDashboard(newDashboard);
-      this.props.getDashboards(this.props.user.id);
     }
     else {
-      this.setState({
-        selected: this.state.previous,
-        previous: dashboardConfig.MAX_COUNT
-      });
+      this.props.changeDashboard();
     }
   }
 
   handleChange = event => {
-    this.setState({
-      selected: event.target.value,
-      previous: this.state.selected
-    });
+    this.props.changeDashboard(event.target.value);
   }
 
   render() {
@@ -51,7 +36,7 @@ class Selector extends React.Component {
             <FormControl>
               <Select
                 disableUnderline
-                value={this.state.selected}
+                value={this.props.activeDashboardId}
                 onChange={this.handleChange}
               >
                 {this.props.dashboards.map((dashboard, i) =>
@@ -71,7 +56,7 @@ class Selector extends React.Component {
               </Select>
             </FormControl>
             <NewDashboardDialog
-              open={this.state.selected === dashboardConfig.MAX_COUNT}
+              open={this.props.activeDashboardId === dashboardConfig.MAX_COUNT}
               onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
             />
           </div>
@@ -88,21 +73,25 @@ Selector.propTypes = {
   dashboards: propTypes.array,
   defaultDashboard: propTypes.object,
   isDashboardLoading: propTypes.bool.isRequired,
+  activeDashboardId: propTypes.number,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     createDashboard: newDashboard => dispatch(createDashboard(newDashboard)),
-    getDashboards: userId => dispatch(getDashboards(userId))
+    getDashboards: userId => dispatch(getDashboards(userId)),
+    changeDashboard: newActive => dispatch(changeDashboard(newActive))
   }
 }
 
 const mapStateToProps = state => {
+  console.log(state.dashboard.selector.activeId);
   return {
     user: state.user.data,
     dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
     defaultDashboard: state.dashboard.data.default,
+    activeDashboardId: state.dashboard.selector.activeId,
   }
 }
 
