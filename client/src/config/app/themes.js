@@ -1,4 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import { dashboardConfig } from '.';
 
 const SCIREC_CUSTOM_THEME_1 = createMuiTheme({
   typography: {
@@ -48,12 +49,12 @@ const LOADING_THEME = createMuiTheme({
   },
 });
 
-export const getAppTheme = (dashboard, isAuth, isDashboardLoading) => {
+export const getAppTheme = (dashboard, isAuth, isDashboardLoading, colorPicker) => {
   if ((isAuth && !dashboard) || isDashboardLoading) {
     return LOADING_THEME;
   }
   else if (isAuth && dashboard) {
-    switch (dashboard.color) {
+    switch (dashboard === dashboardConfig.MAX_COUNT ? colorPicker : dashboard.color) {
       case 0:
         return SCIREC_THEME;
       case 1:

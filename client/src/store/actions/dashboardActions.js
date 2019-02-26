@@ -150,3 +150,12 @@ export const changeDashboard = newActiveId => {
     })
   }
 }
+
+export const pickColor = color => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.PICK_COLOR,
+      color
+    })
+  }
+}

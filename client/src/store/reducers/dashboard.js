@@ -1,4 +1,5 @@
 import actionTypes from '../actionTypes';
+import { dashboardConfig } from '../../config/app/';
 
 const _initialState = {
   data: {
@@ -10,9 +11,28 @@ const _initialState = {
     activeId: null,
     previousId: null
   },
+  dialog: {
+    colorPicker: 0
+  },
   isLoading: false,
   error: null
 };
+
+const sortDashboardsByCreated = (dashboard1, dashboard2) => dashboard2.created - dashboard1.created;
+
+const getActiveDashboard = (dashboards, action, selector) => {
+  if (action.activeId !== dashboardConfig.MAX_COUNT) {
+    if (action.activeId) {
+      return dashboards.find(dashboard => dashboard.created === action.activeId);
+    }
+    else {
+      return dashboards.find(dashboard => dashboard.created === selector.previousId);
+    }
+  }
+  else {
+    return dashboardConfig.MAX_COUNT;
+  }
+}
 
 const dashboard = (state = _initialState, action) => {
   switch (action.type) {
@@ -31,7 +51,7 @@ const dashboard = (state = _initialState, action) => {
           list: [
             ...state.data.list,
             action.createdDashboard
-          ].sort((dashboard1, dashboard2) => dashboard2.created - dashboard1.created),
+          ].sort((dashboard1, dashboard2) => sortDashboardsByCreated(dashboard1, dashboard2)),
           default: state.data.defaultDashboard
         },
       }
@@ -72,7 +92,7 @@ const dashboard = (state = _initialState, action) => {
         data: {
           list: action.dashboards
             .map(dashboard => dashboard.data())
-            .sort((dashboard1, dashboard2) => dashboard2.created - dashboard1.created),
+            .sort((dashboard1, dashboard2) => sortDashboardsByCreated(dashboard1, dashboard2)),
           default: defaultDashboard
         },
         selector: {
@@ -124,13 +144,18 @@ const dashboard = (state = _initialState, action) => {
       return {
         ...state,
         selector: {
-          active: action.activeId ? (
-              state.data.list.find(dashboard => dashboard.created === action.activeId)
-            ) : (
-              state.data.list.find(dashboard => dashboard.created === state.selector.previousId)
-            ),
+          active: getActiveDashboard(state.data.list, action, state.selector),
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId
+        }
+      }
+
+    case actionTypes.PICK_COLOR:
+      console.log(actionTypes.PICK_COLOR);
+      return {
+        ...state,
+        dialog: {
+          colorPicker: action.color
         }
       }
 
