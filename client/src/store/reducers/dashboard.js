@@ -11,9 +11,6 @@ const _initialState = {
     activeId: null,
     previousId: null
   },
-  dialog: {
-    colorPicker: 0
-  },
   isLoading: false,
   error: null
 };
@@ -147,15 +144,6 @@ const dashboard = (state = _initialState, action) => {
           active: getActiveDashboard(state.data.list, action, state.selector),
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId
-        }
-      }
-
-    case actionTypes.PICK_COLOR:
-      console.log(actionTypes.PICK_COLOR);
-      return {
-        ...state,
-        dialog: {
-          colorPicker: action.color
         }
       }
 

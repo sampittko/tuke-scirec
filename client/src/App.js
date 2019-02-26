@@ -51,7 +51,7 @@ App.propTypes = {
   isAuth: propTypes.bool.isRequired,
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
-  colorPicker: propTypes.number
+  colorPicker: propTypes.object
 }
 
 const mapStateToProps = state => {
@@ -59,7 +59,7 @@ const mapStateToProps = state => {
     isAuth: state.user.data !== null,
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,
-    colorPicker: state.dashboard.dialog.colorPicker
+    colorPicker: state.colorPicker
   }
 }
 

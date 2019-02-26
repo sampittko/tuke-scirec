@@ -1,30 +1,43 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import userPropTypes from '../../propTypes/userPropTypes';
+import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboards } from '../../store/actions/dashboardActions';
 import { dashboardConfig } from '../../config/app';
 import { connect } from 'react-redux';
 import { createDashboard, changeDashboard } from '../../store/actions/dashboardActions';
-import { FormControl, Select, MenuItem } from '@material-ui/core';
+import { FormControl, Select, MenuItem, Divider } from '@material-ui/core';
 import NewDashboardDialog from './dialog/NewDashboardDialog';
 import './Selector.scss';
 
 class Selector extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: ''
+    }
+  }
+
   componentDidMount() {
     this.props.getDashboards(this.props.user.id);
   }
 
   handleClick = (event, newDashboard) => {
+    this.props.changeDashboard();
     if (newDashboard) {
-      this.props.changeDashboard();
       this.props.createDashboard(newDashboard);
-    }
-    else {
-      this.props.changeDashboard();
     }
   }
 
-  handleChange = event => {
+  handleNameChange = event => {
+    if (this.state.name.length !== dashboardConfig.MAX_LENGTH || event.target.value.length < dashboardConfig.MAX_LENGTH) {
+      this.setState({
+        name: event.target.value
+      });
+    }
+  }
+
+  handleSelectChange = event => {
     this.props.changeDashboard(event.target.value);
   }
 
@@ -37,7 +50,7 @@ class Selector extends React.Component {
               <Select
                 disableUnderline
                 value={this.props.activeDashboardId}
-                onChange={this.handleChange}
+                onChange={this.handleSelectChange}
               >
                 {this.props.dashboards.map((dashboard, i) =>
                   <MenuItem
@@ -47,17 +60,20 @@ class Selector extends React.Component {
                     {dashboard.name}
                   </MenuItem>
                 )}
+                <Divider />
                 <MenuItem 
                   value={dashboardConfig.MAX_COUNT}
                   disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
                 >
-                  Nová nástenka
+                  {this.state.name.length !== 0 && this.props.activeDashboardId === dashboardConfig.MAX_COUNT ? this.state.name : "Nová nástenka"}
                 </MenuItem>
               </Select>
             </FormControl>
             <NewDashboardDialog
+              name={this.state.name}
               open={this.props.activeDashboardId === dashboardConfig.MAX_COUNT}
               onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
+              handleNameChange={this.handleNameChange}
             />
           </div>
         )}
@@ -71,9 +87,9 @@ Selector.propTypes = {
   getDashboards: propTypes.func.isRequired,
   user: userPropTypes.user.isRequired,
   dashboards: propTypes.array,
-  defaultDashboard: propTypes.object,
+  defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: propTypes.bool.isRequired,
-  activeDashboardId: propTypes.number,
+  activeDashboardId: propTypes.number
 }
 
 const mapDispatchToProps = dispatch => {

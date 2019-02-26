@@ -2,25 +2,26 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { FormControl, FormControlLabel, Switch } from '@material-ui/core';
 
-const DefaultSwitch = props =>
+const SwitchComponent = props =>
   <FormControl>
     <FormControlLabel
       control={
         <Switch
-          checked={Boolean(props.default)}
+          checked={Boolean(props.checked)}
           onChange={props.onChange}
-          value={props.default ? "true" : "false"}
+          value={props.checked ? "true" : "false"}
           color="primary"
         />
       }
       labelPlacement="start"
-      label="Nastaviť ako predvolenú nástenku"
+      label={props.label}
     />
   </FormControl>;
 
-DefaultSwitch.propTypes = {
-  default: propTypes.bool.isRequired,
-  onChange: propTypes.func.isRequired
+SwitchComponent.propTypes = {
+  checked: propTypes.bool.isRequired,
+  onChange: propTypes.func.isRequired,
+  label: propTypes.string.isRequired
 }
 
-export default DefaultSwitch;
+export default SwitchComponent;
