@@ -1,7 +1,7 @@
 import React from 'react';
 import { Snackbar } from '@material-ui/core';
 import propTypes from 'prop-types';
-import { timeouts } from '../../config/app/ui';
+import { timeouts } from '../../config/mui';
 
 class Notification extends React.Component {
   constructor(props) {

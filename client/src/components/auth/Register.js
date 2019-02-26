@@ -8,7 +8,7 @@ import routes from '../../config/app/routes';
 import { register } from '../../store/actions/authActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
 import logo from '../../static/media/logo.png';
-import { timeouts } from '../../config/app/ui';
+import { timeouts } from '../../config/mui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Register.scss';
 

@@ -9,7 +9,10 @@ export const dashboardConfig = {
   MAX_LENGTH: 20,
   defaultDashboard: {
     TITLE: "Nástenka 1",
-    THEME: 0,
+    THEME: {
+      ID: 0,
+      INVERTED: false
+    },
     DEFAULT: true
   }
 }

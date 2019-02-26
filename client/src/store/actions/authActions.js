@@ -1,6 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { timeouts } from '../../config/app/ui';
+import { timeouts } from '../../config/mui';
 import { dashboardConfig } from '../../config/app';
 
 const loginFailure = error => ({
@@ -94,7 +94,10 @@ export const register = newUser => {
         .add({
           user: usersRef.doc(newRegisteredUserId),
           name: dashboardConfig.defaultDashboard.TITLE,
-          theme: dashboardConfig.defaultDashboard.THEME,
+          theme: {
+            id: dashboardConfig.defaultDashboard.THEME.ID,
+            inverted: dashboardConfig.defaultDashboard.THEME.INVERTED
+          },
           created: new Date().getTime()
         })
     }).then(result => {

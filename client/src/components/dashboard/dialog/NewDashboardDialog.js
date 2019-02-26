@@ -70,8 +70,10 @@ class NewDashboardDialog extends React.Component {
           <Button
             onClick={event => this.handleClick(event, {
               ...this.state,
-              theme: this.props.themePicker.theme,
-              inverted: this.props.themePicker.inverted
+              theme: {
+                id: this.props.themePicker.theme,
+                inverted: this.props.themePicker.inverted
+              }
             })}
             color="secondary"
             disabled={this.props.name.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}

@@ -7,7 +7,7 @@ import { Redirect } from 'react-router';
 import routes from '../../config/app/routes';
 import logo from '../../static/media/logo.png';
 import Notification from '../common/Notification';
-import { timeouts } from '../../config/app/ui';
+import { timeouts } from '../../config/mui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Login.scss';
 

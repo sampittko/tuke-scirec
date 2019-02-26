@@ -4,7 +4,7 @@ import { Paper, Fade } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 import ProjectsList from './ProjectsList';
 import Fab from '../common/Fab';
-import { timeouts } from '../../config/app/ui';
+import { timeouts } from '../../config/mui';
 import { getDocumentTitle } from '../../config/app/titles';
 import './Dashboard.scss';
 

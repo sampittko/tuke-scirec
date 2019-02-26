@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { dashboardConfig } from '.';
+import { dashboardConfig } from '../app';
 
 const CUSTOM_PALETTE_6 = {
   primary: {
@@ -100,23 +100,23 @@ export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) 
     return createAppTheme(LOADING_PALETTE);
   }
   else if (isAuth && dashboard) {
-    switch (dashboard === dashboardConfig.MAX_COUNT ? themePicker.theme : dashboard.theme) {
+    switch (dashboard === dashboardConfig.MAX_COUNT ? themePicker.theme : dashboard.theme.id) {
       case 0:
-        return createAppTheme(SCIREC_PALETTE, themePicker.inverted);
+        return createAppTheme(SCIREC_PALETTE, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       case 1:
-        return createAppTheme(CUSTOM_PALETTE_1, themePicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_1, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       case 2:
-        return createAppTheme(CUSTOM_PALETTE_2, themePicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_2, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       case 3:
-        return createAppTheme(CUSTOM_PALETTE_3, themePicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_3, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       case 4:
-        return createAppTheme(CUSTOM_PALETTE_4, themePicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_4, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       case 5:
-        return createAppTheme(CUSTOM_PALETTE_5, themePicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_5, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       case 6:
-        return createAppTheme(CUSTOM_PALETTE_6, themePicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_6, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
       default:
-        return createAppTheme(SCIREC_PALETTE, themePicker.inverted);
+        return createAppTheme(SCIREC_PALETTE, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
     }
   }
   else {
