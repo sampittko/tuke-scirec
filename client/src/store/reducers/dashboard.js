@@ -31,7 +31,7 @@ const dashboard = (state = _initialState, action) => {
           list: [
             ...state.data.list,
             action.createdDashboard
-          ].sort((dashboard1, dashboard2) => dashboard2.created.seconds - dashboard1.created.seconds),
+          ].sort((dashboard1, dashboard2) => dashboard2.created - dashboard1.created),
           default: state.data.defaultDashboard
         },
       }
@@ -41,7 +41,7 @@ const dashboard = (state = _initialState, action) => {
       return {
         ...state,
         selector: {
-          active: state.data.list.find(dashboard => dashboard.created.seconds === action.activeId),
+          active: state.data.list.find(dashboard => dashboard.created === action.activeId),
           activeId: action.activeId,
           previousId: state.selector.activeId
         },
@@ -72,12 +72,12 @@ const dashboard = (state = _initialState, action) => {
         data: {
           list: action.dashboards
             .map(dashboard => dashboard.data())
-            .sort((dashboard1, dashboard2) => dashboard2.created.seconds - dashboard1.created.seconds),
+            .sort((dashboard1, dashboard2) => dashboard2.created - dashboard1.created),
           default: defaultDashboard
         },
         selector: {
           active: defaultDashboard,
-          activeId: defaultDashboard.created.seconds,
+          activeId: defaultDashboard.created,
           previousId: null
         },
         isLoading: false,
@@ -125,9 +125,9 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: action.activeId ? (
-            state.data.list.find(dashboard => dashboard.created.seconds === action.activeId)
+              state.data.list.find(dashboard => dashboard.created === action.activeId)
             ) : (
-              state.data.list.find(dashboard => dashboard.created.seconds === state.selector.previousId)
+              state.data.list.find(dashboard => dashboard.created === state.selector.previousId)
             ),
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId

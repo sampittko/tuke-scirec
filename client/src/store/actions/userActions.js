@@ -100,7 +100,7 @@ export const register = newUser => {
           user: usersRef.doc(newRegisteredUserId),
           name: dashboardConfig.defaultDashboard.TITLE,
           color: dashboardConfig.defaultDashboard.COLOR,
-          created: new Date()
+          created: new Date().getTime()
         })
     }).then(result => {
       return usersRef

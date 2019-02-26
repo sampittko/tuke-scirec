@@ -42,7 +42,7 @@ class Selector extends React.Component {
                 {this.props.dashboards.map((dashboard, i) =>
                   <MenuItem
                     key={i}
-                    value={dashboard.created.seconds}
+                    value={dashboard.created}
                   >
                     {dashboard.name}
                   </MenuItem>

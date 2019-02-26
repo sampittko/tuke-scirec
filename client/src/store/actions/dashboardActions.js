@@ -89,7 +89,7 @@ const createDashboardFailure = error => ({
 
 const createDashboardSuccess = created => ({
   type: actionTypes.CREATE_DASHBOARD_SUCCESS,
-  activeId: created.getTime()
+  activeId: created
 })
 
 const addCreatedDashboard = createdDashboard => ({
@@ -111,10 +111,10 @@ export const createDashboard = newDashboard => {
     const currentUserId = getState().user.data.id;
 
     const createdDashboard = {
-      user: usersRef.doc(currentUserId),
-      name: newDashboard.name,
       color: newDashboard.color,
-      created: new Date()
+      created: new Date().getTime(),
+      name: newDashboard.name,
+      user: usersRef.doc(currentUserId)
     }
 
     dashboardsRef
