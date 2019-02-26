@@ -1,62 +1,62 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { pickColor } from '../../../../store/actions/colorPickerActions';
+import { pickTheme } from '../../../../../store/actions/themePickerActions';
 import { Radio, FormControl, FormControlLabel } from '@material-ui/core';
-import './ColorPicker.scss';
+import './ThemePicker.scss';
 
-const ColorPicker = props =>
+const ThemePicker = props =>
   <FormControl>
     <FormControlLabel
       control={
         <div>
           <Radio
             className="scirec-theme"
-            checked={props.selectedColor === 0}
+            checked={props.selectedTheme === 0}
             onChange={props.onChange}
-            onClick={() => props.pickColor(0)}
+            onClick={() => props.pickTheme(0)}
             value={0}
           />
           <Radio
             className="scirec-custom-theme-1"
-            checked={props.selectedColor === 1}
+            checked={props.selectedTheme === 1}
             onChange={props.onChange}
-            onClick={() => props.pickColor(1)}
+            onClick={() => props.pickTheme(1)}
             value={1}
           />
           <Radio
             className="scirec-custom-theme-2"
-            checked={props.selectedColor === 2}
+            checked={props.selectedTheme === 2}
             onChange={props.onChange}
-            onClick={() => props.pickColor(2)}
+            onClick={() => props.pickTheme(2)}
             value={2}
           />
           <Radio
             className="scirec-custom-theme-3"
-            checked={props.selectedColor === 3}
+            checked={props.selectedTheme === 3}
             onChange={props.onChange}
-            onClick={() => props.pickColor(3)}
+            onClick={() => props.pickTheme(3)}
             value={3}
           />
           <Radio
             className="scirec-custom-theme-4"
-            checked={props.selectedColor === 4}
+            checked={props.selectedTheme === 4}
             onChange={props.onChange}
-            onClick={() => props.pickColor(4)}
+            onClick={() => props.pickTheme(4)}
             value={4}
           />
           <Radio
             className="scirec-custom-theme-5"
-            checked={props.selectedColor === 5}
+            checked={props.selectedTheme === 5}
             onChange={props.onChange}
-            onClick={() => props.pickColor(5)}
+            onClick={() => props.pickTheme(5)}
             value={5}
           />
           <Radio
             className="scirec-custom-theme-6"
-            checked={props.selectedColor === 6}
+            checked={props.selectedTheme === 6}
             onChange={props.onChange}
-            onClick={() => props.pickColor(6)}
+            onClick={() => props.pickTheme(6)}
             value={6}
           />
         </div>
@@ -66,15 +66,15 @@ const ColorPicker = props =>
     />
   </FormControl>;
 
-ColorPicker.propTypes = {
-  selectedColor: propTypes.number.isRequired,
+ThemePicker.propTypes = {
+  selectedTheme: propTypes.number.isRequired,
   onChange: propTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    pickColor: color => dispatch(pickColor(color))
+    pickTheme: theme => dispatch(pickTheme(theme))
   }
 }
 
-export default connect(null, mapDispatchToProps)(ColorPicker);
+export default connect(null, mapDispatchToProps)(ThemePicker);

@@ -1,18 +1,18 @@
 import actionTypes from '../actionTypes';
 
-export const pickColor = color => {
+export const pickTheme = theme => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.PICK_COLOR,
-      color
+      type: actionTypes.PICK_THEME,
+      theme
     })
   }
 }
 
-export const invertColor = () => {
+export const invertTheme = () => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.INVERT_COLOR
+      type: actionTypes.INVERT_THEME
     })
   }
 }

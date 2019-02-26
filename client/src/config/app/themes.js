@@ -95,31 +95,31 @@ const createAppTheme = (palette, inverted) => {
 }
 
 
-export const getAppTheme = (dashboard, isAuth, isDashboardLoading, colorPicker) => {
+export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) => {
   if ((isAuth && !dashboard) || isDashboardLoading) {
     return createAppTheme(LOADING_PALETTE);
   }
   else if (isAuth && dashboard) {
-    switch (dashboard === dashboardConfig.MAX_COUNT ? colorPicker.color : dashboard.color) {
+    switch (dashboard === dashboardConfig.MAX_COUNT ? themePicker.theme : dashboard.theme) {
       case 0:
-        return createAppTheme(SCIREC_PALETTE, colorPicker.inverted);
+        return createAppTheme(SCIREC_PALETTE, themePicker.inverted);
       case 1:
-        return createAppTheme(CUSTOM_PALETTE_1, colorPicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_1, themePicker.inverted);
       case 2:
-        return createAppTheme(CUSTOM_PALETTE_2, colorPicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_2, themePicker.inverted);
       case 3:
-        return createAppTheme(CUSTOM_PALETTE_3, colorPicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_3, themePicker.inverted);
       case 4:
-        return createAppTheme(CUSTOM_PALETTE_4, colorPicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_4, themePicker.inverted);
       case 5:
-        return createAppTheme(CUSTOM_PALETTE_5, colorPicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_5, themePicker.inverted);
       case 6:
-        return createAppTheme(CUSTOM_PALETTE_6, colorPicker.inverted);
+        return createAppTheme(CUSTOM_PALETTE_6, themePicker.inverted);
       default:
-        return createAppTheme(SCIREC_PALETTE, colorPicker.inverted);
+        return createAppTheme(SCIREC_PALETTE, themePicker.inverted);
     }
   }
   else {
-    return createAppTheme(SCIREC_PALETTE, colorPicker.inverted);
+    return createAppTheme(SCIREC_PALETTE, themePicker.inverted);
   }
 }

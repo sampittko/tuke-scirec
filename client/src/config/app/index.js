@@ -9,7 +9,7 @@ export const dashboardConfig = {
   MAX_LENGTH: 20,
   defaultDashboard: {
     TITLE: "Predvolená nástenka",
-    COLOR: 0,
+    THEME: 0,
     DEFAULT: true
   }
 }

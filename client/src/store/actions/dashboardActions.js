@@ -111,7 +111,7 @@ export const createDashboard = newDashboard => {
     const currentUserId = getState().user.data.id;
 
     const createdDashboard = {
-      color: newDashboard.color,
+      theme: newDashboard.theme,
       created: new Date().getTime(),
       name: newDashboard.name,
       user: usersRef.doc(currentUserId)

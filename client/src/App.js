@@ -31,11 +31,14 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
 const App = props =>
   <Router basename={window.basename}>
     <MuiThemeProvider
-      theme={getAppTheme(
-        props.activeDashboard,
-        props.isAuth,
-        props.isDashboardLoading,
-        props.colorPicker)}
+      theme={
+        getAppTheme(
+          props.activeDashboard,
+          props.isAuth,
+          props.isDashboardLoading,
+          props.themePicker
+        )
+      }
     >
       <Container>
         <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={props.isAuth} />
@@ -51,7 +54,7 @@ App.propTypes = {
   isAuth: propTypes.bool.isRequired,
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
-  colorPicker: propTypes.object
+  themePicker: propTypes.object
 }
 
 const mapStateToProps = state => {
@@ -59,7 +62,7 @@ const mapStateToProps = state => {
     isAuth: state.user.data !== null,
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,
-    colorPicker: state.colorPicker
+    themePicker: state.themePicker
   }
 }
 

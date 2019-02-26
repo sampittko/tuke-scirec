@@ -4,7 +4,7 @@ const propTypes = {
   dashboard: PropTypes.shape({
     user: PropTypes.object.isRequired,
     name: PropTypes.string.isRequired,
-    color: PropTypes.number.isRequired,
+    theme: PropTypes.number.isRequired,
     created: PropTypes.number.isRequired
   }),
 }

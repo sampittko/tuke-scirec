@@ -1,8 +1,8 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@material-ui/core';
-import { invertColor } from '../../../store/actions/colorPickerActions';
-import ColorPicker from './content/ColorPicker';
+import { invertTheme } from '../../../store/actions/themePickerActions';
+import ThemePicker from './content/themePicker/ThemePicker';
 import NameInput from './content/NameInput';
 import Switch from './content/Switch';
 import { dashboardConfig } from '../../../config/app';
@@ -14,7 +14,7 @@ class NewDashboardDialog extends React.Component {
     super(props);
     this.state = {
       default: false,
-      color: 0
+      theme: 0
     }
   }
 
@@ -24,9 +24,9 @@ class NewDashboardDialog extends React.Component {
     });
   }
 
-  handleColorChange = event => {
+  handleThemeChange = event => {
     this.setState({
-      color: Number(event.target.value)
+      theme: Number(event.target.value)
     });
   }
 
@@ -42,13 +42,13 @@ class NewDashboardDialog extends React.Component {
             name={this.props.name}
             onChange={this.props.handleNameChange}
           />
-          <ColorPicker
-            selectedColor={this.state.color}
-            onChange={this.handleColorChange}
+          <ThemePicker
+            selectedTheme={this.state.theme}
+            onChange={this.handleThemeChange}
           />
           <Switch
             checked={this.props.inverted}
-            onChange={this.props.invertColor}
+            onChange={this.props.invertTheme}
             label="Invertovať farby"
           />
           <Switch
@@ -87,19 +87,20 @@ NewDashboardDialog.propTypes = {
   isDashboardLoading: propTypes.bool.isRequired,
   inverted: propTypes.bool.isRequired,
   handleNameChange: propTypes.func.isRequired,
-  name: propTypes.string.isRequired
+  name: propTypes.string.isRequired,
+  invertTheme: propTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    invertColor: () => dispatch(invertColor())
+    invertTheme: () => dispatch(invertTheme())
   }
 }
 
 const mapStateToProps = state => {
   return {
     isDashboardLoading: state.dashboard.isLoading,
-    inverted: state.colorPicker.inverted
+    inverted: state.themePicker.inverted
   }
 }
 
