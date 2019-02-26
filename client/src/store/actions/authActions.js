@@ -100,7 +100,6 @@ export const register = newUser => {
     }).then(result => {
       return usersRef
         .doc(newRegisteredUserId).set({
-          email: newUser.email,
           defaultDashboard: dashboardsRef.doc(result.id)
         })
     }).then(() => {

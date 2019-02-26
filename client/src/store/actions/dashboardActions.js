@@ -1,42 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 
-const getDefaultDashboardFailure = error => ({
-  type: actionTypes.GET_DEFAULT_DASHBOARD_FAILURE,
-  error
-})
-
-const getDefaultDashboardSuccess = result => ({
-  type: actionTypes.GET_DEFAULT_DASHBOARD_SUCCESS,
-  defaultDashboard: result.data()
-})
-
-const getDefaultDashboardRequest = () => ({
-  type: actionTypes.GET_DEFAULT_DASHBOARD_REQUEST
-})
-
-export const getDefaultDashboard = currentUserId => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
-    dispatch(getDefaultDashboardRequest());
-
-    const firestore = getFirestore();
-    const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
-
-    usersRef
-      .doc(currentUserId).get()
-      .then(result => {
-        return dashboardsRef
-          .doc(result.data().defaultDashboard.id).get()
-      }).then(result => {
-        dispatch(getDefaultDashboardSuccess(result));
-      }).catch(error => {
-        console.log(error);
-        dispatch(getDefaultDashboardFailure(error));
-      });
-  }
-}
-
 const getDashboardsFailure = error => ({
   type: actionTypes.GET_DASHBOARDS_FAILURE,
   error

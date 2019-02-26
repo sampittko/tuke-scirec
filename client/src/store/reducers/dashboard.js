@@ -109,33 +109,6 @@ const dashboard = (state = _initialState, action) => {
         error: action.error
       };
 
-    case actionTypes.GET_DEFAULT_DASHBOARD_REQUEST:
-      console.log(actionTypes.GET_DEFAULT_DASHBOARD_REQUEST);
-      return {
-        ...state,
-        isLoading: true
-      };
-
-    case actionTypes.GET_DEFAULT_DASHBOARD_SUCCESS:
-      console.log(actionTypes.GET_DEFAULT_DASHBOARD_SUCCESS);
-      return {
-        ...state,
-        data: {
-          list: state.list,
-          default: action.defaultDashboard
-        },
-        isLoading: false,
-        error: null
-      };
-
-    case actionTypes.GET_DEFAULT_DASHBOARD_FAILURE:
-      console.log(actionTypes.GET_DEFAULT_DASHBOARD_FAILURE);
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error
-      };
-
     case actionTypes.CHANGE_DASHBOARD:
       console.log(actionTypes.CHANGE_DASHBOARD);
       return {
