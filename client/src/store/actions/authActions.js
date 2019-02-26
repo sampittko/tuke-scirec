@@ -114,3 +114,12 @@ export const register = newUser => {
     });
   }
 }
+
+export const getAuth = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.GET_AUTH,
+      success: !getState().firebase.auth.isEmpty
+    })
+  }
+}

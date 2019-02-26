@@ -99,7 +99,7 @@ class NewProject extends React.Component {
                   </Button>
                   <Button
                     variant="contained"
-                    color="primary"
+                    color="secondary"
                     onClick={this.handleNext}
                     disabled={this.state.activeStep === 0 && this.state.title.length < 3}
                   >

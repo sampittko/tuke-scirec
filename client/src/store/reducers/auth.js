@@ -4,7 +4,7 @@ const _initialState = {
   success: false,
   isLoading: false,
   error: null
-};
+}
 
 const auth = (state = _initialState, action) => {
   switch (action.type) {
@@ -22,7 +22,7 @@ const auth = (state = _initialState, action) => {
         success: true,
         isLoading: false,
         error: null
-      };
+      }
 
     case actionTypes.LOGIN_FAILURE:
       console.log(actionTypes.LOGIN_FAILURE);
@@ -30,14 +30,14 @@ const auth = (state = _initialState, action) => {
         ...state,
         isLoading: false,
         error: action.error
-      };
+      }
 
     case actionTypes.LOGOUT_REQUEST:
       console.log(actionTypes.LOGOUT_REQUEST);
       return {
         ...state,
         isLoading: true
-      };
+      }
 
     case actionTypes.LOGOUT_SUCCESS:
       console.log(actionTypes.LOGOUT_SUCCESS);
@@ -45,7 +45,7 @@ const auth = (state = _initialState, action) => {
         ...state,
         success: false,
         isLoading: false
-      };
+      }
 
     case actionTypes.REGISTER_REQUEST:
       console.log(actionTypes.REGISTER_REQUEST);
@@ -60,7 +60,7 @@ const auth = (state = _initialState, action) => {
         ...state,
         isLoading: false,
         error: action.error
-      };
+      }
 
     case actionTypes.REGISTER_SUCCESS:
       console.log(actionTypes.REGISTER_SUCCESS);
@@ -68,7 +68,14 @@ const auth = (state = _initialState, action) => {
         ...state,
         isLoading: false,
         error: null
-      };
+      }
+
+    case actionTypes.GET_AUTH:
+      console.log(actionTypes.GET_AUTH);
+      return {
+        ...state,
+        success: action.success
+      }
 
     default:
       return state

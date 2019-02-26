@@ -70,9 +70,10 @@ export const createDashboard = newDashboard => {
     dispatch(createDashboardRequest());
 
     const firestore = getFirestore();
+    const firebase = getFirebase();
     const usersRef = firestore.collection(firestoreCollections.USERS.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
-    const currentUserId = getState().user.data.id;
+    const currentUserId = firebase.auth().currentUser.uid;
 
     const createdDashboard = {
       theme: newDashboard.theme,
@@ -85,7 +86,8 @@ export const createDashboard = newDashboard => {
       .add(createdDashboard)
     .then(result => {
       if (newDashboard.default) {
-        return usersRef.doc(currentUserId)
+        return usersRef
+          .doc(currentUserId)
           .update({
             defaultDashboard: dashboardsRef.doc(result.id)
           })

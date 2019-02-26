@@ -16,13 +16,13 @@ const Links = props =>
     />
     <Link
       location={props.location}
-      route={routes.user.login}
+      route={routes.auth.login}
       text="Prihlásenie"
       icon={<PersonIcon />}
     />
     <Link
       location={props.location}
-      route={routes.user.register}
+      route={routes.auth.register}
       text="Registrácia"
       icon={<PersonAddIcon />}
     />

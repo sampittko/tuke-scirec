@@ -12,7 +12,7 @@ class Home extends React.Component {
 
   render() {
     return !this.props.isAuth ? (
-      <Redirect to={routes.user.login} />
+      <Redirect to={routes.auth.login} />
     ) : (
       <Redirect to={routes.dashboard} />
     )

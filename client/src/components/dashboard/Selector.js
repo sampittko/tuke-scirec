@@ -24,7 +24,10 @@ class Selector extends React.Component {
   handleClick = (event, newDashboard) => {
     this.props.changeDashboard();
     if (newDashboard) {
-      this.props.createDashboard(newDashboard);
+      this.props.createDashboard({
+        ...newDashboard,
+        name: this.state.name
+      });
     }
   }
 
