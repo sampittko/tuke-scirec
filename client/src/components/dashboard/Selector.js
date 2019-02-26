@@ -28,6 +28,9 @@ class Selector extends React.Component {
         ...newDashboard,
         name: this.state.name
       });
+      this.setState({
+        name: ''
+      });
     }
   }
 
@@ -40,7 +43,9 @@ class Selector extends React.Component {
   }
 
   handleSelectChange = event => {
-    this.props.changeDashboard(event.target.value);
+    if (this.props.activeDashboardId !== event.target.value) {
+      this.props.changeDashboard(event.target.value);
+    }
   }
 
   render() {

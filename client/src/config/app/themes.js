@@ -120,6 +120,6 @@ export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) 
     }
   }
   else {
-    return createAppTheme(SCIREC_PALETTE, themePicker.inverted);
+    return createAppTheme(SCIREC_PALETTE);
   }
 }

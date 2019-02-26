@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@material-ui/core';
-import { invertTheme } from '../../../store/actions/themePickerActions';
+import { invertTheme, resetThemePicker } from '../../../store/actions/themePickerActions';
 import ThemePicker from '../../themePicker/ThemePicker';
 import NameInput from './content/NameInput';
 import Switch from './content/Switch';
@@ -16,6 +16,16 @@ class NewDashboardDialog extends React.Component {
       default: false,
       theme: 0
     }
+  }
+
+  handleClick = (event, newDashboard) => {
+    this.setState({
+      default: false
+    });
+    if (this.props.inverted || this.state.theme !== 0) {
+      this.props.resetThemePicker();
+    }
+    this.props.onClick(event, newDashboard);
   }
 
   handleDefaultChange = () => {
@@ -59,14 +69,14 @@ class NewDashboardDialog extends React.Component {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={this.props.onClick}
+            onClick={this.handleClick}
             color="primary"
             disabled={this.props.isDashboardLoading}
           >
             Zrušiť
           </Button>
           <Button
-            onClick={event => this.props.onClick(event, {
+            onClick={event => this.handleClick(event, {
               ...this.state,
               inverted: this.props.inverted
             })}
@@ -93,7 +103,8 @@ NewDashboardDialog.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    invertTheme: () => dispatch(invertTheme())
+    invertTheme: () => dispatch(invertTheme()),
+    resetThemePicker: () => dispatch(resetThemePicker())
   }
 }
 

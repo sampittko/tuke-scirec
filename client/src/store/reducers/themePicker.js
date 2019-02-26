@@ -21,6 +21,10 @@ const themePicker = (state = _initialState, action) => {
         inverted: !state.inverted
       }
 
+    case actionTypes.RESET_THEME_PICKER:
+      console.log(actionTypes.RESET_THEME_PICKER);
+      return _initialState;
+
     default:
       return state
   }

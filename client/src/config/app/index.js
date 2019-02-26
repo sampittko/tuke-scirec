@@ -4,7 +4,7 @@ export const DEFAULT_THEME = 0;
 export const LOADING_THEME = -1;
 
 export const dashboardConfig = {
-  MAX_COUNT: 5,
+  MAX_COUNT: 20,
   MIN_LENGTH: 3,
   MAX_LENGTH: 20,
   defaultDashboard: {

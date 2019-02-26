@@ -16,3 +16,11 @@ export const invertTheme = () => {
     })
   }
 }
+
+export const resetThemePicker = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.RESET_THEME_PICKER
+    })
+  }
+}
