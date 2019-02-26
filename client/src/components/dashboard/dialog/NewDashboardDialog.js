@@ -13,30 +13,25 @@ class NewDashboardDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      default: false,
-      theme: 0
+      default: false
     }
   }
 
   handleClick = (event, newDashboard) => {
-    this.setState({
-      default: false
-    });
-    if (this.props.inverted || this.state.theme !== 0) {
+    if (this.state.default) {
+      this.setState({
+        default: false
+      });
+    }
+    if (this.props.themePicker.inverted || this.props.themePicker.theme !== 0) {
       this.props.resetThemePicker();
     }
     this.props.onClick(event, newDashboard);
   }
 
-  handleDefaultChange = () => {
+  handleChange = () => {
     this.setState({
       default: !this.state.default
-    });
-  }
-
-  handleThemeChange = event => {
-    this.setState({
-      theme: Number(event.target.value)
     });
   }
 
@@ -52,18 +47,15 @@ class NewDashboardDialog extends React.Component {
             name={this.props.name}
             onChange={this.props.handleNameChange}
           />
-          <ThemePicker
-            selectedTheme={this.state.theme}
-            onChange={this.handleThemeChange}
-          />
+          <ThemePicker />
           <Switch
-            checked={this.props.inverted}
+            checked={this.props.themePicker.inverted}
             onChange={this.props.invertTheme}
             label="Invertovať farby"
           />
           <Switch
             checked={this.state.default}
-            onChange={this.handleDefaultChange}
+            onChange={this.handleChange}
             label="Nastaviť ako predvolenú nástenku"
           />
         </DialogContent>
@@ -78,7 +70,8 @@ class NewDashboardDialog extends React.Component {
           <Button
             onClick={event => this.handleClick(event, {
               ...this.state,
-              inverted: this.props.inverted
+              theme: this.props.themePicker.theme,
+              inverted: this.props.themePicker.inverted
             })}
             color="secondary"
             disabled={this.props.name.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}
@@ -95,10 +88,10 @@ NewDashboardDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
   isDashboardLoading: propTypes.bool.isRequired,
-  inverted: propTypes.bool.isRequired,
   handleNameChange: propTypes.func.isRequired,
   name: propTypes.string.isRequired,
-  invertTheme: propTypes.func.isRequired
+  invertTheme: propTypes.func.isRequired,
+  themePicker: propTypes.object.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -111,7 +104,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isDashboardLoading: state.dashboard.isLoading,
-    inverted: state.themePicker.inverted
+    themePicker: state.themePicker
   }
 }
 

@@ -13,49 +13,42 @@ const ThemePicker = props =>
           <Radio
             className="scirec-theme"
             checked={props.selectedTheme === 0}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(0)}
             value={0}
           />
           <Radio
             className="custom-theme-1"
             checked={props.selectedTheme === 1}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(1)}
             value={1}
           />
           <Radio
             className="custom-theme-2"
             checked={props.selectedTheme === 2}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(2)}
             value={2}
           />
           <Radio
             className="custom-theme-3"
             checked={props.selectedTheme === 3}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(3)}
             value={3}
           />
           <Radio
             className="custom-theme-4"
             checked={props.selectedTheme === 4}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(4)}
             value={4}
           />
           <Radio
             className="custom-theme-5"
             checked={props.selectedTheme === 5}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(5)}
             value={5}
           />
           <Radio
             className="custom-theme-6"
             checked={props.selectedTheme === 6}
-            onChange={props.onChange}
             onClick={() => props.pickTheme(6)}
             value={6}
           />
@@ -68,7 +61,7 @@ const ThemePicker = props =>
 
 ThemePicker.propTypes = {
   selectedTheme: propTypes.number.isRequired,
-  onChange: propTypes.func.isRequired
+  pickTheme: propTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -77,4 +70,10 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(ThemePicker);
+const mapStateToProps = state => {
+  return {
+    selectedTheme: state.themePicker.theme
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ThemePicker);

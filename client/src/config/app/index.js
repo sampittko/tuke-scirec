@@ -4,11 +4,11 @@ export const DEFAULT_THEME = 0;
 export const LOADING_THEME = -1;
 
 export const dashboardConfig = {
-  MAX_COUNT: 20,
+  MAX_COUNT: 5,
   MIN_LENGTH: 3,
   MAX_LENGTH: 20,
   defaultDashboard: {
-    TITLE: "Predvolená nástenka",
+    TITLE: "Nástenka 1",
     THEME: 0,
     DEFAULT: true
   }
