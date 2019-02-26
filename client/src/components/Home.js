@@ -25,7 +25,7 @@ Home.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.data !== null
+    isAuth: state.auth.success
   }
 }
 

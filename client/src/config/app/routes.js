@@ -1,7 +1,7 @@
 const routes = {
     home: '/',
     dashboard: '/nastenka',
-    user: {
+    auth: {
       login: '/prihlasenie',
       register: '/registracia'
     },

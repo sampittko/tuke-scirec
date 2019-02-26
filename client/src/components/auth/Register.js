@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { Checkbox, Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
 import routes from '../../config/app/routes';
-import { register } from '../../store/actions/userActions';
+import { register } from '../../store/actions/authActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
 import logo from '../../static/media/logo.png';
 import { timeouts } from '../../config/app/ui';
@@ -138,7 +138,7 @@ class Register extends React.Component {
             {(this.formSubmitted && this.props.errorCode === '' && !this.props.isUserLoading) && (
               <Redirect
                 to={{
-                  pathname: routes.user.login,
+                  pathname: routes.auth.login,
                   state: {
                     registered: true
                   }
@@ -169,9 +169,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.data !== null,
-    isUserLoading: state.user.isLoading,
-    errorCode: state.user.error ? state.user.error.code : ''
+    isAuth: state.auth.success,
+    isUserLoading: state.auth.isLoading,
+    errorCode: state.auth.error ? state.auth.error.code : ''
   }
 }
 

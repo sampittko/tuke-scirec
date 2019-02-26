@@ -1,20 +1,15 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { timeouts } from '../../config/app/ui';
-import { dashboardConfig } from '../../config/app/';
+import { dashboardConfig } from '../../config/app';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
   error
 })
 
-const loginSuccess = result => ({
-  type: actionTypes.LOGIN_SUCCESS,
-  user: {
-    id: result.user.uid,
-    email: result.user.email,
-    token: result.user._lat
-  }
+const loginSuccess = () => ({
+  type: actionTypes.LOGIN_SUCCESS
 })
 
 const loginRequest = () => ({
@@ -31,9 +26,9 @@ export const login = user => {
       .signInWithEmailAndPassword(
         user.email,
         user.password
-      ).then(result => {
+      ).then(() => {
         setTimeout(() => {
-          dispatch(loginSuccess(result))
+          dispatch(loginSuccess())
         }, timeouts.LOGIN_SUCCESS);
       }).catch(error => {
         console.log(error);

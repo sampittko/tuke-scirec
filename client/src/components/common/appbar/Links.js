@@ -7,14 +7,14 @@ import './Appbar.scss';
 
 const Links = props =>
   <div>
-    {props.location.pathname === routes.user.login ? (
-      <Link className="link" to={routes.user.register}>
+    {props.location.pathname === routes.auth.login ? (
+      <Link className="link" to={routes.auth.register}>
         <Button variant="outlined" color="inherit">
           Registrácia
         </Button>
       </Link>
     ) : (
-        <Link className="link" to={routes.user.login}>
+        <Link className="link" to={routes.auth.login}>
           <Button variant="outlined" color="inherit">
             Prihlásenie
           </Button>

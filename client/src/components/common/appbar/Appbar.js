@@ -13,7 +13,7 @@ import './Appbar.scss';
 
 class AppbarComponent extends React.Component {
   getBrandRoute = () => {
-    if (this.props.location.pathname !== routes.user.login && this.props.location.pathname !== routes.user.register) {
+    if (this.props.location.pathname !== routes.auth.login && this.props.location.pathname !== routes.auth.register) {
       return routes.dashboard;
     }
     return routes.home
@@ -62,7 +62,7 @@ AppbarComponent.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.data !== null
+    isAuth: state.auth.success
   }
 }
 

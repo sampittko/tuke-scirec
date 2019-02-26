@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import userPropTypes from '../../../propTypes/userPropTypes';
-import { logout } from '../../../store/actions/userActions';
+import { logout } from '../../../store/actions/authActions';
 import { connect } from 'react-redux';
 import { IconButton, Menu, Divider } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -44,7 +43,7 @@ class UserLinks extends React.Component {
           <MenuItem 
             disabled
             icon={<AccountCircleIcon />}
-            text={this.props.user.email}
+            text={this.props.userEmail}
           />
           <Divider />
           <MenuItem
@@ -65,7 +64,7 @@ class UserLinks extends React.Component {
 
 UserLinks.propTypes = {
   logout: propTypes.func.isRequired,
-  user: userPropTypes.user.isRequired
+  userEmail: propTypes.string.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -76,7 +75,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data
+    userEmail: state.firebase.auth.email
   }
 }
 

@@ -6,8 +6,8 @@ import { getAppTheme } from './config/app/themes';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import Login from './components/user/Login';
-import Register from './components/user/Register';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Container from './components/common/Container';
 import NewProject from './components/project/NewProject';
@@ -20,7 +20,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
     ) : (
       <Redirect
         to={{
-          pathname: routes.user.login,
+          pathname: routes.auth.login,
           state: { from: props.location }
         }}
       />
@@ -44,8 +44,8 @@ const App = props =>
         <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={props.isAuth} />
         <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={props.isAuth} />
         <Route exact path={routes.home} component={Home} />
-        <Route exact path={routes.user.register} component={Register} />
-        <Route exact path={routes.user.login} component={Login} />
+        <Route exact path={routes.auth.register} component={Register} />
+        <Route exact path={routes.auth.login} component={Login} />
       </Container>
     </MuiThemeProvider>
   </Router>;
@@ -59,7 +59,7 @@ App.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.data !== null,
+    isAuth: state.auth.success,
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,
     themePicker: state.themePicker

@@ -1,14 +1,12 @@
 import actionTypes from '../actionTypes';
 
-const USER_KEY = 'scirecUser';
-
 const _initialState = {
+  success: false,
   isLoading: false,
-  data: JSON.parse(localStorage.getItem(USER_KEY)),
   error: null
 };
 
-const user = (state = _initialState, action) => {
+const auth = (state = _initialState, action) => {
   switch (action.type) {
     case actionTypes.LOGIN_REQUEST:
       console.log(actionTypes.LOGIN_REQUEST);
@@ -19,10 +17,9 @@ const user = (state = _initialState, action) => {
 
     case actionTypes.LOGIN_SUCCESS:
       console.log(actionTypes.LOGIN_SUCCESS);
-      localStorage.setItem(USER_KEY, JSON.stringify(action.user));
       return {
         ...state,
-        data: action.user,
+        success: true,
         isLoading: false,
         error: null
       };
@@ -44,11 +41,10 @@ const user = (state = _initialState, action) => {
 
     case actionTypes.LOGOUT_SUCCESS:
       console.log(actionTypes.LOGOUT_SUCCESS);
-      localStorage.removeItem(USER_KEY);
       return {
         ...state,
-        isLoading: false,
-        data: null
+        success: false,
+        isLoading: false
       };
 
     case actionTypes.REGISTER_REQUEST:
@@ -79,4 +75,4 @@ const user = (state = _initialState, action) => {
   }
 }
 
-export default user;
+export default auth;

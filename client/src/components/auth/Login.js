@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
-import { login } from '../../store/actions/userActions';
+import { login } from '../../store/actions/authActions';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import routes from '../../config/app/routes';
-import logo from './../../static/media/logo.png';
+import logo from '../../static/media/logo.png';
 import Notification from '../common/Notification';
 import { timeouts } from '../../config/app/ui';
 import { getDocumentTitle } from '../../config/app/titles';
@@ -120,9 +120,9 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.user.data !== null,
-    isUserLoading: state.user.isLoading,
-    error: state.user.error ? true : false
+    isAuth: state.auth.success,
+    isUserLoading: state.auth.isLoading,
+    error: state.auth.error ? true : false
   }
 }
 

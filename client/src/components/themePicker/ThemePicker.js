@@ -18,42 +18,42 @@ const ThemePicker = props =>
             value={0}
           />
           <Radio
-            className="scirec-custom-theme-1"
+            className="custom-theme-1"
             checked={props.selectedTheme === 1}
             onChange={props.onChange}
             onClick={() => props.pickTheme(1)}
             value={1}
           />
           <Radio
-            className="scirec-custom-theme-2"
+            className="custom-theme-2"
             checked={props.selectedTheme === 2}
             onChange={props.onChange}
             onClick={() => props.pickTheme(2)}
             value={2}
           />
           <Radio
-            className="scirec-custom-theme-3"
+            className="custom-theme-3"
             checked={props.selectedTheme === 3}
             onChange={props.onChange}
             onClick={() => props.pickTheme(3)}
             value={3}
           />
           <Radio
-            className="scirec-custom-theme-4"
+            className="custom-theme-4"
             checked={props.selectedTheme === 4}
             onChange={props.onChange}
             onClick={() => props.pickTheme(4)}
             value={4}
           />
           <Radio
-            className="scirec-custom-theme-5"
+            className="custom-theme-5"
             checked={props.selectedTheme === 5}
             onChange={props.onChange}
             onClick={() => props.pickTheme(5)}
             value={5}
           />
           <Radio
-            className="scirec-custom-theme-6"
+            className="custom-theme-6"
             checked={props.selectedTheme === 6}
             onChange={props.onChange}
             onClick={() => props.pickTheme(6)}

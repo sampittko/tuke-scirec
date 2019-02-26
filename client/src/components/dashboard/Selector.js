@@ -1,6 +1,5 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import userPropTypes from '../../propTypes/userPropTypes';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboards } from '../../store/actions/dashboardActions';
 import { dashboardConfig } from '../../config/app';
@@ -19,7 +18,7 @@ class Selector extends React.Component {
   }
 
   componentDidMount() {
-    this.props.getDashboards(this.props.user.id);
+    this.props.getDashboards(this.props.userId);
   }
 
   handleClick = (event, newDashboard) => {
@@ -85,7 +84,6 @@ class Selector extends React.Component {
 Selector.propTypes = {
   createDashboard: propTypes.func.isRequired,
   getDashboards: propTypes.func.isRequired,
-  user: userPropTypes.user.isRequired,
   dashboards: propTypes.array,
   defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: propTypes.bool.isRequired,
@@ -102,7 +100,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user.data,
+    userId: state.firebase.auth.uid,
     dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
     defaultDashboard: state.dashboard.data.default,
