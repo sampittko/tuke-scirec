@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@material-ui/core';
 import { invertTheme } from '../../../store/actions/themePickerActions';
-import ThemePicker from './content/themePicker/ThemePicker';
+import ThemePicker from '../../themePicker/ThemePicker';
 import NameInput from './content/NameInput';
 import Switch from './content/Switch';
 import { dashboardConfig } from '../../../config/app';

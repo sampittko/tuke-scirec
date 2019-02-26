@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { pickTheme } from '../../../../../store/actions/themePickerActions';
+import { pickTheme } from '../../store/actions/themePickerActions';
 import { Radio, FormControl, FormControlLabel } from '@material-ui/core';
 import './ThemePicker.scss';
 
