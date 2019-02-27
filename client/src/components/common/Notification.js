@@ -11,19 +11,21 @@ class Notification extends React.Component {
     }
   }
 
-  handleClose = () => {
-    this.setState({
-      open: false
-    });
+  handleClose = (event, reason) => {
+    if (reason !== "clickaway") {
+      this.setState({
+        open: false
+      });
+    }
   }
 
   render() {
     return (
       <Snackbar
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
         open={this.state.open}
         message={this.props.message}
-        onClose={this.handleClose}
+        onClose={(event, reason) => this.handleClose(event, reason)}
         autoHideDuration={timeouts.NOTIFICATION}
       />
     )
