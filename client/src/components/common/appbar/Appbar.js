@@ -21,7 +21,7 @@ class AppbarComponent extends React.Component {
 
   render() {
     return (
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar className={this.props.isAuth ? "user-toolbar" : ""}>
           <Sidebar 
             isAuth={this.props.isAuth}

@@ -6,9 +6,12 @@ import Appbar from './appbar/Appbar';
 import { connect } from 'react-redux';
 import { timeouts } from '../../config/mui';
 import './Container.scss';
+import routes from '../../config/app/routes';
 
 const Container = props =>
-  <Grid container>
+  <Grid container
+    className={props.location.pathname === routes.dashboard ? "double-toolbar-margin" : "toolbar-margin"}
+  >
     <Grid item xs={12}>
       <Appbar location={props.location} />
       {props.isAppLoading &&
