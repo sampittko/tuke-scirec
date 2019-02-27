@@ -43,7 +43,7 @@ class UserLinks extends React.Component {
           <MenuItem 
             disabled
             icon={<AccountCircleIcon />}
-            text={this.props.userEmail}
+            text={this.props.userEmail ? this.props.userEmail : "Odhlasujem.."}
           />
           <Divider />
           <MenuItem
@@ -64,7 +64,7 @@ class UserLinks extends React.Component {
 
 UserLinks.propTypes = {
   logout: propTypes.func.isRequired,
-  userEmail: propTypes.string.isRequired
+  userEmail: propTypes.string
 }
 
 const mapDispatchToProps = dispatch => {
