@@ -88,7 +88,8 @@ Selector.propTypes = {
   createDashboard: propTypes.func.isRequired,
   defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: propTypes.bool.isRequired,
-  activeDashboardId: propTypes.number
+  activeDashboardId: propTypes.number,
+  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard)
 }
 
 const mapDispatchToProps = dispatch => {
@@ -100,9 +101,10 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
+    dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
     defaultDashboard: state.dashboard.data.default,
-    activeDashboardId: state.dashboard.selector.activeId,
+    activeDashboardId: state.dashboard.selector.activeId
   }
 }
 

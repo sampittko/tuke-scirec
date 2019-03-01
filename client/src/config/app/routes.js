@@ -2,15 +2,15 @@ import removeAccents from 'remove-accents';
 import dashify from 'dashify';
 
 export const getRouteFromString = string => {
-  return routes.home + dashify(
+  return dashify(
     removeAccents(string),
     { condense: true }
   );
 }
 
 const routes = {
-  home: '/vitajte',
-  dashboard: '/:name',
+  home: '/',
+  dashboard: '/nastenka',
   auth: {
     login: '/prihlasenie',
     register: '/registracia'
