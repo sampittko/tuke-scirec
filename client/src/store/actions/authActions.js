@@ -2,6 +2,7 @@ import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { timeouts } from '../../config/mui';
 import { dashboardConfig } from '../../config/app';
+import { getRouteFromString } from '../../config/app/routes';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
@@ -93,11 +94,12 @@ export const register = newUser => {
       return dashboardsRef
         .add({
           user: usersRef.doc(newRegisteredUserId),
-          name: dashboardConfig.defaultDashboard.TITLE,
+          title: dashboardConfig.defaultDashboard.TITLE,
           theme: {
             id: dashboardConfig.defaultDashboard.THEME.ID,
             inverted: dashboardConfig.defaultDashboard.THEME.INVERTED
           },
+          route: getRouteFromString(dashboardConfig.defaultDashboard.TITLE),
           created: new Date().getTime()
         })
     }).then(result => {

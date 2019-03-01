@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { getDashboards } from '../../store/actions/dashboardActions';
 import { dashboardConfig } from '../../config/app';
 import { connect } from 'react-redux';
 import { createDashboard, changeDashboard } from '../../store/actions/dashboardActions';
@@ -13,12 +12,8 @@ class Selector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ''
+      title: ''
     }
-  }
-
-  componentDidMount() {
-    this.props.getDashboards(this.props.userId);
   }
 
   handleClick = (event, newDashboard) => {
@@ -26,18 +21,18 @@ class Selector extends React.Component {
     if (newDashboard) {
       this.props.createDashboard({
         ...newDashboard,
-        name: this.state.name
+        title: this.state.title
       });
       this.setState({
-        name: ''
+        title: ''
       });
     }
   }
 
-  handleNameChange = event => {
-    if (this.state.name.length !== dashboardConfig.MAX_LENGTH || event.target.value.length < dashboardConfig.MAX_LENGTH) {
+  handleTitleChange = event => {
+    if (this.state.title.length !== dashboardConfig.MAX_LENGTH || event.target.value.length < dashboardConfig.MAX_LENGTH) {
       this.setState({
-        name: event.target.value
+        title: event.target.value
       });
     }
   }
@@ -64,7 +59,7 @@ class Selector extends React.Component {
                     key={i}
                     value={dashboard.created}
                   >
-                    {dashboard.name}
+                    {dashboard.title}
                   </MenuItem>
                 )}
                 <Divider />
@@ -72,15 +67,15 @@ class Selector extends React.Component {
                   value={dashboardConfig.MAX_COUNT}
                   disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
                 >
-                  {this.state.name.length !== 0 && this.props.activeDashboardId === dashboardConfig.MAX_COUNT ? this.state.name : "Nová nástenka"}
+                  {this.state.title.length !== 0 && this.props.activeDashboardId === dashboardConfig.MAX_COUNT ? this.state.title : "Nová nástenka"}
                 </MenuItem>
               </Select>
             </FormControl>
             <NewDashboardDialog
-              name={this.state.name}
+              title={this.state.title}
               open={this.props.activeDashboardId === dashboardConfig.MAX_COUNT}
               onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
-              handleNameChange={this.handleNameChange}
+              handleTitleChange={this.handleTitleChange}
             />
           </div>
         )}
@@ -91,8 +86,6 @@ class Selector extends React.Component {
 
 Selector.propTypes = {
   createDashboard: propTypes.func.isRequired,
-  getDashboards: propTypes.func.isRequired,
-  dashboards: propTypes.array,
   defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboardId: propTypes.number
@@ -101,15 +94,12 @@ Selector.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     createDashboard: newDashboard => dispatch(createDashboard(newDashboard)),
-    getDashboards: userId => dispatch(getDashboards(userId)),
     changeDashboard: newActive => dispatch(changeDashboard(newActive))
   }
 }
 
 const mapStateToProps = state => {
   return {
-    userId: state.firebase.auth.uid,
-    dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
     defaultDashboard: state.dashboard.data.default,
     activeDashboardId: state.dashboard.selector.activeId,

@@ -1,18 +1,20 @@
 import React from 'react';
 import routes from './config/app/routes';
 import propTypes from 'prop-types';
+import dashboardPropTypes from './propTypes/dashboardPropTypes';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { getAppTheme } from './config/mui/themes';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { getAuth } from './store/actions/authActions';
+import { getDashboards } from './store/actions/dashboardActions';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
 import Container from './components/common/Container';
 import NewProject from './components/project/NewProject';
-import Home from './components/Home';
+import Welcome from './components/Welcome';
 import './index.scss';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
@@ -34,6 +36,12 @@ class App extends React.Component {
     this.props.getAuth();
   }
 
+  componentDidUpdate() {
+    if (this.props.isAuth && !this.props.isDashboardLoading && !this.props.dashboards) {
+      this.props.getDashboards(this.props.userId);
+    }
+  }
+
   render() {
     return (
       <Router basename={window.basename}>
@@ -50,7 +58,7 @@ class App extends React.Component {
           <Container>
             <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={this.props.isAuth} />
             <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={this.props.isAuth} />
-            <Route exact path={routes.home} component={Home} />
+            <Route exact path={routes.home} component={Welcome} />
             <Route exact path={routes.auth.register} component={Register} />
             <Route exact path={routes.auth.login} component={Login} />
           </Container>
@@ -65,17 +73,22 @@ App.propTypes = {
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
   themePicker: propTypes.object.isRequired,
-  getAuth: propTypes.func.isRequired
+  getAuth: propTypes.func.isRequired,
+  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  getDashboards: propTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    getAuth: () => dispatch(getAuth())
+    getAuth: () => dispatch(getAuth()),
+    getDashboards: userId => dispatch(getDashboards(userId))
   }
 }
 
 const mapStateToProps = state => {
   return {
+    dashboards: state.dashboard.data.list,
+    userId: state.firebase.auth.uid,
     isAuth: state.auth.success,
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,

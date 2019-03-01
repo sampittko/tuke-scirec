@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@material-ui/core';
 import { invertTheme, resetThemePicker } from '../../../store/actions/themePickerActions';
 import ThemePicker from '../../themePicker/ThemePicker';
-import NameInput from './content/NameInput';
+import TitleInput from './content/TitleInput';
 import Switch from './content/Switch';
 import { dashboardConfig } from '../../../config/app';
 import { connect } from 'react-redux';
@@ -43,9 +43,9 @@ class NewDashboardDialog extends React.Component {
           <DialogContentText>
             Pre vytvorenie novej nástenky zadajte nižšie jej názov pričom jeho dĺžka musí byť od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov. Maximálny počet násteniek je {dashboardConfig.MAX_COUNT}.
           </DialogContentText>
-          <NameInput
-            name={this.props.name}
-            onChange={this.props.handleNameChange}
+          <TitleInput
+            title={this.props.title}
+            onChange={this.props.handleTitleChange}
           />
           <ThemePicker />
           <Switch
@@ -76,7 +76,7 @@ class NewDashboardDialog extends React.Component {
               }
             })}
             color="secondary"
-            disabled={this.props.name.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}
+            disabled={this.props.title.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}
           >
             Vytvoriť
           </Button>
@@ -90,8 +90,8 @@ NewDashboardDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
   isDashboardLoading: propTypes.bool.isRequired,
-  handleNameChange: propTypes.func.isRequired,
-  name: propTypes.string.isRequired,
+  handleTitleChange: propTypes.func.isRequired,
+  title: propTypes.string.isRequired,
   invertTheme: propTypes.func.isRequired,
   themePicker: propTypes.object.isRequired
 }

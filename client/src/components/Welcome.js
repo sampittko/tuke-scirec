@@ -5,7 +5,7 @@ import { Redirect } from 'react-router';
 import { getDocumentTitle } from '../config/app/titles';
 import routes from '../config/app/routes';
 
-class Home extends React.Component {
+class Welcome extends React.Component {
   componentDidMount() {
     document.title = getDocumentTitle(this);
   }
@@ -19,7 +19,7 @@ class Home extends React.Component {
   }
 }
 
-Home.propTypes = {
+Welcome.propTypes = {
   isAuth: propTypes.bool.isRequired
 }
 
@@ -29,4 +29,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Home);
+export default connect(mapStateToProps)(Welcome);

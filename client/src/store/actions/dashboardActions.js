@@ -1,5 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
+import { getRouteFromString } from '../../config/app/routes';
 
 const getDashboardsFailure = error => ({
   type: actionTypes.GET_DASHBOARDS_FAILURE,
@@ -76,9 +77,10 @@ export const createDashboard = newDashboard => {
     const currentUserId = firebase.auth().currentUser.uid;
 
     const createdDashboard = {
+      route: getRouteFromString(newDashboard.title),
       theme: newDashboard.theme,
       created: new Date().getTime(),
-      name: newDashboard.name,
+      title: newDashboard.title,
       user: usersRef.doc(currentUserId)
     }
 

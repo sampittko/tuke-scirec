@@ -100,24 +100,34 @@ export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) 
     return createAppTheme(LOADING_PALETTE);
   }
   else if (isAuth && dashboard) {
+    let palette;
     switch (dashboard === dashboardConfig.MAX_COUNT ? themePicker.theme : dashboard.theme.id) {
       case 0:
-        return createAppTheme(SCIREC_PALETTE, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = SCIREC_PALETTE;
+        break;
       case 1:
-        return createAppTheme(CUSTOM_PALETTE_1, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = CUSTOM_PALETTE_1;
+        break;
       case 2:
-        return createAppTheme(CUSTOM_PALETTE_2, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = CUSTOM_PALETTE_2;
+        break;
       case 3:
-        return createAppTheme(CUSTOM_PALETTE_3, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = CUSTOM_PALETTE_3;
+        break;
       case 4:
-        return createAppTheme(CUSTOM_PALETTE_4, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = CUSTOM_PALETTE_4;
+        break;
       case 5:
-        return createAppTheme(CUSTOM_PALETTE_5, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = CUSTOM_PALETTE_5;
+        break;
       case 6:
-        return createAppTheme(CUSTOM_PALETTE_6, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = CUSTOM_PALETTE_6;
+        break;
       default:
-        return createAppTheme(SCIREC_PALETTE, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
+        palette = SCIREC_PALETTE;
+        break;
     }
+    return createAppTheme(palette, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.theme.inverted);
   }
   else {
     return createAppTheme(SCIREC_PALETTE);
