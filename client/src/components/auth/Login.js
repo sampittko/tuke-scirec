@@ -21,7 +21,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    document.title = getDocumentTitle(this);
+    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
   }
 
   handleForgottenPassword = () => {

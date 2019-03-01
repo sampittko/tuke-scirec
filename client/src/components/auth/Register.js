@@ -25,7 +25,7 @@ class Register extends React.Component {
   formSubmitted = false;
 
   componentDidMount() {
-    document.title = getDocumentTitle(this);
+    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
   }
 
   errorCodesMatches(errorCode) {

@@ -17,7 +17,7 @@ const getConcatenatedDocumentTitle = title => {
 }
 
 export const getDocumentTitle = component => {
-  switch (component._reactInternalFiber.elementType.name) {
+  switch (component) {
     case "Dashboard":
       return getConcatenatedDocumentTitle(titles.dashboard);
     case "Login":

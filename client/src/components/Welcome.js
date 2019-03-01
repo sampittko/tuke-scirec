@@ -7,7 +7,7 @@ import routes from '../config/app/routes';
 
 class Welcome extends React.Component {
   componentDidMount() {
-    document.title = getDocumentTitle(this);
+    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
   }
 
   render() {

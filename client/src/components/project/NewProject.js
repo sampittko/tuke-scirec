@@ -21,7 +21,7 @@ class NewProject extends React.Component {
   steps = ['Zvolenie názvu', 'Výber kategórie'];
 
   componentDidMount() {
-    document.title = getDocumentTitle(this);
+    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
   }
 
   handleChange = e => {
