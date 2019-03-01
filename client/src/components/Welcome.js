@@ -12,9 +12,9 @@ class Welcome extends React.Component {
 
   render() {
     return !this.props.isAuth ? (
-      <Redirect to={routes.auth.login} />
+      <Redirect to={routes.LOGIN} />
     ) : (
-      <Redirect to={routes.dashboard} />
+      <Redirect to={routes.DASHBOARD} />
     )
   }
 }

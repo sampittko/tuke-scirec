@@ -99,7 +99,7 @@ class Login extends React.Component {
         </Paper>
       </Fade>
     ) : (
-      <Redirect to={routes.dashboard} />
+      <Redirect to={routes.DASHBOARD} />
     )
   }
 }

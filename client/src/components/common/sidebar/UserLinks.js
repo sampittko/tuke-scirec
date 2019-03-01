@@ -8,7 +8,7 @@ const UserLinks = props =>
   <div>
     <Link 
       location={props.location}
-      route={routes.dashboard}
+      route={routes.DASHBOARD}
       text="Nástenka"
       icon={<DashboardIcon />}
     />

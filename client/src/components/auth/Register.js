@@ -119,7 +119,7 @@ class Register extends React.Component {
                 <Link 
                   target="_blank"
                   rel="noopener" 
-                  to={routes.home}
+                  to={routes.HOME}
                 >
                   spracovaním poskytnutých údajov
                 </Link>
@@ -138,7 +138,7 @@ class Register extends React.Component {
             {(this.formSubmitted && this.props.errorCode === '' && !this.props.isUserLoading) && (
               <Redirect
                 to={{
-                  pathname: routes.auth.login,
+                  pathname: routes.LOGIN,
                   state: {
                     registered: true
                   }
@@ -149,7 +149,7 @@ class Register extends React.Component {
         </Paper>
       </Fade>
     ) : (
-        <Redirect to={routes.dashboard} />
+        <Redirect to={routes.DASHBOARD} />
     )
   }
 }

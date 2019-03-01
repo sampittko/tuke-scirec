@@ -23,7 +23,7 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
     ) : (
       <Redirect
         to={{
-          pathname: routes.auth.login,
+          pathname: routes.LOGIN,
           state: { from: props.location }
         }}
       />
@@ -56,11 +56,11 @@ class App extends React.Component {
           }
         >
           <Container>
-            <PrivateRoute exact path={routes.dashboard} component={Dashboard} isAuth={this.props.isAuth} />
-            <PrivateRoute exact path={routes.project.new} component={NewProject} isAuth={this.props.isAuth} />
-            <Route exact path={routes.home} component={Welcome} />
-            <Route exact path={routes.auth.register} component={Register} />
-            <Route exact path={routes.auth.login} component={Login} />
+            <PrivateRoute exact path={routes.DASHBOARD} component={Dashboard} isAuth={this.props.isAuth} />
+            <PrivateRoute exact path={routes.NEW_PROJECT} component={NewProject} isAuth={this.props.isAuth} />
+            <Route exact path={routes.HOME} component={Welcome} />
+            <Route exact path={routes.REGISTER} component={Register} />
+            <Route exact path={routes.LOGIN} component={Login} />
           </Container>
         </MuiThemeProvider>
       </Router>

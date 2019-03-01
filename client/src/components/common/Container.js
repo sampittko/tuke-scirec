@@ -10,7 +10,7 @@ import routes from '../../config/app/routes';
 
 const Container = props =>
   <Grid container
-    className={props.location.pathname === routes.dashboard ? "double-toolbar-margin" : "toolbar-margin"}
+    className={props.location.pathname === routes.DASHBOARD ? "double-toolbar-margin" : "toolbar-margin"}
   >
     <Grid item xs={12}>
       <Appbar location={props.location} />

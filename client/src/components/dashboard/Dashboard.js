@@ -19,7 +19,7 @@ class Dashboard extends React.Component {
         <Paper className="dashboard">
           <ProjectsList />
           <Fab
-            onClick={() => this.props.history.push(routes.project.new)}
+            onClick={() => this.props.history.push(routes.NEW_PROJECT)}
             icon={<AddIcon />}
           />
         </Paper>

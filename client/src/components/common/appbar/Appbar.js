@@ -13,10 +13,10 @@ import './Appbar.scss';
 
 class AppbarComponent extends React.Component {
   getBrandRoute = () => {
-    if (this.props.location.pathname !== routes.auth.login && this.props.location.pathname !== routes.auth.register) {
-      return routes.dashboard;
+    if (this.props.location.pathname !== routes.LOGIN && this.props.location.pathname !== routes.REGISTER) {
+      return routes.DASHBOARD;
     }
-    return routes.home
+    return routes.HOME;
   }
 
   render() {
@@ -45,7 +45,7 @@ class AppbarComponent extends React.Component {
             <Links location={this.props.location} />
           )}
         </Toolbar>
-        {this.props.isAuth && this.props.location.pathname === routes.dashboard && (
+        {this.props.isAuth && this.props.location.pathname === routes.DASHBOARD && (
           <Toolbar>
             <DashboardSelector />
           </Toolbar>

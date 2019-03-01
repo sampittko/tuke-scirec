@@ -10,19 +10,19 @@ const Links = props =>
   <div>
     <Link
       location={props.location}
-      route={routes.home}
+      route={routes.HOME}
       text="Domov"
       icon={<HomeIcon />}
     />
     <Link
       location={props.location}
-      route={routes.auth.login}
+      route={routes.LOGIN}
       text="Prihlásenie"
       icon={<PersonIcon />}
     />
     <Link
       location={props.location}
-      route={routes.auth.register}
+      route={routes.REGISTER}
       text="Registrácia"
       icon={<PersonAddIcon />}
     />

@@ -9,15 +9,11 @@ export const getRouteFromString = string => {
 }
 
 const routes = {
-  home: '/',
-  dashboard: '/nastenka',
-  auth: {
-    login: '/prihlasenie',
-    register: '/registracia'
-  },
-  project: {
-    new: '/projekt/novy'
-  }
+  HOME: '/',
+  DASHBOARD: '/nastenka',
+  LOGIN: '/prihlasenie',
+  REGISTER: '/registracia',
+  NEW_PROJECT: '/projekt/novy'
 };
 
 export default routes;
