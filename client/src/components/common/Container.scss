@@ -17,3 +17,15 @@ div[class*="container"] {
         margin-top: 64px;
     }
 }
+
+@media (max-width: $media-query-1) {
+    div[class*="container"] {
+        &.double-toolbar-margin {
+            margin-top: 112px;
+        }
+
+        &.toolbar-margin {
+            margin-top: 56px;
+        }
+    }
+}

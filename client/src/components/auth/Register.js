@@ -106,7 +106,7 @@ class Register extends React.Component {
                 <Link
                   target="_blank"
                   rel="noopener"
-                  to={routes.home}
+                  to={routes.HOME}
                 >
                   podmienkami pre používateľa SCIREC
                 </Link>
@@ -149,7 +149,7 @@ class Register extends React.Component {
         </Paper>
       </Fade>
     ) : (
-        <Redirect to={routes.DASHBOARD} />
+        <Redirect to={routes.HOME} />
     )
   }
 }

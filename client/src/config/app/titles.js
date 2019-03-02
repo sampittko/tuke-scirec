@@ -3,13 +3,11 @@ import { APP_NAME } from '.';
 const TITLE_BASE = APP_NAME + " - ";
 
 const titles = {
-  dashboard: "Nástenka",
-  home: "Nástroj pre kontrolu verzií vedeckých publikácií",
-  login: "Prihlásenie",
-  register: "Registrácia",
-  project: {
-    new: "Vytvorenie nového projektu"
-  }
+  DASHBOARD: "Nástenka",
+  HOME: "Nástroj pre kontrolu verzií vedeckých publikácií",
+  LOGIN: "Prihlásenie",
+  REGISTER: "Registrácia",
+  NEW_PROJECT: "Vytvorenie nového projektu"
 }
 
 const getConcatenatedDocumentTitle = title => {
@@ -19,15 +17,15 @@ const getConcatenatedDocumentTitle = title => {
 export const getDocumentTitle = component => {
   switch (component) {
     case "Dashboard":
-      return getConcatenatedDocumentTitle(titles.dashboard);
+      return getConcatenatedDocumentTitle(titles.DASHBOARD);
     case "Login":
-      return getConcatenatedDocumentTitle(titles.login);
+      return getConcatenatedDocumentTitle(titles.LOGIN);
     case "Register":
-      return getConcatenatedDocumentTitle(titles.register);
+      return getConcatenatedDocumentTitle(titles.REGISTER);
     case "NewProject":
-      return getConcatenatedDocumentTitle(titles.project.new);
-    case "Home":
-      return getConcatenatedDocumentTitle(titles.home);
+      return getConcatenatedDocumentTitle(titles.NEW_PROJECT);
+    case "Welcome":
+      return getConcatenatedDocumentTitle(titles.HOME);
     default:
       return APP_NAME;
   }

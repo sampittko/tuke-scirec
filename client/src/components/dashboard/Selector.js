@@ -3,9 +3,11 @@ import propTypes from 'prop-types';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { dashboardConfig } from '../../config/app';
 import { connect } from 'react-redux';
+import { getDashboardFromId } from '../../utils/dashboardUtils';
 import { createDashboard, changeDashboard } from '../../store/actions/dashboardActions';
 import { FormControl, Select, MenuItem, Divider } from '@material-ui/core';
 import NewDashboardDialog from './dialog/NewDashboardDialog';
+import routes from '../../config/app/routes';
 import './Selector.scss';
 
 class Selector extends React.Component {
@@ -40,6 +42,7 @@ class Selector extends React.Component {
   handleSelectChange = event => {
     if (this.props.activeDashboardId !== event.target.value) {
       this.props.changeDashboard(event.target.value);
+      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(`${routes.DASHBOARDS}/${getDashboardFromId(event.target.value, this.props.dashboards).route}`);
     }
   }
 

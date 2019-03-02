@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import routes from '../../../config/app/routes';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import Sidebar from '../sidebar/Sidebar';
@@ -13,8 +14,8 @@ import './Appbar.scss';
 
 class AppbarComponent extends React.Component {
   getBrandRoute = () => {
-    if (this.props.location.pathname !== routes.LOGIN && this.props.location.pathname !== routes.REGISTER) {
-      return routes.DASHBOARD;
+    if (this.props.isAuth && this.props.dashboards) {
+      return `${routes.DASHBOARDS}/${this.props.activeDashboardRoute}`;
     }
     return routes.HOME;
   }
@@ -45,9 +46,9 @@ class AppbarComponent extends React.Component {
             <Links location={this.props.location} />
           )}
         </Toolbar>
-        {this.props.isAuth && this.props.location.pathname === routes.DASHBOARD && (
+        {this.props.dashboards && this.props.location.pathname === `${routes.DASHBOARDS}/${this.props.activeDashboardRoute}` && (
           <Toolbar>
-            <DashboardSelector />
+            <DashboardSelector history={this.props.history} />
           </Toolbar>
         )}
       </AppBar>
@@ -57,12 +58,17 @@ class AppbarComponent extends React.Component {
 
 AppbarComponent.propTypes = {
   isAuth: propTypes.bool.isRequired,
-  location: propTypes.object.isRequired
+  location: propTypes.object.isRequired,
+  history: propTypes.object.isRequired,
+  activeDashboardRoute: propTypes.string,
+  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard)
 }
 
 const mapStateToProps = state => {
   return {
-    isAuth: state.auth.success
+    isAuth: state.auth.success,
+    activeDashboardRoute: state.dashboard.selector.activeRoute || "",
+    dashboards: state.dashboard.data.list
   }
 }
 

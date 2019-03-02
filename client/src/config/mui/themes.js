@@ -94,7 +94,6 @@ const createAppTheme = (palette, inverted) => {
   )
 }
 
-
 export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) => {
   if ((isAuth && !dashboard) || isDashboardLoading) {
     return createAppTheme(LOADING_PALETTE);

@@ -110,7 +110,7 @@ class NewProject extends React.Component {
             ))}
           </Stepper>
           {this.state.activeStep === this.steps.length && (
-            <Redirect to={routes.DASHBOARD} />
+            <Redirect to={routes.HOME} />
           )}
         </Paper>
       </Fade>
