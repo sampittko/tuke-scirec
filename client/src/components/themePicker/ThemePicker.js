@@ -1,9 +1,11 @@
+import './ThemePicker.scss';
+
+import { FormControl, FormControlLabel, Radio } from '@material-ui/core';
+
 import React from 'react';
-import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { pickTheme } from '../../store/actions/themePickerActions';
-import { Radio, FormControl, FormControlLabel } from '@material-ui/core';
-import './ThemePicker.scss';
+import propTypes from 'prop-types';
 
 const ThemePicker = props =>
   <FormControl>

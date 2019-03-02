@@ -1,12 +1,14 @@
-import React from 'react';
-import routes from '../../config/app/routes';
-import { Paper, Fade } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/Add';
-import ProjectsList from './ProjectsList';
-import Fab from '../common/Fab';
-import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './Dashboard.scss';
+
+import { Fade, Paper } from '@material-ui/core';
+
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '../common/Fab';
+import ProjectsList from './ProjectsList';
+import React from 'react';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
+import routes from '../../config/app/routes';
+import { timeouts } from '../../config/mui';
 
 class Dashboard extends React.Component {
   componentDidMount() {

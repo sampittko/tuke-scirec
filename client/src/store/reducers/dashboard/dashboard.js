@@ -1,6 +1,7 @@
+import { getActiveDashboard, sortDashboardsByCreated } from '../../../utils/dashboardUtils';
+
 import actionTypes from '../../actionTypes';
 import { dashboardConfig } from '../../../config/app';
-import { sortDashboardsByCreated, getActiveDashboard } from '../../../utils/dashboardUtils';
 
 const _initialState = {
   data: {

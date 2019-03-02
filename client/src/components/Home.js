@@ -1,17 +1,17 @@
 import React from 'react';
-import propTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Typography } from '@material-ui/core';
+import { connect } from 'react-redux';
 import dashboardPropTypes from '../propTypes/dashboardPropTypes';
-import routes from '../config/app/routes';
+import { getDashboardRoute } from '../utils/dashboardUtils';
+import propTypes from 'prop-types';
 
 class Home extends React.Component {
   render() {
     return (
       <div>
         {this.props.dashboards ? (
-          <Redirect to={`${routes.DASHBOARDS}/${this.props.activeDashboardRoute}`} />
+          <Redirect to={getDashboardRoute(this.props.activeDashboardRoute)} />
         ) : (
           <Typography>Vitajte</Typography>
         )}

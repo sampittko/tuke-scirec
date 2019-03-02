@@ -1,16 +1,18 @@
-import React from 'react';
-import propTypes from 'prop-types';
+import './Register.scss';
+
+import { Button, Checkbox, Fade, Paper, TextField, Typography } from '@material-ui/core';
+
 import { Link } from 'react-router-dom';
+import React from 'react';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
-import { Checkbox, Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
-import routes from '../../config/app/routes';
-import { register } from '../../store/actions/authActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
-import logo from '../../static/media/logo.png';
-import { timeouts } from '../../config/mui';
 import { getDocumentTitle } from '../../utils/appConfigUtils';
-import './Register.scss';
+import logo from '../../static/media/logo.png';
+import propTypes from 'prop-types';
+import { register } from '../../store/actions/authActions';
+import routes from '../../config/app/routes';
+import { timeouts } from '../../config/mui';
 
 class Register extends React.Component {
   constructor(props) {

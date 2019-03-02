@@ -1,13 +1,15 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, DialogContentText } from '@material-ui/core';
+import './NewDashboardDialog.scss';
+
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { invertTheme, resetThemePicker } from '../../../store/actions/themePickerActions';
+
+import React from 'react';
+import Switch from './content/Switch';
 import ThemePicker from '../../themePicker/ThemePicker';
 import TitleInput from './content/TitleInput';
-import Switch from './content/Switch';
-import { dashboardConfig } from '../../../config/app';
 import { connect } from 'react-redux';
-import './NewDashboardDialog.scss';
+import { dashboardConfig } from '../../../config/app';
+import propTypes from 'prop-types';
 
 class NewDashboardDialog extends React.Component {
   constructor(props) {

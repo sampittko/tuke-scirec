@@ -1,15 +1,17 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import { Typography, Button, TextField, Paper, Fade } from '@material-ui/core';
-import { login } from '../../store/actions/authActions';
-import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import routes from '../../config/app/routes';
-import logo from '../../static/media/logo.png';
-import Notification from '../common/Notification';
-import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './Login.scss';
+
+import { Button, Fade, Paper, TextField, Typography } from '@material-ui/core';
+
+import Notification from '../common/Notification';
+import React from 'react';
+import { Redirect } from 'react-router';
+import { connect } from 'react-redux';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
+import { login } from '../../store/actions/authActions';
+import logo from '../../static/media/logo.png';
+import propTypes from 'prop-types';
+import routes from '../../config/app/routes';
+import { timeouts } from '../../config/mui';
 
 class Login extends React.Component {
   constructor(props) {

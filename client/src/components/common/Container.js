@@ -1,16 +1,18 @@
-import React from 'react';
-import { withRouter } from 'react-router';
-import propTypes from 'prop-types';
-import { Grid, LinearProgress, Fade } from '@material-ui/core';
-import Appbar from './appbar/Appbar';
-import { connect } from 'react-redux';
-import { timeouts } from '../../config/mui';
 import './Container.scss';
-import routes from '../../config/app/routes';
+
+import { Fade, Grid, LinearProgress } from '@material-ui/core';
+
+import Appbar from './appbar/Appbar';
+import React from 'react';
+import { connect } from 'react-redux';
+import { getDashboardRoute } from '../../utils/dashboardUtils';
+import propTypes from 'prop-types';
+import { timeouts } from '../../config/mui';
+import { withRouter } from 'react-router';
 
 const Container = props =>
   <Grid container
-    className={props.location.pathname === `${routes.DASHBOARDS}/${props.activeDashboardRoute}` ? "double-toolbar-margin" : "toolbar-margin"}
+    className={props.location.pathname === getDashboardRoute(props.activeDashboardRoute) ? "double-toolbar-margin" : "toolbar-margin"}
   >
     <Grid item xs={12}>
       <Appbar

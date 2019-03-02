@@ -1,10 +1,12 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import { List, SwipeableDrawer, IconButton } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import Links from './Links';
-import UserLinks from './UserLinks';
 import './Sidebar.scss';
+
+import { IconButton, List, SwipeableDrawer } from '@material-ui/core';
+
+import Links from './Links';
+import MenuIcon from '@material-ui/icons/Menu';
+import React from 'react';
+import UserLinks from './UserLinks';
+import propTypes from 'prop-types';
 
 class Sidebar extends React.Component {
   constructor(props) {

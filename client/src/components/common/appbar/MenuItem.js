@@ -1,6 +1,7 @@
+import { ListItemIcon, ListItemText, MenuItem } from '@material-ui/core';
+
 import React from 'react';
 import propTypes from 'prop-types';
-import { MenuItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 const MenuItemComponent = props =>
   <MenuItem

@@ -1,16 +1,16 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import { connect } from 'react-redux';
-import routes from '../../../config/app/routes';
-import Link from './Link';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import Link from './Link';
+import React from 'react';
+import { connect } from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
+import { getDashboardRoute } from '../../../utils/dashboardUtils';
+import propTypes from 'prop-types';
 
 const UserLinks = props =>
   <div>
     <Link 
       location={props.location}
-      route={`${routes.DASHBOARDS}/${props.activeDashboardRoute}`}
+      route={getDashboardRoute(props.activeDashboardRoute)}
       text={props.activeDashboardTitle}
       icon={<DashboardIcon />}
     />

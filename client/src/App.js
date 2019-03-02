@@ -1,21 +1,23 @@
-import React from 'react';
-import routes from './config/app/routes';
-import propTypes from 'prop-types';
-import dashboardPropTypes from './propTypes/dashboardPropTypes';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { getAppTheme } from './utils/muiConfigUtils';
-import { getDashboards } from './store/actions/dashboardActions';
-import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { getAuth } from './store/actions/authActions';
-import Login from './components/auth/Login';
-import Register from './components/auth/Register';
-import Dashboard from './components/dashboard/Dashboard';
-import Container from './components/common/Container';
-import NewProject from './components/project/NewProject';
-import Home from './components/Home';
 import './index.scss';
+
+import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
+import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
+
+import Container from './components/common/Container';
+import Dashboard from './components/dashboard/Dashboard';
+import Home from './components/Home';
+import Login from './components/auth/Login';
+import NewProject from './components/project/NewProject';
+import React from 'react';
+import Register from './components/auth/Register';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import dashboardPropTypes from './propTypes/dashboardPropTypes';
+import { getAppTheme } from './utils/muiConfigUtils';
+import { getAuth } from './store/actions/authActions';
+import { getDashboards } from './store/actions/dashboardActions';
+import propTypes from 'prop-types';
+import routes from './config/app/routes';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
   <Route {...rest} render={props => isAuth ? (

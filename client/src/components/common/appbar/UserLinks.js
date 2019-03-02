@@ -1,14 +1,16 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import { logout } from '../../../store/actions/authActions';
-import { connect } from 'react-redux';
-import { IconButton, Menu, Divider } from '@material-ui/core';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import MenuItem from './MenuItem';
 import './Appbar.scss';
+
+import { Divider, IconButton, Menu } from '@material-ui/core';
+
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import MenuItem from './MenuItem';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import React from 'react';
+import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import SettingsIcon from '@material-ui/icons/Settings';
+import { connect } from 'react-redux';
+import { logout } from '../../../store/actions/authActions';
+import propTypes from 'prop-types';
 
 class UserLinks extends React.Component {
   constructor(props) {

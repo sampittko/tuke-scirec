@@ -1,6 +1,6 @@
-import palettes from '../config/mui/palettes';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { dashboardConfig } from '../config/app';
+import palettes from '../config/mui/palettes';
 
 const createAppTheme = (palette, inverted) => {
   return inverted ? (

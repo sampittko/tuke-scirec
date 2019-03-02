@@ -1,10 +1,12 @@
-import React from 'react';
-import routes from '../../config/app/routes';
-import { Redirect } from 'react-router';
-import { Paper, TextField, Button, Stepper, Step, StepLabel, StepContent, Typography, MenuItem, Fade } from '@material-ui/core';
-import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './NewProject.scss';
+
+import { Button, Fade, MenuItem, Paper, Step, StepContent, StepLabel, Stepper, TextField, Typography } from '@material-ui/core';
+
+import React from 'react';
+import { Redirect } from 'react-router';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
+import routes from '../../config/app/routes';
+import { timeouts } from '../../config/mui';
 
 const TITLE_MIN_LENGTH = 3;
 

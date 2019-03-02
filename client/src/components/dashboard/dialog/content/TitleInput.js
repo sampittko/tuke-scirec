@@ -1,7 +1,8 @@
+import { FormControl, Input, InputAdornment, InputLabel } from '@material-ui/core';
+
 import React from 'react';
-import propTypes from 'prop-types';
 import { dashboardConfig } from '../../../../config/app';
-import { FormControl, InputLabel, Input, InputAdornment } from '@material-ui/core';
+import propTypes from 'prop-types';
 
 const TitleInput = props =>
   <FormControl>

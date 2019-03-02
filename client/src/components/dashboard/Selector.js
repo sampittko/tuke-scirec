@@ -1,14 +1,16 @@
-import React from 'react';
-import propTypes from 'prop-types';
-import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { dashboardConfig } from '../../config/app';
-import { connect } from 'react-redux';
-import { getDashboardFromId } from '../../utils/dashboardUtils';
-import { createDashboard, changeDashboard } from '../../store/actions/dashboardActions';
-import { FormControl, Select, MenuItem, Divider } from '@material-ui/core';
-import NewDashboardDialog from './dialog/NewDashboardDialog';
-import routes from '../../config/app/routes';
 import './Selector.scss';
+
+import { Divider, FormControl, MenuItem, Select } from '@material-ui/core';
+import { changeDashboard, createDashboard } from '../../store/actions/dashboardActions';
+
+import NewDashboardDialog from './dialog/NewDashboardDialog';
+import React from 'react';
+import { connect } from 'react-redux';
+import { dashboardConfig } from '../../config/app';
+import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
+import { getDashboardFromId } from '../../utils/dashboardUtils';
+import propTypes from 'prop-types';
+import routes from '../../config/app/routes';
 
 class Selector extends React.Component {
   constructor(props) {

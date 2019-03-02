@@ -1,7 +1,7 @@
-import titles from '../config/app/titles';
 import { APP_NAME } from '../config/app';
-import removeAccents from 'remove-accents';
 import dashify from 'dashify';
+import removeAccents from 'remove-accents';
+import titles from '../config/app/titles';
 
 const TITLE_BASE = APP_NAME + " - ";
 

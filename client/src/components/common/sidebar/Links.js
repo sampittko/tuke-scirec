@@ -1,10 +1,10 @@
+import HomeIcon from '@material-ui/icons/Home';
+import Link from './Link';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonIcon from '@material-ui/icons/Person';
 import React from 'react';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
-import HomeIcon from '@material-ui/icons/Home';
-import PersonIcon from '@material-ui/icons/Person';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import Link from './Link';
 
 const Links = props =>
   <div>

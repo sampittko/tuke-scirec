@@ -1,24 +1,23 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import propTypes from 'prop-types';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import routes from '../../../config/app/routes';
-import { AppBar, Toolbar, Typography } from '@material-ui/core';
-import Sidebar from '../sidebar/Sidebar';
-import Links from './Links';
-import UserLinks from './UserLinks';
-import DashboardSelector from '../../dashboard/Selector';
-import { Link } from 'react-router-dom';
-import { APP_NAME } from '../../../config/app/';
 import './Appbar.scss';
 
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+
+import { APP_NAME } from '../../../config/app/';
+import DashboardSelector from '../../dashboard/Selector';
+import { Link } from 'react-router-dom';
+import Links from './Links';
+import React from 'react';
+import Sidebar from '../sidebar/Sidebar';
+import UserLinks from './UserLinks';
+import { connect } from 'react-redux';
+import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
+import { getDashboardRoute } from '../../../utils/dashboardUtils';
+import propTypes from 'prop-types';
+import routes from '../../../config/app/routes';
+
 class AppbarComponent extends React.Component {
-  getBrandRoute = () => {
-    if (this.props.isAuth && this.props.dashboards) {
-      return `${routes.DASHBOARDS}/${this.props.activeDashboardRoute}`;
-    }
-    return routes.HOME;
-  }
+  getBrandRoute = () =>
+    this.props.isAuth && this.props.dashboards ? getDashboardRoute(this.props.activeDashboardRoute) : routes.HOME;
 
   render() {
     return (
@@ -46,7 +45,7 @@ class AppbarComponent extends React.Component {
             <Links location={this.props.location} />
           )}
         </Toolbar>
-        {this.props.dashboards && this.props.location.pathname === `${routes.DASHBOARDS}/${this.props.activeDashboardRoute}` && (
+        {this.props.dashboards && this.props.location.pathname === getDashboardRoute(this.props.activeDashboardRoute) && (
           <Toolbar>
             <DashboardSelector history={this.props.history} />
           </Toolbar>
