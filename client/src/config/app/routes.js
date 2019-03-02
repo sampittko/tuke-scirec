@@ -1,13 +1,3 @@
-import removeAccents from 'remove-accents';
-import dashify from 'dashify';
-
-export const getRouteFromString = string => {
-  return dashify(
-    removeAccents(string),
-    { condense: true }
-  );
-}
-
 const routes = {
   HOME: '/',
   DASHBOARD: '/nastenky/:dashboardRoute',

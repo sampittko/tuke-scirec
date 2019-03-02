@@ -1,6 +1,6 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { getRouteFromString } from '../../config/app/routes';
+import { getRouteFromString } from '../../utils/appConfigUtils';
 
 const getDashboardsFailure = error => ({
   type: actionTypes.GET_DASHBOARDS_FAILURE,

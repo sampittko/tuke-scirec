@@ -8,7 +8,7 @@ import routes from '../../config/app/routes';
 import logo from '../../static/media/logo.png';
 import Notification from '../common/Notification';
 import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../config/app/titles';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './Login.scss';
 
 class Login extends React.Component {

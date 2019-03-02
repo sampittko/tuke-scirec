@@ -3,7 +3,7 @@ import routes from './config/app/routes';
 import propTypes from 'prop-types';
 import dashboardPropTypes from './propTypes/dashboardPropTypes';
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
-import { getAppTheme } from './config/mui/themes';
+import { getAppTheme } from './utils/muiConfigUtils';
 import { getDashboards } from './store/actions/dashboardActions';
 import { withTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import { connect } from 'react-redux';

@@ -3,7 +3,7 @@ import routes from '../../config/app/routes';
 import { Redirect } from 'react-router';
 import { Paper, TextField, Button, Stepper, Step, StepLabel, StepContent, Typography, MenuItem, Fade } from '@material-ui/core';
 import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../config/app/titles';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './NewProject.scss';
 
 const TITLE_MIN_LENGTH = 3;

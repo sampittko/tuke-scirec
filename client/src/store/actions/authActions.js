@@ -2,7 +2,7 @@ import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import { timeouts } from '../../config/mui';
 import { dashboardConfig } from '../../config/app';
-import { getRouteFromString } from '../../config/app/routes';
+import { getRouteFromString } from '../../utils/appConfigUtils';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,

@@ -5,7 +5,7 @@ import AddIcon from '@material-ui/icons/Add';
 import ProjectsList from './ProjectsList';
 import Fab from '../common/Fab';
 import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../config/app/titles';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './Dashboard.scss';
 
 class Dashboard extends React.Component {

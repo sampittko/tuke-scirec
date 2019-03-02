@@ -9,7 +9,7 @@ import { register } from '../../store/actions/authActions';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
 import logo from '../../static/media/logo.png';
 import { timeouts } from '../../config/mui';
-import { getDocumentTitle } from '../../config/app/titles';
+import { getDocumentTitle } from '../../utils/appConfigUtils';
 import './Register.scss';
 
 class Register extends React.Component {
