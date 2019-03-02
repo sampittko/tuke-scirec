@@ -1,3 +1,5 @@
+import './Link.scss';
+
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 import { Link } from 'react-router-dom';

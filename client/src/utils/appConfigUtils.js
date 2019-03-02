@@ -5,9 +5,8 @@ import titles from '../config/app/titles';
 
 const TITLE_BASE = APP_NAME + " - ";
 
-const appendTitle = title => {
-  return TITLE_BASE + title;
-}
+const appendTitle = title =>
+  TITLE_BASE + title;
 
 export const getDocumentTitle = component => {
   switch (component) {
@@ -26,9 +25,8 @@ export const getDocumentTitle = component => {
   }
 }
 
-export const getRouteFromString = string => {
-  return dashify(
+export const getRouteFromString = string =>
+  dashify(
     removeAccents(string),
     { condense: true }
   );
-}

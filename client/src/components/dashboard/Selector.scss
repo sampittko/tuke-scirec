@@ -6,7 +6,7 @@ div[class*="Toolbar"]:nth-child(2) {
 
 .selector {
     div[class*="InputBase"] {
-        min-width: 220px;
+        min-width: $dashboard-selector-min-width;
         text-align: center;
         color: white;
 
@@ -14,6 +14,7 @@ div[class*="Toolbar"]:nth-child(2) {
             height: 32px;
             line-height: 32px;
             border-radius: 4px;
+            padding-right: 0;
         }
 
         svg[class*="SvgIcon"] {

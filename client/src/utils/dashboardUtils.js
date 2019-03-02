@@ -22,4 +22,4 @@ export const getActiveDashboard = (dashboards, activeId, selector) => {
 }
 
 export const getDashboardRoute = dashboardRoute =>
-  `${routes.DASHBOARDS}/${dashboardRoute}`;
+  dashboardRoute === "" ? routes.DASHBOARDS : `${routes.DASHBOARDS}/${dashboardRoute}`;
