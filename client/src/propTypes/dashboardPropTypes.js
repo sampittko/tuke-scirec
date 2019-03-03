@@ -9,7 +9,15 @@ const propTypes = {
       inverted: PropTypes.bool.isRequired
     }),
     created: PropTypes.number.isRequired
-  })
+  }),
+  selector: PropTypes.shape({
+    active: PropTypes.any,
+    activeRoute: PropTypes.string,
+    activeId: PropTypes.number,
+    previousId: PropTypes.number,
+  }),
+  isLoading: PropTypes.bool,
+  error: PropTypes.bool,
 }
 
 export default propTypes;

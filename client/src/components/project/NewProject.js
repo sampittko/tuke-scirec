@@ -4,7 +4,7 @@ import { Button, Fade, MenuItem, Paper, Step, StepContent, StepLabel, Stepper, T
 
 import React from 'react';
 import { Redirect } from 'react-router';
-import { getDocumentTitle } from '../../utils/appConfigUtils';
+import { getDocumentTitleFromComponent } from '../../utils/appConfigUtils';
 import routes from '../../config/app/routes';
 import { timeouts } from '../../config/mui';
 
@@ -23,7 +23,7 @@ class NewProject extends React.Component {
   steps = ['Zvolenie názvu', 'Výber kategórie'];
 
   componentDidMount() {
-    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
+    document.title = getDocumentTitleFromComponent(this);
   }
 
   handleChange = e => {

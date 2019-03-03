@@ -103,7 +103,7 @@ class App extends React.Component {
 
 App.propTypes = {
   isAuth: authPropTypes.success.isRequired,
-  isDashboardLoading: propTypes.bool.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   activeDashboard: propTypes.any,
   themePicker: themePickerPropTypes.themePicker.isRequired,
   getAuth: propTypes.func.isRequired,

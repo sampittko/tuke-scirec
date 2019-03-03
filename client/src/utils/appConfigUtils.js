@@ -8,8 +8,11 @@ const TITLE_BASE = APP_NAME + " - ";
 export const appendTitle = title =>
   TITLE_BASE + title;
 
-export const getDocumentTitle = component => {
-  switch (component) {
+const getComponentName = component =>
+  component._reactInternalFiber.elementType.name;
+
+export const getDocumentTitleFromComponent = component => {
+  switch (getComponentName(component)) {
     case "Login":
       return appendTitle(titles.LOGIN);
     case "Register":

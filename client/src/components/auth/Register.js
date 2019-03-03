@@ -8,7 +8,7 @@ import { Redirect } from 'react-router';
 import authPropTypes from '../../propTypes/authPropTypes';
 import { connect } from 'react-redux';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
-import { getDocumentTitle } from '../../utils/appConfigUtils';
+import { getDocumentTitleFromComponent } from '../../utils/appConfigUtils';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
 import { register } from '../../store/actions/authActions';
@@ -28,7 +28,7 @@ class Register extends React.Component {
   formSubmitted = false;
 
   componentDidMount() {
-    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
+    document.title = getDocumentTitleFromComponent(this);
   }
 
   errorCodesMatches(errorCode) {

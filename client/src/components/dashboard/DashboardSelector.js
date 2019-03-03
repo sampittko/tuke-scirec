@@ -97,7 +97,7 @@ class DashboardSelector extends React.Component {
 DashboardSelector.propTypes = {
   createDashboard: propTypes.func.isRequired,
   defaultDashboard: dashboardPropTypes.dashboard,
-  isDashboardLoading: propTypes.bool.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   activeDashboardId: propTypes.number,
   dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
   history: propTypes.object.isRequired,

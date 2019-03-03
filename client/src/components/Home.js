@@ -5,9 +5,14 @@ import authPropTypes from '../propTypes/authPropTypes';
 import { connect } from 'react-redux';
 import dashboardPropTypes from '../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../utils/dashboardUtils';
+import { getDocumentTitleFromComponent } from '../utils/appConfigUtils';
 import propTypes from 'prop-types';
 
 class Home extends React.Component {
+  componentDidMount() {
+    document.title = getDocumentTitleFromComponent(this);
+  }
+
   render() {
     return (
       <div>
@@ -25,7 +30,7 @@ Home.propTypes = {
   isAuth: authPropTypes.success.isRequired,
   dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
   activeDashboardRoute: propTypes.string,
-  isDashboardLoading: propTypes.bool.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 }
 
 const mapStateToProps = state => {

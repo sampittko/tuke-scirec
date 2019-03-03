@@ -8,6 +8,7 @@ import ThemePicker from '../../themePicker/ThemePicker';
 import TitleInput from './NewDashboardTitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../../config/app';
+import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 import { resetThemePicker } from '../../../store/actions/themePickerActions';
 import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
@@ -87,7 +88,7 @@ class NewDashboardDialog extends React.Component {
 NewDashboardDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
-  isDashboardLoading: propTypes.bool.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   handleTitleChange: propTypes.func.isRequired,
   title: propTypes.string.isRequired,
   themePicker: themePickerPropTypes.themePicker.isRequired,

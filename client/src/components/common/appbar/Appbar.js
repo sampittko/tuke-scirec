@@ -22,9 +22,11 @@ class AppbarComponent extends React.Component {
     this.props.isAuth && this.props.dashboards ? getDashboardRoute(this.props.defaultDashboardRoute) : routes.HOME;
 
   handleClick = event => {
-    event.preventDefault();
-    if (this.props.defaultDashboardRoute !== this.props.activeDashboardRoute) {
-      this.props.changeDashboardToDefault();
+    if (this.props.isAuth) {
+      event.preventDefault();
+      if (this.props.defaultDashboardRoute !== this.props.activeDashboardRoute) {
+        this.props.changeDashboardToDefault();
+      }
     }
   }
 
