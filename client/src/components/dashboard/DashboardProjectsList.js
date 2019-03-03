@@ -1,10 +1,10 @@
-import './ProjectsList.scss';
+import './DashboardProjectsList.scss';
 
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
 import React from 'react';
 
-class ProjectsList extends React.Component {
+class DashboardProjectsList extends React.Component {
   render() {
     return (
       <div>
@@ -24,4 +24,4 @@ class ProjectsList extends React.Component {
   }
 }
 
-export default ProjectsList;
+export default DashboardProjectsList;

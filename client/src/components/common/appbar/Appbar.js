@@ -3,12 +3,12 @@ import './Appbar.scss';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 
 import { APP_NAME } from '../../../config/app/';
-import DashboardSelector from '../../dashboard/Selector';
+import DashboardSelector from '../../dashboard/DashboardSelector';
 import { Link } from 'react-router-dom';
-import Links from './Links';
+import Links from './AppbarLinks';
 import React from 'react';
 import Sidebar from '../sidebar/Sidebar';
-import UserLinks from './UserLinks';
+import UserLinks from './AppbarUserLinks';
 import { connect } from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../../../utils/dashboardUtils';

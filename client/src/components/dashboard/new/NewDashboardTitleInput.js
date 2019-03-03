@@ -1,10 +1,10 @@
 import { FormControl, Input, InputAdornment, InputLabel } from '@material-ui/core';
 
 import React from 'react';
-import { dashboardConfig } from '../../../../config/app';
+import { dashboardConfig } from '../../../config/app';
 import propTypes from 'prop-types';
 
-const TitleInput = props =>
+const NewDashboardTitleInput = props =>
   <FormControl>
     <InputLabel>
       Názov nástenky
@@ -19,9 +19,9 @@ const TitleInput = props =>
     />
   </FormControl>;
 
-TitleInput.propTypes = {
+NewDashboardTitleInput.propTypes = {
   onChange: propTypes.func.isRequired,
   title: propTypes.string.isRequired
 }
 
-export default TitleInput;
+export default NewDashboardTitleInput;

@@ -5,7 +5,7 @@ import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Container from './components/common/Container';
 import Dashboard from './components/dashboard/Dashboard';
-import DashboardSettings from './components/dashboard/Settings';
+import DashboardSettings from './components/dashboard/settings/DashboardSettings';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import NewProject from './components/project/NewProject';
@@ -19,6 +19,7 @@ import { getAuth } from './store/actions/authActions';
 import { getDashboards } from './store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import routes from './config/app/routes';
+import themePickerPropTypes from './propTypes/themePickerPropTypes';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
   <Route {...rest} render={props => isAuth ? (
@@ -103,7 +104,7 @@ App.propTypes = {
   isAuth: propTypes.bool.isRequired,
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
-  themePicker: propTypes.object.isRequired,
+  themePicker: themePickerPropTypes.themePicker.isRequired,
   getAuth: propTypes.func.isRequired,
   getDashboards: propTypes.func.isRequired,
   userId: propTypes.string,

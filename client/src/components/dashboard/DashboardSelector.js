@@ -1,17 +1,17 @@
-import './Selector.scss';
+import './DashboardSelector.scss';
 
 import { Divider, FormControl, MenuItem, Select } from '@material-ui/core';
 import { changeDashboard, createDashboard } from '../../store/actions/dashboardActions';
 import { getDashboardFromId, getDashboardRoute } from '../../utils/dashboardUtils';
 
-import NewDashboardDialog from './dialog/NewDashboardDialog';
+import NewDashboardDialog from './new/NewDashboardDialog';
 import React from 'react';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 
-class Selector extends React.Component {
+class DashboardSelector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,7 +94,7 @@ class Selector extends React.Component {
   }
 }
 
-Selector.propTypes = {
+DashboardSelector.propTypes = {
   createDashboard: propTypes.func.isRequired,
   defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: propTypes.bool.isRequired,
@@ -119,4 +119,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Selector);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardSelector);

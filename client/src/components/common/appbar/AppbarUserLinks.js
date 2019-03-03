@@ -3,7 +3,7 @@ import './Appbar.scss';
 import { Divider, IconButton, Menu } from '@material-ui/core';
 
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import MenuItem from './MenuItem';
+import MenuItem from './AppbarMenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';

@@ -1,16 +1,16 @@
-import auth from './auth/auth';
+import authReducer from './authReducer';
 import { combineReducers } from 'redux';
-import dashboard from './dashboard/dashboard';
+import dashboardReducer from './dashboardReducer';
 import { firebaseReducer } from 'react-redux-firebase';
 import { firestoreReducer } from 'redux-firestore';
-import themePicker from './themePicker/themePicker';
+import themePickerReducer from './themePickerReducer';
 
 const rootReducer = combineReducers({
     firebase: firebaseReducer,
     firestore: firestoreReducer,
-    auth,
-    dashboard,
-    themePicker
+    auth: authReducer,
+    dashboard: dashboardReducer,
+    themePicker: themePickerReducer,
 });
 
 export default rootReducer;

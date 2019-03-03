@@ -1,4 +1,4 @@
-import './Link.scss';
+import './SidebarLink.scss';
 
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 

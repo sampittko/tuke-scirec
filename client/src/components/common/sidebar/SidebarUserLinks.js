@@ -2,7 +2,7 @@ import { getDashboardRoute, getDashboardSettingsRoute } from '../../../utils/das
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { Divider } from '@material-ui/core';
-import Link from './Link';
+import Link from './SidebarLink';
 import React from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { connect } from 'react-redux';

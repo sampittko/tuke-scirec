@@ -5,7 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from 'react';
 import Switch from '../../common/Switch';
 import ThemePicker from '../../themePicker/ThemePicker';
-import TitleInput from './content/TitleInput';
+import TitleInput from './NewDashboardTitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../../config/app';
 import propTypes from 'prop-types';
