@@ -115,3 +115,11 @@ export const changeDashboard = newActiveId => {
     })
   }
 }
+
+export const changeDashboardToDefault = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.CHANGE_DASHBOARD_TO_DEFAULT
+    })
+  }
+}

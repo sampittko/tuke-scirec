@@ -10,6 +10,7 @@ import React from 'react';
 import Sidebar from '../sidebar/Sidebar';
 import UserLinks from './AppbarUserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
+import { changeDashboardToDefault } from '../../../store/actions/dashboardActions';
 import { connect } from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../../../utils/dashboardUtils';
@@ -18,7 +19,14 @@ import routes from '../../../config/app/routes';
 
 class AppbarComponent extends React.Component {
   getBrandRoute = () =>
-    this.props.isAuth && this.props.dashboards ? getDashboardRoute(this.props.activeDashboardRoute) : routes.HOME;
+    this.props.isAuth && this.props.dashboards ? getDashboardRoute(this.props.defaultDashboardRoute) : routes.HOME;
+
+  handleClick = event => {
+    event.preventDefault();
+    if (this.props.defaultDashboardRoute !== this.props.activeDashboardRoute) {
+      this.props.changeDashboardToDefault();
+    }
+  }
 
   render() {
     return (
@@ -36,6 +44,7 @@ class AppbarComponent extends React.Component {
             <Link
               className="link"
               to={this.getBrandRoute()}
+              onClick={this.handleClick}
             >
               {APP_NAME}
             </Link>
@@ -54,6 +63,12 @@ class AppbarComponent extends React.Component {
       </AppBar>
     );
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeDashboardRoute !== this.props.activeDashboardRoute) {
+      this.props.history.push(getDashboardRoute(this.props.activeDashboardRoute));
+    }
+  }
 }
 
 AppbarComponent.propTypes = {
@@ -61,15 +76,23 @@ AppbarComponent.propTypes = {
   location: propTypes.object.isRequired,
   history: propTypes.object.isRequired,
   activeDashboardRoute: propTypes.string,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard)
+  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  defaultDashboardRoute: propTypes.string
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    changeDashboardToDefault: () => dispatch(changeDashboardToDefault())
+  }
 }
 
 const mapStateToProps = state => {
   return {
     isAuth: state.auth.success,
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
-    dashboards: state.dashboard.data.list
+    dashboards: state.dashboard.data.list,
+    defaultDashboardRoute: state.dashboard.data.default ? state.dashboard.data.default.route : "",
   }
 }
 
-export default connect(mapStateToProps)(AppbarComponent);
+export default connect(mapStateToProps, mapDispatchToProps)(AppbarComponent);

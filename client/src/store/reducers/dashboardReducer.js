@@ -116,6 +116,18 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.RESET_DASHBOARD_STATE);
       return _initialState;
 
+    case actionTypes.CHANGE_DASHBOARD_TO_DEFAULT:
+      console.log(actionTypes.CHANGE_DASHBOARD_TO_DEFAULT);
+      return {
+        ...state,
+        selector: {
+          active: state.data.default,
+          activeRoute: state.data.default.route,
+          activeId: state.data.default.created,
+          previousId: state.selector.activeId
+        }
+      }
+
     default:
       return state;
   }
