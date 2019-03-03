@@ -1,5 +1,4 @@
 const titles = {
-  DASHBOARD: "Nástenka",
   HOME: "Nástroj pre kontrolu verzií vedeckých publikácií",
   LOGIN: "Prihlásenie",
   REGISTER: "Registrácia",

@@ -6,13 +6,15 @@ import AddIcon from '@material-ui/icons/Add';
 import Fab from '../common/Fab';
 import ProjectsList from './ProjectsList';
 import React from 'react';
-import { getDocumentTitle } from '../../utils/appConfigUtils';
+import { connect } from 'react-redux';
+import { getDocumentTitleFromDashboard } from '../../utils/appConfigUtils';
+import propTypes from 'prop-types';
 import routes from '../../config/app/routes';
 import { timeouts } from '../../config/mui';
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    document.title = getDocumentTitle(this._reactInternalFiber.elementType.name);
+    document.title = getDocumentTitleFromDashboard(this.props.activeDashboard);
   }
 
   render() {
@@ -28,6 +30,22 @@ class Dashboard extends React.Component {
       </Fade>
     );
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.activeDashboard !== this.props.activeDashboard) {
+      document.title = getDocumentTitleFromDashboard(this.props.activeDashboard);
+    }
+  }
 }
 
-export default Dashboard;
+Dashboard.propTypes = {
+  activeDashboard: propTypes.any
+}
+
+const mapStateToProps = state => {
+  return {
+    activeDashboard: state.dashboard.selector.active
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard);

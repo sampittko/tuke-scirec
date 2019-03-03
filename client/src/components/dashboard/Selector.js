@@ -2,15 +2,14 @@ import './Selector.scss';
 
 import { Divider, FormControl, MenuItem, Select } from '@material-ui/core';
 import { changeDashboard, createDashboard } from '../../store/actions/dashboardActions';
+import { getDashboardFromId, getDashboardRoute } from '../../utils/dashboardUtils';
 
 import NewDashboardDialog from './dialog/NewDashboardDialog';
 import React from 'react';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { getDashboardFromId } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
-import routes from '../../config/app/routes';
 
 class Selector extends React.Component {
   constructor(props) {
@@ -44,7 +43,7 @@ class Selector extends React.Component {
   handleSelectChange = event => {
     if (this.props.activeDashboardId !== event.target.value) {
       this.props.changeDashboard(event.target.value);
-      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(`${routes.DASHBOARDS}/${getDashboardFromId(event.target.value, this.props.dashboards).route}`);
+      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(getDashboardFromId(event.target.value, this.props.dashboards).route));
     }
   }
 
@@ -87,6 +86,12 @@ class Selector extends React.Component {
       </div>
     )
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.dashboards.length !== this.props.dashboards.length) {
+      this.props.history.push(getDashboardRoute(this.props.dashboards[0].route));
+    }
+  }
 }
 
 Selector.propTypes = {
@@ -94,7 +99,8 @@ Selector.propTypes = {
   defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboardId: propTypes.number,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard)
+  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  history: propTypes.object.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
@@ -109,7 +115,7 @@ const mapStateToProps = state => {
     dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
     defaultDashboard: state.dashboard.data.default,
-    activeDashboardId: state.dashboard.selector.activeId
+    activeDashboardId: state.dashboard.selector.activeId,
   }
 }
 

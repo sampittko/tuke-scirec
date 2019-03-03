@@ -1,4 +1,5 @@
-import { APP_NAME } from '../config/app';
+import { APP_NAME, dashboardConfig } from '../config/app';
+
 import dashify from 'dashify';
 import removeAccents from 'remove-accents';
 import titles from '../config/app/titles';
@@ -10,8 +11,6 @@ const appendTitle = title =>
 
 export const getDocumentTitle = component => {
   switch (component) {
-    case "Dashboard":
-      return appendTitle(titles.DASHBOARD);
     case "Login":
       return appendTitle(titles.LOGIN);
     case "Register":
@@ -23,6 +22,10 @@ export const getDocumentTitle = component => {
     default:
       return APP_NAME;
   }
+}
+
+export const getDocumentTitleFromDashboard = dashboard => {
+  return dashboard !== dashboardConfig.MAX_COUNT ? appendTitle(dashboard.title) : appendTitle("Vytvorenie novej nástenky");
 }
 
 export const getRouteFromString = string =>
