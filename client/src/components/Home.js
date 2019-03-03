@@ -1,6 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
 import { Typography } from '@material-ui/core';
+import authPropTypes from '../propTypes/authPropTypes';
 import { connect } from 'react-redux';
 import dashboardPropTypes from '../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../utils/dashboardUtils';
@@ -21,7 +22,7 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  isAuth: propTypes.bool.isRequired,
+  isAuth: authPropTypes.success.isRequired,
   dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
   activeDashboardRoute: propTypes.string,
   isDashboardLoading: propTypes.bool.isRequired,

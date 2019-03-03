@@ -2,7 +2,6 @@ import actionTypes from '../actionTypes';
 import { dashboardConfig } from '../../config/app';
 import firestoreCollections from '../../config/firebase/collections';
 import { getRouteFromString } from '../../utils/appConfigUtils';
-import { timeouts } from '../../config/mui';
 
 const loginFailure = error => ({
   type: actionTypes.LOGIN_FAILURE,
@@ -28,14 +27,10 @@ export const login = user => {
         user.email,
         user.password
       ).then(() => {
-        setTimeout(() => {
-          dispatch(loginSuccess())
-        }, timeouts.LOGIN_SUCCESS);
+        dispatch(loginSuccess())
       }).catch(error => {
         console.log(error);
-        setTimeout(() => {
-          dispatch(loginFailure(error));
-        }, timeouts.LOGIN_FAILURE);
+        dispatch(loginFailure(error));
       });
   }
 }
@@ -55,9 +50,10 @@ export const logout = () => {
     firebase.auth()
       .signOut()
     .then(() => {
-      setTimeout(() => {
-        dispatch(logoutSuccess());
-      }, timeouts.LOGOUT_SUCCESS);
+      dispatch(logoutSuccess());
+      dispatch({
+        type: actionTypes.RESET_DASHBOARD_STATE
+      });
     });
   }
 }
@@ -104,18 +100,15 @@ export const register = newUser => {
         })
     }).then(result => {
       return usersRef
-        .doc(newRegisteredUserId).set({
+        .doc(newRegisteredUserId)
+        .set({
           defaultDashboard: dashboardsRef.doc(result.id)
         })
     }).then(() => {
-      setTimeout(() => {
-        dispatch(registerSuccess());
-      }, timeouts.REGISTER_SUCCESS);
+      dispatch(registerSuccess());
     }).catch(error => {
       console.log(error);
-      setTimeout(() => {
-        dispatch(registerFailure(error));
-      }, timeouts.REGISTER_FAILURE);
+      dispatch(registerFailure(error));
     });
   }
 }

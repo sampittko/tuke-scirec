@@ -5,6 +5,7 @@ import { Button, Fade, Paper, TextField, Typography } from '@material-ui/core';
 import Notification from '../common/Notification';
 import React from 'react';
 import { Redirect } from 'react-router';
+import authPropTypes from '../../propTypes/authPropTypes';
 import { connect } from 'react-redux';
 import { getDocumentTitle } from '../../utils/appConfigUtils';
 import { login } from '../../store/actions/authActions';
@@ -80,13 +81,13 @@ class Login extends React.Component {
             />
             <div className="action-buttons">
               <Button
-                disabled={this.props.isUserLoading}
+                disabled={this.props.isAuthLoading}
                 onClick={this.handleForgottenPassword}
               >
                 Zabudnuté heslo
               </Button>
               <Button
-                disabled={this.props.isUserLoading}
+                disabled={this.props.isAuthLoading}
                 type="submit"
                 variant="contained"
                 color="primary"
@@ -108,10 +109,10 @@ class Login extends React.Component {
 
 Login.propTypes = {
   login: propTypes.func.isRequired,
-  isAuth: propTypes.bool.isRequired,
-  isUserLoading: propTypes.bool.isRequired,
+  isAuth: authPropTypes.success.isRequired,
+  isAuthLoading: authPropTypes.isLoading.isRequired,
   location: propTypes.object.isRequired,
-  error: propTypes.bool.isRequired
+  error: authPropTypes.error.isRequired
 }
 
 const mapDispatchToProps = dispatch => {
@@ -123,7 +124,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isAuth: state.auth.success,
-    isUserLoading: state.auth.isLoading,
+    isAuthLoading: state.auth.isLoading,
     error: state.auth.error ? true : false
   }
 }

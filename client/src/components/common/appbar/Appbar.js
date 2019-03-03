@@ -9,6 +9,7 @@ import Links from './AppbarLinks';
 import React from 'react';
 import Sidebar from '../sidebar/Sidebar';
 import UserLinks from './AppbarUserLinks';
+import authPropTypes from '../../../propTypes/authPropTypes';
 import { connect } from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../../../utils/dashboardUtils';
@@ -56,7 +57,7 @@ class AppbarComponent extends React.Component {
 }
 
 AppbarComponent.propTypes = {
-  isAuth: propTypes.bool.isRequired,
+  isAuth: authPropTypes.success.isRequired,
   location: propTypes.object.isRequired,
   history: propTypes.object.isRequired,
   activeDashboardRoute: propTypes.string,

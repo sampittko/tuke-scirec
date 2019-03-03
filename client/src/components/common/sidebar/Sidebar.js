@@ -6,6 +6,7 @@ import Links from './SidebarLinks';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import UserLinks from './SidebarUserLinks';
+import authPropTypes from '../../../propTypes/authPropTypes';
 import propTypes from 'prop-types';
 
 class Sidebar extends React.Component {
@@ -53,7 +54,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.propTypes = {
-  isAuth: propTypes.bool.isRequired,
+  isAuth: authPropTypes.success.isRequired,
   location: propTypes.object.isRequired
 }
 

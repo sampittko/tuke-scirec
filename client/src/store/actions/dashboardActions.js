@@ -27,7 +27,8 @@ export const getDashboards = currentUserId => {
     let defaultDashboardId = null;
 
     usersRef
-      .doc(currentUserId).get()
+      .doc(currentUserId)
+      .get()
     .then(result => {
       defaultDashboardId = result.data().defaultDashboard.id;
       return dashboardsRef
@@ -55,11 +56,6 @@ const createDashboardFailure = error => ({
 const createDashboardSuccess = created => ({
   type: actionTypes.CREATE_DASHBOARD_SUCCESS,
   activeId: created
-})
-
-const addCreatedDashboard = createdDashboard => ({
-  type: actionTypes.ADD_CREATED_DASHBOARD,
-  createdDashboard
 })
 
 const createDashboardRequest = () => ({
@@ -97,11 +93,12 @@ export const createDashboard = newDashboard => {
       else {
         return Promise.resolve();
       }
-    }).then(() => {
-      dispatch(addCreatedDashboard(createdDashboard));
-      return Promise.resolve();
     })
     .then(() => {
+      dispatch({
+        type: actionTypes.ADD_CREATED_DASHBOARD,
+        createdDashboard
+      });
       dispatch(createDashboardSuccess(createdDashboard.created));
     }).catch(error => {
       console.log(error);

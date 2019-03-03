@@ -5,6 +5,7 @@ import { Button, Checkbox, Fade, Paper, TextField, Typography } from '@material-
 import { Link } from 'react-router-dom';
 import React from 'react';
 import { Redirect } from 'react-router';
+import authPropTypes from '../../propTypes/authPropTypes';
 import { connect } from 'react-redux';
 import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
 import { getDocumentTitle } from '../../utils/appConfigUtils';
@@ -132,12 +133,12 @@ class Register extends React.Component {
                 type="submit"
                 variant="contained"
                 color="primary"
-                disabled={!this.matchingPasswords() || this.props.isUserLoading}
+                disabled={!this.matchingPasswords() || this.props.isAuthLoading}
               >
                 Registrovať
               </Button>
             </div>
-            {(this.formSubmitted && this.props.errorCode === '' && !this.props.isUserLoading) && (
+            {(this.formSubmitted && this.props.errorCode === '' && !this.props.isAuthLoading) && (
               <Redirect
                 to={{
                   pathname: routes.LOGIN,
@@ -158,8 +159,8 @@ class Register extends React.Component {
 
 Register.propTypes = {
   register: propTypes.func.isRequired,
-  isAuth: propTypes.bool.isRequired,
-  isUserLoading: propTypes.bool.isRequired,
+  isAuth: authPropTypes.success.isRequired,
+  isAuthLoading: authPropTypes.isLoading.isRequired,
   errorCode: propTypes.string.isRequired
 }
 
@@ -172,7 +173,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isAuth: state.auth.success,
-    isUserLoading: state.auth.isLoading,
+    isAuthLoading: state.auth.isLoading,
     errorCode: state.auth.error ? state.auth.error.code : ''
   }
 }

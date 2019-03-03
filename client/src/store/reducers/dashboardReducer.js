@@ -38,7 +38,7 @@ const dashboard = (state = _initialState, action) => {
           ].sort((dashboard1, dashboard2) => sortDashboardsByCreated(dashboard1, dashboard2)),
           default: state.data.defaultDashboard
         },
-      }
+      };
 
     case actionTypes.CREATE_DASHBOARD_SUCCESS:
       console.log(actionTypes.CREATE_DASHBOARD_SUCCESS);
@@ -110,10 +110,14 @@ const dashboard = (state = _initialState, action) => {
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId
         }
-      }
+      };
+
+    case actionTypes.RESET_DASHBOARD_STATE:
+      console.log(actionTypes.RESET_DASHBOARD_STATE);
+      return _initialState;
 
     default:
-      return state
+      return state;
   }
 }
 

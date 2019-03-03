@@ -11,6 +11,7 @@ import Login from './components/auth/Login';
 import NewProject from './components/project/NewProject';
 import React from 'react';
 import Register from './components/auth/Register';
+import authPropTypes from './propTypes/authPropTypes';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import dashboardPropTypes from './propTypes/dashboardPropTypes';
@@ -94,14 +95,14 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.props.isAuth && !this.props.isDashboardLoading && !this.props.dashboards) {
+    if (this.props.isAuth && this.props.userId && !this.props.isDashboardLoading && !this.props.dashboards) {
       this.props.getDashboards(this.props.userId);
     }
   }
 }
 
 App.propTypes = {
-  isAuth: propTypes.bool.isRequired,
+  isAuth: authPropTypes.success.isRequired,
   isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
   themePicker: themePickerPropTypes.themePicker.isRequired,
