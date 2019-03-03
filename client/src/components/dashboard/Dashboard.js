@@ -7,14 +7,14 @@ import Fab from '../common/Fab';
 import ProjectsList from './ProjectsList';
 import React from 'react';
 import { connect } from 'react-redux';
-import { getDocumentTitleFromDashboard } from '../../utils/appConfigUtils';
+import { getDashboardDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import routes from '../../config/app/routes';
 import { timeouts } from '../../config/mui';
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    document.title = getDocumentTitleFromDashboard(this.props.activeDashboard);
+    document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
   }
 
   render() {
@@ -33,7 +33,7 @@ class Dashboard extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
-      document.title = getDocumentTitleFromDashboard(this.props.activeDashboard);
+      document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
     }
   }
 }

@@ -5,6 +5,7 @@ import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Container from './components/common/Container';
 import Dashboard from './components/dashboard/Dashboard';
+import DashboardSettings from './components/dashboard/Settings';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import NewProject from './components/project/NewProject';
@@ -53,8 +54,15 @@ class App extends React.Component {
         >
           <Container>
             <PrivateRoute
+              exact
               path={routes.DASHBOARD}
               component={Dashboard}
+              isAuth={this.props.isAuth}
+            />
+            <PrivateRoute
+              exact
+              path={routes.DASHBOARD_SETTINGS}
+              component={DashboardSettings}
               isAuth={this.props.isAuth}
             />
             <PrivateRoute

@@ -9,20 +9,27 @@ $spacing-unit: 8px;
 $media-query-1: 599px;
 $media-query-2: 399px;
 
-// misc
+// Login
 $login-width: 400px;
 $login-min-width: 367.2px;
 $login-media-query-2-width: inherit;
+
+// Register
 $register-width: $login-width;
 $register-min-width: $login-min-width;
 $register-media-query-2-width: $login-media-query-2-width;
-$sidebar-width: 250px;
+
+// Sidebar
+$sidebar-width: auto;
+$sidebar-min-width: 328px;
+
+// misc
 $container-loader-width: 100%;
 
 // Dashboard
 $dashboard-width: 75%;
 $dashboard-media-query-1-width: inherit;
-$dashboard-selector-min-width: 270px;
+$dashboard-selector-min-width: 280px;
 
 // NewProject
 $new-project-width: $login-width;

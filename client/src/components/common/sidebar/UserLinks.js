@@ -1,31 +1,38 @@
+import { getDashboardRoute, getDashboardSettingsRoute } from '../../../utils/dashboardUtils';
+
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import { Divider } from '@material-ui/core';
 import Link from './Link';
 import React from 'react';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { connect } from 'react-redux';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import { getDashboardRoute } from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 
 const UserLinks = props =>
   <div>
-    <Link 
+    <Link
       location={props.location}
       route={getDashboardRoute(props.activeDashboardRoute)}
       text={props.activeDashboardTitle}
       icon={<DashboardIcon />}
     />
+    <Divider />
+    <Link
+      location={props.location}
+      route={getDashboardSettingsRoute(props.activeDashboardRoute)}
+      text="Nastavenia"
+      icon={<SettingsIcon />}
+    />
   </div>;
 
 UserLinks.propTypes = {
   location: propTypes.object.isRequired,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
-  activeDashboard: propTypes.any,
-  activeDashboardRoute: propTypes.string
+  activeDashboardRoute: propTypes.string.isRequired,
+  activeDashboardTitle: propTypes.string.isRequired,
 }
 
 const mapStateToProps = state => {
   return {
-    dashboards: state.dashboard.data.list,
     activeDashboardTitle: state.dashboard.selector.active.title || "Nástenka",
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
   }
