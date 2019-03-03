@@ -1,15 +1,16 @@
 import './NewDashboardDialog.scss';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import { invertTheme, resetThemePicker } from '../../../store/actions/themePickerActions';
 
 import React from 'react';
-import Switch from './content/Switch';
+import Switch from '../../common/Switch';
 import ThemePicker from '../../themePicker/ThemePicker';
 import TitleInput from './content/TitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../../config/app';
 import propTypes from 'prop-types';
+import { resetThemePicker } from '../../../store/actions/themePickerActions';
+import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
 
 class NewDashboardDialog extends React.Component {
   constructor(props) {
@@ -51,11 +52,6 @@ class NewDashboardDialog extends React.Component {
           />
           <ThemePicker />
           <Switch
-            checked={this.props.themePicker.inverted}
-            onChange={this.props.invertTheme}
-            label="Invertovať farby"
-          />
-          <Switch
             checked={this.state.default}
             onChange={this.handleChange}
             label="Nastaviť ako predvolenú nástenku"
@@ -94,13 +90,12 @@ NewDashboardDialog.propTypes = {
   isDashboardLoading: propTypes.bool.isRequired,
   handleTitleChange: propTypes.func.isRequired,
   title: propTypes.string.isRequired,
-  invertTheme: propTypes.func.isRequired,
-  themePicker: propTypes.object.isRequired
+  themePicker: themePickerPropTypes.themePicker.isRequired,
+  resetThemePicker: propTypes.func.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    invertTheme: () => dispatch(invertTheme()),
     resetThemePicker: () => dispatch(resetThemePicker())
   }
 }
