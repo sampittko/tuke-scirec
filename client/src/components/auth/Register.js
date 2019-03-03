@@ -132,7 +132,7 @@ class Register extends React.Component {
               <Button 
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 disabled={!this.matchingPasswords() || this.props.isAuthLoading}
               >
                 Registrovať

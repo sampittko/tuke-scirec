@@ -16,43 +16,43 @@ const ThemePicker = props =>
         control={
           <div>
             <Radio
-              className="scirec-theme"
+              className={!props.themePicker.inverted ? "scirec-theme" : "scirec-theme inverted"}
               checked={props.themePicker.theme === 0}
               onClick={() => props.pickTheme(0)}
               value={0}
             />
             <Radio
-              className="custom-theme-1"
+              className={!props.themePicker.inverted ? "custom-theme-1" : "custom-theme-1 inverted"}
               checked={props.themePicker.theme === 1}
               onClick={() => props.pickTheme(1)}
               value={1}
             />
             <Radio
-              className="custom-theme-2"
+              className={!props.themePicker.inverted ? "custom-theme-2" : "custom-theme-2 inverted"}              
               checked={props.themePicker.theme === 2}
               onClick={() => props.pickTheme(2)}
               value={2}
             />
             <Radio
-              className="custom-theme-3"
+              className={!props.themePicker.inverted ? "custom-theme-3" : "custom-theme-3 inverted"}
               checked={props.themePicker.theme === 3}
               onClick={() => props.pickTheme(3)}
               value={3}
             />
             <Radio
-              className="custom-theme-4"
+              className={!props.themePicker.inverted ? "custom-theme-4" : "custom-theme-4 inverted"}
               checked={props.themePicker.theme === 4}
               onClick={() => props.pickTheme(4)}
               value={4}
             />
             <Radio
-              className="custom-theme-5"
+              className={!props.themePicker.inverted ? "custom-theme-5" : "custom-theme-5 inverted"}
               checked={props.themePicker.theme === 5}
               onClick={() => props.pickTheme(5)}
               value={5}
             />
             <Radio
-              className="custom-theme-6"
+              className={!props.themePicker.inverted ? "custom-theme-6" : "custom-theme-6 inverted"}              
               checked={props.themePicker.theme === 6}
               onClick={() => props.pickTheme(6)}
               value={6}

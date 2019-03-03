@@ -90,7 +90,7 @@ class Login extends React.Component {
                 disabled={this.props.isAuthLoading}
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="secondary"
               >
                 Prihlásiť
               </Button>

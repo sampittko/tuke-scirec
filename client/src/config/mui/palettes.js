@@ -1,50 +1,50 @@
 const palettes = {
   CUSTOM_6: {
     primary: {
-      main: '#009688',
+      main: '#26a69a',
     },
     secondary: {
-      main: '#00594B'
+      main: '#00897b'
     }
   },
   CUSTOM_5: {
     primary: {
-      main: '#E91E63'
+      main: '#536dfe'
     },
     secondary: {
-      main: '#AC0026'
+      main: '#33691e'
     }
   },
   CUSTOM_4: {
     primary: {
-      main: '#FF5722'
+      main: '#f06292'
     },
     secondary: {
-      main: '#E03803'
+      main: '#00796b'
     }
   },
   CUSTOM_3: {
     primary: {
-      main: '#455A64'
+      main: '#d32f2f'
     },
     secondary: {
-      main: '#081D27'
+      main: '#039be5'
     }
   },
   CUSTOM_2: {
     primary: {
-      main: '#D32F2F'
+      main: '#01579b'
     },
     secondary: {
-      main: '#960000'
+      main: '#827717'
     }
   },
   CUSTOM_1: {
     primary: {
-      main: '#3F51B5'
+      main: '#006064'
     },
     secondary: {
-      main: '#669966'
+      main: '#ff5252'
     }
   },
   SCIREC: {
