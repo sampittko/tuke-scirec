@@ -3,7 +3,7 @@
 .dashboard {
     margin: 4 * $spacing-unit auto;
     padding: 2 * $spacing-unit;
-    width: $dashboard-width;
+    width: 75%;
 }
 
 .title {
@@ -13,6 +13,6 @@
 @media (max-width: $media-query-1) {
     .dashboard {
         margin: 2 * $spacing-unit $spacing-unit;
-        width: $dashboard-media-query-1-width;
+        width: inherit;
     }
 }

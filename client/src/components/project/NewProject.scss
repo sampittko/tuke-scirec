@@ -1,8 +1,8 @@
 @import '../../variables';
 
 .new-project {
-    width: $new-project-width;
-    height: $new-project-height;
+    width: $small-page-width;
+    height: 311px;
     display: flex;
     flex-direction: column;
     align-items: center;

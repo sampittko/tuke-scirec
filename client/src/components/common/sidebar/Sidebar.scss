@@ -1,8 +1,8 @@
 @import '../../../variables';
 
 .sidebar-links {
-    width: $sidebar-width;
-    min-width: $sidebar-min-width;
+    width: auto;
+    min-width: 328px;
 }
 
 .menu-button {

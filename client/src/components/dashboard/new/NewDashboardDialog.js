@@ -51,12 +51,12 @@ class NewDashboardDialog extends React.Component {
             title={this.props.title}
             onChange={this.props.handleTitleChange}
           />
-          <ThemePicker />
           <Switch
             checked={this.state.default}
             onChange={this.handleChange}
             label="Nastaviť ako predvolenú nástenku"
           />
+          <ThemePicker />
         </DialogContent>
         <DialogActions>
           <Button
