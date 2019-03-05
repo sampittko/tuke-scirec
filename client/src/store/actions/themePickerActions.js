@@ -3,7 +3,7 @@ import actionTypes from '../actionTypes';
 export const pickTheme = theme => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.PICK_THEME,
+      type: actionTypes.themePicker.PICK_THEME,
       theme
     })
   }
@@ -12,7 +12,7 @@ export const pickTheme = theme => {
 export const invertTheme = () => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.INVERT_THEME
+      type: actionTypes.themePicker.INVERT_THEME
     })
   }
 }
@@ -20,7 +20,7 @@ export const invertTheme = () => {
 export const resetThemePicker = () => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.RESET_THEME_PICKER
+      type: actionTypes.themePicker.RESET_THEME_PICKER
     })
   }
 }

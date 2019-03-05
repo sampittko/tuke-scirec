@@ -7,22 +7,22 @@ const _initialState = {
 
 const themePicker = (state = _initialState, action) => {
   switch (action.type) {
-    case actionTypes.PICK_THEME:
-      console.log(actionTypes.PICK_THEME);
+    case actionTypes.themePicker.PICK_THEME:
+      console.log(actionTypes.themePicker.PICK_THEME);
       return {
         ...state,
         theme: action.theme
       }
 
-    case actionTypes.INVERT_THEME:
-      console.log(actionTypes.INVERT_THEME);
+    case actionTypes.themePicker.INVERT_THEME:
+      console.log(actionTypes.themePicker.INVERT_THEME);
       return {
         ...state,
         inverted: !state.inverted
       }
 
-    case actionTypes.RESET_THEME_PICKER:
-      console.log(actionTypes.RESET_THEME_PICKER);
+    case actionTypes.themePicker.RESET_THEME_PICKER:
+      console.log(actionTypes.themePicker.RESET_THEME_PICKER);
       return _initialState;
 
     default:

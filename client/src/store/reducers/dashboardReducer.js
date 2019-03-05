@@ -20,15 +20,15 @@ const _initialState = {
 
 const dashboard = (state = _initialState, action) => {
   switch (action.type) {
-    case actionTypes.CREATE_DASHBOARD_REQUEST:
-      console.log(actionTypes.CREATE_DASHBOARD_REQUEST);
+    case actionTypes.dashboard.CREATE_DASHBOARD_REQUEST:
+      console.log(actionTypes.dashboard.CREATE_DASHBOARD_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
-    case actionTypes.ADD_CREATED_DASHBOARD:
-      console.log(actionTypes.ADD_CREATED_DASHBOARD);
+    case actionTypes.dashboard.ADD_CREATED_DASHBOARD:
+      console.log(actionTypes.dashboard.ADD_CREATED_DASHBOARD);
       return {
         ...state,
         data: {
@@ -40,8 +40,8 @@ const dashboard = (state = _initialState, action) => {
         },
       };
 
-    case actionTypes.CREATE_DASHBOARD_SUCCESS:
-      console.log(actionTypes.CREATE_DASHBOARD_SUCCESS);
+    case actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS:
+      console.log(actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS);
       const createdDashboard = state.data.list.find(dashboard => dashboard.created === action.activeId);
       return {
         ...state,
@@ -55,23 +55,23 @@ const dashboard = (state = _initialState, action) => {
         error: null
       };
 
-    case actionTypes.CREATE_DASHBOARD_FAILURE:
-      console.log(actionTypes.CREATE_DASHBOARD_FAILURE);
+    case actionTypes.dashboard.CREATE_DASHBOARD_FAILURE:
+      console.log(actionTypes.dashboard.CREATE_DASHBOARD_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       };
 
-    case actionTypes.GET_DASHBOARDS_REQUEST:
-      console.log(actionTypes.GET_DASHBOARDS_REQUEST);
+    case actionTypes.dashboard.GET_DASHBOARDS_REQUEST:
+      console.log(actionTypes.dashboard.GET_DASHBOARDS_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
-    case actionTypes.GET_DASHBOARDS_SUCCESS:
-      console.log(actionTypes.GET_DASHBOARDS_SUCCESS);
+    case actionTypes.dashboard.GET_DASHBOARDS_SUCCESS:
+      console.log(actionTypes.dashboard.GET_DASHBOARDS_SUCCESS);
       const defaultDashboard = action.dashboards.find(dashboard => dashboard.id === action.defaultDashboardId).data();
       return {
         ...state,
@@ -91,16 +91,16 @@ const dashboard = (state = _initialState, action) => {
         error: null
       };
 
-    case actionTypes.GET_DASHBOARDS_FAILURE:
-      console.log(actionTypes.GET_DASHBOARDS_FAILURE);
+    case actionTypes.dashboard.GET_DASHBOARDS_FAILURE:
+      console.log(actionTypes.dashboard.GET_DASHBOARDS_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       };
 
-    case actionTypes.CHANGE_DASHBOARD:
-      console.log(actionTypes.CHANGE_DASHBOARD);
+    case actionTypes.dashboard.CHANGE_DASHBOARD:
+      console.log(actionTypes.dashboard.CHANGE_DASHBOARD);
       const newActive = getActiveDashboard(state.data.list, action.activeId, state.selector);
       return {
         ...state,
@@ -112,12 +112,12 @@ const dashboard = (state = _initialState, action) => {
         }
       };
 
-    case actionTypes.RESET_DASHBOARD_STATE:
-      console.log(actionTypes.RESET_DASHBOARD_STATE);
+    case actionTypes.dashboard.RESET_DASHBOARD_STATE:
+      console.log(actionTypes.dashboard.RESET_DASHBOARD_STATE);
       return _initialState;
 
-    case actionTypes.CHANGE_DASHBOARD_TO_DEFAULT:
-      console.log(actionTypes.CHANGE_DASHBOARD_TO_DEFAULT);
+    case actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT:
+      console.log(actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT);
       return {
         ...state,
         selector: {

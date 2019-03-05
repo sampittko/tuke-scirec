@@ -3,18 +3,18 @@ import firestoreCollections from '../../config/firebase/collections';
 import { getRouteFromString } from '../../utils/appConfigUtils';
 
 const getDashboardsFailure = error => ({
-  type: actionTypes.GET_DASHBOARDS_FAILURE,
+  type: actionTypes.dashboard.GET_DASHBOARDS_FAILURE,
   error
 })
 
 const getDashboardsSuccess = result => ({
-  type: actionTypes.GET_DASHBOARDS_SUCCESS,
+  type: actionTypes.dashboard.GET_DASHBOARDS_SUCCESS,
   dashboards: result.dashboards,
   defaultDashboardId: result.defaultDashboardId
 })
 
 const getDashboardsRequest = () => ({
-  type: actionTypes.GET_DASHBOARDS_REQUEST
+  type: actionTypes.dashboard.GET_DASHBOARDS_REQUEST
 })
 
 export const getDashboards = currentUserId => {
@@ -49,17 +49,17 @@ export const getDashboards = currentUserId => {
 }
 
 const createDashboardFailure = error => ({
-  type: actionTypes.CREATE_DASHBOARD_FAILURE,
+  type: actionTypes.dashboard.CREATE_DASHBOARD_FAILURE,
   error
 })
 
 const createDashboardSuccess = created => ({
-  type: actionTypes.CREATE_DASHBOARD_SUCCESS,
+  type: actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS,
   activeId: created
 })
 
 const createDashboardRequest = () => ({
-  type: actionTypes.CREATE_DASHBOARD_REQUEST
+  type: actionTypes.dashboard.CREATE_DASHBOARD_REQUEST
 })
 
 export const createDashboard = newDashboard => {
@@ -96,7 +96,7 @@ export const createDashboard = newDashboard => {
     })
     .then(() => {
       dispatch({
-        type: actionTypes.ADD_CREATED_DASHBOARD,
+        type: actionTypes.dashboard.ADD_CREATED_DASHBOARD,
         createdDashboard
       });
       dispatch(createDashboardSuccess(createdDashboard.created));
@@ -110,7 +110,7 @@ export const createDashboard = newDashboard => {
 export const changeDashboard = newActiveId => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.CHANGE_DASHBOARD,
+      type: actionTypes.dashboard.CHANGE_DASHBOARD,
       activeId: newActiveId
     })
   }
@@ -119,7 +119,7 @@ export const changeDashboard = newActiveId => {
 export const changeDashboardToDefault = () => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.CHANGE_DASHBOARD_TO_DEFAULT
+      type: actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT
     })
   }
 }

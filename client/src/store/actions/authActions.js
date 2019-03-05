@@ -4,17 +4,17 @@ import firestoreCollections from '../../config/firebase/collections';
 import { getRouteFromString } from '../../utils/appConfigUtils';
 
 const loginFailure = error => ({
-  type: actionTypes.LOGIN_FAILURE,
+  type: actionTypes.auth.LOGIN_FAILURE,
   error
 })
 
 const loginSuccess = result => ({
-  type: actionTypes.LOGIN_SUCCESS,
+  type: actionTypes.auth.LOGIN_SUCCESS,
   token: result.user.ra
 })
 
 const loginRequest = () => ({
-  type: actionTypes.LOGIN_REQUEST
+  type: actionTypes.auth.LOGIN_REQUEST
 })
 
 export const login = user => {
@@ -37,11 +37,11 @@ export const login = user => {
 }
 
 const logoutSuccess = () => ({
-  type: actionTypes.LOGOUT_SUCCESS
+  type: actionTypes.auth.LOGOUT_SUCCESS
 })
 
 const logoutRequest = () => ({
-  type: actionTypes.LOGOUT_REQUEST
+  type: actionTypes.auth.LOGOUT_REQUEST
 })
 
 export const logout = () => {
@@ -53,23 +53,23 @@ export const logout = () => {
     .then(() => {
       dispatch(logoutSuccess());
       dispatch({
-        type: actionTypes.RESET_DASHBOARD_STATE
+        type: actionTypes.auth.RESET_DASHBOARD_STATE
       });
     });
   }
 }
 
 const registerFailure = error => ({
-  type: actionTypes.REGISTER_FAILURE,
+  type: actionTypes.auth.REGISTER_FAILURE,
   error
 })
 
 const registerSuccess = () => ({
-  type: actionTypes.REGISTER_SUCCESS
+  type: actionTypes.auth.REGISTER_SUCCESS
 })
 
 const registerRequest = () => ({
-  type: actionTypes.REGISTER_REQUEST
+  type: actionTypes.auth.REGISTER_REQUEST
 })
 
 export const register = newUser => {
@@ -117,7 +117,7 @@ export const register = newUser => {
 export const getAuth = () => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.GET_AUTH,
+      type: actionTypes.auth.GET_AUTH,
       auth: getState().firebase.auth
     })
   }

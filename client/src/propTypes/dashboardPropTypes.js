@@ -6,9 +6,9 @@ const propTypes = {
     title: PropTypes.string.isRequired,
     theme: PropTypes.shape({
       id: PropTypes.number.isRequired,
-      inverted: PropTypes.bool.isRequired
+      inverted: PropTypes.bool.isRequired,
     }),
-    created: PropTypes.number.isRequired
+    created: PropTypes.number.isRequired,
   }),
   selector: PropTypes.shape({
     active: PropTypes.any,

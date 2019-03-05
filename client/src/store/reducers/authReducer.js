@@ -10,15 +10,15 @@ const _initialState = {
 
 const auth = (state = _initialState, action) => {
   switch (action.type) {
-    case actionTypes.LOGIN_REQUEST:
-      console.log(actionTypes.LOGIN_REQUEST);
+    case actionTypes.auth.LOGIN_REQUEST:
+      console.log(actionTypes.auth.LOGIN_REQUEST);
       return {
         ...state,
         isLoading: true
       }
 
-    case actionTypes.LOGIN_SUCCESS:
-      console.log(actionTypes.LOGIN_SUCCESS);
+    case actionTypes.auth.LOGIN_SUCCESS:
+      console.log(actionTypes.auth.LOGIN_SUCCESS);
       sessionStorage.setItem(USER_KEY, action.token);
       return {
         ...state,
@@ -27,23 +27,23 @@ const auth = (state = _initialState, action) => {
         error: null
       }
 
-    case actionTypes.LOGIN_FAILURE:
-      console.log(actionTypes.LOGIN_FAILURE);
+    case actionTypes.auth.LOGIN_FAILURE:
+      console.log(actionTypes.auth.LOGIN_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       }
 
-    case actionTypes.LOGOUT_REQUEST:
-      console.log(actionTypes.LOGOUT_REQUEST);
+    case actionTypes.auth.LOGOUT_REQUEST:
+      console.log(actionTypes.auth.LOGOUT_REQUEST);
       return {
         ...state,
         isLoading: true
       }
 
-    case actionTypes.LOGOUT_SUCCESS:
-      console.log(actionTypes.LOGOUT_SUCCESS);
+    case actionTypes.auth.LOGOUT_SUCCESS:
+      console.log(actionTypes.auth.LOGOUT_SUCCESS);
       sessionStorage.removeItem(USER_KEY);
       return {
         ...state,
@@ -51,31 +51,31 @@ const auth = (state = _initialState, action) => {
         isLoading: false
       }
 
-    case actionTypes.REGISTER_REQUEST:
-      console.log(actionTypes.REGISTER_REQUEST);
+    case actionTypes.auth.REGISTER_REQUEST:
+      console.log(actionTypes.auth.REGISTER_REQUEST);
       return {
         ...state,
         isLoading: true
       }
 
-    case actionTypes.REGISTER_FAILURE:
-      console.log(actionTypes.REGISTER_FAILURE);
+    case actionTypes.auth.REGISTER_FAILURE:
+      console.log(actionTypes.auth.REGISTER_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       }
 
-    case actionTypes.REGISTER_SUCCESS:
-      console.log(actionTypes.REGISTER_SUCCESS);
+    case actionTypes.auth.REGISTER_SUCCESS:
+      console.log(actionTypes.auth.REGISTER_SUCCESS);
       return {
         ...state,
         isLoading: false,
         error: null
       }
 
-    case actionTypes.GET_AUTH:
-      console.log(actionTypes.GET_AUTH);
+    case actionTypes.auth.GET_AUTH:
+      console.log(actionTypes.auth.GET_AUTH);
       const sessionAccessToken = sessionStorage.getItem(USER_KEY);
       return {
         ...state,

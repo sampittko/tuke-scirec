@@ -42,7 +42,7 @@ Container.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    isAppLoading: state.auth.isLoading || state.dashboard.isLoading,
+    isAppLoading: state.auth.isLoading || state.dashboard.isLoading || state.project.isLoading,
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
   }
 }
