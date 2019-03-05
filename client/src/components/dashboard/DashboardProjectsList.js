@@ -3,8 +3,13 @@ import './DashboardProjectsList.scss';
 import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
 
 import React from 'react';
+import propTypes from 'prop-types';
 
-class DashboardProjectsList extends React.Component {
+class ProjectsList extends React.Component {
+  componentDidMount() {
+    console.log("Fetching projects..");
+  }
+
   render() {
     return (
       <div>
@@ -24,4 +29,8 @@ class DashboardProjectsList extends React.Component {
   }
 }
 
-export default DashboardProjectsList;
+ProjectsList.propTypes = {
+  activeDashboardRoute: propTypes.string.isRequired
+}
+
+export default ProjectsList;

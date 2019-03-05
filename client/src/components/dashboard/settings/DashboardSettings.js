@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardSettingsDocumentTitleFromDashboard } from '../../../utils/dashboardUtils';
 
-class DashboardSettings extends React.Component {
+class Settings extends React.Component {
   componentDidMount() {
     document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
   }
@@ -15,7 +15,7 @@ class DashboardSettings extends React.Component {
   }
 }
 
-DashboardSettings.propTypes = {
+Settings.propTypes = {
   activeDashboard: dashboardPropTypes.dashboard.isRequired
 }
 
@@ -25,4 +25,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(DashboardSettings);
+export default connect(mapStateToProps)(Settings);

@@ -65,6 +65,7 @@ class Login extends React.Component {
               autoComplete="email"
               error={this.props.error}
               onChange={this.handleChange}
+              autoFocus
               required
             />
             <TextField
@@ -102,7 +103,7 @@ class Login extends React.Component {
         </Paper>
       </Fade>
     ) : (
-      <Redirect to={routes.HOME} />
+        <Redirect to={this.props.location.state ? this.props.location.state.from : routes.HOME} />
     )
   }
 }

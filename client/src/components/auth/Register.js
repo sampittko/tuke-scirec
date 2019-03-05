@@ -79,6 +79,7 @@ class Register extends React.Component {
               onChange={this.handleChange}
               error={this.errorCodesMatches(firebaseErrorCodes.auth.EMAIL_ALREADY_IN_USE)}
               helperText={this.errorCodesMatches(firebaseErrorCodes.auth.EMAIL_ALREADY_IN_USE) ? "E-mail sa už používa" : ""}
+              autoFocus
               required
             />
             <TextField

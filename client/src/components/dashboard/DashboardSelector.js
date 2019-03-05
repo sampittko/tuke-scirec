@@ -11,7 +11,7 @@ import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 
-class DashboardSelector extends React.Component {
+class Selector extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -94,7 +94,7 @@ class DashboardSelector extends React.Component {
   }
 }
 
-DashboardSelector.propTypes = {
+Selector.propTypes = {
   createDashboard: propTypes.func.isRequired,
   defaultDashboard: dashboardPropTypes.dashboard,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
@@ -119,4 +119,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardSelector);
+export default connect(mapStateToProps, mapDispatchToProps)(Selector);

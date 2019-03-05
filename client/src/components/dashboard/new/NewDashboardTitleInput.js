@@ -4,7 +4,7 @@ import React from 'react';
 import { dashboardConfig } from '../../../config/app';
 import propTypes from 'prop-types';
 
-const NewDashboardTitleInput = props =>
+const TitleInput = props =>
   <FormControl>
     <InputLabel>
       Názov nástenky
@@ -19,9 +19,9 @@ const NewDashboardTitleInput = props =>
     />
   </FormControl>;
 
-NewDashboardTitleInput.propTypes = {
+TitleInput.propTypes = {
   onChange: propTypes.func.isRequired,
   title: propTypes.string.isRequired
 }
 
-export default NewDashboardTitleInput;
+export default TitleInput;

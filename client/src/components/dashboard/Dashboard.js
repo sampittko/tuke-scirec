@@ -14,14 +14,16 @@ import { timeouts } from '../../config/mui';
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
+    if (this.props.activeDashboard) {
+      document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
+    }
   }
 
   render() {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
         <Paper className="dashboard">
-          <ProjectsList />
+          <ProjectsList activeDashboardRoute={this.props.match.params.dashboardRoute} />
           <Fab
             onClick={() => this.props.history.push(routes.NEW_PROJECT)}
             icon={<AddIcon />}
