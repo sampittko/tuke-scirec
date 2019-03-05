@@ -15,7 +15,7 @@ const _initialState = {
     previousId: null
   },
   isLoading: false,
-  error: null
+  error: null,
 };
 
 const dashboard = (state = _initialState, action) => {
@@ -42,12 +42,11 @@ const dashboard = (state = _initialState, action) => {
 
     case actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS:
       console.log(actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS);
-      const createdDashboard = state.data.list.find(dashboard => dashboard.created === action.activeId);
       return {
         ...state,
         selector: {
-          active: createdDashboard,
-          activeRoute: createdDashboard.route,
+          active: action.createdDashboard,
+          activeRoute: action.createdDashboard.route,
           activeId: action.activeId,
           previousId: state.selector.activeId
         },
@@ -88,7 +87,7 @@ const dashboard = (state = _initialState, action) => {
           previousId: null
         },
         isLoading: false,
-        error: null
+        error: null,
       };
 
     case actionTypes.dashboard.GET_DASHBOARDS_FAILURE:

@@ -54,9 +54,14 @@ const createDashboardFailure = error => ({
   error
 })
 
-const createDashboardSuccess = created => ({
+const createDashboardSuccess = createdDashboard => ({
   type: actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS,
-  activeId: created
+  createdDashboard
+})
+
+const addCreatedDashboard = createdDashboard => ({
+  type: actionTypes.dashboard.ADD_CREATED_DASHBOARD,
+  createdDashboard
 })
 
 const createDashboardRequest = () => ({
@@ -96,11 +101,8 @@ export const createDashboard = newDashboard => {
       }
     })
     .then(() => {
-      dispatch({
-        type: actionTypes.dashboard.ADD_CREATED_DASHBOARD,
-        createdDashboard
-      });
-      dispatch(createDashboardSuccess(createdDashboard.created));
+      dispatch(addCreatedDashboard(createdDashboard));
+      dispatch(createDashboardSuccess(createdDashboard));
     })
     .catch(error => {
       console.log(error);

@@ -1,9 +1,8 @@
 import './Dashboard.scss';
 
-import { Fade, Paper } from '@material-ui/core';
-
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '../common/Fab';
+import { Fade } from '@material-ui/core';
 import ProjectsList from '../project/ProjectsList';
 import React from 'react';
 import { connect } from 'react-redux';

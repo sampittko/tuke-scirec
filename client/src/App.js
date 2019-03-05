@@ -5,7 +5,7 @@ import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
 
 import Container from './components/common/Container';
 import Dashboard from './components/dashboard/Dashboard';
-import DashboardSettings from './components/dashboard/settings/DashboardSettings';
+import DashboardSettings from './components/dashboard/DashboardSettings';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import NewProject from './components/project/NewProject';

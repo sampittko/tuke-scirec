@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import { getDashboardSettingsDocumentTitleFromDashboard } from '../../../utils/dashboardUtils';
+import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
+import { getDashboardSettingsDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
 
 class Settings extends React.Component {
   componentDidMount() {
