@@ -5,7 +5,7 @@ const routes = {
   DASHBOARDS: '/nastenky',
   LOGIN: '/prihlasenie',
   REGISTER: '/registracia',
-  NEW_PROJECT: '/projekt/novy',
+  NEW_PROJECT: '/nastenky/:dashboardRoute/vytvorenie-noveho-projektu',
   PROJECT: 'projekty/:projectRoute'
 };
 
