@@ -8,8 +8,9 @@ const loginFailure = error => ({
   error
 })
 
-const loginSuccess = () => ({
-  type: actionTypes.LOGIN_SUCCESS
+const loginSuccess = result => ({
+  type: actionTypes.LOGIN_SUCCESS,
+  token: result.user.ra
 })
 
 const loginRequest = () => ({
@@ -26,8 +27,8 @@ export const login = user => {
       .signInWithEmailAndPassword(
         user.email,
         user.password
-      ).then(() => {
-        dispatch(loginSuccess())
+      ).then(result => {
+        dispatch(loginSuccess(result))
       }).catch(error => {
         console.log(error);
         dispatch(loginFailure(error));
@@ -117,7 +118,7 @@ export const getAuth = () => {
   return (dispatch, getState) => {
     dispatch({
       type: actionTypes.GET_AUTH,
-      success: !getState().firebase.auth.isEmpty
+      auth: getState().firebase.auth
     })
   }
 }

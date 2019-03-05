@@ -1,5 +1,7 @@
 import actionTypes from '../actionTypes';
 
+const USER_KEY = "scirecUser";
+
 const _initialState = {
   success: false,
   isLoading: false,
@@ -17,6 +19,7 @@ const auth = (state = _initialState, action) => {
 
     case actionTypes.LOGIN_SUCCESS:
       console.log(actionTypes.LOGIN_SUCCESS);
+      sessionStorage.setItem(USER_KEY, action.token);
       return {
         ...state,
         success: true,
@@ -41,6 +44,7 @@ const auth = (state = _initialState, action) => {
 
     case actionTypes.LOGOUT_SUCCESS:
       console.log(actionTypes.LOGOUT_SUCCESS);
+      sessionStorage.removeItem(USER_KEY);
       return {
         ...state,
         success: false,
@@ -72,9 +76,10 @@ const auth = (state = _initialState, action) => {
 
     case actionTypes.GET_AUTH:
       console.log(actionTypes.GET_AUTH);
+      const sessionAccessToken = sessionStorage.getItem(USER_KEY);
       return {
         ...state,
-        success: action.success
+        success: sessionAccessToken ? sessionAccessToken === action.auth.stsTokenManager.accessToken : false
       }
 
     default:
