@@ -1,6 +1,6 @@
 import './ProjectsList.scss';
 
-import { List, ListItem, ListItemText, Typography } from '@material-ui/core';
+import { List, ListItem, ListItemText, Paper, Typography } from '@material-ui/core';
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -17,16 +17,22 @@ class ProjectsList extends React.Component {
   render() {
     return (
       <div>
-        <Typography className="title" variant="h5">
-          Projects
-        </Typography>
-        <List>
-          {this.props.projects && this.props.projects.map(project => (
-            <ListItem button key={project.created}>
-              <ListItemText inset primary={project.title} />
-            </ListItem>
-          ))}
-        </List>
+        {this.props.projects ? (
+          <Paper className="dashboard">
+            <Typography className="title" variant="h5">
+              Projects
+            </Typography>
+            <List>
+              {this.props.projects.map(project => (
+                <ListItem button key={project.created}>
+                  <ListItemText inset primary={project.title} />
+                </ListItem>
+              ))}
+            </List>
+          </Paper>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

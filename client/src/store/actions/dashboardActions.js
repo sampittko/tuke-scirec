@@ -22,8 +22,8 @@ export const getDashboards = currentUserId => {
     dispatch(getDashboardsRequest());
 
     const firestore = getFirestore();
-    const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
+    const usersRef = firestore.collection(firestoreCollections.users.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     let defaultDashboardId = null;
 
     usersRef
@@ -32,7 +32,7 @@ export const getDashboards = currentUserId => {
     .then(result => {
       defaultDashboardId = result.data().defaultDashboard.id;
       return dashboardsRef
-        .where(firestoreCollections.DASHBOARDS.fields.USER, "==", usersRef.doc(currentUserId))
+        .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(currentUserId))
         .get()
       })
     .then(result => {
@@ -41,7 +41,8 @@ export const getDashboards = currentUserId => {
           defaultDashboardId
         })
       );
-    }).catch(error => {
+    })
+    .catch(error => {
       console.log(error);
       dispatch(getDashboardsFailure(error));
     });
@@ -68,8 +69,8 @@ export const createDashboard = newDashboard => {
 
     const firestore = getFirestore();
     const firebase = getFirebase();
-    const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
+    const usersRef = firestore.collection(firestoreCollections.users.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const currentUserId = firebase.auth().currentUser.uid;
 
     const createdDashboard = {
@@ -100,7 +101,8 @@ export const createDashboard = newDashboard => {
         createdDashboard
       });
       dispatch(createDashboardSuccess(createdDashboard.created));
-    }).catch(error => {
+    })
+    .catch(error => {
       console.log(error);
       dispatch(createDashboardFailure(error));
     });

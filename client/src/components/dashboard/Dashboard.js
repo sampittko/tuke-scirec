@@ -22,13 +22,13 @@ class Dashboard extends React.Component {
   render() {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
-        <Paper className="dashboard">
+        <div className="dashboard">
           <ProjectsList activeDashboardRoute={this.props.match.params.dashboardRoute} />
           <Fab
             onClick={() => this.props.history.push(routes.NEW_PROJECT)}
             icon={<AddIcon />}
           />
-        </Paper>
+        </div>
       </Fade>
     );
   }

@@ -18,7 +18,7 @@ const loginRequest = () => ({
 })
 
 export const login = user => {
-  return (dispatch, getState, { getFirebase }) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(loginRequest());
 
     const firebase = getFirebase();
@@ -27,12 +27,14 @@ export const login = user => {
       .signInWithEmailAndPassword(
         user.email,
         user.password
-      ).then(result => {
-        dispatch(loginSuccess(result))
-      }).catch(error => {
-        console.log(error);
-        dispatch(loginFailure(error));
-      });
+      )
+    .then(result => {
+      dispatch(loginSuccess(result))
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(loginFailure(error));
+    });
   }
 }
 
@@ -53,7 +55,7 @@ export const logout = () => {
     .then(() => {
       dispatch(logoutSuccess());
       dispatch({
-        type: actionTypes.auth.RESET_DASHBOARD_STATE
+        type: actionTypes.dashboard.RESET_DASHBOARD_STATE
       });
     });
   }
@@ -78,15 +80,16 @@ export const register = newUser => {
 
     const firebase = getFirebase();
     const firestore = getFirestore();
-    const usersRef = firestore.collection(firestoreCollections.USERS.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.DASHBOARDS.ID);
+    const usersRef = firestore.collection(firestoreCollections.users.ID);
+    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     let newRegisteredUserId = '';
 
     firebase.auth()
       .createUserWithEmailAndPassword(
         newUser.email,
         newUser.password
-    ).then(result => {
+    )
+    .then(result => {
       newRegisteredUserId = result.user.uid;
       return dashboardsRef
         .add({
@@ -99,15 +102,18 @@ export const register = newUser => {
           route: getRouteFromString(dashboardConfig.defaultDashboard.TITLE),
           created: new Date().getTime()
         })
-    }).then(result => {
+    })
+    .then(result => {
       return usersRef
         .doc(newRegisteredUserId)
         .set({
           defaultDashboard: dashboardsRef.doc(result.id)
         })
-    }).then(() => {
+    })
+    .then(() => {
       dispatch(registerSuccess());
-    }).catch(error => {
+    })
+    .catch(error => {
       console.log(error);
       dispatch(registerFailure(error));
     });

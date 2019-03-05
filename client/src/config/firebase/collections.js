@@ -1,11 +1,30 @@
 const firestoreCollections = {
-  USERS: {
-    ID: 'users'
+  users: {
+    ID: 'users',
+    fields: {
+      DEFAULT_DASHBOARD: 'defaultDashboard',
+    }
   },
-  DASHBOARDS: {
+  dashboards: {
     ID: 'dashboards',
     fields: {
       USER: 'user',
+      TITLE: 'title',
+      theme: {
+        ID: 'id',
+        INVERTED: 'inverted',
+      },
+      ROUTE: 'route',
+      CREATED: 'created',
+    }
+  },
+  projects: {
+    ID: 'projects',
+    fields: {
+      ROUTE: 'route',
+      CREATED: 'created',
+      TITLE: 'title',
+      DASHBOARD: 'dashboard',
     }
   }
 }

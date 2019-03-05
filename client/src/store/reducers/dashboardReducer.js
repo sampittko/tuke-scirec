@@ -1,7 +1,7 @@
-import { getActiveDashboard, sortDashboardsByCreated } from '../../utils/dashboardUtils';
-
 import actionTypes from '../actionTypes';
 import { dashboardConfig } from '../../config/app';
+import { getActiveDashboard } from '../../utils/dashboardUtils';
+import { sortByCreated } from '../../utils/generalUtils';
 
 const _initialState = {
   data: {
@@ -35,7 +35,7 @@ const dashboard = (state = _initialState, action) => {
           list: [
             ...state.data.list,
             action.createdDashboard
-          ].sort((dashboard1, dashboard2) => sortDashboardsByCreated(dashboard1, dashboard2)),
+          ].sort((dashboard1, dashboard2) => sortByCreated(dashboard1, dashboard2)),
           default: state.data.defaultDashboard
         },
       };
@@ -78,7 +78,7 @@ const dashboard = (state = _initialState, action) => {
         data: {
           list: action.dashboards
             .map(dashboard => dashboard.data())
-            .sort((dashboard1, dashboard2) => sortDashboardsByCreated(dashboard1, dashboard2)),
+            .sort((dashboard1, dashboard2) => sortByCreated(dashboard1, dashboard2)),
           default: defaultDashboard
         },
         selector: {
