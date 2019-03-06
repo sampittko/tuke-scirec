@@ -33,11 +33,10 @@ export const getDashboards = currentUserId => {
       defaultDashboardId = result.data().defaultDashboard.id;
       return dashboardsRef
         .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(currentUserId))
-        // .orderBy(firestoreCollections.dashboards.fields.CREATED)
+        .orderBy(firestoreCollections.dashboards.fields.CREATED, "desc")
         .get()
       })
     .then(result => {
-      // console.log(result.docs)
       dispatch(getDashboardsSuccess({
           dashboards: result.docs,
           defaultDashboardId

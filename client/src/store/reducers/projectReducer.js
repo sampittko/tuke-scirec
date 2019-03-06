@@ -1,5 +1,4 @@
 import actionTypes from "../actionTypes";
-import { sortByCreated } from "../../utils/generalUtils";
 
 const _initialState = {
   data: {
@@ -24,9 +23,9 @@ const project = (state = _initialState, action) => {
         ...state,
         data: {
           list: [
-            ...state.data.list,
-            action.createdProject
-          ].sort((project1, project2) => sortByCreated(project1, project2))
+            action.createdProject,
+            ...state.data.list
+          ]
         },
       };
       
@@ -60,7 +59,6 @@ const project = (state = _initialState, action) => {
         data: {
           list: action.projects
             .map(project => project.data())
-            .sort((project1, project2) => sortByCreated(project1, project2))
         },
         isLoading: false,
         error: null
