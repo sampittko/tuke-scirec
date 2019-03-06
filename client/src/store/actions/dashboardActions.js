@@ -10,7 +10,7 @@ const getDashboardsFailure = error => ({
 const getDashboardsSuccess = result => ({
   type: actionTypes.dashboard.GET_DASHBOARDS_SUCCESS,
   dashboards: result.dashboards,
-  defaultDashboardId: result.defaultDashboardId
+  defaultDashboard: result.defaultDashboard
 })
 
 const getDashboardsRequest = () => ({
@@ -24,22 +24,27 @@ export const getDashboards = currentUserId => {
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
-    let defaultDashboardId = null;
+    let defaultDashboard = null;
 
     usersRef
       .doc(currentUserId)
       .get()
     .then(result => {
-      defaultDashboardId = result.data().defaultDashboard.id;
+      return dashboardsRef
+        .doc(result.data().defaultDashboard.id)
+        .get()
+    })
+    .then(result => {
+      defaultDashboard = result.data();
       return dashboardsRef
         .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(currentUserId))
         .orderBy(firestoreCollections.dashboards.fields.CREATED, "desc")
         .get()
-      })
+    })
     .then(result => {
       dispatch(getDashboardsSuccess({
           dashboards: result.docs,
-          defaultDashboardId
+          defaultDashboard
         })
       );
     })

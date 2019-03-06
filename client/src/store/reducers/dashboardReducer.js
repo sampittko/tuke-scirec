@@ -70,18 +70,17 @@ const dashboard = (state = _initialState, action) => {
 
     case actionTypes.dashboard.GET_DASHBOARDS_SUCCESS:
       console.log(actionTypes.dashboard.GET_DASHBOARDS_SUCCESS);
-      const defaultDashboard = action.dashboards.find(dashboard => dashboard.id === action.defaultDashboardId).data();
       return {
         ...state,
         data: {
           list: action.dashboards
             .map(dashboard => dashboard.data()),
-          default: defaultDashboard
+          default: action.defaultDashboard
         },
         selector: {
-          active: defaultDashboard,
-          activeRoute: defaultDashboard.route,
-          activeId: defaultDashboard.created,
+          active: action.defaultDashboard,
+          activeRoute: action.defaultDashboard.route,
+          activeId: action.defaultDashboard.created,
           previousId: null
         },
         isLoading: false,
