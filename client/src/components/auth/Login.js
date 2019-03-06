@@ -103,7 +103,7 @@ class Login extends React.Component {
         </Paper>
       </Fade>
     ) : (
-        <Redirect to={this.props.location.state ? this.props.location.state.from : routes.HOME} />
+        <Redirect to={this.props.location.state && this.props.location.state.from ? this.props.location.state.from : routes.HOME} />
     )
   }
 }

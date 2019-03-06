@@ -79,7 +79,7 @@ const auth = (state = _initialState, action) => {
       const sessionAccessToken = sessionStorage.getItem(USER_KEY);
       return {
         ...state,
-        success: sessionAccessToken ? sessionAccessToken === action.auth.stsTokenManager.accessToken : false
+        success: sessionAccessToken && action.auth.stsTokenManager ? sessionAccessToken === action.auth.stsTokenManager.accessToken : false
       }
 
     default:

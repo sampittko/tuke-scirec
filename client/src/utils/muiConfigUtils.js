@@ -3,8 +3,7 @@ import { dashboardConfig } from '../config/app';
 import palettes from '../config/mui/palettes';
 
 const createAppTheme = (palette, inverted) => {
-  return inverted ? (
-    createMuiTheme({
+  return createMuiTheme(inverted ? ({
       typography: {
         useNextVariants: true
       },
@@ -12,15 +11,13 @@ const createAppTheme = (palette, inverted) => {
         primary: palette.secondary,
         secondary: palette.primary
       }
+    }) : ({
+      typography: {
+        useNextVariants: true
+      },
+      palette
     })
-  ) : (
-      createMuiTheme({
-        typography: {
-          useNextVariants: true
-        },
-        palette
-      })
-    )
+  )
 }
 
 export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) => {
