@@ -36,7 +36,7 @@ const dashboard = (state = _initialState, action) => {
             ...state.data.list,
             action.createdDashboard
           ].sort((dashboard1, dashboard2) => sortByCreated(dashboard1, dashboard2)),
-          default: state.data.defaultDashboard
+          default: action.isDefault ? action.createdDashboard : state.data.defaultDashboard,
         },
       };
 
@@ -47,7 +47,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: action.createdDashboard,
           activeRoute: action.createdDashboard.route,
-          activeId: action.activeId,
+          activeId: action.createdDashboard.created,
           previousId: state.selector.activeId
         },
         isLoading: false,

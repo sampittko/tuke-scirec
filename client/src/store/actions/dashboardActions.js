@@ -33,9 +33,11 @@ export const getDashboards = currentUserId => {
       defaultDashboardId = result.data().defaultDashboard.id;
       return dashboardsRef
         .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(currentUserId))
+        // .orderBy(firestoreCollections.dashboards.fields.CREATED)
         .get()
       })
     .then(result => {
+      // console.log(result.docs)
       dispatch(getDashboardsSuccess({
           dashboards: result.docs,
           defaultDashboardId
@@ -59,9 +61,10 @@ const createDashboardSuccess = createdDashboard => ({
   createdDashboard
 })
 
-const addCreatedDashboard = createdDashboard => ({
+const addCreatedDashboard = (createdDashboard, isDefault) => ({
   type: actionTypes.dashboard.ADD_CREATED_DASHBOARD,
-  createdDashboard
+  createdDashboard,
+  isDefault
 })
 
 const createDashboardRequest = () => ({
@@ -101,7 +104,7 @@ export const createDashboard = newDashboard => {
       }
     })
     .then(() => {
-      dispatch(addCreatedDashboard(createdDashboard));
+      dispatch(addCreatedDashboard(createdDashboard, newDashboard.default));
       dispatch(createDashboardSuccess(createdDashboard));
     })
     .catch(error => {

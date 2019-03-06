@@ -48,6 +48,7 @@ class NewDashboardDialog extends React.Component {
             Pre vytvorenie novej nástenky zadajte nižšie jej názov pričom jeho dĺžka musí byť od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov. Maximálny počet násteniek je {dashboardConfig.MAX_COUNT}.
           </DialogContentText>
           <TitleInput
+            required
             title={this.props.title}
             onChange={this.props.handleTitleChange}
           />

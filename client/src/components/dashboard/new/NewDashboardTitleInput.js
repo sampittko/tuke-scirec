@@ -11,6 +11,7 @@ const TitleInput = props =>
     </InputLabel>
     <Input
       autoFocus
+      required={props.required}
       value={props.title}
       endAdornment={<InputAdornment position="end">{props.title.length}/{dashboardConfig.MAX_LENGTH}</InputAdornment>}
       type="text"
