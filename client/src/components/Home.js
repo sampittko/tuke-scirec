@@ -28,7 +28,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   isAuth: authPropTypes.success.isRequired,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  dashboards: propTypes.array,
   activeDashboardRoute: propTypes.string,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 }

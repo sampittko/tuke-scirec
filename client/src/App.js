@@ -109,7 +109,7 @@ App.propTypes = {
   getAuth: propTypes.func.isRequired,
   getDashboards: propTypes.func.isRequired,
   userId: propTypes.string,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  dashboards: propTypes.array,
 }
 
 const mapDispatchToProps = dispatch => {

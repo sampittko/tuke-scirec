@@ -24,7 +24,7 @@ export const getDashboards = currentUserId => {
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
-    let defaultDashboard = null;
+    let defaultDashboardSnapshot = null;
 
     usersRef
       .doc(currentUserId)
@@ -35,7 +35,7 @@ export const getDashboards = currentUserId => {
         .get()
     })
     .then(result => {
-      defaultDashboard = result.data();
+      defaultDashboardSnapshot = result;
       return dashboardsRef
         .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(currentUserId))
         .orderBy(firestoreCollections.dashboards.fields.CREATED, "desc")
@@ -44,7 +44,7 @@ export const getDashboards = currentUserId => {
     .then(result => {
       dispatch(getDashboardsSuccess({
           dashboards: result.docs,
-          defaultDashboard
+          defaultDashboard: defaultDashboardSnapshot
         })
       );
     })
@@ -84,18 +84,18 @@ export const createDashboard = newDashboard => {
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const currentUserId = firebase.auth().currentUser.uid;
-
-    const createdDashboard = {
-      route: getRouteFromString(newDashboard.title),
-      theme: newDashboard.theme,
-      created: new Date().getTime(),
-      title: newDashboard.title,
-      user: usersRef.doc(currentUserId)
-    }
+    let createdDashboardSnapshot = null;
 
     dashboardsRef
-      .add(createdDashboard)
+      .add({
+        route: getRouteFromString(newDashboard.title),
+        theme: newDashboard.theme,
+        created: new Date().getTime(),
+        title: newDashboard.title,
+        user: usersRef.doc(currentUserId)
+      })
     .then(result => {
+      createdDashboardSnapshot = result;
       if (newDashboard.default) {
         return usersRef
           .doc(currentUserId)
@@ -108,8 +108,8 @@ export const createDashboard = newDashboard => {
       }
     })
     .then(() => {
-      dispatch(addCreatedDashboard(createdDashboard, newDashboard.default));
-      dispatch(createDashboardSuccess(createdDashboard));
+      dispatch(addCreatedDashboard(createdDashboardSnapshot, newDashboard.default));
+      dispatch(createDashboardSuccess(createdDashboardSnapshot));
     })
     .catch(error => {
       console.log(error);

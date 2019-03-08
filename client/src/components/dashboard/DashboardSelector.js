@@ -2,13 +2,13 @@ import './DashboardSelector.scss';
 
 import { Divider, FormControl, MenuItem, Select } from '@material-ui/core';
 import { changeDashboard, createDashboard } from '../../store/actions/dashboardActions';
-import { getDashboardFromId, getDashboardRoute } from '../../utils/dashboardUtils';
 
 import NewDashboardDialog from './NewDashboardDialog';
 import React from 'react';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
+import { getDashboardRoute } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 
 class Selector extends React.Component {
@@ -41,9 +41,9 @@ class Selector extends React.Component {
   }
 
   handleSelectChange = event => {
-    if (this.props.activeDashboardId !== event.target.value) {
+    if (this.props.activeDashboard.data().created !== event.target.value) {
       this.props.changeDashboard(event.target.value);
-      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(getDashboardFromId(event.target.value, this.props.dashboards).route));
+      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
     }
   }
 
@@ -55,15 +55,15 @@ class Selector extends React.Component {
             <FormControl>
               <Select
                 disableUnderline
-                value={this.props.activeDashboardId}
+                value={this.props.activeDashboard.data().created}
                 onChange={this.handleSelectChange}
               >
                 {this.props.dashboards.map((dashboard, i) =>
                   <MenuItem
                     key={i}
-                    value={dashboard.created}
+                    value={dashboard.data().created}
                   >
-                    {dashboard.title}
+                    {dashboard.data().title}
                   </MenuItem>
                 )}
                 <Divider />
@@ -71,13 +71,13 @@ class Selector extends React.Component {
                   value={dashboardConfig.MAX_COUNT}
                   disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
                 >
-                  {this.state.title.length !== 0 && this.props.activeDashboardId === dashboardConfig.MAX_COUNT ? this.state.title : "Nová nástenka"}
+                  {this.state.title.length !== 0 && this.props.activeDashboard.data().created === dashboardConfig.MAX_COUNT ? this.state.title : "Nová nástenka"}
                 </MenuItem>
               </Select>
             </FormControl>
             <NewDashboardDialog
               title={this.state.title}
-              open={this.props.activeDashboardId === dashboardConfig.MAX_COUNT}
+              open={this.props.activeDashboard.data().created === dashboardConfig.MAX_COUNT}
               onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
               handleTitleChange={this.handleTitleChange}
             />
@@ -89,17 +89,16 @@ class Selector extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.dashboards.length !== this.props.dashboards.length) {
-      this.props.history.push(getDashboardRoute(this.props.dashboards[0].route));
+      this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
     }
   }
 }
 
 Selector.propTypes = {
   createDashboard: propTypes.func.isRequired,
-  defaultDashboard: dashboardPropTypes.dashboard,
+  defaultDashboard: propTypes.object,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-  activeDashboardId: propTypes.number,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  dashboards: propTypes.arrayOf(propTypes.object),
   history: propTypes.object.isRequired,
 }
 
@@ -115,7 +114,7 @@ const mapStateToProps = state => {
     dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
     defaultDashboard: state.dashboard.data.default,
-    activeDashboardId: state.dashboard.selector.activeId,
+    activeDashboard: state.dashboard.selector.active,
   }
 }
 

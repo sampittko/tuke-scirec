@@ -33,7 +33,7 @@ UserLinks.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    activeDashboardTitle: state.dashboard.selector.active.title || "Nástenka",
+    activeDashboardTitle: state.dashboard.selector.active.data().title || "Nástenka",
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
   }
 }

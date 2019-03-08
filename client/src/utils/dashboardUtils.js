@@ -2,16 +2,13 @@ import { appendTitle } from './appConfigUtils';
 import { dashboardConfig } from '../config/app';
 import routes from '../config/app/routes';
 
-export const getDashboardFromId = (dashboardId, dashboards) =>
-  dashboards.find(dashboard => dashboard.created === dashboardId);
-
 export const getActiveDashboard = (dashboards, activeId, selector) => {
   if (activeId !== dashboardConfig.MAX_COUNT) {
     if (activeId) {
-      return dashboards.find(dashboard => dashboard.created === activeId);
+      return dashboards.find(dashboard => dashboard.data().created === activeId);
     }
     else {
-      return dashboards.find(dashboard => dashboard.created === selector.previousId);
+      return dashboards.find(dashboard => dashboard.data().created === selector.previousId);
     }
   }
   else {
@@ -26,7 +23,7 @@ export const getDashboardSettingsRoute = dashboardRoute =>
   dashboardRoute !== "" ? `${routes.DASHBOARDS}/${dashboardRoute}/nastavenia` : dashboardRoute;
 
 export const getDashboardDocumentTitleFromDashboard = dashboard =>
-  dashboard !== dashboardConfig.MAX_COUNT ? appendTitle(dashboard.title) : appendTitle("Vytvorenie novej nástenky");
+  dashboard !== dashboardConfig.MAX_COUNT ? appendTitle(dashboard.data().title) : appendTitle("Vytvorenie novej nástenky");
 
 export const getDashboardSettingsDocumentTitleFromDashboard = dashboard =>
-  appendTitle(`${dashboard.title} - Nastavenia`);
+  appendTitle(`${dashboard.data().title} - Nastavenia`);

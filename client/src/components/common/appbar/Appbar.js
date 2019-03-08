@@ -12,7 +12,6 @@ import UserLinks from './AppbarUserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
 import { changeDashboardToDefault } from '../../../store/actions/dashboardActions';
 import { connect } from 'react-redux';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
@@ -78,7 +77,7 @@ AppbarComponent.propTypes = {
   location: propTypes.object.isRequired,
   history: propTypes.object.isRequired,
   activeDashboardRoute: propTypes.string,
-  dashboards: propTypes.arrayOf(dashboardPropTypes.dashboard),
+  dashboards: propTypes.arrayOf(propTypes.object),
   defaultDashboardRoute: propTypes.string
 }
 
@@ -93,7 +92,7 @@ const mapStateToProps = state => {
     isAuth: state.auth.success,
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
     dashboards: state.dashboard.data.list,
-    defaultDashboardRoute: state.dashboard.data.default ? state.dashboard.data.default.route : "",
+    defaultDashboardRoute: state.dashboard.data.default ? state.dashboard.data.default.data().route : "",
   }
 }
 

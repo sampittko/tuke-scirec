@@ -7,8 +7,8 @@ import Switch from '../common/Switch';
 import ThemePicker from '../themePicker/ThemePicker';
 import TitleInput from './DashboardTitleInput';
 import { connect } from 'react-redux';
-import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboardSettingsDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
+import propTypes from 'prop-types';
 import { timeouts } from '../../config/mui';
 
 class Settings extends React.Component {
@@ -24,7 +24,7 @@ class Settings extends React.Component {
     if (this.props.activeDashboard) {
       document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
       this.setState({
-        title: this.props.activeDashboard.title,
+        title: this.props.activeDashboard.data().title,
       });
     }
   }
@@ -57,8 +57,8 @@ class Settings extends React.Component {
                 />
                 <ThemePicker
                   themePicker={{
-                    inverted: this.props.activeDashboard.theme.inverted,
-                    theme: this.props.activeDashboard.theme.id
+                    inverted: this.props.activeDashboard.data().theme.inverted,
+                    theme: this.props.activeDashboard.data().theme.id
                   }}
                 />
                 <div className="action-buttons">
@@ -82,14 +82,14 @@ class Settings extends React.Component {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
       document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
       this.setState({
-        title: this.props.activeDashboard.title,
+        title: this.props.activeDashboard.data().title,
       });
     }
   }
 }
 
 Settings.propTypes = {
-  activeDashboard: dashboardPropTypes.dashboard,
+  activeDashboard: propTypes.object,
 }
 
 const mapStateToProps = state => {

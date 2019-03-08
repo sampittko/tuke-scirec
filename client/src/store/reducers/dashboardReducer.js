@@ -35,7 +35,7 @@ const dashboard = (state = _initialState, action) => {
             action.createdDashboard,
             ...state.data.list
           ],
-          default: action.isDefault ? action.createdDashboard : state.data.defaultDashboard,
+          default: action.isDefault ? action.createdDashboard : state.data.default,
         },
       };
 
@@ -45,8 +45,8 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: action.createdDashboard,
-          activeRoute: action.createdDashboard.route,
-          activeId: action.createdDashboard.created,
+          activeRoute: action.createdDashboard.data().route,
+          activeId: action.createdDashboard.data().created,
           previousId: state.selector.activeId
         },
         isLoading: false,
@@ -73,14 +73,13 @@ const dashboard = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: action.dashboards
-            .map(dashboard => dashboard.data()),
+          list: action.dashboards,
           default: action.defaultDashboard
         },
         selector: {
           active: action.defaultDashboard,
-          activeRoute: action.defaultDashboard.route,
-          activeId: action.defaultDashboard.created,
+          activeRoute: action.defaultDashboard.data().route,
+          activeId: action.defaultDashboard.data().created,
           previousId: null
         },
         isLoading: false,
@@ -102,7 +101,7 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: newActive,
-          activeRoute: newActive === dashboardConfig.MAX_COUNT ? state.selector.activeRoute : newActive.route,
+          activeRoute: newActive === dashboardConfig.MAX_COUNT ? state.selector.activeRoute : newActive.data().route,
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId
         }
@@ -118,8 +117,8 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: state.data.default,
-          activeRoute: state.data.default.route,
-          activeId: state.data.default.created,
+          activeRoute: state.data.default.data().route,
+          activeId: state.data.default.data().created,
           previousId: state.selector.activeId
         }
       }
