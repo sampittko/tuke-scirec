@@ -4,7 +4,7 @@ import { Divider, FormControl, MenuItem, Select } from '@material-ui/core';
 import { changeDashboard, createDashboard } from '../../store/actions/dashboardActions';
 import { getDashboardFromId, getDashboardRoute } from '../../utils/dashboardUtils';
 
-import NewDashboardDialog from './new/NewDashboardDialog';
+import NewDashboardDialog from './NewDashboardDialog';
 import React from 'react';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';

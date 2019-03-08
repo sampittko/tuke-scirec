@@ -1,0 +1,25 @@
+@import '../../variables';
+
+.dashboard-settings {
+    margin: 4 * $spacing-unit auto;
+    padding: 2 * $spacing-unit;
+    width: $page-width;
+
+    div[class*="FormControl"] {
+        margin: 10px 0 !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: $media-query-1) {
+    .dashboard-settings {
+        margin: 2 * $spacing-unit auto;
+    }
+}
+
+@media (max-width: $media-query-2) {
+    .dashboard-settings {
+        margin: 2 * $spacing-unit $spacing-unit;
+        width: $small-page-media-query-2-width;
+    }
+}
