@@ -1,5 +1,7 @@
 export const APP_NAME = "SCIREC";
 
+export const TITLE_BASE = APP_NAME + " -";
+
 export const dashboardConfig = {
   MAX_COUNT: 10,
   MIN_LENGTH: 3,

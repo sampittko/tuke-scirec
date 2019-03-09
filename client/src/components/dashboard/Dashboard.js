@@ -14,8 +14,12 @@ import { timeouts } from '../../config/mui';
 class Dashboard extends React.Component {
   componentDidMount() {
     if (this.props.activeDashboard) {
-      document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
+      this.setDocumentTitle();
     }
+  }
+
+  setDocumentTitle = () => {
+    document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
   }
 
   render() {
@@ -34,13 +38,14 @@ class Dashboard extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
-      document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
+      this.setDocumentTitle();
     }
   }
 }
 
 Dashboard.propTypes = {
-  activeDashboard: propTypes.any
+  activeDashboard: propTypes.any,
+  match: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => {

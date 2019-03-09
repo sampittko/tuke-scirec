@@ -94,6 +94,27 @@ const dashboard = (state = _initialState, action) => {
         error: action.error
       };
 
+    case actionTypes.dashboard.UPDATE_DASHBOARD_REQUEST:
+      console.log(actionTypes.dashboard.UPDATE_DASHBOARD_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS:
+      console.log(actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS);
+      return {
+        ...state,
+      };
+
+    case actionTypes.dashboard.UPDATE_DASHBOARD_FAILURE:
+      console.log(actionTypes.dashboard.UPDATE_DASHBOARD_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
     case actionTypes.dashboard.CHANGE_DASHBOARD:
       console.log(actionTypes.dashboard.CHANGE_DASHBOARD);
       const newActive = getActiveDashboard(state.data.list, action.activeId, state.selector);

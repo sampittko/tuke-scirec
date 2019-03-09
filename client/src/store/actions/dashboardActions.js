@@ -123,6 +123,41 @@ export const createDashboard = newDashboard => {
   }
 }
 
+const updateDashboardFailure = error => ({
+  type: actionTypes.dashboard.UPDATE_DASHBOARD_FAILURE,
+  error
+})
+
+const updateDashboardSuccess = () => ({
+  type: actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS,
+})
+
+const updateDashboardRequest = () => ({
+  type: actionTypes.dashboard.UPDATE_DASHBOARD_REQUEST
+})
+
+export const updateDashboard = (dashboardId, data) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(updateDashboardRequest());
+
+    const firestore = getFirestore();
+    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
+    
+    dashboardsRef
+      .doc(dashboardId)
+      .update({
+        ...data
+      })
+    .then(() => {
+      dispatch(updateDashboardSuccess());
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(updateDashboardFailure(error));
+    });
+  }
+}
+
 export const changeDashboard = newActiveId => {
   return (dispatch, getState) => {
     dispatch({
