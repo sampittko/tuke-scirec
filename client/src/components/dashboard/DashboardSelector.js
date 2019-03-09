@@ -55,7 +55,7 @@ class Selector extends React.Component {
             <FormControl>
               <Select
                 disableUnderline
-                value={this.props.activeDashboard.data().created}
+                value={typeof this.props.activeDashboard === "number" ? this.props.activeDashboard : this.props.activeDashboard.data().created}
                 onChange={this.handleSelectChange}
               >
                 {this.props.dashboards.map((dashboard, i) =>
@@ -71,13 +71,13 @@ class Selector extends React.Component {
                   value={dashboardConfig.MAX_COUNT}
                   disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
                 >
-                  {this.state.title.length !== 0 && this.props.activeDashboard.data().created === dashboardConfig.MAX_COUNT ? this.state.title : "Nová nástenka"}
+                  {this.state.title.length !== 0 && typeof this.props.activeDashboard === "number" && this.props.activeDashboard === dashboardConfig.MAX_COUNT ? this.state.title : "Nová nástenka"}
                 </MenuItem>
               </Select>
             </FormControl>
             <NewDashboardDialog
               title={this.state.title}
-              open={this.props.activeDashboard.data().created === dashboardConfig.MAX_COUNT}
+              open={typeof this.props.activeDashboard === "number" ? true : this.props.activeDashboard.data().created === dashboardConfig.MAX_COUNT}
               onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
               handleTitleChange={this.handleTitleChange}
             />
@@ -100,6 +100,7 @@ Selector.propTypes = {
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object),
   history: propTypes.object.isRequired,
+  activeDashboard: propTypes.any
 }
 
 const mapDispatchToProps = dispatch => {

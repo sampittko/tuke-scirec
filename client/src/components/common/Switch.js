@@ -8,6 +8,7 @@ const SwitchComponent = props =>
     <FormControlLabel
       control={
         <Switch
+          name={props.name}
           checked={Boolean(props.checked)}
           onChange={props.onChange}
           value={props.checked ? "true" : "false"}
@@ -22,7 +23,8 @@ const SwitchComponent = props =>
 SwitchComponent.propTypes = {
   checked: propTypes.bool.isRequired,
   onChange: propTypes.func.isRequired,
-  label: propTypes.string.isRequired
+  label: propTypes.string.isRequired,
+  name: propTypes.string
 }
 
 export default SwitchComponent;

@@ -17,7 +17,6 @@ import { connect } from 'react-redux';
 import dashboardPropTypes from './propTypes/dashboardPropTypes';
 import { getAppTheme } from './utils/muiConfigUtils';
 import { getAuth } from './store/actions/authActions';
-import { getDashboards } from './store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import routes from './config/app/routes';
 import themePickerPropTypes from './propTypes/themePickerPropTypes';
@@ -93,12 +92,6 @@ class App extends React.Component {
       </Router>
     )
   }
-
-  componentDidUpdate() {
-    if (this.props.isAuth && this.props.userId && !this.props.isDashboardLoading && !this.props.dashboards) {
-      this.props.getDashboards(this.props.userId);
-    }
-  }
 }
 
 App.propTypes = {
@@ -107,15 +100,11 @@ App.propTypes = {
   activeDashboard: propTypes.any,
   themePicker: themePickerPropTypes.themePicker.isRequired,
   getAuth: propTypes.func.isRequired,
-  getDashboards: propTypes.func.isRequired,
-  userId: propTypes.string,
-  dashboards: propTypes.array,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getAuth: () => dispatch(getAuth()),
-    getDashboards: userId => dispatch(getDashboards(userId))
   }
 }
 
@@ -125,8 +114,6 @@ const mapStateToProps = state => {
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,
     themePicker: state.themePicker,
-    userId: state.firebase.auth.uid,
-    dashboards: state.dashboard.data.list,
   }
 }
 

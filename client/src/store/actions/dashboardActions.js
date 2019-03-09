@@ -95,6 +95,11 @@ export const createDashboard = newDashboard => {
         user: usersRef.doc(currentUserId)
       })
     .then(result => {
+      return dashboardsRef
+        .doc(result.id)
+        .get()
+    })
+    .then(result => {
       createdDashboardSnapshot = result;
       if (newDashboard.default) {
         return usersRef

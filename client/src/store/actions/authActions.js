@@ -1,6 +1,7 @@
 import actionTypes from '../actionTypes';
 import { dashboardConfig } from '../../config/app';
 import firestoreCollections from '../../config/firebase/collections';
+import { getDashboards } from './dashboardActions';
 import { getRouteFromString } from '../../utils/appConfigUtils';
 
 const loginFailure = error => ({
@@ -29,6 +30,7 @@ export const login = user => {
         user.password
       )
     .then(result => {
+      dispatch(getDashboards(result.user.uid));
       dispatch(loginSuccess(result))
     })
     .catch(error => {
