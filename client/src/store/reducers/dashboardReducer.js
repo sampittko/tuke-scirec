@@ -105,10 +105,33 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS);
       return {
         ...state,
+        isLoading: false,
       };
 
     case actionTypes.dashboard.UPDATE_DASHBOARD_FAILURE:
       console.log(actionTypes.dashboard.UPDATE_DASHBOARD_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
+    case actionTypes.dashboard.DELETE_DASHBOARD_REQUEST:
+      console.log(actionTypes.dashboard.DELETE_DASHBOARD_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS:
+      console.log(actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS);
+      return {
+        ...state,
+        isLoading: false,
+      };
+
+    case actionTypes.dashboard.DELETE_DASHBOARD_FAILURE:
+      console.log(actionTypes.dashboard.DELETE_DASHBOARD_FAILURE);
       return {
         ...state,
         isLoading: false,

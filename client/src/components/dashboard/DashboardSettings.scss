@@ -9,6 +9,19 @@
         margin: 10px 0 !important;
         width: 100% !important;
     }
+
+    .action-buttons {
+        display: flex; justify-content: flex-end;
+        margin-top: 2 * $spacing-unit;
+
+        button[class*="Primary"] {
+            width: 105.11px !important;
+        }
+
+        button + button {
+            margin-left: 10px;
+        }
+    }
 }
 
 @media (max-width: $media-query-1) {

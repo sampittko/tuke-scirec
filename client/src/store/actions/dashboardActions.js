@@ -158,6 +158,39 @@ export const updateDashboard = (dashboardId, data) => {
   }
 }
 
+const deleteDashboardFailure = error => ({
+  type: actionTypes.dashboard.DELETE_DASHBOARD_FAILURE,
+  error
+})
+
+const deleteDashboardSuccess = () => ({
+  type: actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS,
+})
+
+const deleteDashboardRequest = () => ({
+  type: actionTypes.dashboard.DELETE_DASHBOARD_REQUEST
+})
+
+export const deleteDashboard = dashboardId => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    dispatch(deleteDashboardRequest());
+
+    const firestore = getFirestore();
+    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
+
+    dashboardsRef
+      .doc(dashboardId)
+      .delete()
+    .then(() => {
+      dispatch(deleteDashboardSuccess());
+    })
+    .catch(error => {
+      console.log(error);
+      dispatch(deleteDashboardFailure(error));
+    });
+  }
+}
+
 export const changeDashboard = newActiveId => {
   return (dispatch, getState) => {
     dispatch({

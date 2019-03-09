@@ -8,6 +8,7 @@ import ThemePicker from '../themePicker/ThemePicker';
 import TitleInput from './DashboardTitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
+import { deleteDashboard } from '../../store/actions/dashboardActions';
 import { getDashboardSettingsDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
@@ -32,15 +33,24 @@ class Settings extends React.Component {
   }
 
   settingsChanged = () => {
-    return (this.state.title !== this.props.activeDashboard.data().title ||
-      // TODO
-      // this.state.default !== this.props.activeDashboardDefault ||
+    console.log(this.state.default)
+    console.log(this.props.isDefault)
+    let changed = (this.state.title !== this.props.activeDashboard.data().title ||
+      this.state.default !== this.props.isDefault ||
       this.props.activeDashboard.data().theme.id !== this.props.themePicker.theme ||
       this.props.activeDashboard.data().theme.inverted !== this.props.themePicker.inverted);
+      console.log(changed)
+    return changed;
   }
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault();
+  }
 
+  handleClick = () => {
+    if (this.props.activeDashboard.id !== this.props.defaultDashboard.id) {
+      this.props.deleteDashboard(this.props.activeDashboard.id);
+    }
   }
 
   handleChange = event => {
@@ -71,8 +81,10 @@ class Settings extends React.Component {
                 />
                 <ThemePicker />
                 <div className="action-buttons">
+                  <Button onClick={this.handleClick}>
+                    Vymazať nástenku
+                  </Button>
                   <Button
-                    // TODO
                     disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
                     type="submit"
                     variant="contained"
@@ -94,6 +106,7 @@ class Settings extends React.Component {
       document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
       this.setState({
         title: this.props.activeDashboard.data().title,
+        default: this.props.isDefault,
       });
     }
   }
@@ -101,14 +114,23 @@ class Settings extends React.Component {
 
 Settings.propTypes = {
   activeDashboard: propTypes.object,
-  themePicker: themePickerPropTypes.themePicker.isRequired
+  themePicker: themePickerPropTypes.themePicker.isRequired,
+  deleteDashboard: propTypes.func.isRequired,
+  isDefault: propTypes.bool,
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteDashboard: dashboardId => dispatch(deleteDashboard(dashboardId))
+  }
 }
 
 const mapStateToProps = state => {
   return {
     activeDashboard: state.dashboard.selector.active,
-    themePicker: state.themePicker
+    themePicker: state.themePicker,
+    isDefault: state.dashboard.data.list && state.dashboard.selector.active.id === state.dashboard.data.default.id
   }
 }
 
-export default connect(mapStateToProps)(Settings);
+export default connect(mapStateToProps, mapDispatchToProps)(Settings);
