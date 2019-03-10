@@ -24,3 +24,13 @@ export const resetThemePicker = () => {
     })
   }
 }
+
+export const setPredefinedTheme = theme => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.themePicker.SET_PREDEFINED_THEME,
+      theme: theme.id,
+      inverted: theme.inverted
+    })
+  }
+}

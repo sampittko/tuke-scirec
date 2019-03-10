@@ -4,9 +4,9 @@ div[class*="Toolbar"]:nth-child(2) {
     margin: 0 auto;
 }
 
-.selector {
+.dashboard-selector {
     div[class*="InputBase"] {
-        min-width: 280px;
+        min-width: $selector-width;
         text-align: center;
         color: white;
 

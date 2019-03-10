@@ -10,8 +10,25 @@
         width: 100% !important;
     }
 
+    .default-dashboard-selector {
+        div[class*="FormControl"] {
+            float: right;
+            display: flex;
+            max-width: $selector-width !important;
+        }
+
+        div[class*="InputBase"] {
+            div[class*="Select-select"] {
+                height: 32px;
+                line-height: 32px;
+                text-indent: 2 * $spacing-unit;
+            }
+        }
+    }
+
     .action-buttons {
-        display: flex; justify-content: flex-end;
+        display: flex;
+        justify-content: flex-end;
         margin-top: 2 * $spacing-unit;
 
         button[class*="Primary"] {

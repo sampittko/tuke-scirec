@@ -25,6 +25,13 @@ const themePicker = (state = _initialState, action) => {
       console.log(actionTypes.themePicker.RESET_THEME_PICKER);
       return _initialState;
 
+    case actionTypes.themePicker.SET_PREDEFINED_THEME:
+      console.log(actionTypes.themePicker.SET_PREDEFINED_THEME);
+      return {
+        theme: action.theme,
+        inverted: action.inverted
+      };
+
     default:
       return state
   }

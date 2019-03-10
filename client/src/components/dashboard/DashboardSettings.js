@@ -1,6 +1,6 @@
 import './DashboardSettings.scss';
 
-import { Button, Fade, Paper, Typography } from '@material-ui/core';
+import { Button, Fade, FormControl, FormHelperText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 
 import React from 'react';
 import Switch from '../common/Switch';
@@ -19,7 +19,8 @@ class Settings extends React.Component {
     super(props);
     this.state = {
       title: '',
-      default: false
+      default: false,
+      newDefaultDashboardId: 0,
     }
   }
 
@@ -33,14 +34,10 @@ class Settings extends React.Component {
   }
 
   settingsChanged = () => {
-    console.log(this.state.default)
-    console.log(this.props.isDefault)
-    let changed = (this.state.title !== this.props.activeDashboard.data().title ||
+    return (this.state.title !== this.props.activeDashboard.data().title ||
       this.state.default !== this.props.isDefault ||
       this.props.activeDashboard.data().theme.id !== this.props.themePicker.theme ||
       this.props.activeDashboard.data().theme.inverted !== this.props.themePicker.inverted);
-      console.log(changed)
-    return changed;
   }
 
   handleSubmit = event => {
@@ -50,6 +47,14 @@ class Settings extends React.Component {
   handleClick = () => {
     if (this.props.activeDashboard.id !== this.props.defaultDashboard.id) {
       this.props.deleteDashboard(this.props.activeDashboard.id);
+    }
+  }
+
+  handleSelectChange = event => {
+    if (this.props.activeDashboard.data().created !== event.target.value) {
+      this.setState({
+        newDefaultDashboardId: event.target.value
+      });
     }
   }
 
@@ -63,7 +68,7 @@ class Settings extends React.Component {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
         <div>
-          {this.props.activeDashboard && (
+          {this.props.dashboards && (
             <Paper className="dashboard-settings">
               <Typography variant="h5">Nastavenia - {this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</Typography>
               <form onSubmit={this.handleSubmit}>
@@ -79,7 +84,29 @@ class Settings extends React.Component {
                   onChange={this.handleChange}
                   label="Nastaviť ako predvolenú nástenku"
                 />
-                <ThemePicker />
+                {this.props.isDefault && this.state.default === false && (
+                  <div className="default-dashboard-selector">
+                    <FormControl>
+                      <Select
+                        value={this.state.newDefaultDashboardId}
+                        onChange={this.handleSelectChange}
+                        placeholder="Vyberte novú predvolenú nástenku"
+                      >
+                        {this.props.dashboards.map((dashboard, i) => (
+                          <MenuItem
+                            key={i}
+                            value={dashboard.data().created}
+                            disabled={dashboard.id === this.props.activeDashboard.id}
+                          >
+                            {dashboard.data().title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>Nová predvolená kategória</FormHelperText>
+                    </FormControl>
+                  </div>
+                )}
+                <ThemePicker theme={this.props.activeDashboard.data().theme}/>
                 <div className="action-buttons">
                   <Button onClick={this.handleClick}>
                     Vymazať nástenku
@@ -104,10 +131,14 @@ class Settings extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
       document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
-      this.setState({
-        title: this.props.activeDashboard.data().title,
-        default: this.props.isDefault,
-      });
+      this.setState((prevState, props) => ({
+        title: props.activeDashboard.data().title
+      }));
+    }
+    if (prevProps.isDefault !== this.props.isDefault) {
+      this.setState((prevState, props) => ({
+        default: props.isDefault
+      }));
     }
   }
 }
@@ -117,6 +148,7 @@ Settings.propTypes = {
   themePicker: themePickerPropTypes.themePicker.isRequired,
   deleteDashboard: propTypes.func.isRequired,
   isDefault: propTypes.bool,
+  dashboards: propTypes.arrayOf(propTypes.object),
 }
 
 const mapDispatchToProps = dispatch => {
@@ -129,7 +161,8 @@ const mapStateToProps = state => {
   return {
     activeDashboard: state.dashboard.selector.active,
     themePicker: state.themePicker,
-    isDefault: state.dashboard.data.list && state.dashboard.selector.active.id === state.dashboard.data.default.id
+    isDefault: state.dashboard.data.list && state.dashboard.selector.active.id === state.dashboard.data.default.id,
+    dashboards: state.dashboard.data.list,
   }
 }
 

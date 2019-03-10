@@ -51,7 +51,7 @@ class Selector extends React.Component {
     return (
       <div>
         {this.props.dashboards && !this.props.isDashboardLoading && (
-          <div className="selector">
+          <div className="dashboard-selector">
             <FormControl>
               <Select
                 disableUnderline
