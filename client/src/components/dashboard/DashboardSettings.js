@@ -1,6 +1,7 @@
 import './DashboardSettings.scss';
 
-import { Button, Fade, FormControl, FormHelperText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Fade, FormControl, FormHelperText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
+import { deleteDashboard, updateDashboard } from '../../store/actions/dashboardActions';
 
 import React from 'react';
 import Switch from '../common/Switch';
@@ -8,7 +9,6 @@ import ThemePicker from '../themePicker/ThemePicker';
 import TitleInput from './DashboardTitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
-import { deleteDashboard } from '../../store/actions/dashboardActions';
 import { getDashboardSettingsDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
@@ -20,7 +20,8 @@ class Settings extends React.Component {
     this.state = {
       title: '',
       default: false,
-      newDefaultDashboardId: 0,
+      newDefaultDashboardId: "",
+      confirmDialogOpen: false,
     }
   }
 
@@ -29,6 +30,7 @@ class Settings extends React.Component {
       document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
       this.setState({
         title: this.props.activeDashboard.data().title,
+        default: this.props.isDefault,
       });
     }
   }
@@ -45,13 +47,13 @@ class Settings extends React.Component {
   }
 
   handleClick = () => {
-    if (this.props.activeDashboard.id !== this.props.defaultDashboard.id) {
-      this.props.deleteDashboard(this.props.activeDashboard.id);
-    }
+    this.setState({
+      confirmDialogOpen: true
+    });
   }
 
   handleSelectChange = event => {
-    if (this.props.activeDashboard.data().created !== event.target.value) {
+    if (this.props.activeDashboard.id !== event.target.value) {
       this.setState({
         newDefaultDashboardId: event.target.value
       });
@@ -59,8 +61,28 @@ class Settings extends React.Component {
   }
 
   handleChange = event => {
+    if (event.target.type !== "checkbox") {
+      if (this.state.title.length !== dashboardConfig.MAX_COUNT || event.target.value.length < dashboardConfig.MAX_LENGTH) {
+        this.setState({
+          title: event.target.value
+        });
+      }
+    }
+    else {
+      this.setState({
+        default: !this.state.default
+      });
+    }
+  }
+
+  handleDelete = () => {
+    this.props.deleteDashboard(this.props.activeDashboard.id, this.state.newDefaultDashboardId, this.props.userId);
+    this.handleClose();
+  }
+
+  handleClose = () => {
     this.setState({
-      [event.target.name]: event.target.type === "checkbox" ? !this.state.default : event.target.value
+      confirmDialogOpen: false
     });
   }
 
@@ -88,6 +110,7 @@ class Settings extends React.Component {
                   <div className="default-dashboard-selector">
                     <FormControl>
                       <Select
+                        required
                         value={this.state.newDefaultDashboardId}
                         onChange={this.handleSelectChange}
                         placeholder="Vyberte novú predvolenú nástenku"
@@ -95,20 +118,22 @@ class Settings extends React.Component {
                         {this.props.dashboards.map((dashboard, i) => (
                           <MenuItem
                             key={i}
-                            value={dashboard.data().created}
+                            value={dashboard.id}
                             disabled={dashboard.id === this.props.activeDashboard.id}
                           >
                             {dashboard.data().title}
                           </MenuItem>
                         ))}
                       </Select>
-                      <FormHelperText>Nová predvolená kategória</FormHelperText>
+                      <FormHelperText>Nová predvolená nástenka</FormHelperText>
                     </FormControl>
                   </div>
                 )}
-                <ThemePicker theme={this.props.activeDashboard.data().theme}/>
+                <ThemePicker theme={this.props.activeDashboard.data().theme} />
                 <div className="action-buttons">
-                  <Button onClick={this.handleClick}>
+                  <Button
+                    onClick={this.handleClick}
+                  >
                     Vymazať nástenku
                   </Button>
                   <Button
@@ -116,11 +141,56 @@ class Settings extends React.Component {
                     type="submit"
                     variant="contained"
                     color="secondary"
+                    onClick={() => this.props.updateDashboard(this.props.activeDashboard.id, this.props.isDefault, this.props.newDefaultDashboardId, this.props.userId, {
+                      title: this.state.title,
+                      default: this.state.default,
+                      theme: {
+                        id: this.props.themePicker.theme,
+                        inverted: this.props.themePicker.inverted,
+                      }
+                    })}
                   >
                     Uložiť
                   </Button>
                 </div>
               </form>
+              <Dialog open={this.state.confirmDialogOpen}>
+                <DialogTitle>Vymazanie nástenky</DialogTitle>
+                <DialogContent>
+                  <Typography>
+                    Naozaj si prajete vykonať túto akciu? Vymaže sa tým nástenka aj s projektami, ktoré sa v nej nachádzajú. Akcia je nenávratná!
+                  </Typography>
+                  <div className="default-dashboard-selector">
+                    <FormControl>
+                      <Select
+                        required
+                        value={this.state.newDefaultDashboardId}
+                        onChange={this.handleSelectChange}
+                        placeholder="Vyberte novú predvolenú nástenku"
+                      >
+                        {this.props.dashboards.map((dashboard, i) => (
+                          <MenuItem
+                            key={i}
+                            value={dashboard.id}
+                            disabled={dashboard.id === this.props.activeDashboard.id}
+                          >
+                            {dashboard.data().title}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                      <FormHelperText>Nová predvolená nástenka</FormHelperText>
+                    </FormControl>
+                  </div>
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={this.handleClose}>
+                    Zrušiť
+                  </Button>
+                  <Button onClick={this.handleDelete} disabled={this.state.newDefaultDashboardId === ""} color="secondary">
+                    Potvrdiť
+                  </Button>
+                </DialogActions>
+              </Dialog>
             </Paper>
           )}
         </div>
@@ -132,12 +202,7 @@ class Settings extends React.Component {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
       document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
       this.setState((prevState, props) => ({
-        title: props.activeDashboard.data().title
-      }));
-    }
-    if (prevProps.isDefault !== this.props.isDefault) {
-      this.setState((prevState, props) => ({
-        default: props.isDefault
+        title: props.activeDashboard.data().title,
       }));
     }
   }
@@ -149,11 +214,13 @@ Settings.propTypes = {
   deleteDashboard: propTypes.func.isRequired,
   isDefault: propTypes.bool,
   dashboards: propTypes.arrayOf(propTypes.object),
+  userId: propTypes.string.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteDashboard: dashboardId => dispatch(deleteDashboard(dashboardId))
+    deleteDashboard: (dashboardId, newDefaultDashboardId, userId) => dispatch(deleteDashboard(dashboardId, newDefaultDashboardId, userId)),
+    updateDashboard: (dashboardId, prevDefault, newDefaultDashboardId, userId, data) => dispatch(updateDashboard(dashboardId, prevDefault, newDefaultDashboardId, userId, data)),
   }
 }
 
@@ -163,6 +230,7 @@ const mapStateToProps = state => {
     themePicker: state.themePicker,
     isDefault: state.dashboard.data.list && state.dashboard.selector.active.id === state.dashboard.data.default.id,
     dashboards: state.dashboard.data.list,
+    userId: state.firebase.auth.uid,
   }
 }
 

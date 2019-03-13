@@ -26,7 +26,7 @@ export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) 
   }
   else if (isAuth && dashboard) {
     let palette;
-    switch (dashboard === dashboardConfig.MAX_COUNT ? themePicker.theme : dashboard.data().theme.id) {
+    switch (dashboard !== dashboardConfig.MAX_COUNT ? dashboard.data().theme.id : themePicker.theme) {
       case 0:
         palette = palettes.SCIREC;
         break;
@@ -52,7 +52,7 @@ export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) 
         palette = palettes.SCIREC;
         break;
     }
-    return createAppTheme(palette, dashboard === dashboardConfig.MAX_COUNT ? themePicker.inverted : dashboard.data().theme.inverted);
+    return createAppTheme(palette, dashboard !== dashboardConfig.MAX_COUNT ? dashboard.data().theme.inverted : themePicker.inverted);
   }
   else {
     return createAppTheme(palettes.SCIREC);

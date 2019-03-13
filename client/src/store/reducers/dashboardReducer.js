@@ -125,8 +125,19 @@ const dashboard = (state = _initialState, action) => {
 
     case actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS:
       console.log(actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS);
+      const newDefaultDashboard = state.data.list.find(dashboard => dashboard.id === action.newDefaultDashboardCreated);
       return {
         ...state,
+        data: {
+          list: state.data.list.filter(dashboard => dashboard.id !== action.deletedDashboardId),
+          default: newDefaultDashboard,
+        },
+        selector: {
+          active: newDefaultDashboard,
+          activeRoute: newDefaultDashboard.data().route,
+          activeId: newDefaultDashboard.data().created,
+          previousId: null
+        },
         isLoading: false,
       };
 
