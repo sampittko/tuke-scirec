@@ -25,7 +25,7 @@ export const addProject = (newProject, dashboardId) => {
 
     const createdProject = {
       route: getRouteFromString(newProject.title),
-      created: new Date().getTime(),
+      created: new Date(),
       title: newProject.title,
       dashboard: dashboardsRef.doc(dashboardId)
     }

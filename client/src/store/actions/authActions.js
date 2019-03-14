@@ -30,7 +30,7 @@ export const login = user => {
         user.password
       )
     .then(result => {
-      dispatch(getDashboards(result.user.uid));
+      dispatch(getDashboards());
       dispatch(loginSuccess(result))
     })
     .catch(error => {
@@ -102,7 +102,7 @@ export const register = newUser => {
             inverted: dashboardConfig.defaultDashboard.THEME.INVERTED
           },
           route: getRouteFromString(dashboardConfig.defaultDashboard.TITLE),
-          created: new Date().getTime()
+          created: new Date()
         })
     })
     .then(result => {

@@ -5,10 +5,10 @@ import routes from '../config/app/routes';
 export const getActiveDashboard = (dashboards, activeId, selector) => {
   if (activeId !== dashboardConfig.MAX_COUNT) {
     if (activeId) {
-      return dashboards.find(dashboard => dashboard.data().created === activeId);
+      return dashboards.find(dashboard => dashboard.id === activeId);
     }
     else {
-      return dashboards.find(dashboard => dashboard.data().created === selector.previousId);
+      return dashboards.find(dashboard => dashboard.id === selector.previousId);
     }
   }
   else {

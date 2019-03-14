@@ -18,17 +18,19 @@ const getDashboardsRequest = () => ({
   type: actionTypes.dashboard.GET_DASHBOARDS_REQUEST
 })
 
-export const getDashboards = currentUserId => {
+export const getDashboards = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(getDashboardsRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
+    const userId = firebase.auth().currentUser.uid;
     let defaultDashboardSnapshot = null;
 
     usersRef
-      .doc(currentUserId)
+      .doc(userId)
       .get()
     .then(result => {
       return dashboardsRef
@@ -38,7 +40,7 @@ export const getDashboards = currentUserId => {
     .then(result => {
       defaultDashboardSnapshot = result;
       return dashboardsRef
-        .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(currentUserId))
+        .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(userId))
         .orderBy(firestoreCollections.dashboards.fields.CREATED, "desc")
         .get()
     })
@@ -80,20 +82,20 @@ export const createDashboard = newDashboard => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(createDashboardRequest());
 
-    const firestore = getFirestore();
     const firebase = getFirebase();
+    const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
-    const currentUserId = firebase.auth().currentUser.uid;
+    const userId = firebase.auth().currentUser.uid;
     let createdDashboardSnapshot = null;
 
     dashboardsRef
       .add({
         route: getRouteFromString(newDashboard.title),
         theme: newDashboard.theme,
-        created: new Date().getTime(),
+        created: new Date(),
         title: newDashboard.title,
-        user: usersRef.doc(currentUserId)
+        user: usersRef.doc(userId)
       })
     .then(result => {
       return dashboardsRef
@@ -104,7 +106,7 @@ export const createDashboard = newDashboard => {
       createdDashboardSnapshot = result;
       if (newDashboard.default) {
         return usersRef
-          .doc(currentUserId)
+          .doc(userId)
           .update({
             defaultDashboard: dashboardsRef.doc(result.id)
           })
@@ -137,13 +139,15 @@ const updateDashboardRequest = () => ({
   type: actionTypes.dashboard.UPDATE_DASHBOARD_REQUEST
 })
 
-export const updateDashboard = (dashboardId, prevDefault, newDefaultDashboardId, userId, data) => {
+export const updateDashboard = (dashboardId, prevDefault, newDefaultDashboardId, data) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateDashboardRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const usersRef = firestore.collection(firestoreCollections.users.ID);
+    const userId = firebase.auth().currentUser.uid;
     
     dashboardsRef
       .doc(dashboardId)
@@ -165,7 +169,7 @@ export const updateDashboard = (dashboardId, prevDefault, newDefaultDashboardId,
       }
     })
     .then(() => {
-      dispatch(getDashboards(userId));
+      dispatch(getDashboards());
       dispatch(updateDashboardSuccess());
     })
     .catch(error => {
@@ -180,9 +184,9 @@ const deleteDashboardFailure = error => ({
   error
 })
 
-const deleteDashboardSuccess = (newDefaultDashboardCreated, deletedDashboardId) => ({
+const deleteDashboardSuccess = (newDefaultDashboardId, deletedDashboardId) => ({
   type: actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS,
-  newDefaultDashboardCreated,
+  newDefaultDashboardId,
   deletedDashboardId
 })
 
@@ -190,13 +194,15 @@ const deleteDashboardRequest = () => ({
   type: actionTypes.dashboard.DELETE_DASHBOARD_REQUEST
 })
 
-export const deleteDashboard = (dashboardId, newDefaultDashboardId, userId) => {
+export const deleteDashboard = (dashboardId, newDefaultDashboardId) => {
   return async (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(deleteDashboardRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const usersRef = firestore.collection(firestoreCollections.users.ID);
+    const userId = firebase.auth().currentUser.uid;
 
     await dispatch(deleteProjectsInDashboard(dashboardId));
 

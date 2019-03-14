@@ -96,7 +96,7 @@ class App extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.isAuth && !this.props.dashboards && !this.props.isDashboardLoading) {
-      this.props.getDashboards(this.props.userId);
+      this.props.getDashboards();
     }
   }
 }
@@ -109,13 +109,12 @@ App.propTypes = {
   getAuth: propTypes.func.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object),
   getDashboards: propTypes.func.isRequired,
-  userId: propTypes.string,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     getAuth: () => dispatch(getAuth()),
-    getDashboards: userId => dispatch(getDashboards(userId)),
+    getDashboards: () => dispatch(getDashboards()),
   }
 }
 
@@ -126,7 +125,6 @@ const mapStateToProps = state => {
     activeDashboard: state.dashboard.selector.active,
     themePicker: state.themePicker,
     dashboards: state.dashboard.data.list,
-    userId: state.firebase.auth.uid,
   }
 }
 

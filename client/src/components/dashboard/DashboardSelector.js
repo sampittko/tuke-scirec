@@ -41,7 +41,7 @@ class Selector extends React.Component {
   }
 
   handleSelectChange = event => {
-    if (this.props.activeDashboard.data().created !== event.target.value) {
+    if (this.props.activeDashboard.id !== event.target.value) {
       this.props.changeDashboard(event.target.value);
       event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
     }
@@ -56,13 +56,13 @@ class Selector extends React.Component {
               <Select
                 disableUnderline
                 value={this.props.activeDashboard === dashboardConfig.MAX_COUNT ?
-                  this.props.activeDashboard : this.props.activeDashboard.data().created}
+                  this.props.activeDashboard : this.props.activeDashboard.id}
                 onChange={this.handleSelectChange}
               >
                 {this.props.dashboards.map((dashboard, i) =>
                   <MenuItem
                     key={i}
-                    value={dashboard.data().created}
+                    value={dashboard.id}
                   >
                     {dashboard.data().title}
                   </MenuItem>
@@ -79,7 +79,7 @@ class Selector extends React.Component {
             </FormControl>
             <NewDashboardDialog
               title={this.state.title}
-              open={this.props.activeDashboard === dashboardConfig.MAX_COUNT || this.props.activeDashboard.data().created === dashboardConfig.MAX_COUNT}
+              open={this.props.activeDashboard === dashboardConfig.MAX_COUNT}
               onClick={(event, newDashboard) => this.handleClick(event, newDashboard)}
               handleTitleChange={this.handleTitleChange}
             />

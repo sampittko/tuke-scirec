@@ -79,7 +79,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: action.defaultDashboard,
           activeRoute: action.defaultDashboard.data().route,
-          activeId: action.defaultDashboard.data().created,
+          activeId: action.defaultDashboard.data(),
           previousId: null
         },
         isLoading: false,
@@ -125,7 +125,7 @@ const dashboard = (state = _initialState, action) => {
 
     case actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS:
       console.log(actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS);
-      const newDefaultDashboard = state.data.list.find(dashboard => dashboard.id === action.newDefaultDashboardCreated);
+      const newDefaultDashboard = state.data.list.find(dashboard => dashboard.id === action.newDefaultDashboardId);
       return {
         ...state,
         data: {
@@ -135,7 +135,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: newDefaultDashboard,
           activeRoute: newDefaultDashboard.data().route,
-          activeId: newDefaultDashboard.data().created,
+          activeId: newDefaultDashboard.data(),
           previousId: null
         },
         isLoading: false,
@@ -173,7 +173,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: state.data.default,
           activeRoute: state.data.default.data().route,
-          activeId: state.data.default.data().created,
+          activeId: state.data.default.data(),
           previousId: state.selector.activeId
         }
       }

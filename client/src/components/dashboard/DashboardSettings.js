@@ -76,7 +76,7 @@ class Settings extends React.Component {
   }
 
   handleDelete = () => {
-    this.props.deleteDashboard(this.props.activeDashboard.id, this.state.newDefaultDashboardId, this.props.userId);
+    this.props.deleteDashboard(this.props.activeDashboard.id, this.state.newDefaultDashboardId);
     this.handleClose();
   }
 
@@ -141,7 +141,7 @@ class Settings extends React.Component {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() => this.props.updateDashboard(this.props.activeDashboard.id, this.props.isDefault, this.props.newDefaultDashboardId, this.props.userId, {
+                    onClick={() => this.props.updateDashboard(this.props.activeDashboard.id, this.props.isDefault, this.props.newDefaultDashboardId, {
                       title: this.state.title,
                       default: this.state.default,
                       theme: {
