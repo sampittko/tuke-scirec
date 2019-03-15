@@ -46,7 +46,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: action.createdDashboard,
           activeRoute: action.createdDashboard.data().route,
-          activeId: action.createdDashboard.data().created,
+          activeId: action.createdDashboard.id,
           previousId: state.selector.activeId
         },
         isLoading: false,
@@ -79,7 +79,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: action.defaultDashboard,
           activeRoute: action.defaultDashboard.data().route,
-          activeId: action.defaultDashboard.data(),
+          activeId: action.defaultDashboard.id,
           previousId: null
         },
         isLoading: false,
@@ -135,7 +135,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: newDefaultDashboard,
           activeRoute: newDefaultDashboard.data().route,
-          activeId: newDefaultDashboard.data(),
+          activeId: newDefaultDashboard.id,
           previousId: null
         },
         isLoading: false,
@@ -173,7 +173,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           active: state.data.default,
           activeRoute: state.data.default.data().route,
-          activeId: state.data.default.data(),
+          activeId: state.data.default.id,
           previousId: state.selector.activeId
         }
       }

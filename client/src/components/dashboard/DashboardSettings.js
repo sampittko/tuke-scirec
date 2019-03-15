@@ -9,6 +9,7 @@ import ThemePicker from '../themePicker/ThemePicker';
 import TitleInput from './DashboardTitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
+import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboardSettingsDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
@@ -141,7 +142,7 @@ class Settings extends React.Component {
                     type="submit"
                     variant="contained"
                     color="secondary"
-                    onClick={() => this.props.updateDashboard(this.props.activeDashboard.id, this.props.isDefault, this.props.newDefaultDashboardId, {
+                    onClick={() => this.props.updateDashboard(this.props.activeDashboard.id, this.props.isDefault, this.state.newDefaultDashboardId, {
                       title: this.state.title,
                       default: this.state.default,
                       theme: {
@@ -183,10 +184,17 @@ class Settings extends React.Component {
                   </div>
                 </DialogContent>
                 <DialogActions>
-                  <Button onClick={this.handleClose}>
+                  <Button
+                    onClick={this.handleClose}
+                    disabled={this.props.isDashboardLoading}
+                  >
                     Zrušiť
                   </Button>
-                  <Button onClick={this.handleDelete} disabled={this.state.newDefaultDashboardId === ""} color="secondary">
+                  <Button
+                    onClick={this.handleDelete}
+                    disabled={this.state.newDefaultDashboardId === "" || this.props.isDashboardLoading}
+                    color="secondary"
+                  >
                     Potvrdiť
                   </Button>
                 </DialogActions>
@@ -214,13 +222,13 @@ Settings.propTypes = {
   deleteDashboard: propTypes.func.isRequired,
   isDefault: propTypes.bool,
   dashboards: propTypes.arrayOf(propTypes.object),
-  userId: propTypes.string.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteDashboard: (dashboardId, newDefaultDashboardId, userId) => dispatch(deleteDashboard(dashboardId, newDefaultDashboardId, userId)),
-    updateDashboard: (dashboardId, prevDefault, newDefaultDashboardId, userId, data) => dispatch(updateDashboard(dashboardId, prevDefault, newDefaultDashboardId, userId, data)),
+    deleteDashboard: (dashboardId, newDefaultDashboardId) => dispatch(deleteDashboard(dashboardId, newDefaultDashboardId)),
+    updateDashboard: (dashboardId, prevDefault, newDefaultDashboardId, data) => dispatch(updateDashboard(dashboardId, prevDefault, newDefaultDashboardId, data)),
   }
 }
 
@@ -230,7 +238,7 @@ const mapStateToProps = state => {
     themePicker: state.themePicker,
     isDefault: state.dashboard.data.list && state.dashboard.selector.active.id === state.dashboard.data.default.id,
     dashboards: state.dashboard.data.list,
-    userId: state.firebase.auth.uid,
+    isDashboardLoading: state.dashboard.isLoading,
   }
 }
 

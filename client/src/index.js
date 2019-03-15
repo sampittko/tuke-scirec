@@ -13,19 +13,19 @@ import rootReducer from './store/reducers';
 import thunk from 'redux-thunk';
 
 const store = createStore(
-    rootReducer,
-    compose(
-        applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-        reduxFirestore(firebaseConfig),
-        reactReduxFirebase(firebaseConfig, { attachAuthIsReady: true })
-    )
+  rootReducer,
+  compose(
+    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+    reduxFirestore(firebaseConfig),
+    reactReduxFirebase(firebaseConfig, { attachAuthIsReady: true })
+  )
 );
 
 store.firebaseAuthIsReady.then(() => {
-    ReactDOM.render(
-        <Provider store={store}>
-            <App />
-        </Provider>,
-        document.getElementById('root'));
-    serviceWorker.unregister();
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root'));
+  serviceWorker.unregister();
 });
