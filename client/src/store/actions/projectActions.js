@@ -64,9 +64,6 @@ const getProjectsRequest = () => ({
 export const getProjects = dashboardId => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(getProjectsRequest());
-    dispatch(getProjectsFailure());
-
-    return;
 
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);

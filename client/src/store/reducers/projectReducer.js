@@ -57,7 +57,7 @@ const project = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: action.projects
+          list: action.projects.length > 0 ? action.projects : null
         },
         isLoading: false,
         error: null

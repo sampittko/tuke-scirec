@@ -5,7 +5,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import React from 'react';
 import Switch from '../common/Switch';
 import ThemePicker from '../themePicker/ThemePicker';
-import TitleInput from './DashboardTitleInput';
+import TitleInput from '../common/TitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
@@ -51,6 +51,8 @@ class NewDashboardDialog extends React.Component {
             required
             title={this.props.title}
             onChange={this.props.handleTitleChange}
+            label="Názov nástenky"
+            maxTitleLength={dashboardConfig.MAX_LENGTH}
           />
           <Switch
             checked={this.state.default}

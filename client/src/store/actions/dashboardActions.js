@@ -139,15 +139,31 @@ const updateDashboardRequest = () => ({
   type: actionTypes.dashboard.UPDATE_DASHBOARD_REQUEST
 })
 
-export const updateDashboard = (dashboardId, prevDefault, newDefaultDashboardId, data) => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+export const updateDashboard = (newDefaultDashboardId, data) => {
+  return async (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(updateDashboardRequest());
 
     const firebase = getFirebase();
     const firestore = getFirestore();
+    const state = getState();
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const userId = firebase.auth().currentUser.uid;
+    const dashboardId = state.dashboard.selector.activeId;
+    const prevDefault = state.dashboard.selector.activeId === state.dashboard.data.default.id;
+
+    if (data.default !== prevDefault) {
+      await usersRef
+        .doc(userId)
+        .update({
+          defaultDashboard: dashboardsRef.doc(newDefaultDashboardId === "" ? dashboardId : newDefaultDashboardId)
+        })
+      .catch(error => {
+        console.log(error);
+        dispatch(updateDashboardFailure(error));
+        return;
+      });
+    }
     
     dashboardsRef
       .doc(dashboardId)
@@ -156,18 +172,6 @@ export const updateDashboard = (dashboardId, prevDefault, newDefaultDashboardId,
         route: getRouteFromString(data.title),
         theme: data.theme,
       })
-    .then(() => {
-      if (data.default !== prevDefault) {
-        return usersRef
-          .doc(userId)
-          .update({
-            defaultDashboard: dashboardsRef.doc(newDefaultDashboardId)
-          })
-      }
-      else {
-        return Promise.resolve();
-      }
-    })
     .then(() => {
       dispatch(getDashboards());
       dispatch(updateDashboardSuccess());
@@ -194,7 +198,7 @@ const deleteDashboardRequest = () => ({
   type: actionTypes.dashboard.DELETE_DASHBOARD_REQUEST
 })
 
-export const deleteDashboard = (dashboardId, newDefaultDashboardId) => {
+export const deleteDashboard = newDefaultDashboardId => {
   return async (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(deleteDashboardRequest());
 
@@ -203,6 +207,7 @@ export const deleteDashboard = (dashboardId, newDefaultDashboardId) => {
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const userId = firebase.auth().currentUser.uid;
+    const dashboardId = getState().dashboard.selector.activeId;
 
     await dispatch(deleteProjectsInDashboard(dashboardId));
 

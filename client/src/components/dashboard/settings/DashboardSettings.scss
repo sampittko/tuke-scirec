@@ -1,4 +1,4 @@
-@import '../../variables';
+@import '../../../variables';
 
 .dashboard-settings {
     margin: 4 * $spacing-unit auto;
@@ -21,22 +21,6 @@
 
         button + button {
             margin-left: 10px;
-        }
-    }
-}
-
-.default-dashboard-selector {
-    div[class*="FormControl"] {
-        float: right;
-        display: flex;
-        max-width: $selector-width !important;
-    }
-
-    div[class*="InputBase"] {
-        div[class*="Select-select"] {
-            height: 32px;
-            line-height: 32px;
-            text-indent: 2 * $spacing-unit;
         }
     }
 }

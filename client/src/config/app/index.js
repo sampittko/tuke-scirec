@@ -15,3 +15,8 @@ export const dashboardConfig = {
     DEFAULT: true
   }
 }
+
+export const projectConfig = {
+  MIN_LENGTH: 3,
+  MAX_LENGTH: 30,
+}
