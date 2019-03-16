@@ -49,6 +49,7 @@ class Dashboard extends React.Component {
           <Fab
             onClick={this.handleOpen}
             icon={<AddIcon />}
+            tooltipTitle="Vytvorenie nového projektu"
           />
           <NewProjectDialog
             open={this.state.dialogOpen}

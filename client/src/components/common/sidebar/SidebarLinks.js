@@ -1,4 +1,5 @@
 import HomeIcon from '@material-ui/icons/Home';
+import InfoIcon from '@material-ui/icons/Info';
 import Link from './SidebarLink';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
@@ -25,6 +26,12 @@ const Links = props =>
       route={routes.REGISTER}
       text="Registrácia"
       icon={<PersonAddIcon />}
+    />
+    <Link
+      location={props.location}
+      route={routes.ABOUT}
+      text="O aplikácii"
+      icon={<InfoIcon />}
     />
   </div>;
 

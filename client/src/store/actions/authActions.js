@@ -123,10 +123,12 @@ export const register = newUser => {
 }
 
 export const getAuth = () => {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
     dispatch({
       type: actionTypes.auth.GET_AUTH,
-      auth: getState().firebase.auth
+      auth: firebase.auth()
     })
   }
 }

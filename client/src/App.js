@@ -3,6 +3,7 @@ import './index.scss';
 import { MuiThemeProvider, withTheme } from '@material-ui/core/styles';
 import { Redirect, Route, BrowserRouter as Router } from 'react-router-dom';
 
+import About from './components/About';
 import Container from './components/common/Container';
 import Dashboard from './components/dashboard/Dashboard';
 import DashboardSettings from './components/dashboard/settings/DashboardSettings';
@@ -70,6 +71,11 @@ class App extends React.Component {
               exact
               path={routes.HOME}
               component={Home}
+            />
+            <Route
+              exact
+              path={routes.ABOUT}
+              component={About}
             />
             <Route
               exact

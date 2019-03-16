@@ -1,5 +1,6 @@
 const routes = {
   HOME: '/',
+  ABOUT: '/o-aplikacii',
   LOGIN: '/prihlasenie',
   REGISTER: '/registracia',
   DASHBOARD: '/nastenky/:dashboardRoute',

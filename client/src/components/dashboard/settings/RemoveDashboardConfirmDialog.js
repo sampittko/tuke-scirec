@@ -57,7 +57,6 @@ RemoveDashboardConfirmDialog.propTypes = {
   deleteDashboard: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
-  dashboards: propTypes.arrayOf(propTypes.object),
 }
 
 const mapDispatchToProps = dispatch => {

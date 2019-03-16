@@ -18,6 +18,8 @@ export const getDocumentTitleFromComponent = component => {
       return appendTitle(titles.REGISTER);
     case "Home":
       return appendTitle(titles.HOME);
+    case "About":
+      return appendTitle(titles.ABOUT);
     default:
       return APP_NAME;
   }

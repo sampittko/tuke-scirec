@@ -2,11 +2,13 @@ import { getDashboardRoute, getDashboardSettingsRoute } from '../../../utils/das
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import { Divider } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
 import Link from './SidebarLink';
 import React from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
+import routes from '../../../config/app/routes';
 
 const UserLinks = props =>
   <div>
@@ -16,12 +18,18 @@ const UserLinks = props =>
       text={props.activeDashboardTitle}
       icon={<DashboardIcon />}
     />
-    <Divider />
     <Link
       location={props.location}
       route={getDashboardSettingsRoute(props.activeDashboardRoute)}
       text="Nastavenia"
       icon={<SettingsIcon />}
+    />
+    <Divider />
+    <Link
+      location={props.location}
+      route={routes.ABOUT}
+      text="O aplikácii"
+      icon={<InfoIcon />}
     />
   </div>;
 
