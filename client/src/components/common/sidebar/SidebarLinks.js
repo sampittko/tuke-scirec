@@ -1,3 +1,4 @@
+import { Divider } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 import Link from './SidebarLink';
@@ -27,6 +28,7 @@ const Links = props =>
       text="Registrácia"
       icon={<PersonAddIcon />}
     />
+    <Divider />
     <Link
       location={props.location}
       route={routes.ABOUT}

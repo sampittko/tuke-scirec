@@ -1,6 +1,6 @@
 import './ProjectsList.scss';
 
-import { List, ListItem, ListItemText, Paper, Typography } from '@material-ui/core';
+import { Fade, List, ListItem, ListItemText, Paper, Typography } from '@material-ui/core';
 
 import React from 'react';
 import { connect } from 'react-redux';
@@ -9,6 +9,7 @@ import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getProjects } from '../../store/actions/projectActions';
 import projectPropTypes from '../../propTypes/projectPropTypes';
 import propTypes from 'prop-types';
+import { timeouts } from '../../config/mui';
 
 class ProjectsList extends React.Component {
   componentDidMount() {
@@ -23,35 +24,39 @@ class ProjectsList extends React.Component {
         {this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
           <div>
             {this.props.projects ? (
-              <Paper className="dashboard">
-                <Typography className="title" variant="h5">
-                  Projects
-                </Typography>
-                <List>
-                  {this.props.projects.map(project => (
-                    <ListItem button key={project.id}>
-                      <ListItemText inset primary={project.title} />
-                    </ListItem>
-                  ))}
-                </List>
-              </Paper>
-            ) : (
-              <div className="no-data">
-                  {(this.props.isDashboardLoading && !this.props.isProjectLoading) || this.props.isProjectLoading ? (
-                  <Typography>
-                    Projekty sa načítavajú..
+              <Fade in timeout={timeouts.FADE_IN}>
+                <Paper className="dashboard">
+                  <Typography className="title" variant="h5">
+                    Projects
                   </Typography>
-                ) : (
-                  <div>
-                    <Typography variant="h6">
-                      Nástenka je prázdna
-                    </Typography>
+                  <List>
+                    {this.props.projects.map(project => (
+                      <ListItem button key={project.id}>
+                        <ListItemText inset primary={project.title} />
+                      </ListItem>
+                    ))}
+                  </List>
+                </Paper>
+              </Fade>
+            ) : (
+              <Fade in timeouts={timeouts.FADE_IN}>
+                <div className="no-data">
+                    {(this.props.isDashboardLoading && !this.props.isProjectLoading) || this.props.isProjectLoading ? (
                     <Typography>
-                      Tu sa zobrazia Vami vytvorené projekty pre nástenku {this.props.activeDashboard.data().title}
+                      Projekty sa načítavajú..
                     </Typography>
-                  </div>
-                )}
-              </div>
+                  ) : (
+                    <div>
+                      <Typography variant="h6">
+                        Nástenka je prázdna
+                      </Typography>
+                      <Typography>
+                        Tu sa zobrazia Vami vytvorené projekty pre nástenku {this.props.activeDashboard.data().title}
+                      </Typography>
+                    </div>
+                  )}
+                </div>
+              </Fade>
             )}
           </div>
         )}

@@ -22,7 +22,7 @@ import propTypes from 'prop-types';
 import routes from './config/app/routes';
 import themePickerPropTypes from './propTypes/themePickerPropTypes';
 
-const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
+const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   <Route {...rest} render={props => isAuth ? (
       <Component {...props} />
     ) : (
@@ -32,8 +32,8 @@ const PrivateRoute = ({ component: Component, isAuth, ...rest}) => (
           state: { from: props.location }
         }}
       />
-    )}
-  />
+    )
+  }/>
 );
 
 class App extends React.Component {
@@ -43,17 +43,17 @@ class App extends React.Component {
 
   render() {
     return (
+      <MuiThemeProvider
+        theme={
+          getAppTheme(
+            this.props.activeDashboard,
+            this.props.isAuth,
+            this.props.isDashboardLoading,
+            this.props.themePicker
+          )
+        }
+      >
       <Router basename={window.basename}>
-        <MuiThemeProvider
-          theme={
-            getAppTheme(
-              this.props.activeDashboard,
-              this.props.isAuth,
-              this.props.isDashboardLoading,
-              this.props.themePicker
-            )
-          }
-        >
           <Container>
             <PrivateRoute
               exact
@@ -88,8 +88,8 @@ class App extends React.Component {
               component={Login}
             />
           </Container>
-        </MuiThemeProvider>
-      </Router>
+        </Router>
+      </MuiThemeProvider>
     )
   }
 
