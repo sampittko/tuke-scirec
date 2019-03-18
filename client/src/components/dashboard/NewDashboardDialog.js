@@ -1,6 +1,6 @@
 import './NewDashboardDialog.scss';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider } from '@material-ui/core';
 
 import React from 'react';
 import Switch from '../common/Switch';
@@ -59,6 +59,7 @@ class NewDashboardDialog extends React.Component {
             onChange={this.handleChange}
             label="Nastaviť ako predvolenú nástenku"
           />
+          <Divider />
           <ThemePicker />
         </DialogContent>
         <DialogActions>

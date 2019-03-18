@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Typography } from '@material-ui/core';
 
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
@@ -19,14 +19,21 @@ class RemoveDashboardConfirmDialog extends React.Component {
         <DialogTitle>Vymazanie nástenky</DialogTitle>
         <DialogContent>
           <Typography>
-            Naozaj si prajete vykonať túto akciu? Vymaže sa tým nástenka aj s projektami, ktoré sa v nej nachádzajú. Akcia je nenávratná!
-                  </Typography>
-          <NewDefaultDashboardSelectMenu
-            value={this.props.newDefaultDashboardId}
-            onChange={this.props.onChange}
-            dashboards={this.props.dashboards}
-            activeDashboard={this.props.activeDashboard}
-          />
+            Naozaj si prajete vykonať túto akciu? Akcia je nenávratná!
+          </Typography>
+          {this.props.isDefault && (
+            <div>
+              <Typography>
+                Najskôr zvoľte novú predvolenú nástenku:
+              </Typography>
+              <NewDefaultDashboardSelectMenu
+                value={this.props.newDefaultDashboardId}
+                onChange={this.props.onChange}
+                dashboards={this.props.dashboards}
+                activeDashboard={this.props.activeDashboard}
+              />
+            </div>
+          )}
         </DialogContent>
         <DialogActions>
           <Button
@@ -37,7 +44,7 @@ class RemoveDashboardConfirmDialog extends React.Component {
           </Button>
           <Button
             onClick={this.handleClick}
-            disabled={this.props.newDefaultDashboardId === "" || this.props.isDashboardLoading}
+            disabled={this.props.newDefaultDashboardId === "" && this.props.isDefault}
             color="secondary"
           >
             Potvrdiť
@@ -50,6 +57,7 @@ class RemoveDashboardConfirmDialog extends React.Component {
 
 RemoveDashboardConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
+  isDefault: propTypes.bool.isRequired,
   newDefaultDashboardId: propTypes.string.isRequired,
   activeDashboard: propTypes.any.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object).isRequired,
@@ -70,6 +78,7 @@ const mapStateToProps = state => {
     dashboards: state.dashboard.data.list,
     activeDashboard: state.dashboard.selector.active,
     isDashboardLoading: state.dashboard.isLoading,
+    isDefault: state.dashboard.selector.activeId === state.dashboard.data.default.id,
   }
 }
 

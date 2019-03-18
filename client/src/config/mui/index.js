@@ -1,5 +1,5 @@
 export const timeouts = {
-  FADE_IN: 500,
-  ZOOM_IN: 300,
+  FADE_IN: 750,
+  ZOOM_IN: 750,
   NOTIFICATION: 4000
 }

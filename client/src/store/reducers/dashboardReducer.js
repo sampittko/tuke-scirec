@@ -130,12 +130,12 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         data: {
           list: state.data.list.filter(dashboard => dashboard.id !== action.deletedDashboardId),
-          default: newDefaultDashboard,
+          default: newDefaultDashboard ? newDefaultDashboard : state.data.default,
         },
         selector: {
-          active: newDefaultDashboard,
-          activeRoute: newDefaultDashboard.data().route,
-          activeId: newDefaultDashboard.id,
+          active: newDefaultDashboard ? newDefaultDashboard : state.data.default,
+          activeRoute: newDefaultDashboard ? newDefaultDashboard.data().route : state.data.default.data().route,
+          activeId: newDefaultDashboard ? newDefaultDashboard.id : state.data.default.id,
           previousId: null
         },
         isLoading: false,

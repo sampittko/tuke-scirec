@@ -19,7 +19,7 @@ class About extends React.Component {
             SCIREC
           </Typography>
           <Typography>
-            Copyright © Samuel Pitoňák 2019. Všetky práva vyhradené.
+            Copyright &copy; Samuel Pitoňák {new Date().getFullYear()}
           </Typography>
         </div>
       </Fade>

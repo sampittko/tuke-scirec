@@ -211,16 +211,23 @@ export const deleteDashboard = newDefaultDashboardId => {
 
     await dispatch(deleteProjectsInDashboard(dashboardId));
 
+    if (newDefaultDashboardId !== "") {
+      try {
+        await usersRef
+          .doc(userId)
+          .update({
+            defaultDashboard: dashboardsRef.doc(newDefaultDashboardId)
+          })
+      } catch (error) {
+        console.error(error);
+        dispatch(deleteDashboardFailure(error))
+        return;
+      }
+    }
+
     dashboardsRef
       .doc(dashboardId)
       .delete()
-    .then(() => {
-      return usersRef
-        .doc(userId)
-        .update({
-          defaultDashboard: dashboardsRef.doc(newDefaultDashboardId)
-        })
-    })
     .then(() => {
       dispatch(deleteDashboardSuccess(newDefaultDashboardId, dashboardId));
     })

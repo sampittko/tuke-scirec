@@ -1,7 +1,8 @@
 import './DashboardSettings.scss';
 
-import { Button, Fade, Paper, Typography } from '@material-ui/core';
+import { Button, Fade, Typography } from '@material-ui/core';
 
+import ExpansionPanel from './ExpansionPanel';
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
@@ -25,6 +26,7 @@ class Settings extends React.Component {
       default: false,
       newDefaultDashboardId: "",
       confirmDialogOpen: false,
+      expandedPanel: 0,
     }
   }
 
@@ -95,50 +97,96 @@ class Settings extends React.Component {
     });
   }
 
+  handlePanelChange = (event, panel) => {
+    this.setState({
+      expandedPanel: this.state.expandedPanel === panel ? 0 : panel
+    });
+  }
+
+  getPanelActions = () => {
+    switch (this.state.expandedPanel) {
+      case 3:
+        return (
+          <Button
+            onClick={this.handleDeleteClick}
+            size="small"
+          >
+            Vymazať nástenku {this.props.activeDashboard.data().title}
+          </Button>
+        );
+      default:
+        return (
+          <Button
+            disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
+            type="submit"
+            color="secondary"
+            size="small"
+          >
+            Aktualizovať
+          </Button>
+        );
+    }
+  }
+
   render() {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
         <div>
           {this.props.dashboards && (
-            <Paper className="dashboard-settings">
-              <Typography variant="h5">Nastavenia - {this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</Typography>
+            <div className="dashboard-settings">
+              <Typography
+                variant="h5"
+                className="page-title"
+              >
+                Nastavenia nástenky <span className="dashboard-title">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
+              </Typography>
               <form onSubmit={this.handleSubmit}>
-                <TitleInput
-                  required
-                  name="title"
-                  title={this.state.title}
-                  onChange={this.handleFormChange}
-                  maxTitleLength={dashboardConfig.MAX_LENGTH}
-                  label="Názov nástenky"
+                <ExpansionPanel
+                  expanded={this.state.expandedPanel === 1}
+                  onChange={(event) => this.handlePanelChange(event, 1)}
+                  settingType="Všeobecné"
+                  panelContent={
+                    <div>
+                      <TitleInput
+                        required
+                        name="title"
+                        title={this.state.title}
+                        onChange={this.handleFormChange}
+                        maxTitleLength={dashboardConfig.MAX_LENGTH}
+                        label="Názov nástenky"
+                      />
+                      <Switch
+                        name="default"
+                        checked={this.state.default}
+                        onChange={this.handleFormChange}
+                        label="Nastaviť ako predvolenú nástenku"
+                      />
+                      {this.props.isDefault && !this.state.default && !this.state.confirmDialogOpen && (
+                        <NewDefaultDashboardSelectMenu
+                          value={this.state.newDefaultDashboardId}
+                          onChange={this.handleSelectChange}
+                          dashboards={this.props.dashboards}
+                          activeDashboard={this.props.activeDashboard}
+                        />
+                      )}
+                    </div>
+                  }
+                  panelActions={this.getPanelActions()}
                 />
-                <Switch
-                  name="default"
-                  checked={this.state.default}
-                  onChange={this.handleFormChange}
-                  label="Nastaviť ako predvolenú nástenku"
+                <ExpansionPanel
+                  expanded={this.state.expandedPanel === 2}
+                  onChange={(event) => this.handlePanelChange(event, 2)}
+                  settingType="Téma"
+                  panelContent={<ThemePicker theme={this.props.activeDashboard.data().theme} />}
+                  panelActions={this.getPanelActions()}
                 />
-                {this.props.isDefault && this.state.default === false && (
-                  <NewDefaultDashboardSelectMenu
-                    value={this.state.newDefaultDashboardId}
-                    onChange={this.handleSelectChange}
-                    dashboards={this.props.dashboards}
-                    activeDashboard={this.props.activeDashboard}
-                  />
-                )}
-                <ThemePicker theme={this.props.activeDashboard.data().theme} />
-                <div className="action-buttons">
-                  <Button onClick={this.handleDeleteClick}>
-                    Vymazať nástenku
-                  </Button>
-                  <Button
-                    disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
-                    type="submit"
-                    variant="contained"
-                    color="secondary"
-                  >
-                    Aktualizovať
-                  </Button>
-                </div>
+                <ExpansionPanel
+                  expanded={this.state.expandedPanel === 3}
+                  onChange={(event) => this.handlePanelChange(event, 3)}
+                  settingType="Vymazanie nástenky"
+                  panelContent={<Typography>Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v nej nachádzajú.</Typography>}
+                  panelActions={this.getPanelActions()}
+                />
               </form>
               <RemoveDashboardConfirmDialog
                 open={this.state.confirmDialogOpen}
@@ -146,7 +194,7 @@ class Settings extends React.Component {
                 onClick={this.handleDialogClose}
                 onChange={this.handleSelectChange}
               />
-            </Paper>
+            </div>
           )}
         </div>
       </Fade>
