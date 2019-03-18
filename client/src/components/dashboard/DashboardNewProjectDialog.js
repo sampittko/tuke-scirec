@@ -1,5 +1,3 @@
-import './NewProjectDialog.scss';
-
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 import { dashboardConfig, projectConfig } from '../../config/app';
 

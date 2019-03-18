@@ -102,7 +102,8 @@ export const register = newUser => {
             inverted: dashboardConfig.defaultDashboard.THEME.INVERTED
           },
           route: getRouteFromString(dashboardConfig.defaultDashboard.TITLE),
-          created: new Date()
+          created: new Date(),
+          projectsList: null,
         })
     })
     .then(result => {

@@ -45,32 +45,6 @@ const project = (state = _initialState, action) => {
         error: action.error,
       };
 
-    case actionTypes.project.GET_PROJECTS_REQUEST:
-      console.log(actionTypes.project.GET_PROJECTS_REQUEST);
-      return {
-        ...state,
-        isLoading: true,
-      };
-
-    case actionTypes.project.GET_PROJECTS_SUCCESS:
-      console.log(actionTypes.project.GET_PROJECTS_SUCCESS);
-      return {
-        ...state,
-        data: {
-          list: action.projects.length > 0 ? action.projects : null
-        },
-        isLoading: false,
-        error: null
-      };
-
-    case actionTypes.project.GET_PROJECTS_FAILURE:
-      console.log(actionTypes.project.GET_PROJECTS_FAILURE);
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error
-      };
-
     case actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST:
       console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST);
       return {

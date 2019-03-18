@@ -5,6 +5,7 @@ const propTypes = {
     dashboard: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
     created: PropTypes.instanceOf(Date),
+    route: PropTypes.string.isRequired,
   }),
   isLoading: PropTypes.bool,
   error: PropTypes.bool,

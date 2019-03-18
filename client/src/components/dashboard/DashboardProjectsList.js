@@ -1,4 +1,4 @@
-import './ProjectsList.scss';
+import './DashboardProjectsList.scss';
 
 import { Fade, List, ListItem, ListItemText, Paper, Typography } from '@material-ui/core';
 
@@ -6,18 +6,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { getProjects } from '../../store/actions/projectActions';
-import projectPropTypes from '../../propTypes/projectPropTypes';
 import propTypes from 'prop-types';
 import { timeouts } from '../../config/mui';
 
 class ProjectsList extends React.Component {
-  componentDidMount() {
-    if (this.props.activeDashboard && this.props.previousDashboardId !== dashboardConfig.MAX_COUNT && this.props.activeDashboard !== dashboardConfig.MAX_COUNT) {
-      this.props.getProjects(this.props.activeDashboard.id);
-    }
-  }
-
   render() {
     return (
       <div>
@@ -41,7 +33,7 @@ class ProjectsList extends React.Component {
             ) : (
               <Fade in timeouts={timeouts.FADE_IN}>
                 <div className="no-data">
-                    {(this.props.isDashboardLoading && !this.props.isProjectLoading) || this.props.isProjectLoading ? (
+                  {this.props.isDashboardLoading ? (
                     <Typography>
                       Projekty sa načítavajú..
                     </Typography>
@@ -63,37 +55,22 @@ class ProjectsList extends React.Component {
       </div>
     );
   }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.activeDashboard !== prevProps.activeDashboard && this.props.previousDashboardId !== dashboardConfig.MAX_COUNT && this.props.activeDashboard !== dashboardConfig.MAX_COUNT) {
-      this.props.getProjects(this.props.activeDashboard.id);
-    }
-  }
 }
 
 ProjectsList.propTypes = {
-  getProjects: propTypes.func.isRequired,
-  projects: propTypes.arrayOf(projectPropTypes.project),
+  projects: propTypes.arrayOf(propTypes.object),
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-  isProjectLoading: projectPropTypes.isLoading.isRequired,
   activeDashboard: propTypes.any,
   previousDashboardId: propTypes.any,
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    getProjects: dashboardId => dispatch(getProjects(dashboardId)),
-  }
 }
 
 const mapStateToProps = state => {
   return {
     projects: state.project.data.list,
-    isProjectLoading: state.project.isLoading,
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,
     previousDashboardId: state.dashboard.selector.previousId,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);
+export default connect(mapStateToProps)(ProjectsList);

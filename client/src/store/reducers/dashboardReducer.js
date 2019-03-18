@@ -5,7 +5,8 @@ import { getActiveDashboard } from '../../utils/dashboardUtils';
 const _initialState = {
   data: {
     list: null,
-    default: null
+    default: null,
+    projectsList: null
   },
   selector: {
     active: null,
@@ -31,6 +32,7 @@ const dashboard = (state = _initialState, action) => {
       return {
         ...state,
         data: {
+          ...state.data,
           list: [
             action.createdDashboard,
             ...state.data.list
@@ -74,7 +76,8 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         data: {
           list: action.dashboards,
-          default: action.defaultDashboard
+          default: action.defaultDashboard,
+          projectsList: action.defaultDashboard.data().projectsList
         },
         selector: {
           active: action.defaultDashboard,
@@ -131,6 +134,7 @@ const dashboard = (state = _initialState, action) => {
         data: {
           list: state.data.list.filter(dashboard => dashboard.id !== action.deletedDashboardId),
           default: newDefaultDashboard ? newDefaultDashboard : state.data.default,
+          projectsList: newDefaultDashboard ? newDefaultDashboard.data().projectsList : state.data.default.data().projectsList
         },
         selector: {
           active: newDefaultDashboard ? newDefaultDashboard : state.data.default,
@@ -138,6 +142,28 @@ const dashboard = (state = _initialState, action) => {
           activeId: newDefaultDashboard ? newDefaultDashboard.id : state.data.default.id,
           previousId: null
         },
+        isLoading: false,
+      };
+
+    case actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_FAILURE:
+      console.log(actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
+    case actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_REQUEST:
+      console.log(actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_SUCCESS:
+      console.log(actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_SUCCESS);
+      return {
+        ...state,
         isLoading: false,
       };
 

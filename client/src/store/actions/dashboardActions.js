@@ -95,7 +95,8 @@ export const createDashboard = newDashboard => {
         theme: newDashboard.theme,
         created: new Date(),
         title: newDashboard.title,
-        user: usersRef.doc(userId)
+        user: usersRef.doc(userId),
+        projectsList: null,
       })
     .then(result => {
       return dashboardsRef

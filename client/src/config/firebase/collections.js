@@ -16,6 +16,7 @@ const firestoreCollections = {
       },
       ROUTE: 'route',
       CREATED: 'created',
+      PROJECTS: 'projects',
     }
   },
   projects: {
