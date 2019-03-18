@@ -1,11 +1,13 @@
 import './DashboardSettings.scss';
 
-import { Button, Fade, Typography } from '@material-ui/core';
+import { Fade, IconButton, Typography } from '@material-ui/core';
 
+import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from './ExpansionPanel';
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
+import SaveIcon from '@material-ui/icons/Save';
 import Switch from '../../common/Switch';
 import ThemePicker from '../../themePicker/ThemePicker';
 import TitleInput from '../../common/TitleInput';
@@ -107,23 +109,24 @@ class Settings extends React.Component {
     switch (this.state.expandedPanel) {
       case 3:
         return (
-          <Button
+          <IconButton
             onClick={this.handleDeleteClick}
+            color="secondary"
             size="small"
           >
-            Vymazať nástenku {this.props.activeDashboard.data().title}
-          </Button>
+            <DeleteIcon fontSize="small" />
+          </IconButton>
         );
       default:
         return (
-          <Button
+          <IconButton
             disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
             type="submit"
             color="secondary"
             size="small"
           >
-            Aktualizovať
-          </Button>
+            <SaveIcon fontSize="small" />
+          </IconButton>
         );
     }
   }

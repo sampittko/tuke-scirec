@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Divider, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
 
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
@@ -19,12 +19,12 @@ class RemoveDashboardConfirmDialog extends React.Component {
         <DialogTitle>Vymazanie nástenky</DialogTitle>
         <DialogContent>
           <Typography>
-            Naozaj si prajete vykonať túto akciu? Akcia je nenávratná!
+            Naozaj si prajete vykonať túto akciu? <span style={{fontWeight: 500}}>Akcia je nenávratná!</span>
           </Typography>
           {this.props.isDefault && (
             <div>
               <Typography>
-                Najskôr zvoľte novú predvolenú nástenku:
+                Najskôr musíte zvoliť novú predvolenú nástenku:
               </Typography>
               <NewDefaultDashboardSelectMenu
                 value={this.props.newDefaultDashboardId}
@@ -47,7 +47,7 @@ class RemoveDashboardConfirmDialog extends React.Component {
             disabled={this.props.newDefaultDashboardId === "" && this.props.isDefault}
             color="secondary"
           >
-            Potvrdiť
+            Vymazať {this.props.activeDashboard.data().title}
           </Button>
         </DialogActions>
       </Dialog>

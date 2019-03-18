@@ -12,7 +12,10 @@ const ExpansionPanelComponent = props =>
     onChange={props.onChange}
     className="expansion-panel"
   >
-    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+    <ExpansionPanelSummary
+      expandIcon={<ExpandMoreIcon />}
+      className="summary"
+    >
       <Typography>{props.settingType}</Typography>
     </ExpansionPanelSummary>
     <ExpansionPanelDetails className="details">

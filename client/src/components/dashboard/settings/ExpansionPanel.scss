@@ -1,6 +1,12 @@
 @import '../../../variables';
 
 .expansion-panel {
+    .summary {
+        div[class*="expanded"] > p {
+            font-weight: 500;
+        }
+    }
+
     .details {
         padding-bottom: $spacing-unit;
 
@@ -16,5 +22,9 @@
     
     .actions {
         padding-top: $spacing-unit;
+
+        button {
+            margin-right: $spacing-unit;
+        }
     }
 }
