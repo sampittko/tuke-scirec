@@ -27,6 +27,9 @@ class NewProjectDialog extends React.Component {
     if (title) {
       this.props.addProject(title);
     }
+    this.setState({
+      title: ''
+    });
     this.props.onClick();
   }
 

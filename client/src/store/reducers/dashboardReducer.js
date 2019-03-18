@@ -45,6 +45,10 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS);
       return {
         ...state,
+        data: {
+          ...state.data,
+          projectsList: action.createdDashboard.data().projectsList,
+        },
         selector: {
           active: action.createdDashboard,
           activeRoute: action.createdDashboard.data().route,

@@ -35,7 +35,7 @@ export const addProject = title => {
       })
     .then(result => {
       createdProject = {
-        project: result.path,
+        project: projectsRef.doc(result.id),
         title
       };
       return dashboardsRef

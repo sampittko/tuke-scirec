@@ -22,7 +22,7 @@ class ProjectsList extends React.Component {
                   </Typography>
                   <List>
                     {this.props.projectsList.map(listItem => (
-                      <ListItem button key={listItem.project}>
+                      <ListItem button key={listItem.project.id}>
                         <ListItemText inset primary={listItem.title} />
                       </ListItem>
                     ))}

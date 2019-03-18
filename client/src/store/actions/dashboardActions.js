@@ -8,10 +8,10 @@ const getDashboardsFailure = error => ({
   error
 })
 
-const getDashboardsSuccess = result => ({
+const getDashboardsSuccess = data => ({
   type: actionTypes.dashboard.GET_DASHBOARDS_SUCCESS,
-  dashboards: result.dashboards,
-  defaultDashboard: result.defaultDashboard
+  dashboards: data.dashboards,
+  defaultDashboard: data.defaultDashboard
 })
 
 const getDashboardsRequest = () => ({
@@ -27,7 +27,7 @@ export const getDashboards = () => {
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const userId = firebase.auth().currentUser.uid;
-    let defaultDashboardSnapshot = null;
+    let defaultDashboard = null;
 
     usersRef
       .doc(userId)
@@ -38,7 +38,7 @@ export const getDashboards = () => {
         .get()
     })
     .then(result => {
-      defaultDashboardSnapshot = result;
+      defaultDashboard = result;
       return dashboardsRef
         .where(firestoreCollections.dashboards.fields.USER, "==", usersRef.doc(userId))
         .orderBy(firestoreCollections.dashboards.fields.CREATED, "desc")
@@ -47,7 +47,7 @@ export const getDashboards = () => {
     .then(result => {
       dispatch(getDashboardsSuccess({
           dashboards: result.docs,
-          defaultDashboard: defaultDashboardSnapshot
+          defaultDashboard
         })
       );
     })
@@ -63,15 +63,15 @@ const createDashboardFailure = error => ({
   error
 })
 
-const createDashboardSuccess = createdDashboard => ({
+const createDashboardSuccess = data => ({
   type: actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS,
-  createdDashboard
+  createdDashboard: data.createdDashboard
 })
 
-const addCreatedDashboard = (createdDashboard, isDefault) => ({
+const addCreatedDashboard = data => ({
   type: actionTypes.dashboard.ADD_CREATED_DASHBOARD,
-  createdDashboard,
-  isDefault
+  createdDashboard: data.createdDashboard,
+  isDefault: data.isDefault
 })
 
 const createDashboardRequest = () => ({
@@ -87,7 +87,7 @@ export const createDashboard = newDashboard => {
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const userId = firebase.auth().currentUser.uid;
-    let createdDashboardSnapshot = null;
+    let createdDashboard = null;
 
     dashboardsRef
       .add({
@@ -104,7 +104,7 @@ export const createDashboard = newDashboard => {
         .get()
     })
     .then(result => {
-      createdDashboardSnapshot = result;
+      createdDashboard = result;
       if (newDashboard.default) {
         return usersRef
           .doc(userId)
@@ -117,8 +117,13 @@ export const createDashboard = newDashboard => {
       }
     })
     .then(() => {
-      dispatch(addCreatedDashboard(createdDashboardSnapshot, newDashboard.default));
-      dispatch(createDashboardSuccess(createdDashboardSnapshot));
+      dispatch(addCreatedDashboard({
+        createdDashboard,
+        isDefault: newDashboard.default,
+      }));
+      dispatch(createDashboardSuccess({
+        createdDashboard
+      }));
     })
     .catch(error => {
       console.log(error);
@@ -189,10 +194,10 @@ const deleteDashboardFailure = error => ({
   error
 })
 
-const deleteDashboardSuccess = (newDefaultDashboardId, deletedDashboardId) => ({
+const deleteDashboardSuccess = data => ({
   type: actionTypes.dashboard.DELETE_DASHBOARD_SUCCESS,
-  newDefaultDashboardId,
-  deletedDashboardId
+  newDefaultDashboardId: data.newDefaultDashboardId,
+  deletedDashboardId: data.deletedDashboardId
 })
 
 const deleteDashboardRequest = () => ({
@@ -230,7 +235,10 @@ export const deleteDashboard = newDefaultDashboardId => {
       .doc(dashboardId)
       .delete()
     .then(() => {
-      dispatch(deleteDashboardSuccess(newDefaultDashboardId, dashboardId));
+      dispatch(deleteDashboardSuccess({
+        newDefaultDashboardId,
+        deletedDashboardId: dashboardId
+      }));
     })
     .catch(error => {
       console.log(error);
