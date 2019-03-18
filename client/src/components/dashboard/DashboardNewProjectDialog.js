@@ -3,7 +3,9 @@ import { dashboardConfig, projectConfig } from '../../config/app';
 
 import React from 'react';
 import TitleInput from '../common/TitleInput';
+import { addProject } from '../../store/actions/projectActions';
 import { connect } from 'react-redux';
+import propTypes from 'prop-types';
 
 class NewProjectDialog extends React.Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class NewProjectDialog extends React.Component {
 
   handleClick = (event, title) => {
     if (title) {
-      console.log("sabmitujem");
+      this.props.addProject(title);
     }
     else {
       this.props.onClick();
@@ -54,7 +56,7 @@ class NewProjectDialog extends React.Component {
             Zrušiť
           </Button>
           <Button
-            onClick={event => this.handleClick(event, this.state.title)}
+            onClick={(event) => this.handleClick(event, this.state.title)}
             color="secondary"
             disabled={this.state.title.length < dashboardConfig.MIN_LENGTH}
           >
@@ -67,11 +69,12 @@ class NewProjectDialog extends React.Component {
 }
 
 NewProjectDialog.propTypes = {
+  addProject: propTypes.func.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-
+    addProject: title => dispatch(addProject(title))
   }
 }
 

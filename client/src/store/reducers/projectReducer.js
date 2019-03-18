@@ -1,9 +1,7 @@
 import actionTypes from "../actionTypes";
 
 const _initialState = {
-  data: {
-    list: null,
-  },
+  data: null,
   isLoading: false,
   error: null
 };
@@ -15,18 +13,6 @@ const project = (state = _initialState, action) => {
       return {
         ...state,
         isLoading: true,
-      };
-
-    case actionTypes.dashboard.ADD_CREATED_PROJECT:
-      console.log(actionTypes.dashboard.ADD_CREATED_PROJECT);
-      return {
-        ...state,
-        data: {
-          list: [
-            action.createdProject,
-            ...state.data.list
-          ]
-        },
       };
       
     case actionTypes.project.ADD_PROJECT_SUCCESS:
@@ -56,9 +42,6 @@ const project = (state = _initialState, action) => {
       console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_SUCCESS);
       return {
         ...state,
-        data: {
-          list: null,
-        },
         isLoading: false,
         error: null
       };

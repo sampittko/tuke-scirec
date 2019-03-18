@@ -204,6 +204,21 @@ const dashboard = (state = _initialState, action) => {
         }
       }
 
+    case actionTypes.dashboard.ADD_CREATED_PROJECT:
+      console.log(actionTypes.dashboard.ADD_CREATED_PROJECT);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          projectsList: [{
+              project: action.createdProject.path,
+              title: action.createdProject.data().title,
+            },
+            ...state.data.projectsList
+          ]
+        }
+      }
+
     default:
       return state;
   }

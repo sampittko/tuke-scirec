@@ -15,23 +15,41 @@ const addProjectRequest = () => ({
   type: actionTypes.project.ADD_PROJECT_REQUEST
 })
 
-export const addProject = (newProject, dashboardId) => {
+export const addProject = title => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(addProjectRequest());
 
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
-
-    const createdProject = {
-      route: getRouteFromString(newProject.title),
-      created: new Date(),
-      title: newProject.title,
-      dashboard: dashboardsRef.doc(dashboardId)
-    }
+    const dashboardId = getState().dashboard.selector.activeId;
+    let createdProject = null;
 
     projectsRef
-      .add(createdProject)
+      .add({
+        route: getRouteFromString(title),
+        created: new Date(),
+        dashboard: dashboardsRef.doc(dashboardId),
+        title
+      })
+    .then(result => {
+      createdProject = result;
+      return dashboardsRef
+        .doc(dashboardId)
+        .get()
+    })
+    .then(result => {
+      return dashboardsRef
+        .doc(dashboardId)
+        .update({
+          projectsList: [{
+              project: createdProject.path,
+              title,
+            },
+            ...result.data().projectsList
+          ]
+        })
+    })
     .then(() => {
       dispatch({
         type: actionTypes.project.ADD_CREATED_PROJECT,
@@ -40,10 +58,9 @@ export const addProject = (newProject, dashboardId) => {
       dispatch(addProjectSuccess());
     })
     .catch(error => {
+      console.log(error);
       dispatch(addProjectFailure(error));
     })
-
-    dispatch(addProjectFailure());
   }
 }
 
@@ -61,13 +78,14 @@ const getProjectsRequest = () => ({
   type: actionTypes.project.GET_PROJECTS_REQUEST
 })
 
-export const getProjects = dashboardId => {
+export const getProjects = () => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(getProjectsRequest());
 
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
+    const dashboardId = getState().dashboard.selector.activeId;
 
     projectsRef
       .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
@@ -98,13 +116,14 @@ const deleteProjectsInDashboardRequest = () => ({
   type: actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST
 })
 
-export const deleteProjectsInDashboard = dashboardId => {
+export const deleteProjectsInDashboard = () => {
   return async (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(deleteProjectsInDashboardRequest());
 
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
+    const dashboardId = getState().dashboard.selector.activeId;
 
     await projectsRef
       .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
