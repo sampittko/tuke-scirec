@@ -14,16 +14,16 @@ class ProjectsList extends React.Component {
       <div>
         {this.props.activeDashboard !== dashboardConfig.MAX_COUNT && !this.props.isDashboardLoading && (
           <div>
-            {this.props.projects ? (
+            {this.props.projectsList.length > 0 ? (
               <Fade in timeout={timeouts.FADE_IN}>
                 <Paper className="dashboard">
                   <Typography className="title" variant="h5">
                     Projects
                   </Typography>
                   <List>
-                    {this.props.projects.map(project => (
-                      <ListItem button key={project.id}>
-                        <ListItemText inset primary={project.title} />
+                    {this.props.projectsList.map(listItem => (
+                      <ListItem button key={listItem.project}>
+                        <ListItemText inset primary={listItem.title} />
                       </ListItem>
                     ))}
                   </List>
@@ -43,14 +43,14 @@ class ProjectsList extends React.Component {
 }
 
 ProjectsList.propTypes = {
-  projects: propTypes.arrayOf(propTypes.object),
+  projectsList: propTypes.arrayOf(propTypes.object).isRequired,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   activeDashboard: propTypes.any,
 }
 
 const mapStateToProps = state => {
   return {
-    projects: state.dashboard.data.projectsList,
+    projectsList: state.dashboard.data.projectsList,
     isDashboardLoading: state.dashboard.isLoading,
     activeDashboard: state.dashboard.selector.active,
   }

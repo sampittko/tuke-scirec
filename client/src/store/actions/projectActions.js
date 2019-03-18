@@ -1,4 +1,5 @@
 import actionTypes from '../actionTypes';
+import { addCreatedProject } from './dashboardActions';
 import firestoreCollections from '../../config/firebase/collections';
 import { getRouteFromString } from '../../utils/appConfigUtils';
 
@@ -33,7 +34,10 @@ export const addProject = title => {
         title
       })
     .then(result => {
-      createdProject = result;
+      createdProject = {
+        project: result.path,
+        title
+      };
       return dashboardsRef
         .doc(dashboardId)
         .get()
@@ -42,19 +46,14 @@ export const addProject = title => {
       return dashboardsRef
         .doc(dashboardId)
         .update({
-          projectsList: [{
-              project: createdProject.path,
-              title,
-            },
+          projectsList: [
+            createdProject,
             ...result.data().projectsList
           ]
         })
     })
     .then(() => {
-      dispatch({
-        type: actionTypes.project.ADD_CREATED_PROJECT,
-        createdProject
-      });
+      dispatch(addCreatedProject(createdProject));
       dispatch(addProjectSuccess());
     })
     .catch(error => {

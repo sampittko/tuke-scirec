@@ -7,6 +7,8 @@ import NewProjectDialog from './DashboardNewProjectDialog';
 import ProjectsList from './projectsList/DashboardProjectsList';
 import React from 'react';
 import { connect } from 'react-redux';
+import { dashboardConfig } from '../../config/app';
+import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import { getDashboardDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import { timeouts } from '../../config/mui';
@@ -46,11 +48,13 @@ class Dashboard extends React.Component {
       <Fade in timeout={timeouts.FADE_IN}>
         <div className="dashboard">
           <ProjectsList />
-          <Fab
-            onClick={this.handleOpen}
-            icon={<AddIcon />}
-            tooltipTitle="Vytvorenie nového projektu"
-          />
+          {!this.props.isDashboardLoading && this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
+            <Fab
+              onClick={this.handleOpen}
+              icon={<AddIcon />}
+              tooltipTitle="Vytvorenie nového projektu"
+            />
+          )}
           <NewProjectDialog
             open={this.state.dialogOpen}
             onClick={this.handleClose}
@@ -69,12 +73,13 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   activeDashboard: propTypes.any,
-  match: propTypes.object.isRequired
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 }
 
 const mapStateToProps = state => {
   return {
-    activeDashboard: state.dashboard.selector.active
+    activeDashboard: state.dashboard.selector.active,
+    isDashboardLoading: state.dashboard.isLoading,
   }
 }
 

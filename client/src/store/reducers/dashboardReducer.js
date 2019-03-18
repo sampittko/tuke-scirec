@@ -6,7 +6,7 @@ const _initialState = {
   data: {
     list: null,
     default: null,
-    projectsList: null
+    projectsList: []
   },
   selector: {
     active: null,
@@ -180,6 +180,10 @@ const dashboard = (state = _initialState, action) => {
       const newActive = getActiveDashboard(state.data.list, action.activeId, state.selector);
       return {
         ...state,
+        data: {
+          ...state.data,
+          projectsList: newActive === dashboardConfig.MAX_COUNT ? state.data.projectsList : newActive.data().projectsList,
+        },
         selector: {
           active: newActive,
           activeRoute: newActive === dashboardConfig.MAX_COUNT ? state.selector.activeRoute : newActive.data().route,
@@ -196,6 +200,10 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT);
       return {
         ...state,
+        data: {
+          ...state.data,
+          projectsList: state.data.default.data().projectsList,
+        },
         selector: {
           active: state.data.default,
           activeRoute: state.data.default.data().route,
@@ -210,10 +218,8 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          projectsList: [{
-              project: action.createdProject.path,
-              title: action.createdProject.data().title,
-            },
+          projectsList: [
+            action.createdProject,
             ...state.data.projectsList
           ]
         }

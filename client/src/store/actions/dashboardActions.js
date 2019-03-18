@@ -96,7 +96,7 @@ export const createDashboard = newDashboard => {
         created: new Date(),
         title: newDashboard.title,
         user: usersRef.doc(userId),
-        projectsList: null,
+        projectsList: [],
       })
     .then(result => {
       return dashboardsRef
@@ -252,6 +252,15 @@ export const changeDashboardToDefault = () => {
   return (dispatch, getState) => {
     dispatch({
       type: actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT
+    })
+  }
+}
+
+export const addCreatedProject = createdProject => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.dashboard.ADD_CREATED_PROJECT,
+      createdProject
     })
   }
 }

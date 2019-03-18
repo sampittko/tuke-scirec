@@ -1,7 +1,7 @@
 @import '../../variables';
 
 .dashboard {
-    margin: 4 * $spacing-unit auto;
+    margin: 2 * $spacing-unit auto 4 * $spacing-unit auto;
     padding: 2 * $spacing-unit;
     width: $page-width;
 }
