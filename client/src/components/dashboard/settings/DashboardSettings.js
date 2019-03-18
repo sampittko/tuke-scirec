@@ -158,6 +158,9 @@ class Settings extends React.Component {
                         maxTitleLength={dashboardConfig.MAX_LENGTH}
                         label="Názov nástenky"
                       />
+                      <Typography className="title-description">
+                        Dĺžka názvu nástenky musí mať od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov
+                      </Typography>
                       <Switch
                         name="default"
                         checked={this.state.default}
@@ -187,7 +190,11 @@ class Settings extends React.Component {
                   expanded={this.state.expandedPanel === 3}
                   onChange={(event) => this.handlePanelChange(event, 3)}
                   settingType="Vymazanie nástenky"
-                  panelContent={<Typography>Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v nej nachádzajú.</Typography>}
+                  panelContent={(
+                    <Typography>
+                      Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v nej nachádzajú.
+                    </Typography>
+                  )}
                   panelActions={this.getPanelActions()}
                 />
               </form>

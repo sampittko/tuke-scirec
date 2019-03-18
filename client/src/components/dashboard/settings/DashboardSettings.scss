@@ -14,6 +14,13 @@
             font-weight: 500;
         }
     }
+    
+    .title-description {
+        padding-top: $spacing-unit;
+        opacity: 0.65;
+        font-size: 12.3px;
+        text-align: right;
+    }
 }
 
 @media (max-width: $media-query-1) {
