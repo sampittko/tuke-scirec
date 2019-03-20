@@ -4,7 +4,7 @@ import { Fade, IconButton, Typography } from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from './ExpansionPanel';
-import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
+import NewDefaultDashboardSelectMenu from './DashboardNewDefaultDashboardSelectMenu';
 import React from 'react';
 import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
 import SaveIcon from '@material-ui/icons/Save';

@@ -1,4 +1,4 @@
-import './NewDefaultDashboardSelectMenu.scss';
+import './DashboardNewDefaultDashboardSelectMenu.scss';
 
 import { FormControl, FormHelperText, MenuItem, Select } from '@material-ui/core';
 

@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
 import UserLinks from './SidebarUserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
+import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 
 class Sidebar extends React.Component {
@@ -26,7 +27,13 @@ class Sidebar extends React.Component {
   render() {
     return (
       <div>
-        <IconButton className="menu-button" color="inherit" aria-label="Menu" onClick={this.handleDrawerToggle('left', true)}>
+        <IconButton
+          className="menu-button"
+          color="inherit"
+          aria-label="Menu"
+          onClick={this.handleDrawerToggle('left', true)}
+          disabled={this.props.isDashboardLoading}
+        >
           <MenuIcon />
         </IconButton>
         <SwipeableDrawer
@@ -55,7 +62,8 @@ class Sidebar extends React.Component {
 
 Sidebar.propTypes = {
   isAuth: authPropTypes.success.isRequired,
-  location: propTypes.object.isRequired
+  location: propTypes.object.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 }
 
 export default Sidebar;

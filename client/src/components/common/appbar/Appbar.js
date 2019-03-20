@@ -12,6 +12,7 @@ import UserLinks from './AppbarUserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
 import { changeDashboardToDefault } from '../../../store/actions/dashboardActions';
 import { connect } from 'react-redux';
+import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
@@ -36,6 +37,7 @@ class AppbarComponent extends React.Component {
           <Sidebar 
             isAuth={this.props.isAuth}
             location={this.props.location}
+            isDashboardLoading={this.props.isDashboardLoading}
           />
           <Typography
             variant="h6"
@@ -78,7 +80,8 @@ AppbarComponent.propTypes = {
   history: propTypes.object.isRequired,
   activeDashboardRoute: propTypes.string,
   dashboards: propTypes.arrayOf(propTypes.object),
-  defaultDashboardRoute: propTypes.string
+  defaultDashboardRoute: propTypes.string,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 }
 
 const mapDispatchToProps = dispatch => {
@@ -93,6 +96,7 @@ const mapStateToProps = state => {
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
     dashboards: state.dashboard.data.list,
     defaultDashboardRoute: state.dashboard.data.default ? state.dashboard.data.default.data().route : "",
+    isDashboardLoading: state.dashboard.isLoading,
   }
 }
 

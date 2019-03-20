@@ -1,8 +1,10 @@
+import { getDashboards, resetDashboardState } from './dashboardActions';
+
 import actionTypes from '../actionTypes';
 import { dashboardConfig } from '../../config/app';
 import firestoreCollections from '../../config/firebase/collections';
-import { getDashboards } from './dashboardActions';
 import { getRouteFromString } from '../../utils/appConfigUtils';
+import { resetProjectState } from './projectActions';
 
 const loginFailure = error => ({
   type: actionTypes.auth.LOGIN_FAILURE,
@@ -56,9 +58,8 @@ export const logout = () => {
       .signOut()
     .then(() => {
       dispatch(logoutSuccess());
-      dispatch({
-        type: actionTypes.dashboard.RESET_DASHBOARD_STATE
-      });
+      dispatch(resetDashboardState());
+      dispatch(resetProjectState());
     });
   }
 }
@@ -103,7 +104,6 @@ export const register = newUser => {
           },
           route: getRouteFromString(dashboardConfig.defaultDashboard.TITLE),
           created: new Date(),
-          projectsList: null,
         })
     })
     .then(result => {

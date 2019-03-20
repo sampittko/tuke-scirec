@@ -47,13 +47,15 @@ class Dashboard extends React.Component {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
         <div className="dashboard">
-          <ProjectsList history={this.props.history} />
-          {!this.props.isDashboardLoading && this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
-            <Fab
-              onClick={this.handleOpen}
-              icon={<AddIcon />}
-              tooltipTitle="Vytvorenie nového projektu"
-            />
+          {this.props.activeDashboard && this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
+            <div>
+              <ProjectsList history={this.props.history} />
+              <Fab
+                onClick={this.handleOpen}
+                icon={<AddIcon />}
+                tooltipTitle="Vytvorenie nového projektu"
+              />
+            </div>
           )}
           <NewProjectDialog
             open={this.state.dialogOpen}

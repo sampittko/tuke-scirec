@@ -1,5 +1,4 @@
 import actionTypes from '../actionTypes';
-import { addCreatedProject } from './dashboardActions';
 import firestoreCollections from '../../config/firebase/collections';
 import { getRouteFromString } from '../../utils/appConfigUtils';
 
@@ -8,8 +7,9 @@ const addProjectFailure = error => ({
   error
 })
 
-const addProjectSuccess = () => ({
-  type: actionTypes.project.ADD_PROJECT_SUCCESS
+const addProjectSuccess = data => ({
+  type: actionTypes.project.ADD_PROJECT_SUCCESS,
+  addedProject: data.addedProject
 })
 
 const addProjectRequest = () => ({
@@ -24,47 +24,23 @@ export const addProject = title => {
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const dashboardId = getState().dashboard.selector.activeId;
-    const route = getRouteFromString(title);
-    let createdProject = null;
 
     projectsRef
       .add({
-        route,
+        route: getRouteFromString(title),
         created: new Date(),
         dashboard: dashboardsRef.doc(dashboardId),
         title
-      })
+    })
     .then(result => {
-      createdProject = {
-        project: projectsRef.doc(result.id),
-        title,
-        route
-      };
-      return dashboardsRef
-        .doc(dashboardId)
+      return projectsRef
+        .doc(result.id)
         .get()
     })
     .then(result => {
-      return dashboardsRef
-        .doc(dashboardId)
-        .update({
-          projectsList: [
-            createdProject,
-            ...result.data().projectsList
-          ]
-        })
-    })
-    .then(() => {
-      return dashboardsRef
-        .doc(dashboardId)
-        .get()
-    })
-    .then(result => {
-      dispatch(addCreatedProject({
-        createdProject,
-        modifiedDashboard: result,
+      dispatch(addProjectSuccess({
+        addedProject: result
       }));
-      dispatch(addProjectSuccess());
     })
     .catch(error => {
       console.log(error);
@@ -153,5 +129,13 @@ export const deleteProjectsInDashboard = () => {
       console.log(error);
       dispatch(deleteProjectsInDashboardFailure(error));
     });
+  }
+}
+
+export const resetProjectState = () => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.project.RESET_PROJECT_STATE
+    })
   }
 }

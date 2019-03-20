@@ -1,7 +1,9 @@
 import actionTypes from "../actionTypes";
 
 const _initialState = {
-  data: null,
+  data: {
+    list: null,
+  },
   isLoading: false,
   error: null
 };
@@ -19,12 +21,44 @@ const project = (state = _initialState, action) => {
       console.log(actionTypes.project.ADD_PROJECT_SUCCESS);
       return {
         ...state,
+        data: {
+          list: [
+            action.addedProject,
+            ...state.data.list
+          ]
+        },
         isLoading: false,
         error: null,
       };
 
     case actionTypes.project.ADD_PROJECT_FAILURE:
       console.log(actionTypes.project.ADD_PROJECT_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+
+    case actionTypes.project.GET_PROJECTS_REQUEST:
+      console.log(actionTypes.project.GET_PROJECTS_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.project.GET_PROJECTS_SUCCESS:
+      console.log(actionTypes.project.GET_PROJECTS_SUCCESS);
+      return {
+        ...state,
+        data: {
+          list: action.projects.length > 0 ? action.projects : null
+        },
+        isLoading: false,
+        error: null,
+      };
+
+    case actionTypes.project.GET_PROJECTS_FAILURE:
+      console.log(actionTypes.project.GET_PROJECTS_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -53,6 +87,10 @@ const project = (state = _initialState, action) => {
         isLoading: false,
         error: action.error
       };
+
+    case actionTypes.project.RESET_PROJECT_STATE:
+      console.log(actionTypes.project.RESET_PROJECT_STATE);
+      return _initialState;
     
     default:
       return state;

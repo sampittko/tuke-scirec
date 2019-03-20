@@ -1,5 +1,7 @@
+import { deleteProjectsInDashboard, resetProjectState } from './projectActions';
+
 import actionTypes from '../actionTypes';
-import { deleteProjectsInDashboard } from './projectActions';
+import { dashboardConfig } from '../../config/app';
 import firestoreCollections from '../../config/firebase/collections';
 import { getRouteFromString } from '../../utils/appConfigUtils';
 
@@ -96,7 +98,6 @@ export const createDashboard = newDashboard => {
         created: new Date(),
         title: newDashboard.title,
         user: usersRef.doc(userId),
-        projectsList: [],
       })
     .then(result => {
       return dashboardsRef
@@ -249,6 +250,9 @@ export const deleteDashboard = newDefaultDashboardId => {
 
 export const changeDashboard = newActiveId => {
   return (dispatch, getState) => {
+    if (newActiveId && newActiveId !== dashboardConfig.MAX_COUNT) {
+      dispatch(resetProjectState());
+    }
     dispatch({
       type: actionTypes.dashboard.CHANGE_DASHBOARD,
       activeId: newActiveId
@@ -258,18 +262,17 @@ export const changeDashboard = newActiveId => {
 
 export const changeDashboardToDefault = () => {
   return (dispatch, getState) => {
+    dispatch(resetProjectState());
     dispatch({
       type: actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT
     })
   }
 }
 
-export const addCreatedProject = data => {
+export const resetDashboardState = () => {
   return (dispatch, getState) => {
     dispatch({
-      type: actionTypes.dashboard.ADD_CREATED_PROJECT,
-      createdProject: data.createdProject,
-      modifiedDashboard: data.modifiedDashboard
+      type: actionTypes.dashboard.RESET_DASHBOARD_STATE
     })
   }
 }

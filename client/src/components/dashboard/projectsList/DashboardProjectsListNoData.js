@@ -8,7 +8,7 @@ import { timeouts } from '../../../config/mui';
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
     <div style={{textAlign: 'center', opacity: 0.7}}>
-      {props.isDashboardLoading ? (
+      {props.isProjectLoading ? (
         <Typography>
           Projekty sa načítavajú..
         </Typography>
@@ -16,7 +16,7 @@ const NoData = props =>
           <div>
             <Typography variant="h6">
               Nástenka je prázdna
-        </Typography>
+            </Typography>
             <Typography>
               Tu sa zobrazia Vami vytvorené projekty pre nástenku {props.activeDashboard.data().title}
             </Typography>
@@ -26,7 +26,7 @@ const NoData = props =>
   </Fade>;
 
 NoData.propTypes = {
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isProjectLoading: dashboardPropTypes.isLoading.isRequired,
   activeDashboard: propTypes.object,
 }
 

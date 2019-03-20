@@ -6,7 +6,6 @@ const _initialState = {
   data: {
     list: null,
     default: null,
-    projectsList: []
   },
   selector: {
     active: null,
@@ -45,10 +44,6 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.dashboard.CREATE_DASHBOARD_SUCCESS);
       return {
         ...state,
-        data: {
-          ...state.data,
-          projectsList: action.createdDashboard.data().projectsList,
-        },
         selector: {
           active: action.createdDashboard,
           activeRoute: action.createdDashboard.data().route,
@@ -81,7 +76,6 @@ const dashboard = (state = _initialState, action) => {
         data: {
           list: action.dashboards,
           default: action.defaultDashboard,
-          projectsList: action.defaultDashboard.data().projectsList
         },
         selector: {
           active: action.defaultDashboard,
@@ -138,7 +132,6 @@ const dashboard = (state = _initialState, action) => {
         data: {
           list: state.data.list.filter(dashboard => dashboard.id !== action.deletedDashboardId),
           default: newDefaultDashboard ? newDefaultDashboard : state.data.default,
-          projectsList: newDefaultDashboard ? newDefaultDashboard.data().projectsList : state.data.default.data().projectsList
         },
         selector: {
           active: newDefaultDashboard ? newDefaultDashboard : state.data.default,
@@ -184,10 +177,6 @@ const dashboard = (state = _initialState, action) => {
       const newActive = getActiveDashboard(state.data.list, action.activeId, state.selector);
       return {
         ...state,
-        data: {
-          ...state.data,
-          projectsList: newActive === dashboardConfig.MAX_COUNT ? state.data.projectsList : newActive.data().projectsList,
-        },
         selector: {
           active: newActive,
           activeRoute: newActive === dashboardConfig.MAX_COUNT ? state.selector.activeRoute : newActive.data().route,
@@ -204,34 +193,11 @@ const dashboard = (state = _initialState, action) => {
       console.log(actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT);
       return {
         ...state,
-        data: {
-          ...state.data,
-          projectsList: state.data.default.data().projectsList,
-        },
         selector: {
           active: state.data.default,
           activeRoute: state.data.default.data().route,
           activeId: state.data.default.id,
           previousId: state.selector.activeId
-        }
-      }
-
-    case actionTypes.dashboard.ADD_CREATED_PROJECT:
-      console.log(actionTypes.dashboard.ADD_CREATED_PROJECT);
-      const modifiedDashboardIndex = state.data.list.findIndex(dashboard => dashboard.id === action.modifiedDashboard.id);
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          list: [
-            ...state.data.list.slice(0, modifiedDashboardIndex),
-            action.modifiedDashboard,
-            ...state.data.list.slice(modifiedDashboardIndex + 1)
-          ],
-          projectsList: [
-            action.createdProject,
-            ...state.data.projectsList
-          ]
         }
       }
 
