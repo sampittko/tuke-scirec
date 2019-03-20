@@ -264,11 +264,12 @@ export const changeDashboardToDefault = () => {
   }
 }
 
-export const addCreatedProject = createdProject => {
+export const addCreatedProject = data => {
   return (dispatch, getState) => {
     dispatch({
       type: actionTypes.dashboard.ADD_CREATED_PROJECT,
-      createdProject
+      createdProject: data.createdProject,
+      modifiedDashboard: data.modifiedDashboard
     })
   }
 }

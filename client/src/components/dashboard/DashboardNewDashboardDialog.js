@@ -1,4 +1,4 @@
-import './NewDashboardDialog.scss';
+import './DashboardNewDashboardDialog.scss';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider } from '@material-ui/core';
 

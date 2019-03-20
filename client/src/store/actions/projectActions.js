@@ -53,7 +53,15 @@ export const addProject = title => {
         })
     })
     .then(() => {
-      dispatch(addCreatedProject(createdProject));
+      return dashboardsRef
+        .doc(dashboardId)
+        .get()
+    })
+    .then(result => {
+      dispatch(addCreatedProject({
+        createdProject,
+        modifiedDashboard: result,
+      }));
       dispatch(addProjectSuccess());
     })
     .catch(error => {
@@ -68,9 +76,9 @@ const getProjectsFailure = error => ({
   error
 })
 
-const getProjectsSuccess = result => ({
+const getProjectsSuccess = data => ({
   type: actionTypes.project.GET_PROJECTS_SUCCESS,
-  projects: result.projects
+  projects: data.projects
 })
 
 const getProjectsRequest = () => ({

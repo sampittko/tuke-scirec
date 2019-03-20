@@ -68,14 +68,14 @@ class ThemePicker extends React.Component {
                 />
               </div>
             }
-            label="Farba nástenky"
+            label="Téma nástenky"
             labelPlacement="start"
           />
         </FormControl>
         <Switch
           checked={this.props.themePicker.inverted}
           onChange={this.props.invertTheme}
-          label="Invertovať farby"
+          label="Invertovať farebnú paletu témy"
         />
       </div>
     )

@@ -18,7 +18,7 @@ class ProjectsList extends React.Component {
               <Fade in timeout={timeouts.FADE_IN}>
                 <Paper className="dashboard">
                   <Typography className="title" variant="h5">
-                    Projects
+                    Projekty
                   </Typography>
                   <List>
                     {this.props.projectsList.map(listItem => (
