@@ -1,0 +1,10 @@
+@import '../../../variables';
+
+.projects-list {
+    .page-title {
+        margin: {
+            left: 2 * $spacing-unit;
+            bottom: 2 * $spacing-unit;
+        }
+    }
+}

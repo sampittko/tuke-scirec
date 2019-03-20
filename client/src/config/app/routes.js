@@ -6,7 +6,8 @@ const routes = {
   DASHBOARD: '/nastenky/:dashboardRoute',
   DASHBOARD_SETTINGS: '/nastenky/:dashboardRoute/nastavenia',
   DASHBOARDS: '/nastenky',
-  PROJECT: '/nastenky/:dashboardRoute/projekty/:projectRoute',
+  PROJECT: 'nastenky/:dashboardRoute/projekty/:projectRoute',
+  PROJECTS: 'projekty',
 };
 
 export default routes;

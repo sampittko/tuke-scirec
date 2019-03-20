@@ -1,13 +1,8 @@
 @import '../../variables';
 
 .dashboard {
-    margin: 2 * $spacing-unit auto 4 * $spacing-unit auto;
-    padding: 2 * $spacing-unit;
+    margin: 4 * $spacing-unit auto;
     width: $page-width;
-}
-
-.title {
-    margin-left: 20px !important;
 }
 
 @media (max-width: $media-query-1) {

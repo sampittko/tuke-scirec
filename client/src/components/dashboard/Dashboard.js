@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
         <div className="dashboard">
-          <ProjectsList />
+          <ProjectsList history={this.props.history} />
           {!this.props.isDashboardLoading && this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
             <Fab
               onClick={this.handleOpen}

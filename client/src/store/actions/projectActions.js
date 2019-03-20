@@ -24,11 +24,12 @@ export const addProject = title => {
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const dashboardId = getState().dashboard.selector.activeId;
+    const route = getRouteFromString(title);
     let createdProject = null;
 
     projectsRef
       .add({
-        route: getRouteFromString(title),
+        route,
         created: new Date(),
         dashboard: dashboardsRef.doc(dashboardId),
         title
@@ -36,7 +37,8 @@ export const addProject = title => {
     .then(result => {
       createdProject = {
         project: projectsRef.doc(result.id),
-        title
+        title,
+        route
       };
       return dashboardsRef
         .doc(dashboardId)

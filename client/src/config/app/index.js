@@ -5,7 +5,7 @@ export const TITLE_BASE = APP_NAME + " -";
 export const dashboardConfig = {
   MAX_COUNT: 10,
   MIN_LENGTH: 3,
-  MAX_LENGTH: 20,
+  MAX_LENGTH: 25,
   defaultDashboard: {
     TITLE: "Nástenka 1",
     THEME: {
@@ -18,5 +18,5 @@ export const dashboardConfig = {
 
 export const projectConfig = {
   MIN_LENGTH: 3,
-  MAX_LENGTH: 30,
+  MAX_LENGTH: 80,
 }

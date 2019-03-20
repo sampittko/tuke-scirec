@@ -217,10 +217,8 @@ const dashboard = (state = _initialState, action) => {
       }
 
     case actionTypes.dashboard.ADD_CREATED_PROJECT:
+      console.log(actionTypes.dashboard.ADD_CREATED_PROJECT);
       const modifiedDashboardIndex = state.data.list.findIndex(dashboard => dashboard.id === action.modifiedDashboard.id);
-    
-      console.log(modifiedDashboardIndex)
-
       return {
         ...state,
         data: {

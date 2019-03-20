@@ -11,7 +11,7 @@ const NoData = props =>
       {props.isDashboardLoading ? (
         <Typography>
           Projekty sa načítavajú..
-      </Typography>
+        </Typography>
       ) : (
           <div>
             <Typography variant="h6">
@@ -27,7 +27,7 @@ const NoData = props =>
 
 NoData.propTypes = {
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-  activeDashboard: propTypes.object.isRequired,
+  activeDashboard: propTypes.object,
 }
 
 export default NoData;
