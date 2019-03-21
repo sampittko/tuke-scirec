@@ -15,10 +15,7 @@ const Container = props =>
     className={props.location.pathname === getDashboardRoute(props.activeDashboardRoute) ? "double-toolbar-margin" : "toolbar-margin"}
   >
     <Grid item xs={12}>
-      <Appbar
-        location={props.location}
-        history={props.history}
-      />
+      <Appbar />
       {props.isAppLoading &&
         <Fade in timeout={timeouts.FADE_IN}>
           <LinearProgress

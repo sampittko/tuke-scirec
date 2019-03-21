@@ -16,6 +16,7 @@ import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import { getDashboardRoute } from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
+import { withRouter } from 'react-router';
 
 class AppbarComponent extends React.Component {
   getBrandRoute = () =>
@@ -86,7 +87,7 @@ AppbarComponent.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeDashboardToDefault: () => dispatch(changeDashboardToDefault())
+    changeDashboardToDefault: () => dispatch(changeDashboardToDefault()),
   }
 }
 
@@ -100,4 +101,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AppbarComponent);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppbarComponent));

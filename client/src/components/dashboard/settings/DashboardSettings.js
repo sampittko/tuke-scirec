@@ -14,7 +14,7 @@ import TitleInput from '../../common/TitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../../config/app';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import { getDashboardSettingsDocumentTitleFromDashboard } from '../../../utils/dashboardUtils';
+import { getDashboardSettingsDocumentTitle } from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
 import { timeouts } from '../../../config/mui';
@@ -34,7 +34,7 @@ class Settings extends React.Component {
 
   componentDidMount() {
     if (this.props.activeDashboard) {
-      document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
+      document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard);
       this.setState({
         title: this.props.activeDashboard.data().title,
         default: this.props.isDefault,
@@ -213,7 +213,7 @@ class Settings extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
-      document.title = getDashboardSettingsDocumentTitleFromDashboard(this.props.activeDashboard);
+      document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard);
       this.setState((prevState, props) => ({
         title: props.activeDashboard.data().title,
       }));

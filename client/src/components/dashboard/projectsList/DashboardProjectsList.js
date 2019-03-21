@@ -32,15 +32,16 @@ class ProjectsList extends React.Component {
               >
                 Projekty
               </Typography>
-              <List className="">
+              <List>
                 {this.props.projects.map(project => (
                   <ListItem button
                     key={project.id}
+                    className="project"
                     onClick={() => this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route))}
                   >
                     <ListItemText inset
                       primary={project.data().title}
-                      secondary={new Date().getTimezoneOffset()}
+                      secondary={`Naposledy upravené ${new Date(project.data().modified.seconds).toLocaleDateString()}`}
                     />
                   </ListItem>
                 ))}

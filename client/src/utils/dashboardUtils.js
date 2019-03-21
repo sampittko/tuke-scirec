@@ -17,13 +17,13 @@ export const getActiveDashboard = (dashboards, activeId, selector) => {
 }
 
 export const getDashboardRoute = dashboardRoute =>
-  dashboardRoute !== "" ? `${routes.DASHBOARDS}/${dashboardRoute}` : dashboardRoute;
+  dashboardRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}` : dashboardRoute;
 
 export const getDashboardSettingsRoute = dashboardRoute =>
-  dashboardRoute !== "" ? `${routes.DASHBOARDS}/${dashboardRoute}/nastavenia` : dashboardRoute;
+  dashboardRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}/nastavenia` : dashboardRoute;
 
-export const getDashboardDocumentTitleFromDashboard = dashboard =>
+export const getDashboardDocumentTitle = dashboard =>
   dashboard !== dashboardConfig.MAX_COUNT ? appendTitle(dashboard.data().title) : appendTitle("Vytvorenie novej nástenky");
 
-export const getDashboardSettingsDocumentTitleFromDashboard = dashboard =>
+export const getDashboardSettingsDocumentTitle = dashboard =>
   appendTitle(`${dashboard.data().title} - Nastavenia`);

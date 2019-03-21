@@ -5,8 +5,8 @@ const routes = {
   REGISTER: '/registracia',
   DASHBOARD: '/nastenky/:dashboardRoute',
   DASHBOARD_SETTINGS: '/nastenky/:dashboardRoute/nastavenia',
-  DASHBOARDS: '/nastenky',
-  PROJECT: 'nastenky/:dashboardRoute/projekty/:projectRoute',
+  DASHBOARDS: 'nastenky',
+  PROJECT: '/nastenky/:dashboardRoute/projekty/:projectRoute',
   PROJECTS: 'projekty',
 };
 

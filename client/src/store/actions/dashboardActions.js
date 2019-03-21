@@ -21,7 +21,7 @@ const getDashboardsRequest = () => ({
 })
 
 export const getDashboards = () => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return async (dispatch, getState, { getFirebase, getFirestore }) => {
     dispatch(getDashboardsRequest());
 
     const firebase = getFirebase();
@@ -31,7 +31,7 @@ export const getDashboards = () => {
     const userId = firebase.auth().currentUser.uid;
     let defaultDashboard = null;
 
-    usersRef
+    await usersRef
       .doc(userId)
       .get()
     .then(result => {

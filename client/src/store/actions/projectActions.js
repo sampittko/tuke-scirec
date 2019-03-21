@@ -29,6 +29,7 @@ export const addProject = title => {
       .add({
         route: getRouteFromString(title),
         created: new Date(),
+        modified: new Date(),
         dashboard: dashboardsRef.doc(dashboardId),
         title
     })
@@ -46,6 +47,15 @@ export const addProject = title => {
       console.log(error);
       dispatch(addProjectFailure(error));
     })
+  }
+}
+
+export const getProject = projectRoute => {
+  return (dispatch, getState) => {
+    dispatch({
+      type: actionTypes.project.GET_PROJECT,
+      projectRoute
+    });
   }
 }
 

@@ -9,6 +9,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import DashboardSettings from './components/dashboard/settings/DashboardSettings';
 import Home from './components/Home';
 import Login from './components/auth/Login';
+import Project from './components/project/Project';
 import React from 'react';
 import Register from './components/auth/Register';
 import authPropTypes from './propTypes/authPropTypes';
@@ -21,6 +22,7 @@ import { getDashboards } from './store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import routes from './config/app/routes';
 import themePickerPropTypes from './propTypes/themePickerPropTypes';
+import withInit from './components/common/withInit';
 
 const PrivateRoute = ({ component: Component, isAuth, ...rest }) => (
   <Route {...rest} render={props => isAuth ? (
@@ -53,37 +55,36 @@ class App extends React.Component {
           )
         }
       >
-      <Router basename={window.basename}>
+        <Router basename={window.basename}>
           <Container>
-            <PrivateRoute
-              exact
+            <PrivateRoute exact
               path={routes.DASHBOARD}
               component={Dashboard}
               isAuth={this.props.isAuth}
             />
-            <PrivateRoute
-              exact
+            <PrivateRoute exact
               path={routes.DASHBOARD_SETTINGS}
               component={DashboardSettings}
               isAuth={this.props.isAuth}
             />
-            <Route
-              exact
+            <PrivateRoute exact
+              path={routes.PROJECT}
+              component={Project}
+              isAuth={this.props.isAuth}
+            />
+            <Route exact
               path={routes.HOME}
               component={Home}
             />
-            <Route
-              exact
+            <Route exact
               path={routes.ABOUT}
               component={About}
             />
-            <Route
-              exact
+            <Route exact
               path={routes.REGISTER}
               component={Register}
             />
-            <Route
-              exact
+            <Route exact
               path={routes.LOGIN}
               component={Login}
             />
@@ -91,12 +92,6 @@ class App extends React.Component {
         </Router>
       </MuiThemeProvider>
     )
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.isAuth && !this.props.dashboards && !this.props.isDashboardLoading) {
-      this.props.getDashboards();
-    }
   }
 }
 
@@ -129,5 +124,6 @@ const mapStateToProps = state => {
 
 export default compose(
   withTheme(),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  withInit
 )(App);

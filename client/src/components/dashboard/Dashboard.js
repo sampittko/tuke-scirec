@@ -9,7 +9,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { getDashboardDocumentTitleFromDashboard } from '../../utils/dashboardUtils';
+import { getDashboardDocumentTitle } from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import { timeouts } from '../../config/mui';
 
@@ -28,7 +28,7 @@ class Dashboard extends React.Component {
   }
 
   setDocumentTitle = () => {
-    document.title = getDashboardDocumentTitleFromDashboard(this.props.activeDashboard);
+    document.title = getDashboardDocumentTitle(this.props.activeDashboard);
   }
 
   handleClose = () => {
