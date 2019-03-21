@@ -141,7 +141,7 @@ class Settings extends React.Component {
                 className="page-title"
               >
                 Nastavenia nástenky <span
-                className="dashboard-title">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
+                className="text-bolder">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
               </Typography>
               <form onSubmit={this.handleSubmit}>
                 <ExpansionPanel

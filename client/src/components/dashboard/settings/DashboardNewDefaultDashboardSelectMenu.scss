@@ -1,11 +1,7 @@
 @import "../../../variables";
 
-.default-dashboard-selector {
-    & > div[class*="InputBase"] {
-        div[class*="Select-select"] {
-            height: 32px;
-            line-height: 32px;
-            text-indent: 2 * $spacing-unit;
-        }
-    }
+.default-dashboard-selector > div[class*="InputBase"] div[class*="Select-select"] {
+    height: 32px;
+    line-height: 32px;
+    text-indent: 2 * $spacing-unit;
 }

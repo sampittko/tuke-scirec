@@ -12,7 +12,7 @@ import {withRouter} from 'react-router';
 
 const Container = props =>
   <Grid container
-        className={props.location.pathname === getDashboardRoute(props.activeDashboardRoute) ? "double-toolbar-margin" : "toolbar-margin"}
+        className={`${props.location.pathname === getDashboardRoute(props.activeDashboardRoute) ? "double-toolbar-margin" : "toolbar-margin"} container`}
   >
     <Grid item xs={12}>
       <Appbar/>

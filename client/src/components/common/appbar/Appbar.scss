@@ -1,20 +1,19 @@
 @import '../../../variables';
 
-.brand {
-    flex-grow: 1;
-}
+.appbar {
+    .brand {
+        flex-grow: 1;
+    }
 
-.user-toolbar svg[class*="SvgIcon"] {
-    color: white !important;
-}
+    div[class*="Toolbar"]:nth-child(2) {
+        margin: 0 auto;
+    }
 
-button[class*="Button-outlined"] {
-    border: 1px solid rgba(255, 255, 255, 0.75) !important;
-}
+    .user-toolbar svg[class*="SvgIcon"] {
+        color: white !important;
+    }
 
-hr[class*="Divider"] {
-    margin: {
-        top: $spacing-unit !important;
-        bottom: $spacing-unit !important;
+    button[class*="Button-outlined"] {
+        border: 1px solid rgba(255, 255, 255, 0.75) !important;
     }
 }

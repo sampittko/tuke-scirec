@@ -33,7 +33,10 @@ class AppbarComponent extends React.Component {
 
   render() {
     return (
-      <AppBar position="fixed">
+      <AppBar
+        className="appbar"
+        position="fixed"
+      >
         <Toolbar className={this.props.isAuth ? "user-toolbar" : ""}>
           <Sidebar
             isAuth={this.props.isAuth}

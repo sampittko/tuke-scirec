@@ -24,10 +24,10 @@ const project = (state = _initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          list: [
+          list: state.data.list ? [
             action.addedProject,
             ...state.data.list
-          ]
+          ] : [action.addedProject],
         },
         isLoading: false,
         error: null,

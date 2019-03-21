@@ -249,7 +249,7 @@ export const deleteDashboard = newDefaultDashboardId => {
 
 export const changeDashboard = newActiveId => {
   return (dispatch) => {
-    if (newActiveId && newActiveId !== dashboardConfig.MAX_COUNT) {
+    if (newActiveId !== dashboardConfig.MAX_COUNT) {
       dispatch(resetProjectState());
     }
     dispatch({

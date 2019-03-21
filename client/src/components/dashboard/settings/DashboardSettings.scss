@@ -4,17 +4,6 @@
     margin: 4 * $spacing-unit auto;
     width: $page-width;
 
-    .page-title {
-        margin: {
-            left: 2 * $spacing-unit;
-            bottom: 2 * $spacing-unit;
-        }
-
-        .dashboard-title {
-            font-weight: 500;
-        }
-    }
-    
     .title-description {
         padding-top: $spacing-unit;
         opacity: 0.65;

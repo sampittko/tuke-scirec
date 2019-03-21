@@ -1,15 +1,9 @@
 @import '../../../variables';
 
-.projects-list {
-    .page-title {
-        margin: {
-            left: 2 * $spacing-unit;
-            bottom: 2 * $spacing-unit;
-        }
-    }
+.projects-list .list {
+    padding: 0 !important;
 
-    .project {
-        border-top: 1px solid rgba(0, 0, 0, 0.12);
+    .item {
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     }
 }

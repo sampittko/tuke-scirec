@@ -24,6 +24,7 @@ const firestoreCollections = {
     fields: {
       ROUTE: 'route',
       CREATED: 'created',
+      MODIFIED: 'modified',
       TITLE: 'title',
       DASHBOARD: 'dashboard',
     }

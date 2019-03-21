@@ -1,4 +1,4 @@
-import {Fade, List, ListItem, ListItemText, Typography} from '@material-ui/core';
+import {Fade, List, ListItem, ListItemText, Paper, Typography} from '@material-ui/core';
 import propTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
@@ -10,11 +10,12 @@ import {getProjects} from '../../../store/actions/projectActions';
 import {getProjectRoute} from '../../../utils/projectUtils';
 import './DashboardProjectsList.scss';
 
-import DashboardProjectsListNoData from './DashboardProjectsListNoData';
+import ProjectsListNoData from './DashboardProjectsListNoData';
+import ProjectsListCounter from "./DashboardProjectsListCounter";
 
 class ProjectsList extends React.Component {
   componentDidMount() {
-    if (this.props.activeDashboard !== dashboardConfig.MAX_COUNT && !this.props.isProjectLoading && !this.props.projects) {
+    if (this.props.activeDashboard !== dashboardConfig.MAX_COUNT && !this.props.isProjectLoading && !this.props.projects && !this.props.isDashboardLoading) {
       this.props.getProjects();
     }
   }
@@ -31,24 +32,27 @@ class ProjectsList extends React.Component {
               >
                 Projekty
               </Typography>
-              <List>
-                {this.props.projects.map(project => (
-                  <ListItem button
-                            key={project.id}
-                            className="project"
-                            onClick={() => this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route))}
-                  >
-                    <ListItemText inset
-                                  primary={project.data().title}
-                                  secondary={`Naposledy upravené ${new Date(project.data().modified.seconds).toLocaleDateString()}`}
-                    />
-                  </ListItem>
-                ))}
-              </List>
+              <Paper>
+                <List className="list">
+                  {this.props.projects.map(project => (
+                    <ListItem button
+                              key={project.id}
+                              className="item"
+                              onClick={() => this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route))}
+                    >
+                      <ListItemText inset
+                                    primary={project.data().title}
+                                    secondary={`Naposledy upravené: ${new Date(project.data().modified.seconds).toLocaleDateString()}`}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </Paper>
+              <ProjectsListCounter projectsCount={this.props.projects.length}/>
             </div>
           </Fade>
         ) : (
-          <DashboardProjectsListNoData
+          <ProjectsListNoData
             isProjectLoading={this.props.isProjectLoading}
             activeDashboard={this.props.activeDashboard}
           />
@@ -59,7 +63,7 @@ class ProjectsList extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.activeDashboard !== this.props.activeDashboard && this.props.activeDashboard !== dashboardConfig.MAX_COUNT) {
-      if (!this.props.isProjectLoading && !this.props.projects) {
+      if (!this.props.isDashboardLoading && !this.props.isProjectLoading && !this.props.projects) {
         this.props.getProjects();
       }
     }

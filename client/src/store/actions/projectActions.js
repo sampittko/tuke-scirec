@@ -84,7 +84,7 @@ export const getProjects = () => {
 
     projectsRef
       .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
-      .orderBy(firestoreCollections.projects.fields.CREATED, "desc")
+      .orderBy(firestoreCollections.projects.fields.MODIFIED, "desc")
       .get()
       .then(result => {
         dispatch(getProjectsSuccess({

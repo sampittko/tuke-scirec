@@ -1,25 +1,19 @@
 @import '../../variables';
 
-div[class*="Toolbar"]:nth-child(2) {
-    margin: 0 auto;
-}
+.dashboard-selector div[class*="InputBase"] {
+    min-width: $selector-width;
+    text-align: center;
+    color: white;
 
-.dashboard-selector {
-    div[class*="InputBase"] {
-        min-width: $selector-width;
-        text-align: center;
-        color: white;
+    div[class*="Select-select"] {
+        height: 32px;
+        line-height: 32px;
+        border-radius: 4px;
+        padding-right: 0;
+    }
 
-        div[class*="Select-select"] {
-            height: 32px;
-            line-height: 32px;
-            border-radius: 4px;
-            padding-right: 0;
-        }
-
-        svg[class*="SvgIcon"] {
-            color: white !important;
-            margin-right: 10px;
-        }
+    svg[class*="SvgIcon"] {
+        color: white !important;
+        margin-right: 10px;
     }
 }
