@@ -1,6 +1,13 @@
 import './ExpansionPanel.scss';
 
-import { Divider, ExpansionPanel, ExpansionPanelActions, ExpansionPanelDetails, ExpansionPanelSummary, Typography } from '@material-ui/core';
+import {
+  Divider,
+  ExpansionPanel,
+  ExpansionPanelActions,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Typography
+} from '@material-ui/core';
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
@@ -13,7 +20,7 @@ const ExpansionPanelComponent = props =>
     className="expansion-panel"
   >
     <ExpansionPanelSummary
-      expandIcon={<ExpandMoreIcon />}
+      expandIcon={<ExpandMoreIcon/>}
       className="summary"
     >
       <Typography>{props.settingType}</Typography>
@@ -21,7 +28,7 @@ const ExpansionPanelComponent = props =>
     <ExpansionPanelDetails className="details">
       {props.panelContent}
     </ExpansionPanelDetails>
-    <Divider />
+    <Divider/>
     <ExpansionPanelActions className="actions">
       {props.panelActions}
     </ExpansionPanelActions>
@@ -33,6 +40,6 @@ ExpansionPanelComponent.propTypes = {
   panelActions: propTypes.any.isRequired,
   expanded: propTypes.bool.isRequired,
   onChange: propTypes.func.isRequired,
-}
+};
 
 export default ExpansionPanelComponent;

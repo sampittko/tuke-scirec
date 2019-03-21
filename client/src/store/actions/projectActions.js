@@ -1,23 +1,23 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import { getRouteFromString } from '../../utils/appConfigUtils';
+import {getRouteFromString} from '../../utils/appConfigUtils';
 
 const addProjectFailure = error => ({
   type: actionTypes.project.ADD_PROJECT_FAILURE,
   error
-})
+});
 
 const addProjectSuccess = data => ({
   type: actionTypes.project.ADD_PROJECT_SUCCESS,
   addedProject: data.addedProject
-})
+});
 
 const addProjectRequest = () => ({
   type: actionTypes.project.ADD_PROJECT_REQUEST
-})
+});
 
 export const addProject = title => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(addProjectRequest());
 
     const firestore = getFirestore();
@@ -32,49 +32,49 @@ export const addProject = title => {
         modified: new Date(),
         dashboard: dashboardsRef.doc(dashboardId),
         title
-    })
-    .then(result => {
-      return projectsRef
-        .doc(result.id)
-        .get()
-    })
-    .then(result => {
-      dispatch(addProjectSuccess({
-        addedProject: result
-      }));
-    })
-    .catch(error => {
-      console.log(error);
-      dispatch(addProjectFailure(error));
-    })
+      })
+      .then(result => {
+        return projectsRef
+          .doc(result.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(addProjectSuccess({
+          addedProject: result
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(addProjectFailure(error));
+      })
   }
-}
+};
 
 export const getProject = projectRoute => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: actionTypes.project.GET_PROJECT,
       projectRoute
     });
   }
-}
+};
 
 const getProjectsFailure = error => ({
   type: actionTypes.project.GET_PROJECTS_FAILURE,
   error
-})
+});
 
 const getProjectsSuccess = data => ({
   type: actionTypes.project.GET_PROJECTS_SUCCESS,
   projects: data.projects
-})
+});
 
 const getProjectsRequest = () => ({
   type: actionTypes.project.GET_PROJECTS_REQUEST
-})
+});
 
 export const getProjects = () => {
-  return (dispatch, getState, { getFirebase, getFirestore }) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(getProjectsRequest());
 
     const firestore = getFirestore();
@@ -86,33 +86,33 @@ export const getProjects = () => {
       .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
       .orderBy(firestoreCollections.projects.fields.CREATED, "desc")
       .get()
-    .then(result => {
-      dispatch(getProjectsSuccess({
-        projects: result.docs
-      }));
-    })
-    .catch(error => {
-      console.log(error);
-      dispatch(getProjectsFailure(error));
-    });
+      .then(result => {
+        dispatch(getProjectsSuccess({
+          projects: result.docs
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(getProjectsFailure(error));
+      });
   }
-}
+};
 
 const deleteProjectsInDashboardFailure = error => ({
   type: actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_FAILURE,
   error
-})
+});
 
 const deleteProjectsInDashboardSuccess = () => ({
   type: actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_SUCCESS
-})
+});
 
 const deleteProjectsInDashboardRequest = () => ({
   type: actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST
-})
+});
 
 export const deleteProjectsInDashboard = () => {
-  return async (dispatch, getState, { getFirebase, getFirestore }) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteProjectsInDashboardRequest());
 
     const firestore = getFirestore();
@@ -123,29 +123,29 @@ export const deleteProjectsInDashboard = () => {
     await projectsRef
       .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
       .get()
-    .then(result => {
-      if (!result.docs.empty) {
-        let batch = firestore.batch();
-        result.forEach(doc => {
-          batch.delete(doc.ref);
-        });
-        batch.commit();
-      }
-    })
-    .then(() => {
-      dispatch(deleteProjectsInDashboardSuccess());
-    })
-    .catch(error => {
-      console.log(error);
-      dispatch(deleteProjectsInDashboardFailure(error));
-    });
+      .then(result => {
+        if (!result.docs.empty) {
+          let batch = firestore.batch();
+          result.forEach(doc => {
+            batch.delete(doc.ref);
+          });
+          batch.commit();
+        }
+      })
+      .then(() => {
+        dispatch(deleteProjectsInDashboardSuccess());
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(deleteProjectsInDashboardFailure(error));
+      });
   }
-}
+};
 
 export const resetProjectState = () => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch({
       type: actionTypes.project.RESET_PROJECT_STATE
     })
   }
-}
+};

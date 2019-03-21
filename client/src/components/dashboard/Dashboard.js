@@ -2,16 +2,16 @@ import './Dashboard.scss';
 
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '../common/Fab';
-import { Fade } from '@material-ui/core';
+import {Fade} from '@material-ui/core';
 import NewProjectDialog from './DashboardNewProjectDialog';
 import ProjectsList from './projectsList/DashboardProjectsList';
 import React from 'react';
-import { connect } from 'react-redux';
-import { dashboardConfig } from '../../config/app';
+import {connect} from 'react-redux';
+import {dashboardConfig} from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { getDashboardDocumentTitle } from '../../utils/dashboardUtils';
+import {getDashboardDocumentTitle} from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
-import { timeouts } from '../../config/mui';
+import {timeouts} from '../../config/mui';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -29,19 +29,19 @@ class Dashboard extends React.Component {
 
   setDocumentTitle = () => {
     document.title = getDashboardDocumentTitle(this.props.activeDashboard);
-  }
+  };
 
   handleClose = () => {
     this.setState({
       dialogOpen: false
     });
-  }
+  };
 
   handleOpen = () => {
     this.setState({
       dialogOpen: true
     });
-  }
+  };
 
   render() {
     return (
@@ -49,10 +49,10 @@ class Dashboard extends React.Component {
         <div className="dashboard">
           {this.props.activeDashboard && this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
             <div>
-              <ProjectsList history={this.props.history} />
+              <ProjectsList history={this.props.history}/>
               <Fab
                 onClick={this.handleOpen}
-                icon={<AddIcon />}
+                icon={<AddIcon/>}
                 tooltipTitle="Vytvorenie nového projektu"
               />
             </div>
@@ -76,13 +76,13 @@ class Dashboard extends React.Component {
 Dashboard.propTypes = {
   activeDashboard: propTypes.any,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-}
+};
 
 const mapStateToProps = state => {
   return {
     activeDashboard: state.dashboard.selector.active,
     isDashboardLoading: state.dashboard.isLoading,
   }
-}
+};
 
 export default connect(mapStateToProps)(Dashboard);

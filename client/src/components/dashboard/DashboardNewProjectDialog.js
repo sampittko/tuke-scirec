@@ -1,10 +1,11 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
-import { dashboardConfig, projectConfig } from '../../config/app';
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from '@material-ui/core';
+import {dashboardConfig, projectConfig} from '../../config/app';
 
+import DialogTransition from '../common/DialogTransition';
 import React from 'react';
 import TitleInput from '../common/TitleInput';
-import { addProject } from '../../store/actions/projectActions';
-import { connect } from 'react-redux';
+import {addProject} from '../../store/actions/projectActions';
+import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 
 class NewProjectDialog extends React.Component {
@@ -21,7 +22,7 @@ class NewProjectDialog extends React.Component {
         title: event.target.value
       });
     }
-  }
+  };
 
   handleClick = (event, title) => {
     if (title) {
@@ -31,15 +32,19 @@ class NewProjectDialog extends React.Component {
       title: ''
     });
     this.props.onClick();
-  }
+  };
 
   render() {
     return (
-      <Dialog open={this.props.open}>
+      <Dialog
+        open={this.props.open}
+        TransitionComponent={DialogTransition}
+      >
         <DialogTitle>Vytvorenie nového projektu</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Pre vytvorenie nového projektu zadajte nižšie jeho názov pričom jeho dĺžka musí byť od {projectConfig.MIN_LENGTH} do {projectConfig.MAX_LENGTH} znakov.
+            Pre vytvorenie nového projektu zadajte nižšie jeho názov pričom jeho dĺžka musí byť
+            od {projectConfig.MIN_LENGTH} do {projectConfig.MAX_LENGTH} znakov.
           </DialogContentText>
           <TitleInput
             required
@@ -71,12 +76,12 @@ class NewProjectDialog extends React.Component {
 
 NewProjectDialog.propTypes = {
   addProject: propTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     addProject: title => dispatch(addProject(title))
   }
-}
+};
 
 export default connect(null, mapDispatchToProps)(NewProjectDialog);

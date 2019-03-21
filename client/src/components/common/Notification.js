@@ -1,7 +1,7 @@
 import React from 'react';
-import { Snackbar } from '@material-ui/core';
 import propTypes from 'prop-types';
-import { timeouts } from '../../config/mui';
+import {timeouts} from '../../config/mui';
+import {Snackbar} from "@material-ui/core";
 
 class Notification extends React.Component {
   constructor(props) {
@@ -17,12 +17,12 @@ class Notification extends React.Component {
         open: false
       });
     }
-  }
+  };
 
   render() {
     return (
       <Snackbar
-        anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
+        anchorOrigin={{vertical: "bottom", horizontal: "left"}}
         open={this.state.open}
         message={this.props.message}
         onClose={(event, reason) => this.handleClose(event, reason)}
@@ -34,6 +34,6 @@ class Notification extends React.Component {
 
 Notification.propTypes = {
   message: propTypes.string.isRequired
-}
+};
 
 export default Notification;

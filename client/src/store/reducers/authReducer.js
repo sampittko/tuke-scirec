@@ -6,7 +6,7 @@ const _initialState = {
   success: false,
   isLoading: false,
   error: null
-}
+};
 
 const auth = (state = _initialState, action) => {
   switch (action.type) {
@@ -15,7 +15,7 @@ const auth = (state = _initialState, action) => {
       return {
         ...state,
         isLoading: true
-      }
+      };
 
     case actionTypes.auth.LOGIN_SUCCESS:
       console.log(actionTypes.auth.LOGIN_SUCCESS);
@@ -25,7 +25,7 @@ const auth = (state = _initialState, action) => {
         success: true,
         isLoading: false,
         error: null
-      }
+      };
 
     case actionTypes.auth.LOGIN_FAILURE:
       console.log(actionTypes.auth.LOGIN_FAILURE);
@@ -33,14 +33,14 @@ const auth = (state = _initialState, action) => {
         ...state,
         isLoading: false,
         error: action.error
-      }
+      };
 
     case actionTypes.auth.LOGOUT_REQUEST:
       console.log(actionTypes.auth.LOGOUT_REQUEST);
       return {
         ...state,
         isLoading: true
-      }
+      };
 
     case actionTypes.auth.LOGOUT_SUCCESS:
       console.log(actionTypes.auth.LOGOUT_SUCCESS);
@@ -49,14 +49,14 @@ const auth = (state = _initialState, action) => {
         ...state,
         success: false,
         isLoading: false
-      }
+      };
 
     case actionTypes.auth.REGISTER_REQUEST:
       console.log(actionTypes.auth.REGISTER_REQUEST);
       return {
         ...state,
         isLoading: true
-      }
+      };
 
     case actionTypes.auth.REGISTER_FAILURE:
       console.log(actionTypes.auth.REGISTER_FAILURE);
@@ -64,7 +64,7 @@ const auth = (state = _initialState, action) => {
         ...state,
         isLoading: false,
         error: action.error
-      }
+      };
 
     case actionTypes.auth.REGISTER_SUCCESS:
       console.log(actionTypes.auth.REGISTER_SUCCESS);
@@ -72,7 +72,7 @@ const auth = (state = _initialState, action) => {
         ...state,
         isLoading: false,
         error: null
-      }
+      };
 
     case actionTypes.auth.GET_AUTH:
       console.log(actionTypes.auth.GET_AUTH);
@@ -80,11 +80,11 @@ const auth = (state = _initialState, action) => {
       return {
         ...state,
         success: sessionAccessToken && action.auth.currentUser ? sessionAccessToken === action.auth.currentUser.ra : false
-      }
+      };
 
     default:
       return state
   }
-}
+};
 
 export default auth;

@@ -2,6 +2,7 @@ import './DashboardNewDashboardDialog.scss';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider } from '@material-ui/core';
 
+import DialogTransition from '../common/DialogTransition';
 import React from 'react';
 import Switch from '../common/Switch';
 import ThemePicker from '../themePicker/ThemePicker';
@@ -31,17 +32,20 @@ class NewDashboardDialog extends React.Component {
       this.props.resetThemePicker();
     }
     this.props.onClick(event, newDashboard);
-  }
+  };
 
   handleChange = () => {
     this.setState({
       default: !this.state.default
     });
-  }
+  };
 
   render() {
     return (
-      <Dialog open={this.props.open}>
+      <Dialog
+        open={this.props.open}
+        TransitionComponent={DialogTransition}
+      >
         <DialogTitle>Vytvorenie novej nástenky</DialogTitle>
         <DialogContent>
           <DialogContentText>
@@ -97,19 +101,19 @@ NewDashboardDialog.propTypes = {
   title: propTypes.string.isRequired,
   themePicker: themePickerPropTypes.themePicker.isRequired,
   resetThemePicker: propTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     resetThemePicker: () => dispatch(resetThemePicker())
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
     isDashboardLoading: state.dashboard.isLoading,
     themePicker: state.themePicker
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewDashboardDialog);

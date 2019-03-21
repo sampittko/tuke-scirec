@@ -47,6 +47,6 @@ const actionTypes = {
     DELETE_PROJECTS_IN_DASHBOARD_FAILURE: 'DELETE_PROJECTS_IN_DASHBOARD_FAILURE',
     RESET_PROJECT_STATE: 'RESET_PROJECT_STATE',
   },
-}
+};
 
 export default actionTypes;

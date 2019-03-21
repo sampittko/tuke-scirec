@@ -1,6 +1,6 @@
 import actionTypes from '../actionTypes';
-import { dashboardConfig } from '../../config/app';
-import { getActiveDashboard } from '../../utils/dashboardUtils';
+import {dashboardConfig} from '../../config/app';
+import {getActiveDashboard} from '../../utils/dashboardUtils';
 
 const _initialState = {
   data: {
@@ -142,28 +142,6 @@ const dashboard = (state = _initialState, action) => {
         isLoading: false,
       };
 
-    case actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_FAILURE:
-      console.log(actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_FAILURE);
-      return {
-        ...state,
-        isLoading: false,
-        error: action.error
-      };
-
-    case actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_REQUEST:
-      console.log(actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_REQUEST);
-      return {
-        ...state,
-        isLoading: true
-      };
-
-    case actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_SUCCESS:
-      console.log(actionTypes.dashboard.GET_DASHBOARD_PROJECTS_LIST_SUCCESS);
-      return {
-        ...state,
-        isLoading: false,
-      };
-
     case actionTypes.dashboard.DELETE_DASHBOARD_FAILURE:
       console.log(actionTypes.dashboard.DELETE_DASHBOARD_FAILURE);
       return {
@@ -199,11 +177,11 @@ const dashboard = (state = _initialState, action) => {
           activeId: state.data.default.id,
           previousId: state.selector.activeId
         }
-      }
+      };
 
     default:
       return state;
   }
-}
+};
 
 export default dashboard;

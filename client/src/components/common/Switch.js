@@ -1,4 +1,4 @@
-import { FormControl, FormControlLabel, Switch } from '@material-ui/core';
+import {FormControl, FormControlLabel, Switch} from '@material-ui/core';
 
 import React from 'react';
 import propTypes from 'prop-types';
@@ -25,6 +25,6 @@ SwitchComponent.propTypes = {
   onChange: propTypes.func.isRequired,
   label: propTypes.string.isRequired,
   name: propTypes.string
-}
+};
 
 export default SwitchComponent;

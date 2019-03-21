@@ -1,4 +1,4 @@
-import { FormControl, Input, InputAdornment, InputLabel } from '@material-ui/core';
+import {FormControl, Input, InputAdornment, InputLabel} from '@material-ui/core';
 
 import React from 'react';
 import propTypes from 'prop-types';
@@ -26,6 +26,6 @@ TitleInput.propTypes = {
   maxTitleLength: propTypes.number.isRequired,
   name: propTypes.string,
   title: propTypes.string.isRequired,
-}
+};
 
 export default TitleInput;

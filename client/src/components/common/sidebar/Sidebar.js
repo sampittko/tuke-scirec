@@ -1,6 +1,6 @@
 import './Sidebar.scss';
 
-import { IconButton, List, SwipeableDrawer } from '@material-ui/core';
+import {IconButton, List, SwipeableDrawer} from '@material-ui/core';
 
 import Links from './SidebarLinks';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -34,7 +34,7 @@ class Sidebar extends React.Component {
           onClick={this.handleDrawerToggle('left', true)}
           disabled={this.props.isDashboardLoading}
         >
-          <MenuIcon />
+          <MenuIcon/>
         </IconButton>
         <SwipeableDrawer
           open={this.state.left}
@@ -48,9 +48,9 @@ class Sidebar extends React.Component {
           >
             <List className="sidebar-links">
               {this.props.isAuth ? (
-                <UserLinks location={this.props.location} />
+                <UserLinks location={this.props.location}/>
               ) : (
-                <Links location={this.props.location} />
+                <Links location={this.props.location}/>
               )}
             </List>
           </div>
@@ -64,6 +64,6 @@ Sidebar.propTypes = {
   isAuth: authPropTypes.success.isRequired,
   location: propTypes.object.isRequired,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-}
+};
 
 export default Sidebar;

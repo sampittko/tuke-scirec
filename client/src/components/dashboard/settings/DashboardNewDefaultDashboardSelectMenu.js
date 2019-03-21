@@ -1,6 +1,6 @@
 import './DashboardNewDefaultDashboardSelectMenu.scss';
 
-import { FormControl, FormHelperText, MenuItem, Select } from '@material-ui/core';
+import {FormControl, FormHelperText, MenuItem, Select} from '@material-ui/core';
 
 import React from 'react';
 import propTypes from 'prop-types';
@@ -31,6 +31,6 @@ SelectMenu.propTypes = {
   onChange: propTypes.func.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object).isRequired,
   activeDashboard: propTypes.any
-}
+};
 
 export default SelectMenu;

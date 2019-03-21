@@ -3,6 +3,6 @@ const titles = {
   ABOUT: "O aplikácii",
   LOGIN: "Prihlásenie",
   REGISTER: "Registrácia"
-}
+};
 
 export default titles;  

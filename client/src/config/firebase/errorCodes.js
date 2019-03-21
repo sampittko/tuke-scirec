@@ -6,4 +6,4 @@ export const firebaseErrorCodes = {
     USER_NOT_FOUND: 'auth/user-not-found',
     EMAIL_ALREADY_IN_USE: 'auth/email-already-in-use',
   }
-}
+};

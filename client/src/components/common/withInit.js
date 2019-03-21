@@ -21,7 +21,7 @@ const withInit = (WrappedComponent) => {
   HOC.propTypes = {
     isAuth: PropTypes.bool.isRequired,
     getDashboards: PropTypes.func.isRequired,
-  }
+  };
 
   return HOC;
 };

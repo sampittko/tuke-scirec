@@ -1,9 +1,9 @@
-import { Fade, Typography } from '@material-ui/core';
+import {Fade, Typography} from '@material-ui/core';
 
 import React from 'react';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
-import { timeouts } from '../../../config/mui';
+import {timeouts} from '../../../config/mui';
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
@@ -13,21 +13,21 @@ const NoData = props =>
           Projekty sa načítavajú..
         </Typography>
       ) : (
-          <div>
-            <Typography variant="h6">
-              Nástenka je prázdna
-            </Typography>
-            <Typography>
-              Tu sa zobrazia Vami vytvorené projekty pre nástenku {props.activeDashboard.data().title}
-            </Typography>
-          </div>
-        )}
+        <div>
+          <Typography variant="h6">
+            Nástenka je prázdna
+          </Typography>
+          <Typography>
+            Tu sa zobrazia Vami vytvorené projekty pre nástenku {props.activeDashboard.data().title}
+          </Typography>
+        </div>
+      )}
     </div>
   </Fade>;
 
 NoData.propTypes = {
   isProjectLoading: dashboardPropTypes.isLoading.isRequired,
   activeDashboard: propTypes.object,
-}
+};
 
 export default NoData;

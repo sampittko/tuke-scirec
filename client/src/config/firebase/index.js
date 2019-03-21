@@ -3,7 +3,7 @@ import 'firebase/auth';
 
 import firebase from 'firebase/app';
 
-var config = { 
+let config = {
   apiKey: "AIzaSyBqer08KB4pB_bm5wlMS6E9HlsTfDj58NU",
   authDomain: "scirec-app.firebaseapp.com",
   databaseURL: "https://scirec-app.firebaseio.com",

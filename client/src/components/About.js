@@ -1,10 +1,10 @@
 import './About.scss';
 
-import { Fade, Typography } from '@material-ui/core';
+import {Fade, Typography} from '@material-ui/core';
 
 import React from 'react';
-import { getDocumentTitleFromComponent } from '../utils/appConfigUtils';
-import { timeouts } from '../config/mui';
+import {getDocumentTitleFromComponent} from '../utils/appConfigUtils';
+import {timeouts} from '../config/mui';
 
 class About extends React.Component {
   componentDidMount() {

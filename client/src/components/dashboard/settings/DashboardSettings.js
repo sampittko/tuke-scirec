@@ -1,6 +1,6 @@
 import './DashboardSettings.scss';
 
-import { Fade, IconButton, Typography } from '@material-ui/core';
+import {Fade, IconButton, Typography} from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from './ExpansionPanel';
@@ -11,14 +11,14 @@ import SaveIcon from '@material-ui/icons/Save';
 import Switch from '../../common/Switch';
 import ThemePicker from '../../themePicker/ThemePicker';
 import TitleInput from '../../common/TitleInput';
-import { connect } from 'react-redux';
-import { dashboardConfig } from '../../../config/app';
+import {connect} from 'react-redux';
+import {dashboardConfig} from '../../../config/app';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import { getDashboardSettingsDocumentTitle } from '../../../utils/dashboardUtils';
+import {getDashboardSettingsDocumentTitle} from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
-import { timeouts } from '../../../config/mui';
-import { updateDashboard } from '../../../store/actions/dashboardActions';
+import {timeouts} from '../../../config/mui';
+import {updateDashboard} from '../../../store/actions/dashboardActions';
 
 class Settings extends React.Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class Settings extends React.Component {
       ) ||
       this.props.activeDashboard.data().theme.id !== this.props.themePicker.theme ||
       this.props.activeDashboard.data().theme.inverted !== this.props.themePicker.inverted);
-  }
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -62,13 +62,13 @@ class Settings extends React.Component {
         inverted: this.props.themePicker.inverted,
       }
     })
-  }
+  };
 
   handleDeleteClick = () => {
     this.setState({
       confirmDialogOpen: true
     });
-  }
+  };
 
   handleSelectChange = event => {
     if (this.props.activeDashboard.id !== event.target.value) {
@@ -76,7 +76,7 @@ class Settings extends React.Component {
         newDefaultDashboardId: event.target.value
       });
     }
-  }
+  };
 
   handleFormChange = event => {
     if (event.target.type !== "checkbox") {
@@ -85,25 +85,24 @@ class Settings extends React.Component {
           title: event.target.value
         });
       }
-    }
-    else {
+    } else {
       this.setState({
         default: !this.state.default
       });
     }
-  }
+  };
 
   handleDialogClose = () => {
     this.setState({
       confirmDialogOpen: false
     });
-  }
+  };
 
   handlePanelChange = (event, panel) => {
     this.setState({
       expandedPanel: this.state.expandedPanel === panel ? 0 : panel
     });
-  }
+  };
 
   getPanelActions = () => {
     switch (this.state.expandedPanel) {
@@ -114,7 +113,7 @@ class Settings extends React.Component {
             color="secondary"
             size="small"
           >
-            <DeleteIcon fontSize="small" />
+            <DeleteIcon fontSize="small"/>
           </IconButton>
         );
       default:
@@ -125,11 +124,11 @@ class Settings extends React.Component {
             color="secondary"
             size="small"
           >
-            <SaveIcon fontSize="small" />
+            <SaveIcon fontSize="small"/>
           </IconButton>
         );
     }
-  }
+  };
 
   render() {
     return (
@@ -141,7 +140,8 @@ class Settings extends React.Component {
                 variant="h5"
                 className="page-title"
               >
-                Nastavenia nástenky <span className="dashboard-title">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
+                Nastavenia nástenky <span
+                className="dashboard-title">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
               </Typography>
               <form onSubmit={this.handleSubmit}>
                 <ExpansionPanel
@@ -159,7 +159,8 @@ class Settings extends React.Component {
                         label="Názov nástenky"
                       />
                       <Typography className="title-description">
-                        Dĺžka názvu nástenky musí mať od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov
+                        Dĺžka názvu nástenky musí mať
+                        od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov
                       </Typography>
                       <Switch
                         name="default"
@@ -183,7 +184,7 @@ class Settings extends React.Component {
                   expanded={this.state.expandedPanel === 2}
                   onChange={(event) => this.handlePanelChange(event, 2)}
                   settingType="Téma"
-                  panelContent={<ThemePicker theme={this.props.activeDashboard.data().theme} />}
+                  panelContent={<ThemePicker theme={this.props.activeDashboard.data().theme}/>}
                   panelActions={this.getPanelActions()}
                 />
                 <ExpansionPanel
@@ -192,7 +193,8 @@ class Settings extends React.Component {
                   settingType="Vymazanie nástenky"
                   panelContent={(
                     <Typography>
-                      Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v nej nachádzajú.
+                      Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v
+                      nej nachádzajú.
                     </Typography>
                   )}
                   panelActions={this.getPanelActions()}
@@ -227,13 +229,13 @@ Settings.propTypes = {
   isDefault: propTypes.bool,
   dashboards: propTypes.arrayOf(propTypes.object),
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     updateDashboard: (newDefaultDashboardId, data) => dispatch(updateDashboard(newDefaultDashboardId, data)),
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -243,6 +245,6 @@ const mapStateToProps = state => {
     dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);

@@ -17,7 +17,7 @@ const project = (state = _initialState, action) => {
         ...state,
         isLoading: true,
       };
-      
+
     case actionTypes.project.ADD_PROJECT_SUCCESS:
       console.log(actionTypes.project.ADD_PROJECT_SUCCESS);
       return {
@@ -49,7 +49,7 @@ const project = (state = _initialState, action) => {
           ...state.data,
           active: null,
         }
-      }
+      };
 
     case actionTypes.project.GET_PROJECTS_REQUEST:
       console.log(actionTypes.project.GET_PROJECTS_REQUEST);
@@ -104,10 +104,10 @@ const project = (state = _initialState, action) => {
     case actionTypes.project.RESET_PROJECT_STATE:
       console.log(actionTypes.project.RESET_PROJECT_STATE);
       return _initialState;
-    
+
     default:
       return state;
   }
-}
+};
 
 export default project;

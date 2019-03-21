@@ -1,4 +1,4 @@
-import { ListItemIcon, ListItemText, MenuItem } from '@material-ui/core';
+import {ListItemIcon, ListItemText, MenuItem} from '@material-ui/core';
 
 import React from 'react';
 import propTypes from 'prop-types';
@@ -10,7 +10,7 @@ const MenuItemComponent = props =>
     <ListItemIcon>
       {props.icon}
     </ListItemIcon>
-    <ListItemText inset primary={props.text} />
+    <ListItemText inset primary={props.text}/>
   </MenuItem>;
 
 MenuItemComponent.propTypes = {
@@ -18,6 +18,6 @@ MenuItemComponent.propTypes = {
   text: propTypes.string.isRequired,
   disabled: propTypes.bool,
   onClick: propTypes.func
-}
+};
 
 export default MenuItemComponent;

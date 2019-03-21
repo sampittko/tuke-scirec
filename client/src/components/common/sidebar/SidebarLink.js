@@ -1,8 +1,8 @@
 import './SidebarLink.scss';
 
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import {ListItem, ListItemIcon, ListItemText} from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import React from 'react';
 import propTypes from 'prop-types';
 
@@ -27,6 +27,6 @@ LinkComponent.propTypes = {
   route: propTypes.string.isRequired,
   text: propTypes.string.isRequired,
   icon: propTypes.element.isRequired
-} 
+};
 
 export default LinkComponent;

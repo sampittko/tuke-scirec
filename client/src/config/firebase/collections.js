@@ -28,6 +28,6 @@ const firestoreCollections = {
       DASHBOARD: 'dashboard',
     }
   }
-}
+};
 
 export default firestoreCollections;

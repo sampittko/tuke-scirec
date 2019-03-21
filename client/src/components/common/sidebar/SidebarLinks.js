@@ -1,4 +1,4 @@
-import { Divider } from '@material-ui/core';
+import {Divider} from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import InfoIcon from '@material-ui/icons/Info';
 import Link from './SidebarLink';
@@ -14,31 +14,31 @@ const Links = props =>
       location={props.location}
       route={routes.HOME}
       text="Domov"
-      icon={<HomeIcon />}
+      icon={<HomeIcon/>}
     />
     <Link
       location={props.location}
       route={routes.LOGIN}
       text="Prihlásenie"
-      icon={<PersonIcon />}
+      icon={<PersonIcon/>}
     />
     <Link
       location={props.location}
       route={routes.REGISTER}
       text="Registrácia"
-      icon={<PersonAddIcon />}
+      icon={<PersonAddIcon/>}
     />
-    <Divider />
+    <Divider/>
     <Link
       location={props.location}
       route={routes.ABOUT}
       text="O aplikácii"
-      icon={<InfoIcon />}
+      icon={<InfoIcon/>}
     />
   </div>;
 
 Links.propTypes = {
   location: propTypes.object.isRequired
-}
+};
 
 export default Links;

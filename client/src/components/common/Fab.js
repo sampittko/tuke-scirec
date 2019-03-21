@@ -1,10 +1,10 @@
 import './Fab.scss';
 
-import { Fab, Tooltip, Zoom } from '@material-ui/core';
+import {Tooltip, Zoom, Fab} from '@material-ui/core';
 
 import React from 'react';
 import propTypes from 'prop-types';
-import { timeouts } from '../../config/mui'
+import {timeouts} from '../../config/mui'
 
 const FabComponent = props =>
   <Zoom in timeout={timeouts.ZOOM_IN}>
@@ -26,6 +26,6 @@ FabComponent.propTypes = {
   onClick: propTypes.func.isRequired,
   icon: propTypes.element.isRequired,
   tooltipTitle: propTypes.string,
-}
+};
 
 export default FabComponent;

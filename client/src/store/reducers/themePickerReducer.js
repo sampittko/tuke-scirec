@@ -3,7 +3,7 @@ import actionTypes from '../actionTypes';
 const _initialState = {
   theme: 0,
   inverted: false
-}
+};
 
 const themePicker = (state = _initialState, action) => {
   switch (action.type) {
@@ -12,14 +12,14 @@ const themePicker = (state = _initialState, action) => {
       return {
         ...state,
         theme: action.theme
-      }
+      };
 
     case actionTypes.themePicker.INVERT_THEME:
       console.log(actionTypes.themePicker.INVERT_THEME);
       return {
         ...state,
         inverted: !state.inverted
-      }
+      };
 
     case actionTypes.themePicker.RESET_THEME_PICKER:
       console.log(actionTypes.themePicker.RESET_THEME_PICKER);
@@ -35,6 +35,6 @@ const themePicker = (state = _initialState, action) => {
     default:
       return state
   }
-}
+};
 
 export default themePicker;

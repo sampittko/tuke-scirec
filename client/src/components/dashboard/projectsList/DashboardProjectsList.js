@@ -1,17 +1,16 @@
+import {Fade, List, ListItem, ListItemText, Typography} from '@material-ui/core';
+import propTypes from 'prop-types';
+import React from 'react';
+import {connect} from 'react-redux';
+import {dashboardConfig} from '../../../config/app';
+import {timeouts} from '../../../config/mui';
+import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
+import projectPropTypes from '../../../propTypes/projectPropTypes';
+import {getProjects} from '../../../store/actions/projectActions';
+import {getProjectRoute} from '../../../utils/projectUtils';
 import './DashboardProjectsList.scss';
 
-import { Fade, List, ListItem, ListItemText, Typography } from '@material-ui/core';
-
 import DashboardProjectsListNoData from './DashboardProjectsListNoData';
-import React from 'react';
-import { connect } from 'react-redux';
-import { dashboardConfig } from '../../../config/app';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import { getProjectRoute } from '../../../utils/projectUtils';
-import { getProjects } from '../../../store/actions/projectActions';
-import projectPropTypes from '../../../propTypes/projectPropTypes';
-import propTypes from 'prop-types';
-import { timeouts } from '../../../config/mui';
 
 class ProjectsList extends React.Component {
   componentDidMount() {
@@ -35,13 +34,13 @@ class ProjectsList extends React.Component {
               <List>
                 {this.props.projects.map(project => (
                   <ListItem button
-                    key={project.id}
-                    className="project"
-                    onClick={() => this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route))}
+                            key={project.id}
+                            className="project"
+                            onClick={() => this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route))}
                   >
                     <ListItemText inset
-                      primary={project.data().title}
-                      secondary={`Naposledy upravené ${new Date(project.data().modified.seconds).toLocaleDateString()}`}
+                                  primary={project.data().title}
+                                  secondary={`Naposledy upravené ${new Date(project.data().modified.seconds).toLocaleDateString()}`}
                     />
                   </ListItem>
                 ))}
@@ -74,13 +73,13 @@ ProjectsList.propTypes = {
   history: propTypes.object.isRequired,
   getProjects: propTypes.func.isRequired,
   projects: propTypes.arrayOf(propTypes.object),
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     getProjects: () => dispatch(getProjects()),
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -89,6 +88,6 @@ const mapStateToProps = state => {
     activeDashboard: state.dashboard.selector.active,
     projects: state.project.data.list,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsList);

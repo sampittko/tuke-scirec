@@ -9,6 +9,6 @@ const propTypes = {
   }),
   isLoading: PropTypes.bool,
   error: PropTypes.bool,
-}
+};
 
 export default propTypes;

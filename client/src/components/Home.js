@@ -1,18 +1,18 @@
 import './Home.scss';
 
-import { Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Fade, Typography } from '@material-ui/core';
+import {Button, Card, CardActionArea, CardActions, CardContent, CardMedia, Fade, Typography} from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import React from 'react';
-import { Redirect } from 'react-router';
-import { connect } from 'react-redux';
+import {Redirect} from 'react-router';
+import {connect} from 'react-redux';
 import dashboardPropTypes from '../propTypes/dashboardPropTypes';
-import { getDashboardRoute } from '../utils/dashboardUtils';
-import { getDocumentTitleFromComponent } from '../utils/appConfigUtils';
+import {getDashboardRoute} from '../utils/dashboardUtils';
+import {getDocumentTitleFromComponent} from '../utils/appConfigUtils';
 import logo from '../static/media/logo.png';
 import propTypes from 'prop-types';
 import routes from '../config/app/routes';
-import { timeouts } from '../config/mui';
+import {timeouts} from '../config/mui';
 
 class Home extends React.Component {
   componentDidMount() {
@@ -23,7 +23,7 @@ class Home extends React.Component {
     return (
       <div>
         {this.props.dashboards ? (
-          <Redirect to={getDashboardRoute(this.props.activeDashboardRoute)} />
+          <Redirect to={getDashboardRoute(this.props.activeDashboardRoute)}/>
         ) : (
           <div>
             {!this.props.isDashboardLoading && (
@@ -40,7 +40,9 @@ class Home extends React.Component {
                         Vitajte
                       </Typography>
                       <Typography component="p">
-                        SCIREC je nástroj pre kontrolu verzií vedeckých publikácií a záverečných prác. Systém je veľmi jednoduchý na používanie a pomôže Vám s organizovaním Vašich osobných projektov. Jeho používanie si vyžaduje mať zriadený účet a byť prihlásený.
+                        SCIREC je nástroj pre kontrolu verzií vedeckých publikácií a záverečných prác. Systém je veľmi
+                        jednoduchý na používanie a pomôže Vám s organizovaním Vašich osobných projektov. Jeho používanie
+                        si vyžaduje mať zriadený účet a byť prihlásený.
                       </Typography>
                     </CardContent>
                   </CardActionArea>
@@ -82,7 +84,7 @@ Home.propTypes = {
   dashboards: propTypes.array,
   activeDashboardRoute: propTypes.string,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -90,6 +92,6 @@ const mapStateToProps = state => {
     dashboards: state.dashboard.data.list,
     isDashboardLoading: state.dashboard.isLoading
   }
-}
+};
 
 export default connect(mapStateToProps)(Home);

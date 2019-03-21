@@ -5,6 +5,6 @@ const propTypes = {
     theme: PropTypes.number.isRequired,
     inverted: PropTypes.bool.isRequired,
   })
-}
+};
 
 export default propTypes;

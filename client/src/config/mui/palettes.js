@@ -63,6 +63,6 @@ const palettes = {
       main: '#424242'
     }
   }
-}
+};
 
 export default palettes;

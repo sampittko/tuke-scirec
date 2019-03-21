@@ -1,13 +1,12 @@
 import './ThemePicker.scss';
 
-import { FormControl, FormControlLabel, Radio } from '@material-ui/core';
-import { invertTheme, pickTheme } from '../../store/actions/themePickerActions';
+import {FormControl, FormControlLabel, Radio} from '@material-ui/core';
+import {invertTheme, pickTheme, setPredefinedTheme} from '../../store/actions/themePickerActions';
 
 import React from 'react';
 import Switch from '../common/Switch';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import propTypes from 'prop-types';
-import { setPredefinedTheme } from '../../store/actions/themePickerActions';
 import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
 
 class ThemePicker extends React.Component {
@@ -88,7 +87,7 @@ ThemePicker.propTypes = {
   invertTheme: propTypes.func.isRequired,
   theme: propTypes.object,
   setPredefinedTheme: propTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -96,12 +95,12 @@ const mapDispatchToProps = dispatch => {
     invertTheme: () => dispatch(invertTheme()),
     setPredefinedTheme: theme => dispatch(setPredefinedTheme(theme)),
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
     themePicker: state.themePicker
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ThemePicker);

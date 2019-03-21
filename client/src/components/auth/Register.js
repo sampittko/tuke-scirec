@@ -1,21 +1,23 @@
 import './Register.scss';
 
-import { Button, Checkbox, Fade, Paper, TextField, Typography } from '@material-ui/core';
+import {Button, Checkbox, Fade, Paper, TextField, Typography} from '@material-ui/core';
 
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import React from 'react';
-import { Redirect } from 'react-router';
+import {Redirect} from 'react-router';
 import authPropTypes from '../../propTypes/authPropTypes';
-import { connect } from 'react-redux';
-import { firebaseErrorCodes } from '../../config/firebase/errorCodes';
-import { getDocumentTitleFromComponent } from '../../utils/appConfigUtils';
+import {connect} from 'react-redux';
+import {firebaseErrorCodes} from '../../config/firebase/errorCodes';
+import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
-import { register } from '../../store/actions/authActions';
+import {register} from '../../store/actions/authActions';
 import routes from '../../config/app/routes';
-import { timeouts } from '../../config/mui';
+import {timeouts} from '../../config/mui';
 
 class Register extends React.Component {
+  formSubmitted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,8 +26,6 @@ class Register extends React.Component {
       verifiedPassword: '',
     }
   }
-
-  formSubmitted = false;
 
   componentDidMount() {
     document.title = getDocumentTitleFromComponent(this);
@@ -50,20 +50,20 @@ class Register extends React.Component {
       password: this.state.password
     });
     this.formSubmitted = true;
-  }
+  };
 
   handleChange = (e) => {
-    this.setState({ 
+    this.setState({
       [e.target.name]: e.target.value
     });
-  }
+  };
 
   render() {
     return !this.props.isAuth ? (
       <Fade in timeout={timeouts.FADE_IN}>
         <Paper className="register">
           <div className="header">
-            <img src={logo} alt="SCIREC logo" />
+            <img src={logo} alt="SCIREC logo"/>
             <Typography variant="h5">
               Registrácia
             </Typography>
@@ -104,7 +104,7 @@ class Register extends React.Component {
               required
             />
             <div>
-              <Checkbox color="primary" required />
+              <Checkbox color="primary" required/>
               <Typography component="div">
                 Súhlasim s&nbsp;
                 <Link
@@ -117,12 +117,12 @@ class Register extends React.Component {
               </Typography>
             </div>
             <div>
-              <Checkbox color="primary" required />
+              <Checkbox color="primary" required/>
               <Typography component="div">
                 Súhlasim so&nbsp;
-                <Link 
+                <Link
                   target="_blank"
-                  rel="noopener" 
+                  rel="noopener"
                   to={routes.HOME}
                 >
                   spracovaním poskytnutých údajov
@@ -130,7 +130,7 @@ class Register extends React.Component {
               </Typography>
             </div>
             <div className="action-buttons">
-              <Button 
+              <Button
                 type="submit"
                 variant="contained"
                 color="secondary"
@@ -153,7 +153,7 @@ class Register extends React.Component {
         </Paper>
       </Fade>
     ) : (
-        <Redirect to={routes.HOME} />
+      <Redirect to={routes.HOME}/>
     )
   }
 }
@@ -163,13 +163,13 @@ Register.propTypes = {
   isAuth: authPropTypes.success.isRequired,
   isAuthLoading: authPropTypes.isLoading.isRequired,
   errorCode: propTypes.string.isRequired
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     register: newUser => dispatch(register(newUser))
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -177,6 +177,6 @@ const mapStateToProps = state => {
     isAuthLoading: state.auth.isLoading,
     errorCode: state.auth.error ? state.auth.error.code : ''
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register);

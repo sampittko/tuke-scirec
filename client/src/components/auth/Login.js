@@ -1,18 +1,18 @@
 import './Login.scss';
 
-import { Button, Fade, Paper, TextField, Typography } from '@material-ui/core';
+import {Button, Fade, Paper, TextField, Typography} from '@material-ui/core';
 
 import Notification from '../common/Notification';
 import React from 'react';
-import { Redirect } from 'react-router';
+import {Redirect} from 'react-router';
 import authPropTypes from '../../propTypes/authPropTypes';
-import { connect } from 'react-redux';
-import { getDocumentTitleFromComponent } from '../../utils/appConfigUtils';
-import { login } from '../../store/actions/authActions';
+import {connect} from 'react-redux';
+import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
+import {login} from '../../store/actions/authActions';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
 import routes from '../../config/app/routes';
-import { timeouts } from '../../config/mui';
+import {timeouts} from '../../config/mui';
 
 class Login extends React.Component {
   constructor(props) {
@@ -28,20 +28,20 @@ class Login extends React.Component {
   }
 
   handleForgottenPassword = () => {
-    
-  }
+
+  };
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.login(this.state);
-  }
+  };
 
   handleChange = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     });
-  }
-  
+  };
+
   render() {
     return !this.props.isAuth ? (
       <Fade in timeout={timeouts.FADE_IN}>
@@ -98,12 +98,13 @@ class Login extends React.Component {
             </div>
           </form>
           {this.props.location.state && this.props.location.state.registered && (
-            <Notification message="Účet bol úspešne vytvorený" />
+            <Notification message="Účet bol úspešne vytvorený"/>
           )}
         </Paper>
       </Fade>
     ) : (
-        <Redirect to={this.props.location.state && this.props.location.state.from ? this.props.location.state.from : routes.HOME} />
+      <Redirect
+        to={this.props.location.state && this.props.location.state.from ? this.props.location.state.from : routes.HOME}/>
     )
   }
 }
@@ -114,20 +115,20 @@ Login.propTypes = {
   isAuthLoading: authPropTypes.isLoading.isRequired,
   location: propTypes.object.isRequired,
   error: authPropTypes.error.isRequired
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     login: user => dispatch(login(user))
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
     isAuth: state.auth.success,
     isAuthLoading: state.auth.isLoading,
-    error: state.auth.error ? true : false
+    error: !!state.auth.error
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

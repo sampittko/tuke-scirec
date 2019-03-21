@@ -1,14 +1,14 @@
 import './DashboardSelector.scss';
 
-import { Divider, FormControl, MenuItem, Select } from '@material-ui/core';
-import { changeDashboard, createDashboard } from '../../store/actions/dashboardActions';
+import {Divider, FormControl, MenuItem, Select} from '@material-ui/core';
+import {changeDashboard, createDashboard} from '../../store/actions/dashboardActions';
 
 import NewDashboardDialog from './DashboardNewDashboardDialog';
 import React from 'react';
-import { connect } from 'react-redux';
-import { dashboardConfig } from '../../config/app';
+import {connect} from 'react-redux';
+import {dashboardConfig} from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
-import { getDashboardRoute } from '../../utils/dashboardUtils';
+import {getDashboardRoute} from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 
 class Selector extends React.Component {
@@ -30,7 +30,7 @@ class Selector extends React.Component {
         title: ''
       });
     }
-  }
+  };
 
   handleTitleChange = event => {
     if (this.state.title.length !== dashboardConfig.MAX_LENGTH || event.target.value.length < dashboardConfig.MAX_LENGTH) {
@@ -38,14 +38,14 @@ class Selector extends React.Component {
         title: event.target.value
       });
     }
-  }
+  };
 
   handleSelectChange = event => {
     if (this.props.activeDashboard.id !== event.target.value) {
       this.props.changeDashboard(event.target.value);
       event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
     }
-  }
+  };
 
   render() {
     return (
@@ -67,8 +67,8 @@ class Selector extends React.Component {
                     {dashboard.data().title}
                   </MenuItem>
                 )}
-                <Divider />
-                <MenuItem 
+                <Divider/>
+                <MenuItem
                   value={dashboardConfig.MAX_COUNT}
                   disabled={this.props.dashboards.length === dashboardConfig.MAX_COUNT}
                 >
@@ -103,14 +103,14 @@ Selector.propTypes = {
   dashboards: propTypes.arrayOf(propTypes.object),
   history: propTypes.object.isRequired,
   activeDashboard: propTypes.any
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     createDashboard: newDashboard => dispatch(createDashboard(newDashboard)),
     changeDashboard: newActive => dispatch(changeDashboard(newActive))
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -119,6 +119,6 @@ const mapStateToProps = state => {
     defaultDashboard: state.dashboard.data.default,
     activeDashboard: state.dashboard.selector.active,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Selector);

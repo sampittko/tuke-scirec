@@ -1,21 +1,25 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core';
+import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography} from '@material-ui/core';
 
+import DialogTransition from '../../common/DialogTransition';
 import NewDefaultDashboardSelectMenu from './DashboardNewDefaultDashboardSelectMenu';
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import { deleteDashboard } from '../../../store/actions/dashboardActions';
+import {deleteDashboard} from '../../../store/actions/dashboardActions';
 import propTypes from 'prop-types';
 
 class RemoveDashboardConfirmDialog extends React.Component {
   handleClick = () => {
     this.props.deleteDashboard(this.props.newDefaultDashboardId);
     this.props.onClick();
-  }
+  };
 
   render() {
     return (
-      <Dialog open={this.props.open}>
+      <Dialog
+        open={this.props.open}
+        TransitionComponent={DialogTransition}
+      >
         <DialogTitle>Vymazanie nástenky</DialogTitle>
         <DialogContent>
           <Typography>
@@ -65,13 +69,13 @@ RemoveDashboardConfirmDialog.propTypes = {
   deleteDashboard: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
-}
+};
 
 const mapDispatchToProps = dispatch => {
   return {
     deleteDashboard: newDefaultDashboardId => dispatch(deleteDashboard(newDefaultDashboardId)),
   }
-}
+};
 
 const mapStateToProps = state => {
   return {
@@ -80,6 +84,6 @@ const mapStateToProps = state => {
     isDashboardLoading: state.dashboard.isLoading,
     isDefault: state.dashboard.selector.activeId === state.dashboard.data.default.id,
   }
-}
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(RemoveDashboardConfirmDialog);
