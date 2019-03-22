@@ -137,8 +137,10 @@ const updateDashboardFailure = error => ({
   error
 });
 
-const updateDashboardSuccess = () => ({
+const updateDashboardSuccess = data => ({
   type: actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS,
+  updatedDashboard: data.updatedDashboard,
+  isDefault: data.isDefault
 });
 
 const updateDashboardRequest = () => ({
@@ -167,7 +169,6 @@ export const updateDashboard = (newDefaultDashboardId, data) => {
         .catch(error => {
           console.log(error);
           dispatch(updateDashboardFailure(error));
-
         });
     }
 
@@ -179,8 +180,15 @@ export const updateDashboard = (newDefaultDashboardId, data) => {
         theme: data.theme,
       })
       .then(() => {
-        dispatch(getDashboards());
-        dispatch(updateDashboardSuccess());
+        return dashboardsRef
+          .doc(dashboardId)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateDashboardSuccess({
+          updatedDashboard: result,
+          isDefault: data.default
+        }));
       })
       .catch(error => {
         console.log(error);

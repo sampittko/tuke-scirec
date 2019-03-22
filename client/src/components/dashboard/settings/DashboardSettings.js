@@ -1,6 +1,6 @@
 import './DashboardSettings.scss';
 
-import {Fade, IconButton, Typography} from '@material-ui/core';
+import {Fade, IconButton, Tooltip, Typography} from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from './ExpansionPanel';
@@ -108,24 +108,49 @@ class Settings extends React.Component {
     switch (this.state.expandedPanel) {
       case 3:
         return (
-          <IconButton
-            onClick={this.handleDeleteClick}
-            color="secondary"
-            size="small"
+          <Tooltip
+            title="Vymazať nástenku"
+            placement="right"
+            disableFocusListener
+            className="icon-tooltip"
           >
-            <DeleteIcon fontSize="small"/>
-          </IconButton>
+            <div>
+              <IconButton
+                onClick={this.handleDeleteClick}
+                color="secondary"
+                size="small"
+              >
+                <DeleteIcon fontSize="small"/>
+              </IconButton>
+            </div>
+          </Tooltip>
         );
       default:
         return (
-          <IconButton
-            disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
-            type="submit"
-            color="secondary"
-            size="small"
-          >
-            <SaveIcon fontSize="small"/>
-          </IconButton>
+          <div>
+            {this.settingsChanged() && (
+              <Typography className="changes-not-saved">
+                Zmeny ešte neboli uložené
+              </Typography>
+            )}
+            <Tooltip
+              title="Uložiť zmeny"
+              placement="right"
+              disableFocusListener
+              className="tooltip"
+            >
+              <div>
+                <IconButton
+                  disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
+                  type="submit"
+                  color="secondary"
+                  size="small"
+                >
+                  <SaveIcon fontSize="small"/>
+                </IconButton>
+              </div>
+            </Tooltip>
+          </div>
         );
     }
   };
@@ -238,6 +263,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 const mapStateToProps = state => {
+  console.log(state.dashboard);
   return {
     activeDashboard: state.dashboard.selector.active,
     themePicker: state.themePicker,

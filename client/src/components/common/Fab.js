@@ -11,6 +11,7 @@ const FabComponent = props =>
     <Tooltip
       title={props.tooltipTitle}
       placement="left"
+      disableFocusListener
     >
       <Fab
         onClick={props.onClick}

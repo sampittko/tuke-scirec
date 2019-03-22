@@ -104,8 +104,19 @@ const dashboard = (state = _initialState, action) => {
 
     case actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS:
       console.log(actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS);
+      const updatedDashboardIndex = state.data.list.findIndex(dashboard => dashboard.id === action.updatedDashboard.id);
+      console.log(state);
       return {
         ...state,
+        data: {
+          list: [...state.data.list.slice(0, updatedDashboardIndex), action.updatedDashboard, ...state.data.list.slice(updatedDashboardIndex + 1)],
+          default: action.isDefault ? action.updatedDashboard : state.data.default,
+        },
+        selector: {
+          ...state.selector,
+          active: action.updatedDashboard,
+          activeRoute: action.updatedDashboard.data().route,
+        },
         isLoading: false,
       };
 

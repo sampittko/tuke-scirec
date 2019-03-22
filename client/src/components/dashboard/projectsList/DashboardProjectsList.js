@@ -42,7 +42,7 @@ class ProjectsList extends React.Component {
                     >
                       <ListItemText inset
                                     primary={project.data().title}
-                                    secondary={`Naposledy upravené: ${new Date(project.data().modified.seconds).toLocaleDateString()}`}
+                                    secondary={`Naposledy upravené: ${(new Date(project.data().modified.toDate()).toLocaleDateString())}`}
                       />
                     </ListItem>
                   ))}
