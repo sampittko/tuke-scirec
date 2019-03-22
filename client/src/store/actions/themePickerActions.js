@@ -34,3 +34,11 @@ export const setPredefinedTheme = theme => {
     })
   }
 };
+
+export const toggleDashboardSettingsMode = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.themePicker.TOGGLE_DASHBOARD_SETTINGS_MODE
+    })
+  }
+};

@@ -4,6 +4,7 @@ const propTypes = {
   themePicker: PropTypes.shape({
     theme: PropTypes.number.isRequired,
     inverted: PropTypes.bool.isRequired,
+    dashboardSettingsMode: PropTypes.bool.isRequired,
   })
 };
 

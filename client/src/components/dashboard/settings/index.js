@@ -19,7 +19,7 @@ import propTypes from 'prop-types';
 import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
 import {timeouts} from '../../../config/mui';
 import {updateDashboard} from '../../../store/actions/dashboardActions';
-import {resetThemePicker} from "../../../store/actions/themePickerActions";
+import {resetThemePicker, toggleDashboardSettingsMode} from "../../../store/actions/themePickerActions";
 import Notification from "../../common/Notification";
 
 class Settings extends React.Component {
@@ -45,6 +45,7 @@ class Settings extends React.Component {
         title: this.props.activeDashboard.data().title,
         default: this.props.isDefault,
       });
+      this.props.toggleDashboardSettingsMode();
     }
   }
 
@@ -285,6 +286,7 @@ const mapDispatchToProps = dispatch => {
   return {
     updateDashboard: (newDefaultDashboardId, data) => dispatch(updateDashboard(newDefaultDashboardId, data)),
     resetThemePicker: () => dispatch(resetThemePicker()),
+    toggleDashboardSettingsMode: () => dispatch(toggleDashboardSettingsMode()),
   }
 };
 

@@ -2,7 +2,8 @@ import actionTypes from '../actionTypes';
 
 const _initialState = {
   theme: 0,
-  inverted: false
+  inverted: false,
+  dashboardSettingsMode: false,
 };
 
 const themePicker = (state = _initialState, action) => {
@@ -28,8 +29,16 @@ const themePicker = (state = _initialState, action) => {
     case actionTypes.themePicker.SET_PREDEFINED_THEME:
       console.log(actionTypes.themePicker.SET_PREDEFINED_THEME);
       return {
+        ...state,
         theme: action.theme,
         inverted: action.inverted
+      };
+
+    case actionTypes.themePicker.TOGGLE_DASHBOARD_SETTINGS_MODE:
+      console.log(actionTypes.themePicker.TOGGLE_DASHBOARD_SETTINGS_MODE);
+      return {
+        ...state,
+        dashboardSettingsMode: !state.dashboardSettingsMode
       };
 
     default:

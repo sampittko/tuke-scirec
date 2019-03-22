@@ -43,7 +43,10 @@ class ProjectsList extends React.Component {
                     >
                       <ListItemText inset
                                     primary={project.data().title}
-                                    secondary={<TimestampText timestamp={project.data().modified}/>}
+                                    secondary={<TimestampText
+                                      timestamp={project.data().modified}
+                                      frontText="Naposledy upravené:"
+                                    />}
                       />
                     </ListItem>
                   ))}

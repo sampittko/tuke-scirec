@@ -11,7 +11,7 @@ const NoData = props =>
     <div style={{textAlign: 'center', opacity: 0.7}}>
       {props.isProjectLoading || props.isDashboardLoading ? (
         <Typography>
-          Projekty sa načítavajú..
+          Nástenka sa načítava..
         </Typography>
       ) : (
         <div>

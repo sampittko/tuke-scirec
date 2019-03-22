@@ -1,2 +1,4 @@
 scirec.code-workspace
 .idea
+client/src/components/common/Breadcrumb.js
+client/src/components/common/Breadcrumb.scss

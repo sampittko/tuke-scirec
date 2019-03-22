@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { dashboardConfig } from '../config/app';
+import {createMuiTheme} from '@material-ui/core/styles';
+import {dashboardConfig} from '../config/app';
 import palettes from '../config/mui/palettes';
 
 const createAppTheme = (palette, inverted) => {
@@ -18,15 +18,14 @@ const createAppTheme = (palette, inverted) => {
       palette
     })
   )
-}
+};
 
 export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) => {
   if ((isAuth && !dashboard) || isDashboardLoading) {
     return createAppTheme(palettes.LOADING);
-  }
-  else if (isAuth && dashboard) {
+  } else if (isAuth && dashboard) {
     let palette;
-    switch (dashboard !== dashboardConfig.MAX_COUNT ? dashboard.data().theme.id : themePicker.theme) {
+    switch (dashboard !== dashboardConfig.MAX_COUNT && !themePicker.dashboardSettingsMode ? dashboard.data().theme.id : themePicker.theme) {
       case 0:
         palette = palettes.SCIREC;
         break;
@@ -52,9 +51,8 @@ export const getAppTheme = (dashboard, isAuth, isDashboardLoading, themePicker) 
         palette = palettes.SCIREC;
         break;
     }
-    return createAppTheme(palette, dashboard !== dashboardConfig.MAX_COUNT ? dashboard.data().theme.inverted : themePicker.inverted);
-  }
-  else {
+    return createAppTheme(palette, dashboard !== dashboardConfig.MAX_COUNT && !themePicker.dashboardSettingsMode ? dashboard.data().theme.inverted : themePicker.inverted);
+  } else {
     return createAppTheme(palettes.SCIREC);
   }
-}
+};

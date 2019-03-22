@@ -27,12 +27,26 @@ class TimestampText extends React.Component {
   };
 
   render() {
-    return `Naposledy upravené: ${this.getHoursFromDate()}:${this.getMinutesFromDate()}, ${this.getDMYFromDate()}`;
+    let text = `${this.getHoursFromDate()}:${this.getMinutesFromDate()}, ${this.getDMYFromDate()}`;
+    if (this.props.frontText && this.props.endText) {
+      return `${this.props.frontText} ${this.props.endText} ${this.props.endText}`;
+    }
+    else if (this.props.frontText && !this.props.endText) {
+      return `${this.props.frontText} ${text}`;
+    }
+    else if (!this.props.frontText && this.props.endText) {
+      return `${text} ${this.props.endText}`;
+    }
+    else {
+      return text;
+    }
   }
 }
 
 TimestampText.propTypes = {
   timestamp: propTypes.object.isRequired,
+  frontText: propTypes.string,
+  endText: propTypes.string,
 };
 
 export default TimestampText;
