@@ -1,5 +1,3 @@
-import './index.scss';
-
 import {MuiThemeProvider, withTheme} from '@material-ui/core/styles';
 import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 

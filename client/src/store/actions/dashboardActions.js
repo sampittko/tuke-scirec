@@ -1,4 +1,4 @@
-import {deleteProjectsInDashboard, resetProjectState} from './projectActions';
+import {deleteProjectsInDashboard, getProjects, resetProjectState} from './projectActions';
 
 import actionTypes from '../actionTypes';
 import {dashboardConfig} from '../../config/app';
@@ -248,6 +248,7 @@ export const deleteDashboard = newDefaultDashboardId => {
           newDefaultDashboardId,
           deletedDashboardId: dashboardId
         }));
+        dispatch(getProjects());
       })
       .catch(error => {
         console.log(error);

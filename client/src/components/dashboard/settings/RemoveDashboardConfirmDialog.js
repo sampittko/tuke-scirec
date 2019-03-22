@@ -9,7 +9,8 @@ import {deleteDashboard} from '../../../store/actions/dashboardActions';
 import propTypes from 'prop-types';
 
 class RemoveDashboardConfirmDialog extends React.Component {
-  handleClick = () => {
+  handleSubmit = event => {
+    event.preventDefault();
     this.props.deleteDashboard(this.props.newDefaultDashboardId);
     this.props.onClick();
   };
@@ -20,40 +21,43 @@ class RemoveDashboardConfirmDialog extends React.Component {
         open={this.props.open}
         TransitionComponent={DialogTransition}
       >
-        <DialogTitle>Vymazanie nástenky</DialogTitle>
-        <DialogContent>
-          <Typography>
-            Naozaj si prajete vykonať túto akciu? <span style={{fontWeight: 500}}>Akcia je nenávratná!</span>
-          </Typography>
-          {this.props.isDefault && (
-            <div>
-              <Typography>
-                Najskôr musíte zvoliť novú predvolenú nástenku:
-              </Typography>
-              <NewDefaultDashboardSelectMenu
-                value={this.props.newDefaultDashboardId}
-                onChange={this.props.onChange}
-                dashboards={this.props.dashboards}
-                activeDashboard={this.props.activeDashboard}
-              />
-            </div>
-          )}
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={this.props.onClick}
-            disabled={this.props.isDashboardLoading}
-          >
-            Zrušiť
-          </Button>
-          <Button
-            onClick={this.handleClick}
-            disabled={this.props.newDefaultDashboardId === "" && this.props.isDefault}
-            color="secondary"
-          >
-            Vymazať {this.props.activeDashboard.data().title}
-          </Button>
-        </DialogActions>
+        <form onSubmit={this.handleSubmit}>
+          <DialogTitle>Vymazanie nástenky</DialogTitle>
+          <DialogContent>
+            <Typography>
+              Naozaj si prajete vykonať túto akciu? <span style={{fontWeight: 500}}>Akcia je nenávratná!</span>
+            </Typography>
+            {this.props.isDefault && (
+              <div>
+                <Typography>
+                  Najskôr musíte zvoliť novú predvolenú nástenku:
+                </Typography>
+                <NewDefaultDashboardSelectMenu
+                  value={this.props.newDefaultDashboardId}
+                  onChange={this.props.onChange}
+                  dashboards={this.props.dashboards}
+                  activeDashboard={this.props.activeDashboard}
+                />
+              </div>
+            )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={this.props.onClick}
+              disabled={this.props.isDashboardLoading}
+              type="button"
+            >
+              Zrušiť
+            </Button>
+            <Button
+              type="submit"
+              disabled={this.props.newDefaultDashboardId === "" && this.props.isDefault}
+              color="secondary"
+            >
+              Vymazať {this.props.activeDashboard.data().title}
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     );
   }

@@ -23,6 +23,8 @@ import {resetThemePicker} from "../../../store/actions/themePickerActions";
 import Notification from "../../common/Notification";
 
 class Settings extends React.Component {
+  _isMounted = false;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +38,7 @@ class Settings extends React.Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     if (this.props.activeDashboard) {
       document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard);
       this.setState({
@@ -65,9 +68,11 @@ class Settings extends React.Component {
         inverted: this.props.themePicker.inverted,
       }
     });
-    this.setState({
-      changesApplied: true,
-    })
+    if (this._isMounted) {
+      this.setState({
+        changesApplied: true,
+      })
+    }
   };
 
   handleDeleteClick = () => {
@@ -263,6 +268,7 @@ class Settings extends React.Component {
 
   componentWillUnmount() {
     this.props.resetThemePicker();
+    this._isMounted = false;
   }
 }
 

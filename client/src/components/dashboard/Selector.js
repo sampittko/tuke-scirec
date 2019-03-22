@@ -26,10 +26,10 @@ class Selector extends React.Component {
         ...newDashboard,
         title: this.state.title
       });
-      this.setState({
-        title: ''
-      });
     }
+    this.setState({
+      title: ''
+    });
   };
 
   handleTitleChange = event => {

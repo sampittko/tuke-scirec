@@ -40,54 +40,61 @@ class NewDashboardDialog extends React.Component {
     });
   };
 
+  handleSubmit = () => {
+    this.handleClick(null, {
+      ...this.state,
+      theme: {
+        id: this.props.themePicker.theme,
+        inverted: this.props.themePicker.inverted
+      }
+    })
+  };
+
   render() {
     return (
       <Dialog
         open={this.props.open}
         TransitionComponent={DialogTransition}
       >
-        <DialogTitle>Vytvorenie novej nástenky</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            Pre vytvorenie novej nástenky zadajte nižšie jej názov pričom jeho dĺžka musí byť od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov. Maximálny počet násteniek je {dashboardConfig.MAX_COUNT}.
-          </DialogContentText>
-          <TitleInput
-            required
-            title={this.props.title}
-            onChange={this.props.handleTitleChange}
-            label="Názov nástenky"
-            maxTitleLength={dashboardConfig.MAX_LENGTH}
-          />
-          <Switch
-            checked={this.state.default}
-            onChange={this.handleChange}
-            label="Nastaviť ako predvolenú nástenku"
-          />
-          <Divider />
-          <ThemePicker />
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={this.handleClick}
-            color="primary"
-            disabled={this.props.isDashboardLoading}
-          >
-            Zrušiť
-          </Button>
-          <Button
-            onClick={event => this.handleClick(event, {
-              ...this.state,
-              theme: {
-                id: this.props.themePicker.theme,
-                inverted: this.props.themePicker.inverted
-              }
-            })}
-            color="secondary"
-            disabled={this.props.title.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}
-          >
-            Vytvoriť
-          </Button>
-        </DialogActions>
+        <form onSubmit={this.handleSubmit}>
+          <DialogTitle>Vytvorenie novej nástenky</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Pre vytvorenie novej nástenky zadajte nižšie jej názov pričom jeho dĺžka musí byť od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov. Maximálny počet násteniek je {dashboardConfig.MAX_COUNT}.
+            </DialogContentText>
+            <TitleInput
+              required
+              title={this.props.title}
+              onChange={this.props.handleTitleChange}
+              label="Názov nástenky"
+              maxTitleLength={dashboardConfig.MAX_LENGTH}
+            />
+            <Switch
+              checked={this.state.default}
+              onChange={this.handleChange}
+              label="Nastaviť ako predvolenú nástenku"
+            />
+            <Divider />
+            <ThemePicker />
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={this.handleClick}
+              color="primary"
+              disabled={this.props.isDashboardLoading}
+              type="button"
+            >
+              Zrušiť
+            </Button>
+            <Button
+              type="submit"
+              color="secondary"
+              disabled={this.props.title.length < dashboardConfig.MIN_LENGTH || this.props.isDashboardLoading}
+            >
+              Vytvoriť
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     );
   }

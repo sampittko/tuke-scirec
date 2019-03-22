@@ -24,7 +24,7 @@ class ProjectsList extends React.Component {
   render() {
     return (
       <div className="projects-list">
-        {this.props.projects && !this.props.isProjectLoading ? (
+        {!this.props.isDashboardLoading && this.props.projects && !this.props.isProjectLoading ? (
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
               <Typography
@@ -55,6 +55,7 @@ class ProjectsList extends React.Component {
         ) : (
           <NoData
             isProjectLoading={this.props.isProjectLoading}
+            isDashboardLoading={this.props.isDashboardLoading}
             activeDashboard={this.props.activeDashboard}
           />
         )}

@@ -4,11 +4,12 @@ import React from 'react';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 import {timeouts} from '../../../config/mui';
+import projectPropTypes from "../../../propTypes/projectPropTypes";
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
     <div style={{textAlign: 'center', opacity: 0.7}}>
-      {props.isProjectLoading ? (
+      {props.isProjectLoading || props.isDashboardLoading ? (
         <Typography>
           Projekty sa načítavajú..
         </Typography>
@@ -26,7 +27,8 @@ const NoData = props =>
   </Fade>;
 
 NoData.propTypes = {
-  isProjectLoading: dashboardPropTypes.isLoading.isRequired,
+  isProjectLoading: projectPropTypes.isLoading.isRequired,
+  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   activeDashboard: propTypes.object,
 };
 
