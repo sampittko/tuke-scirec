@@ -1,7 +1,7 @@
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography} from '@material-ui/core';
 
 import DialogTransition from '../../common/DialogTransition';
-import NewDefaultDashboardSelectMenu from './DashboardNewDefaultDashboardSelectMenu';
+import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import {connect} from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';

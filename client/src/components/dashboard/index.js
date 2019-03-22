@@ -1,10 +1,10 @@
-import './Dashboard.scss';
+import './index.scss';
 
 import AddIcon from '@material-ui/icons/Add';
 import Fab from '../common/Fab';
 import {Fade} from '@material-ui/core';
-import NewProjectDialog from './DashboardNewProjectDialog';
-import ProjectsList from './projectsList/DashboardProjectsList';
+import NewProjectDialog from './NewProjectDialog';
+import ProjectsList from './projectsList';
 import React from 'react';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';

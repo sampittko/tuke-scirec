@@ -1,9 +1,9 @@
-import './DashboardSelector.scss';
+import './Selector.scss';
 
 import {Divider, FormControl, MenuItem, Select} from '@material-ui/core';
 import {changeDashboard, createDashboard} from '../../store/actions/dashboardActions';
 
-import NewDashboardDialog from './DashboardNewDashboardDialog';
+import NewDashboardDialog from './NewDashboardDialog';
 import React from 'react';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';

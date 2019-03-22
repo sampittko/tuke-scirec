@@ -3,7 +3,7 @@ import {getDashboardRoute, getDashboardSettingsRoute} from '../../../utils/dashb
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import {Divider} from '@material-ui/core';
 import InfoIcon from '@material-ui/icons/Info';
-import Link from './SidebarLink';
+import Link from './Link';
 import React from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 import {connect} from 'react-redux';

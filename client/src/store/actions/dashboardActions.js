@@ -173,7 +173,7 @@ export const updateDashboard = (newDefaultDashboardId, data) => {
         });
     }
 
-    dashboardsRef
+    await dashboardsRef
       .doc(dashboardId)
       .update({
         title: data.title,

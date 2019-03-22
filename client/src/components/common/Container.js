@@ -2,7 +2,7 @@ import './Container.scss';
 
 import {Fade, Grid, LinearProgress} from '@material-ui/core';
 
-import Appbar from './appbar/Appbar';
+import Appbar from './appbar';
 import React from 'react';
 import {connect} from 'react-redux';
 import {getDashboardRoute} from '../../utils/dashboardUtils';

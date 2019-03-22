@@ -1,4 +1,4 @@
-import './Appbar.scss';
+import './index.scss';
 
 import {Button} from '@material-ui/core';
 import {Link} from 'react-router-dom';

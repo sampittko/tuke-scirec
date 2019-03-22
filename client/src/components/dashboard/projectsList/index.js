@@ -8,10 +8,11 @@ import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import projectPropTypes from '../../../propTypes/projectPropTypes';
 import {getProjects} from '../../../store/actions/projectActions';
 import {getProjectRoute} from '../../../utils/projectUtils';
-import './DashboardProjectsList.scss';
+import './index.scss';
 
-import ProjectsListNoData from './DashboardProjectsListNoData';
-import ProjectsListCounter from "./DashboardProjectsListCounter";
+import NoData from './NoData';
+import Counter from "./Counter";
+import TimestampText from '../../common/TimestampText';
 
 class ProjectsList extends React.Component {
   componentDidMount() {
@@ -42,17 +43,17 @@ class ProjectsList extends React.Component {
                     >
                       <ListItemText inset
                                     primary={project.data().title}
-                                    secondary={`Naposledy upravené: ${(new Date(project.data().modified.toDate()).toLocaleDateString())}`}
+                                    secondary={<TimestampText timestamp={project.data().modified}/>}
                       />
                     </ListItem>
                   ))}
                 </List>
               </Paper>
-              <ProjectsListCounter projectsCount={this.props.projects.length}/>
+              <Counter projectsCount={this.props.projects.length}/>
             </div>
           </Fade>
         ) : (
-          <ProjectsListNoData
+          <NoData
             isProjectLoading={this.props.isProjectLoading}
             activeDashboard={this.props.activeDashboard}
           />

@@ -1,4 +1,4 @@
-import './ThemePicker.scss';
+import './index.scss';
 
 import {FormControl, FormControlLabel, Radio} from '@material-ui/core';
 import {invertTheme, pickTheme, setPredefinedTheme} from '../../store/actions/themePickerActions';

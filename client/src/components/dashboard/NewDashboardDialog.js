@@ -1,11 +1,11 @@
-import './DashboardNewDashboardDialog.scss';
+import './NewDashboardDialog.scss';
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider } from '@material-ui/core';
 
 import DialogTransition from '../common/DialogTransition';
 import React from 'react';
 import Switch from '../common/Switch';
-import ThemePicker from '../themePicker/ThemePicker';
+import ThemePicker from '../themePicker';
 import TitleInput from '../common/TitleInput';
 import { connect } from 'react-redux';
 import { dashboardConfig } from '../../config/app';

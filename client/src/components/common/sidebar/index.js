@@ -1,11 +1,11 @@
-import './Sidebar.scss';
+import './index.scss';
 
 import {IconButton, List, SwipeableDrawer} from '@material-ui/core';
 
-import Links from './SidebarLinks';
+import Links from './Links';
 import MenuIcon from '@material-ui/icons/Menu';
 import React from 'react';
-import UserLinks from './SidebarUserLinks';
+import UserLinks from './UserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';

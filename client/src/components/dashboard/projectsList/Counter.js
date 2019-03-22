@@ -1,7 +1,7 @@
 import {Typography} from '@material-ui/core';
 import propTypes from 'prop-types';
 import React from 'react';
-import './DashboardProjectsListCounter.scss';
+import './Counter.scss';
 
 class ProjectsListCounter extends React.Component {
   getProjectWord = () => {

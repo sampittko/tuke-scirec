@@ -1,15 +1,15 @@
-import './DashboardSettings.scss';
+import './index.scss';
 
 import {Fade, IconButton, Tooltip, Typography} from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from './ExpansionPanel';
-import NewDefaultDashboardSelectMenu from './DashboardNewDefaultDashboardSelectMenu';
+import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
 import SaveIcon from '@material-ui/icons/Save';
 import Switch from '../../common/Switch';
-import ThemePicker from '../../themePicker/ThemePicker';
+import ThemePicker from '../../themePicker';
 import TitleInput from '../../common/TitleInput';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../../config/app';
@@ -20,6 +20,7 @@ import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
 import {timeouts} from '../../../config/mui';
 import {updateDashboard} from '../../../store/actions/dashboardActions';
 import {resetThemePicker} from "../../../store/actions/themePickerActions";
+import Notification from "../../common/Notification";
 
 class Settings extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class Settings extends React.Component {
       newDefaultDashboardId: "",
       confirmDialogOpen: false,
       expandedPanel: 0,
+      changesApplied: false,
     }
   }
 
@@ -53,15 +55,18 @@ class Settings extends React.Component {
       this.props.activeDashboard.data().theme.inverted !== this.props.themePicker.inverted);
   };
 
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.updateDashboard(this.state.newDefaultDashboardId, {
+    await this.props.updateDashboard(this.state.newDefaultDashboardId, {
       title: this.state.title,
       default: this.state.default,
       theme: {
         id: this.props.themePicker.theme,
         inverted: this.props.themePicker.inverted,
       }
+    });
+    this.setState({
+      changesApplied: true,
     })
   };
 
@@ -130,9 +135,11 @@ class Settings extends React.Component {
         return (
           <div>
             {this.settingsChanged() && (
-              <Typography className="changes-not-saved">
-                Zmeny ešte neboli uložené
-              </Typography>
+              <Fade in timeout={timeouts.FADE_IN}>
+                <Typography className="changes-not-saved">
+                  Zmeny ešte neboli uložené
+                </Typography>
+              </Fade>
             )}
             <Tooltip
               title="Uložiť zmeny"
@@ -232,6 +239,7 @@ class Settings extends React.Component {
                 onClick={this.handleDialogClose}
                 onChange={this.handleSelectChange}
               />
+              {this.state.changesApplied && <Notification message="Zmeny v nastaveniach boli uložené"/>}
             </div>
           )}
         </div>
@@ -239,12 +247,17 @@ class Settings extends React.Component {
     )
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
       document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard);
       this.setState((prevState, props) => ({
         title: props.activeDashboard.data().title,
       }));
+    }
+    if (prevState.changesApplied) {
+      this.setState({
+        changesApplied: false,
+      });
     }
   }
 

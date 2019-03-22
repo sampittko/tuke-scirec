@@ -1,14 +1,14 @@
-import './Appbar.scss';
+import './index.scss';
 
 import {AppBar, Toolbar, Typography} from '@material-ui/core';
 
 import {APP_NAME} from '../../../config/app/';
-import DashboardSelector from '../../dashboard/DashboardSelector';
+import DashboardSelector from '../../dashboard/Selector';
 import {Link} from 'react-router-dom';
-import Links from './AppbarLinks';
+import Links from './Links';
 import React from 'react';
-import Sidebar from '../sidebar/Sidebar';
-import UserLinks from './AppbarUserLinks';
+import Sidebar from '../sidebar';
+import UserLinks from './UserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
 import {changeDashboardToDefault} from '../../../store/actions/dashboardActions';
 import {connect} from 'react-redux';
