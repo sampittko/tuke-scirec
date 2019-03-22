@@ -19,6 +19,7 @@ import propTypes from 'prop-types';
 import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
 import {timeouts} from '../../../config/mui';
 import {updateDashboard} from '../../../store/actions/dashboardActions';
+import {resetThemePicker} from "../../../store/actions/themePickerActions";
 
 class Settings extends React.Component {
   constructor(props) {
@@ -112,7 +113,7 @@ class Settings extends React.Component {
             title="Vymazať nástenku"
             placement="right"
             disableFocusListener
-            className="icon-tooltip"
+            className="tooltip"
           >
             <div>
               <IconButton
@@ -246,6 +247,10 @@ class Settings extends React.Component {
       }));
     }
   }
+
+  componentWillUnmount() {
+    this.props.resetThemePicker();
+  }
 }
 
 Settings.propTypes = {
@@ -254,16 +259,17 @@ Settings.propTypes = {
   isDefault: propTypes.bool,
   dashboards: propTypes.arrayOf(propTypes.object),
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  resetThemePicker: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     updateDashboard: (newDefaultDashboardId, data) => dispatch(updateDashboard(newDefaultDashboardId, data)),
+    resetThemePicker: () => dispatch(resetThemePicker()),
   }
 };
 
 const mapStateToProps = state => {
-  console.log(state.dashboard);
   return {
     activeDashboard: state.dashboard.selector.active,
     themePicker: state.themePicker,

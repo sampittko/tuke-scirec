@@ -124,6 +124,7 @@ export const createDashboard = newDashboard => {
         dispatch(createDashboardSuccess({
           createdDashboard
         }));
+        dispatch(resetProjectState());
       })
       .catch(error => {
         console.log(error);
@@ -140,7 +141,7 @@ const updateDashboardFailure = error => ({
 const updateDashboardSuccess = data => ({
   type: actionTypes.dashboard.UPDATE_DASHBOARD_SUCCESS,
   updatedDashboard: data.updatedDashboard,
-  isDefault: data.isDefault
+  newDefaultDashboardId: data.newDefaultDashboardId
 });
 
 const updateDashboardRequest = () => ({
@@ -187,7 +188,7 @@ export const updateDashboard = (newDefaultDashboardId, data) => {
       .then(result => {
         dispatch(updateDashboardSuccess({
           updatedDashboard: result,
-          isDefault: data.default
+          newDefaultDashboardId
         }));
       })
       .catch(error => {
@@ -257,7 +258,7 @@ export const deleteDashboard = newDefaultDashboardId => {
 
 export const changeDashboard = newActiveId => {
   return (dispatch) => {
-    if (newActiveId !== dashboardConfig.MAX_COUNT) {
+    if (newActiveId && newActiveId !== dashboardConfig.MAX_COUNT) {
       dispatch(resetProjectState());
     }
     dispatch({
