@@ -7,6 +7,8 @@ import TitleInput from '../common/TitleInput';
 import {addProject} from '../../store/actions/projectActions';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
+import {getNewProjectDialogDocumentTitle} from "../../utils/projectUtils";
+import {getDashboardDocumentTitle} from "../../utils/dashboardUtils";
 
 class NewProjectDialog extends React.Component {
   constructor(props) {
@@ -78,10 +80,20 @@ class NewProjectDialog extends React.Component {
       </Dialog>
     );
   }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.open && this.props.open) {
+      document.title = getNewProjectDialogDocumentTitle(this.props.activeDashboard);
+    }
+    else if (prevProps.open && !this.props.open) {
+      document.title = getDashboardDocumentTitle(this.props.activeDashboard);
+    }
+  }
 }
 
 NewProjectDialog.propTypes = {
   addProject: propTypes.func.isRequired,
+  open: propTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
@@ -90,4 +102,10 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(NewProjectDialog);
+const mapStateToProps = state => {
+  return {
+    activeDashboard: state.dashboard.selector.active,
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewProjectDialog);

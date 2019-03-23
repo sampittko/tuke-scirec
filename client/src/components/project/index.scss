@@ -1,0 +1,15 @@
+@import '../../variables';
+
+.project {
+  margin: 4 * $spacing-unit 2 * $spacing-unit;
+  width: inherit;
+  height: calc(100vh - (8 * #{$spacing-unit}) - 64px);
+}
+
+@media (max-width: $media-query-1) {
+  .project {
+    margin: 2 * $spacing-unit $spacing-unit;
+    width: inherit;
+    height: calc(100vh - (7 * #{$spacing-unit}) - 32px);
+  }
+}

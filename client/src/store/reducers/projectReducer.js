@@ -41,16 +41,6 @@ const project = (state = _initialState, action) => {
         error: action.error,
       };
 
-    case actionTypes.project.GET_PROJECT:
-      console.log(actionTypes.project.GET_PROJECT);
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          active: null,
-        }
-      };
-
     case actionTypes.project.GET_PROJECTS_REQUEST:
       console.log(actionTypes.project.GET_PROJECTS_REQUEST);
       return {
@@ -104,6 +94,16 @@ const project = (state = _initialState, action) => {
     case actionTypes.project.RESET_PROJECT_STATE:
       console.log(actionTypes.project.RESET_PROJECT_STATE);
       return _initialState;
+
+    case actionTypes.project.SET_PROJECT:
+      console.log(actionTypes.project.SET_PROJECT);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          active: action.project,
+        }
+      };
 
     default:
       return state;

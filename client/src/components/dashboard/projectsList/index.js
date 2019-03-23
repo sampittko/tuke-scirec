@@ -6,7 +6,7 @@ import {dashboardConfig} from '../../../config/app';
 import {timeouts} from '../../../config/mui';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import projectPropTypes from '../../../propTypes/projectPropTypes';
-import {getProjects} from '../../../store/actions/projectActions';
+import {getProjects, setProject} from '../../../store/actions/projectActions';
 import {getProjectRoute} from '../../../utils/projectUtils';
 import './index.scss';
 
@@ -20,6 +20,11 @@ class ProjectsList extends React.Component {
       this.props.getProjects();
     }
   }
+
+  handleClick = (event, project) => {
+    this.props.setProject(project);
+    this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route));
+  };
 
   render() {
     return (
@@ -39,7 +44,7 @@ class ProjectsList extends React.Component {
                     <ListItem button
                               key={project.id}
                               className="item"
-                              onClick={() => this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route))}
+                              onClick={(event) => this.handleClick(event, project)}
                     >
                       <ListItemText inset
                                     primary={project.data().title}
@@ -87,6 +92,7 @@ ProjectsList.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     getProjects: () => dispatch(getProjects()),
+    setProject: project => dispatch(setProject(project)),
   }
 };
 

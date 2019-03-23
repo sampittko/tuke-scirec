@@ -7,6 +7,7 @@ const routes = {
   DASHBOARD_SETTINGS: '/nastenky/:dashboardRoute/nastavenia',
   DASHBOARDS: 'nastenky',
   PROJECT: '/nastenky/:dashboardRoute/projekty/:projectRoute',
+  PROJECT_SETTINGS: '/nastenky/:dashboardRoute/projekty/:projectRoute/nastavenia',
   PROJECTS: 'projekty',
 };
 

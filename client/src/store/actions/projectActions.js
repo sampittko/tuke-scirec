@@ -50,15 +50,6 @@ export const addProject = title => {
   }
 };
 
-export const getProject = projectRoute => {
-  return (dispatch) => {
-    dispatch({
-      type: actionTypes.project.GET_PROJECT,
-      projectRoute
-    });
-  }
-};
-
 const getProjectsFailure = error => ({
   type: actionTypes.project.GET_PROJECTS_FAILURE,
   error
@@ -146,6 +137,15 @@ export const resetProjectState = () => {
   return (dispatch) => {
     dispatch({
       type: actionTypes.project.RESET_PROJECT_STATE
+    })
+  }
+};
+
+export const setProject = project => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.project.SET_PROJECT,
+      project
     })
   }
 };

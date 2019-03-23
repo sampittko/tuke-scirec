@@ -1,30 +1,34 @@
-import {Fade} from '@material-ui/core';
+import {Fade, Paper} from '@material-ui/core';
 import React from 'react';
 import {connect} from 'react-redux';
-import {getProject} from '../../store/actions/projectActions';
 import {getProjectDocumentTitle} from '../../utils/projectUtils';
 import propTypes from 'prop-types';
 import {timeouts} from '../../config/mui';
 import {withRouter} from 'react-router';
 
-class Project extends React.Component {
-  componentDidMount() {
-    this.props.getProject();
-  }
+import './index.scss';
+import Typography from "@material-ui/core/Typography";
 
+class Project extends React.Component {
   render() {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
-        <div className="project">
-          Projekt
+        <div>
+          {this.props.activeDashboard && this.props.activeProject && (
+            <Paper className="project">
+              <Typography variant="h5">
+                {this.props.activeProject.data().title}
+              </Typography>
+            </Paper>
+          )}
         </div>
       </Fade>
     );
   }
 
-  componentDidUpdate(prevProps) {
-    if (this.props.project !== prevProps.project) {
-      getProjectDocumentTitle(this.props.activeDashboard, this.props.project);
+  componentDidMount() {
+    if (this.props.activeDashboard && this.props.activeProject) {
+      document.title = getProjectDocumentTitle(this.props.activeDashboard, this.props.activeProject);
     }
   }
 }
@@ -34,17 +38,11 @@ Project.propTypes = {
   project: propTypes.object
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    getProject: () => dispatch(getProject())
-  }
-};
-
 const mapStateToProps = state => {
   return {
     activeDashboard: state.dashboard.selector.active,
-    project: state.project.data.active,
+    activeProject: state.project.data.active,
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Project));
+export default withRouter(connect(mapStateToProps)(Project));

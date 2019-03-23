@@ -255,7 +255,6 @@ class Settings extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
-      document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard);
       this.setState((prevState, props) => ({
         title: props.activeDashboard.data().title,
       }));

@@ -23,7 +23,7 @@ export const getDocumentTitleFromComponent = component => {
     default:
       return APP_NAME;
   }
-}
+};
 
 export const getRouteFromString = string =>
   dashify(

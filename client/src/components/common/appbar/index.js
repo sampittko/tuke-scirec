@@ -28,6 +28,9 @@ class AppbarComponent extends React.Component {
       if (this.props.defaultDashboardRoute !== this.props.activeDashboardRoute) {
         this.props.changeDashboardToDefault();
       }
+      else {
+        this.props.history.push(getDashboardRoute(this.props.defaultDashboardRoute));
+      }
     }
   };
 
