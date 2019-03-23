@@ -269,15 +269,6 @@ export const changeDashboard = newActiveId => {
   }
 };
 
-export const changeDashboardToDefault = () => {
-  return (dispatch) => {
-    dispatch(resetProjectState());
-    dispatch({
-      type: actionTypes.dashboard.CHANGE_DASHBOARD_TO_DEFAULT
-    })
-  }
-};
-
 export const resetDashboardState = () => {
   return (dispatch) => {
     dispatch({

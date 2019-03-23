@@ -8,6 +8,7 @@ import {withRouter} from 'react-router';
 
 import './index.scss';
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 class Project extends React.Component {
   render() {
@@ -15,11 +16,42 @@ class Project extends React.Component {
       <Fade in timeout={timeouts.FADE_IN}>
         <div>
           {this.props.activeDashboard && this.props.activeProject && (
-            <Paper className="project">
-              <Typography variant="h5">
-                {this.props.activeProject.data().title}
-              </Typography>
-            </Paper>
+            <div className="project">
+              <Grid container>
+                <Grid item>
+                  <Typography
+                    variant="h5"
+                    className="page-title"
+                  >
+                    Projekt <span
+                    className="text-bolder">{this.props.activeProject.data().title}</span>
+                  </Typography>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid item xs={12} sm={4} className="col">
+                  <Typography
+                    variant="h6"
+                    className="page-title"
+                  >
+                    Prehľad
+                  </Typography>
+                  <Paper className="paper">
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={8} className="col">
+                  <Typography
+                    variant="h6"
+                    className="page-title"
+                  >
+                    Najnovšia verzia
+                  </Typography>
+                  <Paper className="paper">
+
+                  </Paper>
+                </Grid>
+              </Grid>
+            </div>
           )}
         </div>
       </Fade>
@@ -35,7 +67,7 @@ class Project extends React.Component {
 
 Project.propTypes = {
   activeDashboard: propTypes.object,
-  project: propTypes.object
+  activeProject: propTypes.object
 };
 
 const mapStateToProps = state => {

@@ -20,17 +20,12 @@ import {withRouter} from 'react-router';
 
 class AppbarComponent extends React.Component {
   getBrandRoute = () =>
-    this.props.isAuth && this.props.dashboards ? getDashboardRoute(this.props.defaultDashboardRoute) : routes.HOME;
+    this.props.isAuth && this.props.dashboards ? getDashboardRoute(this.props.activeDashboardRoute) : routes.HOME;
 
   handleClick = event => {
     if (this.props.isAuth) {
       event.preventDefault();
-      if (this.props.defaultDashboardRoute !== this.props.activeDashboardRoute) {
-        this.props.changeDashboardToDefault();
-      }
-      else {
-        this.props.history.push(getDashboardRoute(this.props.defaultDashboardRoute));
-      }
+      this.props.history.push(getDashboardRoute(this.props.activeDashboardRoute));
     }
   };
 
@@ -87,14 +82,7 @@ AppbarComponent.propTypes = {
   history: propTypes.object.isRequired,
   activeDashboardRoute: propTypes.string,
   dashboards: propTypes.arrayOf(propTypes.object),
-  defaultDashboardRoute: propTypes.string,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    changeDashboardToDefault: () => dispatch(changeDashboardToDefault()),
-  }
 };
 
 const mapStateToProps = state => {
@@ -102,9 +90,8 @@ const mapStateToProps = state => {
     isAuth: state.auth.success,
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
     dashboards: state.dashboard.data.list,
-    defaultDashboardRoute: state.dashboard.data.default ? state.dashboard.data.default.data().route : "",
     isDashboardLoading: state.dashboard.isLoading,
   }
 };
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AppbarComponent));
+export default withRouter(connect(mapStateToProps)(AppbarComponent));
