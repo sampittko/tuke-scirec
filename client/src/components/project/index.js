@@ -1,14 +1,16 @@
-import {Fade, Paper} from '@material-ui/core';
+import './index.scss';
+
+import {Fade} from '@material-ui/core';
 import React from 'react';
 import {connect} from 'react-redux';
 import {getProjectDocumentTitle} from '../../utils/projectUtils';
 import propTypes from 'prop-types';
 import {timeouts} from '../../config/mui';
 import {withRouter} from 'react-router';
-
-import './index.scss';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import Overview from "./Overview";
+import Version from "./version";
 
 class Project extends React.Component {
   render() {
@@ -30,25 +32,10 @@ class Project extends React.Component {
               </Grid>
               <Grid container>
                 <Grid item xs={12} sm={4} className="col">
-                  <Typography
-                    variant="h6"
-                    className="page-title"
-                  >
-                    Prehľad
-                  </Typography>
-                  <Paper className="paper">
-                  </Paper>
+                  <Overview/>
                 </Grid>
                 <Grid item xs={12} sm={8} className="col">
-                  <Typography
-                    variant="h6"
-                    className="page-title"
-                  >
-                    Najnovšia verzia
-                  </Typography>
-                  <Paper className="paper">
-
-                  </Paper>
+                  <Version/>
                 </Grid>
               </Grid>
             </div>

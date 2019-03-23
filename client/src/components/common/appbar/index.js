@@ -10,7 +10,6 @@ import React from 'react';
 import Sidebar from '../sidebar';
 import UserLinks from './UserLinks';
 import authPropTypes from '../../../propTypes/authPropTypes';
-import {changeDashboardToDefault} from '../../../store/actions/dashboardActions';
 import {connect} from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import {getDashboardRoute} from '../../../utils/dashboardUtils';
