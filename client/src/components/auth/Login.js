@@ -17,14 +17,17 @@ import {timeouts} from '../../config/mui';
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    // TODO remove test login credentials
     this.state = {
-      email: '',
-      password: '',
+      email: 'sampittko@gmail.com',
+      password: 'testtest',
     };
   }
 
   componentDidMount() {
     document.title = getDocumentTitleFromComponent(this);
+    // TODO remove automatic login dispatch
+    this.props.login(this.state);
   }
 
   handleForgottenPassword = () => {

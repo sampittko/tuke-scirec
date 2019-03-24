@@ -13,6 +13,12 @@ import Overview from "./Overview";
 import Version from "./version";
 
 class Project extends React.Component {
+  componentDidMount() {
+    if (this.props.activeDashboard && this.props.activeProject) {
+      document.title = getProjectDocumentTitle(this.props.activeDashboard, this.props.activeProject);
+    }
+  }
+
   render() {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
@@ -43,12 +49,6 @@ class Project extends React.Component {
         </div>
       </Fade>
     );
-  }
-
-  componentDidMount() {
-    if (this.props.activeDashboard && this.props.activeProject) {
-      document.title = getProjectDocumentTitle(this.props.activeDashboard, this.props.activeProject);
-    }
   }
 }
 

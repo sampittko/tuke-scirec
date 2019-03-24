@@ -1,8 +1,17 @@
 @import '../../../variables';
 
-span[class*="Typography-subtitle"] {
-    max-height: 100%;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
+.link-component {
+    span[class*="Typography-subtitle"] {
+        max-height: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .sub-menu {
+        margin-left: 3 * $spacing-unit;
+        border-left: 1px solid rgba(0, 0, 0, 0.12);
+        padding-left: $spacing-unit;
+        margin-bottom: $spacing-unit;
+    }
 }

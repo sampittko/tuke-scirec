@@ -149,3 +149,11 @@ export const setProject = project => {
     })
   }
 };
+
+export const removeActiveProject = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.project.REMOVE_ACTIVE_PROJECT,
+    })
+  }
+};

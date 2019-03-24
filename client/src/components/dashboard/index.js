@@ -12,6 +12,7 @@ import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import {getDashboardDocumentTitle} from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import {timeouts} from '../../config/mui';
+import {removeActiveProject} from "../../store/actions/projectActions";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -24,6 +25,9 @@ class Dashboard extends React.Component {
   componentDidMount() {
     if (this.props.activeDashboard) {
       this.setDocumentTitle();
+    }
+    if (this.props.activeProject) {
+      this.props.removeActiveProject();
     }
   }
 
@@ -78,11 +82,18 @@ Dashboard.propTypes = {
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    removeActiveProject: () => dispatch(removeActiveProject()),
+  }
+};
+
 const mapStateToProps = state => {
   return {
     activeDashboard: state.dashboard.selector.active,
     isDashboardLoading: state.dashboard.isLoading,
+    activeProject: state.project.data.active,
   }
 };
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

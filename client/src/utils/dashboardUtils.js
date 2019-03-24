@@ -14,7 +14,7 @@ export const getActiveDashboard = (dashboards, activeId, selector) => {
   else {
     return dashboardConfig.MAX_COUNT;
   }
-}
+};
 
 export const getDashboardRoute = dashboardRoute =>
   dashboardRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}` : dashboardRoute;

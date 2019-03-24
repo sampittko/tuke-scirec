@@ -5,8 +5,11 @@
   padding: 4 * $spacing-unit;
 
   .paper {
+    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
     margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
-    height: calc(100vh - 128px - 47.2px - (8 * #{$spacing-unit}));
+    padding: 3 * $spacing-unit;
+    height: $height;
+    max-height: $height;
   }
 }
 

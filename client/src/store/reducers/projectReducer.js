@@ -105,6 +105,16 @@ const project = (state = _initialState, action) => {
         }
       };
 
+    case actionTypes.project.REMOVE_ACTIVE_PROJECT:
+      console.log(actionTypes.project.REMOVE_ACTIVE_PROJECT);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          active: null,
+        }
+      };
+
     default:
       return state;
   }

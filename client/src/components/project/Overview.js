@@ -3,11 +3,20 @@ import propTypes from 'prop-types';
 import {Paper} from "@material-ui/core";
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import './Overview.scss';
 
 class Overview extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false,
+    }
+  }
+
   render() {
     return (
-      <div>
+      <div className="overview">
         <Typography
           variant="h6"
           className="page-title"
@@ -15,6 +24,37 @@ class Overview extends React.Component {
           Prehľad
         </Typography>
         <Paper className="paper">
+          <TextField
+            label="Stav projektu"
+            InputProps={{readOnly: this.state.editMode}}
+            defaultValue="nešpecifikované"
+            className="input"
+            fullWidth
+          />
+          <TextField
+            label="Termín odovzdania"
+            InputProps={{readOnly: this.state.editMode}}
+            defaultValue="nešpecifikované"
+            className="input"
+            fullWidth
+          />
+          <TextField
+            label="Adresát"
+            InputProps={{readOnly: this.state.editMode}}
+            defaultValue="nešpecifikované"
+            className="input"
+            fullWidth
+          />
+          <TextField
+            label="Popis"
+            InputProps={{readOnly: this.state.editMode}}
+            defaultValue="nešpecifikované"
+            className="input"
+            rows={4}
+            rowsMax={4}
+            multiline
+            fullWidth
+          />
         </Paper>
       </div>
     );
