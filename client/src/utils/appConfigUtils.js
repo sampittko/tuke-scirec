@@ -1,11 +1,11 @@
-import { APP_NAME, TITLE_BASE } from '../config/app';
+import {APP_NAME, DOCUMENT_TITLE_BASE} from '../config/app';
 
 import dashify from 'dashify';
 import removeAccents from 'remove-accents';
 import titles from '../config/app/titles';
 
 export const appendTitle = title =>
-  `${TITLE_BASE} ${title}`;
+  `${DOCUMENT_TITLE_BASE} ${title}`;
 
 const getComponentName = component =>
   component._reactInternalFiber.elementType.name;

@@ -6,11 +6,12 @@ import InfoIcon from '@material-ui/icons/Info';
 import Link from './Link';
 import React from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
+import ArchiveIcon from '@material-ui/icons/Archive';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
-import {getProjectRoute, getProjectSettingsRoute} from "../../../utils/projectUtils";
+import {getProjectRoute, getProjectsArchiveRoute, getProjectSettingsRoute} from "../../../utils/projectUtils";
 
 const UserLinks = props =>
   <div>
@@ -37,6 +38,12 @@ const UserLinks = props =>
         </div>
       )}
     </Link>
+    <Link
+      location={props.location}
+      route={getProjectsArchiveRoute(props.activeDashboardRoute)}
+      text="Archív projektov"
+      icon={<ArchiveIcon/>}
+    />
     <Link
       location={props.location}
       route={getDashboardSettingsRoute(props.activeDashboardRoute)}

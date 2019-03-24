@@ -1,6 +1,8 @@
 export const APP_NAME = "SCIREC";
 
-export const TITLE_BASE = APP_NAME + " -";
+export const DOCUMENT_TITLE_BASE = APP_NAME + " -";
+
+export const SUPPORTED_FILE_TYPES = '.zip, .rar, .pdf, .doc, .docx, .tex';
 
 export const dashboardConfig = {
   MAX_COUNT: 10,

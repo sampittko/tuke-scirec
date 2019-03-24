@@ -46,12 +46,10 @@
 //     }
 //   }
 //
-//   // TODO settingsChanged()
 //   settingsChanged = () => {
 //     return false;
 //   };
 //
-//   // TODO handleSubmit()
 //   handleSubmit = async (event) => {
 //     event.preventDefault();
 //     // await this.props.updateProject(this.state.newDefaultDashboardId, {

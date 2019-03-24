@@ -11,6 +11,7 @@ class Overview extends React.Component {
     super(props);
     this.state = {
       editMode: false,
+      readOnly: true,
     }
   }
 
@@ -26,28 +27,31 @@ class Overview extends React.Component {
         <Paper className="paper">
           <TextField
             label="Stav projektu"
-            InputProps={{readOnly: this.state.editMode}}
+            InputProps={{readOnly: this.state.readOnly}}
             defaultValue="nešpecifikované"
             className="input"
             fullWidth
           />
           <TextField
             label="Termín odovzdania"
-            InputProps={{readOnly: this.state.editMode}}
-            defaultValue="nešpecifikované"
+            InputProps={{readOnly: this.state.readOnly}}
+            defaultValue="2012-03-02"
             className="input"
             fullWidth
+            id="date"
+            type="date"
+            InputLabelProps={{shrink: true}}
           />
           <TextField
             label="Adresát"
-            InputProps={{readOnly: this.state.editMode}}
+            InputProps={{readOnly: this.state.readOnly}}
             defaultValue="nešpecifikované"
             className="input"
             fullWidth
           />
           <TextField
             label="Popis"
-            InputProps={{readOnly: this.state.editMode}}
+            InputProps={{readOnly: this.state.readOnly}}
             defaultValue="nešpecifikované"
             className="input"
             rows={4}

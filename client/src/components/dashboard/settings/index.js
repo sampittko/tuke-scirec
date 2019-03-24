@@ -233,7 +233,7 @@ class Settings extends React.Component {
                   panelContent={(
                     <Typography>
                       Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v
-                      nej nachádzajú.
+                      nej nachádzajú vrátane projektov v archíve.
                     </Typography>
                   )}
                   panelActions={this.getPanelActions()}
