@@ -258,7 +258,7 @@ export const deleteProject = () => {
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const projectId = state.project.data.active.id;
 
-    projectsRef
+    await projectsRef
       .doc(projectId)
       .delete()
       .then(() => {

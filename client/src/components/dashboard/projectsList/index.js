@@ -29,7 +29,7 @@ class ProjectsList extends React.Component {
   render() {
     return (
       <div className="projects-list">
-        {!this.props.isDashboardLoading && this.props.projects && !this.props.isProjectLoading ? (
+        {!this.props.isDashboardLoading && this.props.projects && this.props.projects.length > 0 && !this.props.isProjectLoading ? (
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
               <Typography

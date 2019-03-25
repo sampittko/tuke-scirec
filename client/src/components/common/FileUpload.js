@@ -1,7 +1,6 @@
 import React from 'react';
-import {FormControl, FormControlLabel, IconButton,} from "@material-ui/core";
+import {FormControl, FormControlLabel, IconButton, List} from "@material-ui/core";
 import {SUPPORTED_FILE_TYPES} from "../../config/app";
-import List from "../project/version";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -29,7 +28,6 @@ class FileUpload extends React.Component {
     });
   };
 
-  // TOFIX re-insertion to DOM tree after files selection confirmation
   render() {
     return (
       <div>

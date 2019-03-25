@@ -6,12 +6,14 @@ import {connect} from 'react-redux';
 import {deleteProject} from '../../../store/actions/projectActions';
 import projectPropTypes from '../../../propTypes/projectPropTypes';
 import propTypes from 'prop-types';
+import {getDashboardRoute} from "../../../utils/dashboardUtils";
 
 class RemoveProjectConfirmDialog extends React.Component {
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.deleteProject();
+    await this.props.deleteProject();
     this.props.onClick();
+    this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
   };
 
   render() {
@@ -51,11 +53,13 @@ RemoveProjectConfirmDialog.propTypes = {
   isProjectLoading: projectPropTypes.isLoading.isRequired,
   deleteProject: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
+  history: propTypes.object.isRequired,
+  activeDashboard: propTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteProject: () => dispatch(deleteProject()),
+    deleteProject: async () => dispatch(deleteProject()),
   }
 };
 

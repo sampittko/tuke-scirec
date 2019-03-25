@@ -5,5 +5,6 @@ export const firebaseErrorCodes = {
     WEAK_PASSWORD: 'auth/weak-password',
     USER_NOT_FOUND: 'auth/user-not-found',
     EMAIL_ALREADY_IN_USE: 'auth/email-already-in-use',
+    NETWORK_REQUEST_FAILED: 'auth/network-request-failed',
   }
 };

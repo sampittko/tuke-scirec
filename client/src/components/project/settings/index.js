@@ -10,12 +10,11 @@ import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import {timeouts} from '../../../config/mui';
 import Notification from "../../common/Notification";
-import {getProjectSettingsDocumentTitle} from "../../../utils/projectUtils";
+import {getProjectSettingsDocumentTitle, getProjectSettingsRoute} from "../../../utils/projectUtils";
 import {projectConfig} from "../../../config/app";
 import RemoveProjectConfirmDialog from "./RemoveProjectConfirmDialog";
 import TitleInput from '../../common/TitleInput';
 import {updateProjectTitle} from "../../../store/actions/projectActions";
-import {getDashboardRoute} from "../../../utils/dashboardUtils";
 
 class Settings extends React.Component {
   _isMounted = false;
@@ -133,7 +132,6 @@ class Settings extends React.Component {
     }
   };
 
-  // TODO handle new project route
   render() {
     return (
       <Fade in timeout={timeouts.FADE_IN}>
@@ -183,9 +181,10 @@ class Settings extends React.Component {
               <RemoveProjectConfirmDialog
                 open={this.state.confirmDialogOpen}
                 onClick={this.handleDialogClose}
+                history={this.props.history}
+                activeDashboard={this.props.activeDashboard}
               />
-              {this.state.changesSaved && <Notification
-                message="Zmeny v nastaveniach boli uložené"/> && this.props.history.push(getDashboardRoute(this.props.activeDashboard))}
+              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli uložené"/>}
             </div>
           )}
         </div>
@@ -194,6 +193,10 @@ class Settings extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.activeProject && this.props.activeProject && prevProps.activeProject.data().title !== this.props.activeProject.data().title) {
+      this.props.history.push(getProjectSettingsRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
+      document.title = getProjectSettingsDocumentTitle(this.props.activeDashboard, this.props.activeProject)
+    }
     if (prevState.changesSaved) {
       this.setState({
         changesSaved: false,
