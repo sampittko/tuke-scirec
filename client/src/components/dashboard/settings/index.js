@@ -33,7 +33,7 @@ class Settings extends React.Component {
       newDefaultDashboardId: "",
       confirmDialogOpen: false,
       expandedPanel: 0,
-      changesApplied: false,
+      changesSaved: false,
     }
   }
 
@@ -71,7 +71,7 @@ class Settings extends React.Component {
     });
     if (this._isMounted) {
       this.setState({
-        changesApplied: true,
+        changesSaved: true,
       })
     }
   };
@@ -245,7 +245,7 @@ class Settings extends React.Component {
                 onClick={this.handleDialogClose}
                 onChange={this.handleSelectChange}
               />
-              {this.state.changesApplied && <Notification message="Zmeny v nastaveniach boli uložené"/>}
+              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli uložené"/>}
             </div>
           )}
         </div>
@@ -259,9 +259,9 @@ class Settings extends React.Component {
         title: props.activeDashboard.data().title,
       }));
     }
-    if (prevState.changesApplied) {
+    if (prevState.changesSaved) {
       this.setState({
-        changesApplied: false,
+        changesSaved: false,
       });
     }
   }

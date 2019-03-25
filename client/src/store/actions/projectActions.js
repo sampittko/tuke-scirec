@@ -1,6 +1,7 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import {getRouteFromString} from '../../utils/appConfigUtils';
+import {projectConfig} from "../../config/app";
 
 const addProjectFailure = error => ({
   type: actionTypes.project.ADD_PROJECT_FAILURE,
@@ -31,7 +32,11 @@ export const addProject = title => {
         created: new Date(),
         modified: new Date(),
         dashboard: dashboardsRef.doc(dashboardId),
-        title
+        title,
+        state: projectConfig.defaultValues.STATE,
+        deadline: projectConfig.defaultValues.DEADLINE,
+        description: projectConfig.defaultValues.DESCRIPTION,
+        recipient: projectConfig.defaultValues.RECIPIENT,
       })
       .then(result => {
         return projectsRef
@@ -129,6 +134,55 @@ export const deleteProjectsInDashboard = () => {
       .catch(error => {
         console.log(error);
         dispatch(deleteProjectsInDashboardFailure(error));
+      });
+  }
+};
+
+const updateProjectFailure = error => ({
+  type: actionTypes.project.UPDATE_PROJECT_FAILURE,
+  error
+});
+
+const updateProjectSuccess = data => ({
+  type: actionTypes.project.UPDATE_PROJECT_SUCCESS,
+  updatedProject: data.updatedProject
+});
+
+const updateProjectRequest = () => ({
+  type: actionTypes.project.UPDATE_PROJECT_REQUEST
+});
+
+export const updateProject = data => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(updateProjectRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+    const projectId = state.project.data.active.id;
+
+    await projectsRef
+      .doc(projectId)
+      .update({
+        state: data.state,
+        deadline: data.deadline,
+        recipient: data.recipient,
+        description: data.description,
+        modified: new Date(),
+      })
+      .then(() => {
+        return projectsRef
+          .doc(projectId)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateProjectSuccess({
+          updatedProject: result
+        }))
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(updateProjectFailure(error));
       });
   }
 };

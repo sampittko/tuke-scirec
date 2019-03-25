@@ -27,6 +27,10 @@ const firestoreCollections = {
       MODIFIED: 'modified',
       TITLE: 'title',
       DASHBOARD: 'dashboard',
+      STATE: 'state',
+      DEADLINE: 'deadline',
+      DESCRIPTION: 'description',
+      RECIPIENT: 'recipient',
     }
   }
 };

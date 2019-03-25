@@ -6,6 +6,7 @@
 
   .paper {
     $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
+    position: relative;
     margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
     padding: 3 * $spacing-unit;
     height: $height;

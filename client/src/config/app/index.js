@@ -21,4 +21,10 @@ export const dashboardConfig = {
 export const projectConfig = {
   MIN_LENGTH: 3,
   MAX_LENGTH: 80,
+  defaultValues: {
+    STATE: 'nešpecifikovaný',
+    DEADLINE: '',
+    DESCRIPTION: 'nešpecifikovaný',
+    RECIPIENT: 'nešpecifikovaný',
+  }
 };

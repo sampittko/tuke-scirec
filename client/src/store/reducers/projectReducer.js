@@ -91,6 +91,33 @@ const project = (state = _initialState, action) => {
         error: action.error
       };
 
+    case actionTypes.project.UPDATE_PROJECT_REQUEST:
+      console.log(actionTypes.project.UPDATE_PROJECT_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.project.UPDATE_PROJECT_SUCCESS:
+      console.log(actionTypes.project.UPDATE_PROJECT_SUCCESS);
+      const updatedProjectIndex = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+      return {
+        ...state,
+        data: {
+          list: [...state.data.list.slice(0, updatedProjectIndex), action.updatedProject, ...state.data.list.slice(updatedProjectIndex + 1)],
+          active: action.updatedProject,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.project.UPDATE_PROJECT_FAILURE:
+      console.log(actionTypes.project.UPDATE_PROJECT_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
     case actionTypes.project.RESET_PROJECT_STATE:
       console.log(actionTypes.project.RESET_PROJECT_STATE);
       return _initialState;
