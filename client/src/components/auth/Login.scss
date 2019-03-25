@@ -1,62 +1,13 @@
 @import '../../variables';
 
-.login {
-    width: $small-page-width;
-    min-width: $small-page-min-width;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px auto;
-    padding: {
-        top: 23px;
-        bottom: 23px;
-    }
+.login .action-buttons {
+  margin-top: 2 * $spacing-unit;
 
-    input {
-        display: block;
-    }
+  button[class*="Primary"] {
+    width: 105.11px !important;
+  }
 
-    div[class*="MuiFormControl"] {
-        display: block;
-        width: 280px;
-
-        & > div[class*="MuiInputBase"] {
-            width: 100%;
-        }
-    }
-
-    .header {
-        img {
-            width: 250px;
-            height: auto;
-            padding-bottom: 25px;
-        }
-
-        text-align: center;
-    }
-
-    .action-buttons {
-        margin-top: 2 * $spacing-unit;
-
-        button[class*="Primary"] {
-            width: 105.11px !important;
-        }
-
-        button + button {
-            margin-left: 10px;
-        }
-    }
-}
-
-@media (max-width: $media-query-1) {
-    .login {
-        margin: 2 * $spacing-unit auto;
-    }
-}
-
-@media (max-width: $media-query-2) {
-    .login {
-        margin: 2 * $spacing-unit $spacing-unit;
-        width: $small-page-media-query-2-width;
+  button + button {
+    margin-left: 10px;
     }
 }

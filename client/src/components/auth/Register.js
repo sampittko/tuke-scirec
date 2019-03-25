@@ -1,3 +1,4 @@
+import './auth.scss';
 import './Register.scss';
 
 import {Button, Checkbox, Fade, Paper, TextField, Typography} from '@material-ui/core';
@@ -61,7 +62,7 @@ class Register extends React.Component {
   render() {
     return !this.props.isAuth ? (
       <Fade in timeout={timeouts.FADE_IN}>
-        <Paper className="register">
+        <Paper className="auth register">
           <div className="header">
             <img src={logo} alt="SCIREC logo"/>
             <Typography variant="h5">

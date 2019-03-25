@@ -138,23 +138,23 @@ export const deleteProjectsInDashboard = () => {
   }
 };
 
-const updateProjectFailure = error => ({
-  type: actionTypes.project.UPDATE_PROJECT_FAILURE,
+const updateProjectOverviewFailure = error => ({
+  type: actionTypes.project.UPDATE_PROJECT_OVERVIEW_FAILURE,
   error
 });
 
-const updateProjectSuccess = data => ({
-  type: actionTypes.project.UPDATE_PROJECT_SUCCESS,
+const updateProjectOverviewSuccess = data => ({
+  type: actionTypes.project.UPDATE_PROJECT_OVERVIEW_SUCCESS,
   updatedProject: data.updatedProject
 });
 
-const updateProjectRequest = () => ({
-  type: actionTypes.project.UPDATE_PROJECT_REQUEST
+const updateProjectOverviewRequest = () => ({
+  type: actionTypes.project.UPDATE_PROJECT_OVERVIEW_REQUEST
 });
 
-export const updateProject = data => {
+export const updateProjectOverview = data => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
-    dispatch(updateProjectRequest());
+    dispatch(updateProjectOverviewRequest());
 
     const firestore = getFirestore();
     const state = getState();
@@ -176,13 +176,99 @@ export const updateProject = data => {
           .get()
       })
       .then(result => {
-        dispatch(updateProjectSuccess({
+        dispatch(updateProjectOverviewSuccess({
           updatedProject: result
         }))
       })
       .catch(error => {
         console.log(error);
-        dispatch(updateProjectFailure(error));
+        dispatch(updateProjectOverviewFailure(error));
+      });
+  }
+};
+
+const updateProjectTitleFailure = error => ({
+  type: actionTypes.project.UPDATE_PROJECT_TITLE_FAILURE,
+  error
+});
+
+const updateProjectTitleSuccess = data => ({
+  type: actionTypes.project.UPDATE_PROJECT_TITLE_SUCCESS,
+  updatedProject: data.updatedProject
+});
+
+const updateProjectTitleRequest = () => ({
+  type: actionTypes.project.UPDATE_PROJECT_TITLE_REQUEST
+});
+
+export const updateProjectTitle = title => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(updateProjectTitleRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+    const projectId = state.project.data.active.id;
+
+    await projectsRef
+      .doc(projectId)
+      .update({
+        title,
+        route: getRouteFromString(title),
+        modified: new Date(),
+      })
+      .then(() => {
+        return projectsRef
+          .doc(projectId)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateProjectTitleSuccess({
+          updatedProject: result
+        }))
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(updateProjectTitleFailure(error));
+      });
+  }
+};
+
+const deleteProjectFailure = error => ({
+  type: actionTypes.project.DELETE_PROJECT_FAILURE,
+  error
+});
+
+const deleteProjectSuccess = data => ({
+  type: actionTypes.project.DELETE_PROJECT_SUCCESS,
+  deletedProjectId: data.deletedProjectId
+});
+
+const deleteProjectRequest = () => ({
+  type: actionTypes.project.DELETE_PROJECT_REQUEST
+});
+
+// TODO remove corresponding project versions
+export const deleteProject = () => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(deleteProjectRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+    const projectId = state.project.data.active.id;
+
+    projectsRef
+      .doc(projectId)
+      .delete()
+      .then(() => {
+        dispatch(deleteProjectSuccess({
+          deletedProjectId: projectId
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(deleteProjectFailure(error));
       });
   }
 };

@@ -7,7 +7,6 @@ import MenuItem from './MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React from 'react';
 import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
-import SettingsIcon from '@material-ui/icons/Settings';
 import {connect} from 'react-redux';
 import {logout} from '../../../store/actions/authActions';
 import propTypes from 'prop-types';
@@ -48,11 +47,6 @@ class UserLinks extends React.Component {
             text={this.props.userEmail ? this.props.userEmail : "Odhlasujem.."}
           />
           <Divider/>
-          <MenuItem
-            icon={<SettingsIcon/>}
-            text="Nastavenia účtu"
-            onClick={this.handleClose}
-          />
           <MenuItem
             icon={<RemoveCircleIcon/>}
             text="Odhlásiť"

@@ -10,7 +10,6 @@ const routes = {
   PROJECT_SETTINGS: '/nastenky/:dashboardRoute/projekty/:projectRoute/nastavenia',
   PROJECT_VERSIONS_LIST: '/nastenky/:dashboardRoute/projekty/:projectRoute/verzie',
   PROJECT_VERSION: '/nastenky/:dashboardRoute/projekty/:projectRoute/verzie/:versionId',
-  PROJECTS_ARCHIVE: '/nastenky/:dashboardRoute/projekty/archiv',
   PROJECTS: 'projekty',
 };
 

@@ -1,5 +1,4 @@
 import './ExpansionPanel.scss';
-
 import {
   Divider,
   ExpansionPanel,
@@ -8,7 +7,6 @@ import {
   ExpansionPanelSummary,
   Typography
 } from '@material-ui/core';
-
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import React from 'react';
 import propTypes from 'prop-types';

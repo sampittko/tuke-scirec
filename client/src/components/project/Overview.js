@@ -8,7 +8,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
 import './Overview.scss';
-import {updateProject} from "../../store/actions/projectActions";
+import {updateProjectOverview} from "../../store/actions/projectActions";
 import Notification from "../common/Notification";
 
 class Overview extends React.Component {
@@ -39,7 +39,7 @@ class Overview extends React.Component {
         });
         break;
       case 'save':
-        await this.props.updateProject({
+        await this.props.updateProjectOverview({
           state: this.state.state,
           deadline: this.state.deadline,
           recipient: this.state.recipient,
@@ -183,7 +183,7 @@ Overview.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateProject: async (data) => dispatch(updateProject(data)),
+    updateProjectOverview: async (data) => dispatch(updateProjectOverview(data)),
   }
 };
 

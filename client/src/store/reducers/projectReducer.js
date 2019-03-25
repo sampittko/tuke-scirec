@@ -91,27 +91,80 @@ const project = (state = _initialState, action) => {
         error: action.error
       };
 
-    case actionTypes.project.UPDATE_PROJECT_REQUEST:
-      console.log(actionTypes.project.UPDATE_PROJECT_REQUEST);
+    case actionTypes.project.UPDATE_PROJECT_OVERVIEW_REQUEST:
+      console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
-    case actionTypes.project.UPDATE_PROJECT_SUCCESS:
-      console.log(actionTypes.project.UPDATE_PROJECT_SUCCESS);
-      const updatedProjectIndex = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+    case actionTypes.project.UPDATE_PROJECT_OVERVIEW_SUCCESS:
+      console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_SUCCESS);
+      const updatedProjectIndex1 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
         data: {
-          list: [...state.data.list.slice(0, updatedProjectIndex), action.updatedProject, ...state.data.list.slice(updatedProjectIndex + 1)],
+          list: [...state.data.list.slice(0, updatedProjectIndex1), action.updatedProject, ...state.data.list.slice(updatedProjectIndex1 + 1)],
           active: action.updatedProject,
         },
         isLoading: false,
       };
 
-    case actionTypes.project.UPDATE_PROJECT_FAILURE:
-      console.log(actionTypes.project.UPDATE_PROJECT_FAILURE);
+    case actionTypes.project.UPDATE_PROJECT_OVERVIEW_FAILURE:
+      console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
+    case actionTypes.project.UPDATE_PROJECT_TITLE_REQUEST:
+      console.log(actionTypes.project.UPDATE_PROJECT_TITLE_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.project.UPDATE_PROJECT_TITLE_SUCCESS:
+      console.log(actionTypes.project.UPDATE_PROJECT_TITLE_SUCCESS);
+      const updatedProjectIndex2 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+      return {
+        ...state,
+        data: {
+          list: [...state.data.list.slice(0, updatedProjectIndex2), action.updatedProject, ...state.data.list.slice(updatedProjectIndex2 + 1)],
+          active: action.updatedProject,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.project.UPDATE_PROJECT_TITLE_FAILURE:
+      console.log(actionTypes.project.UPDATE_PROJECT_TITLE_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
+    case actionTypes.project.DELETE_PROJECT_REQUEST:
+      console.log(actionTypes.project.DELETE_PROJECT_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.project.DELETE_PROJECT_SUCCESS:
+      console.log(actionTypes.project.DELETE_PROJECT_SUCCESS);
+      return {
+        ...state,
+        data: {
+          list: state.data.list.filter(project => project.id !== action.deletedProjectId),
+          active: null,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.project.DELETE_PROJECT_FAILURE:
+      console.log(actionTypes.project.DELETE_PROJECT_FAILURE);
       return {
         ...state,
         isLoading: false,

@@ -1,9 +1,7 @@
-import './index.scss';
-
+import '../../common/settings/settings.scss';
 import {Fade, IconButton, Tooltip, Typography} from '@material-ui/core';
-
 import DeleteIcon from '@material-ui/icons/Delete';
-import ExpansionPanel from './ExpansionPanel';
+import ExpansionPanel from '../../common/settings/ExpansionPanel';
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
@@ -174,11 +172,8 @@ class Settings extends React.Component {
       <Fade in timeout={timeouts.FADE_IN}>
         <div>
           {this.props.dashboards && (
-            <div className="dashboard-settings">
-              <Typography
-                variant="h5"
-                className="page-title"
-              >
+            <div className="settings">
+              <Typography variant="h5" className="page-title">
                 Nastavenia nástenky <span
                 className="text-bolder">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
               </Typography>

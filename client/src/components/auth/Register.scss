@@ -1,40 +1,6 @@
 @import '../../variables';
 
 .register {
-    width: $small-page-width;
-    min-width: $small-page-min-width;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 50px auto;
-    padding: {
-        top: 23px;
-        bottom: 23px;
-    }
-
-    input {
-        display: block;
-    }
-
-    div[class*="MuiFormControl"] {
-        display: block;
-        width: 280px;
-
-        & > div[class*="MuiInputBase"] {
-            width: 100%;
-        }
-    }
-
-    .header {
-        img {
-            width: 250px;
-            height: auto;
-            padding-bottom: 25px;
-        }
-
-        text-align: center;
-    }
-
     div[class*="MuiTypography"] {
         max-width: 225px;
         display: inline-block;
@@ -54,18 +20,5 @@
         button[class*="Primary"] {
             width: 128.1px !important;
         }
-    }
-}
-
-@media (max-width: $media-query-1) {
-    .register {
-        margin: 2 * $spacing-unit auto;
-    }
-}
-
-@media (max-width: $media-query-2) {
-    .register {
-        margin: 2 * $spacing-unit $spacing-unit;
-        width: $small-page-media-query-2-width;
     }
 }

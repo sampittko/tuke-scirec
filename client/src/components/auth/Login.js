@@ -1,3 +1,4 @@
+import './auth.scss';
 import './Login.scss';
 
 import {Button, Fade, Paper, TextField, Typography} from '@material-ui/core';
@@ -48,7 +49,7 @@ class Login extends React.Component {
   render() {
     return !this.props.isAuth ? (
       <Fade in timeout={timeouts.FADE_IN}>
-        <Paper className="login">
+        <Paper className="auth login">
           <div className="header">
             <img
               src={logo}
