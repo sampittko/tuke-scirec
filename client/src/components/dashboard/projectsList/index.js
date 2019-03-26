@@ -7,12 +7,14 @@ import {timeouts} from '../../../config/mui';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import projectPropTypes from '../../../propTypes/projectPropTypes';
 import {getProjects, setProject} from '../../../store/actions/projectActions';
-import {getProjectRoute} from '../../../utils/projectUtils';
+import {getProjectRoute, getProjectStateColor, getReadableProjectState} from '../../../utils/projectUtils';
 import './index.scss';
 
 import NoData from './NoData';
 import Counter from "./Counter";
 import TimestampText from '../../common/TimestampText';
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import Chip from "@material-ui/core/Chip";
 
 class ProjectsList extends React.Component {
   componentDidMount() {
@@ -53,6 +55,13 @@ class ProjectsList extends React.Component {
                                       frontText="Naposledy upravené:"
                                     />}
                       />
+                      <ListItemSecondaryAction className="project-state">
+                        <Chip
+                          variant="outlined"
+                          label={getReadableProjectState(project.data().state)}
+                          color={getProjectStateColor(project.data().state)}
+                        />
+                      </ListItemSecondaryAction>
                     </ListItem>
                   ))}
                 </List>

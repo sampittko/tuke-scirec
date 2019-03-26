@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Paper} from "@material-ui/core";
+import {Paper, TextField} from "@material-ui/core";
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import './index.scss';
@@ -93,6 +93,15 @@ class Overview extends React.Component {
               description={this.state.description}
             />
           )}
+          <TextField
+            style={this.state.editMode ? {opacity: 0.7} : {}}
+            label="Počet verzií projektu"
+            InputProps={{readOnly: true}}
+            value={0}
+            className="input"
+            disabled
+            InputLabelProps={{shrink: true}}
+          />
           <ActionButtons
             editMode={this.state.editMode}
             onClick={(event, action) => this.handleClick(event, action)}

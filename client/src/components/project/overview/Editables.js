@@ -3,20 +3,16 @@ import propTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from "@material-ui/core/MenuItem";
 import {projectConfig} from "../../../config/app";
+import {getReadableProjectState} from "../../../utils/projectUtils";
 
-const projectStates = [{
-  value: projectConfig.states.values.NOT_SET,
-  label: projectConfig.states.labels.NOT_SET,
-}, {
-  value: projectConfig.states.values.PENDING,
-  label: projectConfig.states.labels.PENDING,
-}, {
-  value: projectConfig.states.values.FINISHED,
-  label: projectConfig.states.labels.FINISHED,
-}];
+const projectStates = [
+  {value: projectConfig.states.values.NOT_SET},
+  {value: projectConfig.states.values.PENDING},
+  {value: projectConfig.states.values.FINISHED},
+];
 
 const Editables = props =>
-  <div style={{opacity: 0.9}}>
+  <div style={{opacity: 0.7}}>
     <TextField
       select
       label="Stav projektu"
@@ -29,7 +25,7 @@ const Editables = props =>
     >
       {projectStates.map(state => (
         <MenuItem key={state.value} value={state.value}>
-          {state.label}
+          {getReadableProjectState(state.value)}
         </MenuItem>
       ))}
     </TextField>
@@ -60,7 +56,8 @@ const Editables = props =>
       InputProps={{readOnly: false}}
       value={props.description}
       className="input"
-      rowsMax={8}
+      rows={7}
+      rowsMax={7}
       multiline
       fullWidth
     />

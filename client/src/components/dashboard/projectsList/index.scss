@@ -6,4 +6,16 @@
     .item {
         border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     }
+
+  .project-state {
+    padding-right: 7 * $spacing-unit !important;
+    min-width: 100px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 522px) {
+  .project-state {
+    display: none;
+  }
 }
