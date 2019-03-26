@@ -7,11 +7,13 @@ import {connect} from 'react-redux';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import {deleteDashboard} from '../../../store/actions/dashboardActions';
 import propTypes from 'prop-types';
+import {getDashboardRoute} from "../../../utils/dashboardUtils";
 
 class RemoveDashboardConfirmDialog extends React.Component {
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
-    this.props.deleteDashboard(this.props.newDefaultDashboardId);
+    await this.props.deleteDashboard(this.props.newDefaultDashboardId);
+    this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
     this.props.onClick();
   };
 
@@ -73,11 +75,12 @@ RemoveDashboardConfirmDialog.propTypes = {
   deleteDashboard: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,
+  history: propTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteDashboard: newDefaultDashboardId => dispatch(deleteDashboard(newDefaultDashboardId)),
+    deleteDashboard: async (newDefaultDashboardId) => dispatch(deleteDashboard(newDefaultDashboardId)),
   }
 };
 

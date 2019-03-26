@@ -103,9 +103,11 @@ class Settings extends React.Component {
   };
 
   handleDialogClose = () => {
-    this.setState({
-      confirmDialogOpen: false
-    });
+    if (this._isMounted) {
+      this.setState({
+        confirmDialogOpen: false
+      });
+    }
   };
 
   handlePanelChange = (event, panel) => {
@@ -239,6 +241,7 @@ class Settings extends React.Component {
                 newDefaultDashboardId={this.state.newDefaultDashboardId}
                 onClick={this.handleDialogClose}
                 onChange={this.handleSelectChange}
+                history={this.props.history}
               />
               {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli uložené"/>}
             </div>
@@ -278,6 +281,7 @@ Settings.propTypes = {
   dashboards: propTypes.arrayOf(propTypes.object),
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
   resetThemePicker: propTypes.func.isRequired,
+  history: propTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {

@@ -240,7 +240,7 @@ export const deleteDashboard = newDefaultDashboardId => {
       }
     }
 
-    dashboardsRef
+    await dashboardsRef
       .doc(dashboardId)
       .delete()
       .then(() => {

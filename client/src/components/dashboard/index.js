@@ -54,11 +54,13 @@ class Dashboard extends React.Component {
           {this.props.activeDashboard && this.props.activeDashboard !== dashboardConfig.MAX_COUNT && (
             <div>
               <ProjectsList history={this.props.history}/>
-              <Fab
-                onClick={this.handleOpen}
-                icon={<AddIcon/>}
-                tooltipTitle="Vytvorenie nového projektu"
-              />
+              {!this.props.isDashboardLoading && (
+                <Fab
+                  onClick={this.handleOpen}
+                  icon={<AddIcon/>}
+                  tooltipTitle="Vytvorenie nového projektu"
+                />
+              )}
             </div>
           )}
           <NewProjectDialog
