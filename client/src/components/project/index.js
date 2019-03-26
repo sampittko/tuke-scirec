@@ -9,7 +9,7 @@ import {timeouts} from '../../config/mui';
 import {withRouter} from 'react-router';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import Overview from "./Overview";
+import Overview from "./overview";
 import Version from "./version";
 
 class Project extends React.Component {

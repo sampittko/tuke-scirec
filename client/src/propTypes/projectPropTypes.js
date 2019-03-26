@@ -7,7 +7,7 @@ const propTypes = {
     created: PropTypes.instanceOf(Date),
     modified: PropTypes.instanceOf(Date),
     route: PropTypes.string.isRequired,
-    state: PropTypes.string.isRequired,
+    state: PropTypes.number.isRequired,
     deadline: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     recipient: PropTypes.string.isRequired,

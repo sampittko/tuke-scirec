@@ -1,0 +1,17 @@
+@import '../../../variables';
+
+.overview {
+  div[class*="FormControl"] {
+    margin-bottom: 2 * $spacing-unit;
+  }
+
+  div[class*="InputBase"] {
+    color: rgb(84, 84, 84) !important;
+  }
+
+  .action-buttons {
+    position: absolute;
+    bottom: 2 * $spacing-unit;
+    right: 2 * $spacing-unit;
+  }
+}

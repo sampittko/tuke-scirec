@@ -22,9 +22,21 @@ export const projectConfig = {
   MIN_LENGTH: 3,
   MAX_LENGTH: 80,
   defaultValues: {
-    STATE: 'nešpecifikovaný',
+    STATE: 0,
     DEADLINE: '',
-    DESCRIPTION: 'nešpecifikovaný',
-    RECIPIENT: 'nešpecifikovaný',
+    DESCRIPTION: '',
+    RECIPIENT: '',
+  },
+  states: {
+    values: {
+      NOT_SET: 0,
+      PENDING: 1,
+      FINISHED: 2,
+    },
+    labels: {
+      NOT_SET: 'nenastavený',
+      PENDING: 'prebieha',
+      FINISHED: 'dokončený',
+    }
   }
 };
