@@ -26,6 +26,7 @@ export const projectConfig = {
     DEADLINE: '',
     DESCRIPTION: '',
     RECIPIENT: '',
+    VERSIONS_COUNT: 0,
   },
   states: {
     values: {

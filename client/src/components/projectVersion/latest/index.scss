@@ -1,0 +1,12 @@
+@import "../../../variables";
+
+.latest-project-version {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > div {
+    padding: 2 * $spacing-unit;
+  }
+}

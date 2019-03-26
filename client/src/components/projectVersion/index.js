@@ -1,34 +1,33 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Paper} from "@material-ui/core";
-import {connect} from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import './index.scss';
-import FileUpload from "../common/FileUpload";
+import Grid from '@material-ui/core/Grid';
+import {Typography} from "@material-ui/core";
+import Overview from "./overview";
+import Review from "./review";
 
-class ProjectVersion extends React.Component {
-  render() {
-    return (
-      <div className="version">
-        <Typography variant="h6" className="page-title">
-          Najnovšia verzia
-        </Typography>
-        <Paper className="paper">
-          <FileUpload/>
-        </Paper>
-      </div>
-    );
-  }
-}
+const ProjectVersion = props =>
+  <div className="project-version">
+    {!props.current && (
+      <Grid container>
+        <Grid item>
+          <Typography variant="h5" className="page-title">
+            Verzia <span className="text-bolder">X</span>
+          </Typography>
+        </Grid>
+      </Grid>
+    )}
+    <Grid container>
+      <Grid item xs={12} sm={6}>
+        <Overview current={props.current}/>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Review current={props.current}/>
+      </Grid>
+    </Grid>
+  </div>;
 
 ProjectVersion.propTypes = {
-  activeProject: propTypes.object.isRequired,
+  current: propTypes.bool,
 };
 
-const mapStateToProps = state => {
-  return {
-    activeProject: state.project.data.active,
-  }
-};
-
-export default connect(mapStateToProps)(ProjectVersion);
+export default ProjectVersion;

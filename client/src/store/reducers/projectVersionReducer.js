@@ -8,7 +8,7 @@ const _initialState = {
 };
 
 const projectVersion = (state = _initialState, action) => {
-
+  return _initialState;
 };
 
 export default projectVersion;

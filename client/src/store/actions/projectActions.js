@@ -37,6 +37,7 @@ export const addProject = title => {
         deadline: projectConfig.defaultValues.DEADLINE,
         description: projectConfig.defaultValues.DESCRIPTION,
         recipient: projectConfig.defaultValues.RECIPIENT,
+        versionsCount: projectConfig.defaultValues.VERSIONS_COUNT,
       })
       .then(result => {
         return projectsRef

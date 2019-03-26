@@ -10,7 +10,9 @@ import {withRouter} from 'react-router';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Overview from "./overview";
-import Version from "../projectVersion";
+import LatestVersion from "../projectVersion/latest";
+import Fab from "../common/Fab";
+import AddIcon from '@material-ui/icons/Add';
 
 class Project extends React.Component {
   componentDidMount() {
@@ -27,12 +29,8 @@ class Project extends React.Component {
             <div className="project">
               <Grid container>
                 <Grid item>
-                  <Typography
-                    variant="h5"
-                    className="page-title"
-                  >
-                    Projekt <span
-                    className="text-bolder">{this.props.activeProject.data().title}</span>
+                  <Typography variant="h5" className="page-title">
+                    Projekt <span className="text-bolder">{this.props.activeProject.data().title}</span>
                   </Typography>
                 </Grid>
               </Grid>
@@ -41,9 +39,14 @@ class Project extends React.Component {
                   <Overview/>
                 </Grid>
                 <Grid item xs={12} sm={8} className="col">
-                  <Version/>
+                  <LatestVersion activeProject={this.props.activeProject}/>
                 </Grid>
               </Grid>
+              <Fab
+                onClick={() => ""}
+                icon={<AddIcon/>}
+                tooltipTitle="Vytvorenie novej verzie projektu"
+              />
             </div>
           )}
         </div>
