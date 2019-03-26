@@ -8,8 +8,8 @@ export const getProjectRoute = (dashboardRoute, projectRoute) =>
 export const getProjectSettingsRoute = (dashboardRoute, projectRoute) =>
   dashboardRoute !== "" && projectRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}/${routes.PROJECTS}/${projectRoute}/nastavenia` : dashboardRoute;
 
-export const getProjectsArchiveRoute = dashboardRoute =>
-  dashboardRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}/${routes.PROJECTS}/archiv` : dashboardRoute;
+export const getProjectsListRoute = (dashboardRoute, projectRoute) =>
+  dashboardRoute !== "" && projectRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}/${routes.PROJECTS}/${projectRoute}/verzie` : dashboardRoute;
 
 export const getProjectDocumentTitle = (dashboard, project) =>
   appendTitle(`${dashboard.data().title} - ${project.data().title}`);

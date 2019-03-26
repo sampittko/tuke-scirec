@@ -8,6 +8,7 @@ import DashboardSettings from './components/dashboard/settings';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import Project from './components/project';
+import ProjectVersionsList from './components/projectVersion/List';
 import ProjectSettings from './components/project/settings';
 import React from 'react';
 import Register from './components/auth/Register';
@@ -48,6 +49,8 @@ class App extends React.Component {
             <PrivateRoute exact path={routes.DASHBOARD_SETTINGS} component={DashboardSettings}
                           isAuth={this.props.isAuth}/>
             <PrivateRoute exact path={routes.PROJECT} component={Project} isAuth={this.props.isAuth}/>
+            <PrivateRoute exact path={routes.PROJECT_VERSIONS_LIST} component={ProjectVersionsList}
+                          isAuth={this.props.isAuth}/>
             <PrivateRoute exact path={routes.PROJECT_SETTINGS} component={ProjectSettings} isAuth={this.props.isAuth}/>
             <Route exact path={routes.HOME} component={Home}/>
             <Route exact path={routes.ABOUT} component={About}/>

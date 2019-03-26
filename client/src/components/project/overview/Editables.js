@@ -20,7 +20,6 @@ const Editables = props =>
       onChange={props.onChange}
       InputProps={{readOnly: false}}
       value={props.state}
-      className="input"
       fullWidth
     >
       {projectStates.map(state => (
@@ -35,7 +34,6 @@ const Editables = props =>
       onChange={props.onChange}
       InputProps={{readOnly: false}}
       value={props.deadline}
-      className="input"
       fullWidth
       type="date"
       InputLabelProps={{shrink: true}}
@@ -46,7 +44,6 @@ const Editables = props =>
       onChange={props.onChange}
       InputProps={{readOnly: false}}
       value={props.recipient}
-      className="input"
       fullWidth
     />
     <TextField
@@ -55,7 +52,6 @@ const Editables = props =>
       onChange={props.onChange}
       InputProps={{readOnly: false}}
       value={props.description}
-      className="input"
       rows={7}
       rowsMax={7}
       multiline

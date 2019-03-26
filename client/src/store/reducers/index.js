@@ -5,6 +5,7 @@ import authReducer from './authReducer';
 import dashboardReducer from './dashboardReducer';
 import themePickerReducer from './themePickerReducer';
 import projectReducer from './projectReducer';
+import projectVersionReducer from './projectVersionReducer';
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   themePicker: themePickerReducer,
   project: projectReducer,
+  projectVersion: projectVersionReducer,
 });
 
 export default rootReducer;

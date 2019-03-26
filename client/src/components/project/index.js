@@ -10,7 +10,7 @@ import {withRouter} from 'react-router';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Overview from "./overview";
-import Version from "./version";
+import Version from "../projectVersion";
 
 class Project extends React.Component {
   componentDidMount() {

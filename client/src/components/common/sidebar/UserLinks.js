@@ -7,10 +7,11 @@ import Link from './Link';
 import React from 'react';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
+import ViewListIcon from '@material-ui/icons/ViewList';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
-import {getProjectRoute, getProjectSettingsRoute} from "../../../utils/projectUtils";
+import {getProjectRoute, getProjectSettingsRoute, getProjectsListRoute} from "../../../utils/projectUtils";
 
 const UserLinks = props =>
   <div>
@@ -27,6 +28,12 @@ const UserLinks = props =>
             route={getProjectRoute(props.activeDashboardRoute, props.activeProject.data().route)}
             text={props.activeProject.data().title}
             icon={<CollectionsBookmarkIcon/>}
+          />
+          <Link
+            location={props.location}
+            route={getProjectsListRoute(props.activeDashboardRoute, props.activeProject.data().route)}
+            text="Zoznam verzií"
+            icon={<ViewListIcon/>}
           />
           <Link
             location={props.location}

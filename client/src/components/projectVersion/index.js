@@ -4,9 +4,9 @@ import {Paper} from "@material-ui/core";
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import './index.scss';
-import FileUpload from "../../common/FileUpload";
+import FileUpload from "../common/FileUpload";
 
-class Version extends React.Component {
+class ProjectVersion extends React.Component {
   render() {
     return (
       <div className="version">
@@ -21,7 +21,7 @@ class Version extends React.Component {
   }
 }
 
-Version.propTypes = {
+ProjectVersion.propTypes = {
   activeProject: propTypes.object.isRequired,
 };
 
@@ -31,4 +31,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps)(Version);
+export default connect(mapStateToProps)(ProjectVersion);

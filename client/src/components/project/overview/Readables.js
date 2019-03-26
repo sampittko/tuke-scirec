@@ -9,7 +9,6 @@ const Readables = props =>
       label="Stav projektu"
       InputProps={{readOnly: true}}
       value={getReadableProjectState(props.state)}
-      className="input"
       disabled
       fullWidth
     />
@@ -17,7 +16,6 @@ const Readables = props =>
       label="Termín odovzdania"
       InputProps={{readOnly: true}}
       value={props.deadline}
-      className="input"
       fullWidth
       type="date"
       disabled
@@ -28,14 +26,12 @@ const Readables = props =>
       InputProps={{readOnly: true}}
       value={props.recipient}
       disabled
-      className="input"
       fullWidth
     />
     <TextField
       label="Popis"
       InputProps={{readOnly: true}}
       value={props.description}
-      className="input"
       rows={7}
       rowsMax={7}
       disabled

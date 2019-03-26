@@ -57,6 +57,7 @@ const actionTypes = {
     SET_PROJECT: 'SET_PROJECT',
     REMOVE_ACTIVE_PROJECT: 'REMOVE_ACTIVE_PROJECT',
   },
+  projectVersion: {},
 };
 
 export default actionTypes;
