@@ -1,19 +1,20 @@
 import React from 'react';
-import {FormControl, FormControlLabel, IconButton, List} from "@material-ui/core";
+import {FormControl, FormControlLabel, IconButton, List, Typography} from "@material-ui/core";
 import {fileConfig} from "../../config/app";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import CloseIcon from '@material-ui/icons/Close';
 import Button from "@material-ui/core/Button";
+import './FileUpload.scss';
 
-// TODO handle files count
 // TODO handle max files size
 class FileUpload extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       files: [],
+      open: false,
     }
   }
 
@@ -37,7 +38,7 @@ class FileUpload extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="file-upload">
         <FormControl>
           <FormControlLabel
             disabled={this.state.files.length >= 5}
@@ -54,27 +55,31 @@ class FileUpload extends React.Component {
               <Button
                 disabled={this.state.files.length >= 5}
                 size="small"
-                variant="contained"
+                color="secondary"
                 component="span"
+                className="select-files-button"
               >
-                Upload
+                Vybrať súbory
               </Button>
             )}
           />
         </FormControl>
         {this.state.files.length > 0 && (
-          <List dense>
-            {this.state.files.map((file, i) => (
-              <ListItem key={i}>
-                <ListItemText primary={file.name}/>
-                <ListItemSecondaryAction onClick={(event) => this.handleClick(event, file)}>
-                  <IconButton>
-                    <CloseIcon/>
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
+          <div>
+            <Typography className="file-counter">{this.state.files.length}/{fileConfig.MAX_FILES}</Typography>
+            <List dense className="files">
+              {this.state.files.map((file, i) => (
+                <ListItem key={i} className="file">
+                  <ListItemText primary={file.name}/>
+                  <ListItemSecondaryAction onClick={(event) => this.handleClick(event, file)}>
+                    <IconButton>
+                      <CloseIcon fontSize="small"/>
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </div>
         )}
       </div>
     );

@@ -1,16 +1,7 @@
 @import '../../variables';
 
 .project-version {
-  .overview div[class*="MuiPaper"],
-  .review div[class*="MuiPaper"] {
-    min-height: 459px;
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
-    position: relative;
-    height: $height;
-    max-height: $height;
-  }
-
-  .overview {
+  .detail {
     padding-right: $spacing-unit;
   }
 
@@ -20,8 +11,7 @@
 }
 
 @media (max-width: $media-query-1) {
-  .overview div[class*="MuiPaper"],
-  .review div[class*="MuiPaper"] {
+  .paper {
     margin-left: $spacing-unit;
   }
 

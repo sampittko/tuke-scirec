@@ -1,0 +1,30 @@
+@import '../../variables';
+
+.file-upload {
+  padding-top: 2 * $spacing-unit;
+  padding-left: 4 * $spacing-unit;
+
+  .file-counter {
+    position: absolute;
+    right: 3 * $spacing-unit;
+    top: 3 * $spacing-unit;
+  }
+
+  .select-files-button {
+    margin-bottom: $spacing-unit;
+  }
+
+  .files {
+    margin-left: -(4 * $spacing-unit);
+    padding: $spacing-unit;
+    border-top: 1px dashed rgba($light-gray-color-text-color, 0.1);
+    background-color: rgba($light-gray-color-text-color, 0.02);
+
+    .file {
+      span[class*="MuiTypography-subtitle1"] {
+        border-bottom: 1px dashed $light-gray-color-text-color;
+        opacity: 0.7;
+      }
+    }
+  }
+}

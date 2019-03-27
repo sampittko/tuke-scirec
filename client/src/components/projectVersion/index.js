@@ -18,10 +18,10 @@ const ProjectVersion = props =>
       </Grid>
     )}
     <Grid container>
-      <Grid item xs={12} sm={6} className="overview">
+      <Grid item xs={12} sm={6}>
         <Detail current={props.current}/>
       </Grid>
-      <Grid item xs={12} sm={6} className="review">
+      <Grid item xs={12} sm={6}>
         <Review current={props.current}/>
       </Grid>
     </Grid>

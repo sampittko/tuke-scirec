@@ -1,6 +1,15 @@
 @import '../../../variables';
 
 .overview {
+  .paper {
+    min-height: 451.2px;
+    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px);
+    position: relative;
+    margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
+    height: $height;
+    max-height: $height;
+  }
+
   div[class*="FormControl"] {
     margin-bottom: 2 * $spacing-unit;
   }
@@ -13,5 +22,11 @@
     position: absolute;
     bottom: 2 * $spacing-unit;
     right: 2 * $spacing-unit;
+  }
+}
+
+@media (max-width: $media-query-1) {
+  .overview .paper {
+    margin: $spacing-unit $spacing-unit 2 * $spacing-unit $spacing-unit;
   }
 }

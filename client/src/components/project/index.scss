@@ -5,13 +5,8 @@
   padding: 4 * $spacing-unit;
 
   .paper {
-    min-height: 451.2px;
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px);
     position: relative;
-    margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
     padding: 3 * $spacing-unit;
-    height: $height;
-    max-height: $height;
   }
 }
 
@@ -19,9 +14,5 @@
   .project {
     height: calc(100vh - 32px);
     padding: 2 * $spacing-unit $spacing-unit $spacing-unit $spacing-unit;
-
-    .paper {
-      margin: $spacing-unit $spacing-unit 2 * $spacing-unit $spacing-unit;
-    }
   }
 }
