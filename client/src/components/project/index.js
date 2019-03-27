@@ -15,11 +15,24 @@ import Fab from "../common/Fab";
 import AddIcon from '@material-ui/icons/Add';
 
 class Project extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newVersionView: false,
+    }
+  }
+
   componentDidMount() {
     if (this.props.activeDashboard && this.props.activeProject) {
       document.title = getProjectDocumentTitle(this.props.activeDashboard, this.props.activeProject);
     }
   }
+
+  handleClick = () => {
+    this.setState({
+      newVersionView: true,
+    })
+  };
 
   render() {
     return (
@@ -39,14 +52,16 @@ class Project extends React.Component {
                   <Overview/>
                 </Grid>
                 <Grid item xs={12} sm={8} className="col">
-                  <LatestVersion activeProject={this.props.activeProject}/>
+                  <LatestVersion newVersionView={this.state.newVersionView} activeProject={this.props.activeProject}/>
                 </Grid>
               </Grid>
-              <Fab
-                onClick={() => ""}
-                icon={<AddIcon/>}
-                tooltipTitle="Vytvorenie novej verzie projektu"
-              />
+              {!this.state.newVersionView && (
+                <Fab
+                  onClick={this.handleClick}
+                  icon={<AddIcon/>}
+                  tooltipTitle="Pridanie novej verzie projektu"
+                />
+              )}
             </div>
           )}
         </div>

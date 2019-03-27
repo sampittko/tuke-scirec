@@ -6,7 +6,7 @@
 
   .paper {
     min-height: 451.2px;
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
+    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px);
     position: relative;
     margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
     padding: 3 * $spacing-unit;
@@ -14,7 +14,6 @@
     max-height: $height;
   }
 }
-
 
 @media (max-width: $media-query-1) {
   .project {

@@ -2,8 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import {Typography} from "@material-ui/core";
-import Overview from "./overview";
+import Detail from "./detail";
 import Review from "./review";
+import './index.scss';
 
 const ProjectVersion = props =>
   <div className="project-version">
@@ -11,16 +12,16 @@ const ProjectVersion = props =>
       <Grid container>
         <Grid item>
           <Typography variant="h5" className="page-title">
-            Verzia <span className="text-bolder">X</span>
+            Verzia <span className="text-bolder">{props.newVersionView ? "1" : "X"}</span>
           </Typography>
         </Grid>
       </Grid>
     )}
     <Grid container>
-      <Grid item xs={12} sm={6}>
-        <Overview current={props.current}/>
+      <Grid item xs={12} sm={6} className="overview">
+        <Detail current={props.current}/>
       </Grid>
-      <Grid item xs={12} sm={6}>
+      <Grid item xs={12} sm={6} className="review">
         <Review current={props.current}/>
       </Grid>
     </Grid>
@@ -28,6 +29,7 @@ const ProjectVersion = props =>
 
 ProjectVersion.propTypes = {
   current: propTypes.bool,
+  newVersionView: propTypes.bool,
 };
 
 export default ProjectVersion;

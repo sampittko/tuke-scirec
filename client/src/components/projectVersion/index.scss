@@ -1,0 +1,32 @@
+@import '../../variables';
+
+.project-version {
+  .overview div[class*="MuiPaper"],
+  .review div[class*="MuiPaper"] {
+    min-height: 459px;
+    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
+    position: relative;
+    height: $height;
+    max-height: $height;
+  }
+
+  .overview {
+    padding-right: $spacing-unit;
+  }
+
+  .review {
+    padding-left: $spacing-unit;
+  }
+}
+
+@media (max-width: $media-query-1) {
+  .overview div[class*="MuiPaper"],
+  .review div[class*="MuiPaper"] {
+    margin-left: $spacing-unit;
+  }
+
+  .review {
+    padding-left: 0 !important;
+    margin: 2 * $spacing-unit 0 !important;
+  }
+}

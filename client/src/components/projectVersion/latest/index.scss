@@ -1,12 +1,20 @@
 @import "../../../variables";
 
 .latest-project-version {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  &.empty {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-  & > div {
+  & > .no-data {
     padding: 2 * $spacing-unit;
+  }
+}
+
+@media (min-width: $media-query-1) {
+  .latest-project-version .page-title {
+    margin-left: 0 !important;
   }
 }
