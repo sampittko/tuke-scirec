@@ -4,13 +4,14 @@ import propTypes from 'prop-types';
 import EditIcon from '@material-ui/icons/Edit';
 import SaveIcon from '@material-ui/icons/Save';
 import CloseIcon from '@material-ui/icons/Close';
+import './EditModeActionButtons.scss';
 
-const ActionButtons = props =>
-  <div className="action-buttons">
+const EditModeActionButtons = props =>
+  <div className="edit-mode-action-buttons">
     {props.editMode ? (
       <div>
         <Tooltip
-          title="Zrušiť úpravy"
+          title="Zrušiť zmeny"
           placement="left"
           disableFocusListener
         >
@@ -35,7 +36,7 @@ const ActionButtons = props =>
       </div>
     ) : (
       <Tooltip
-        title="Upraviť prehľad projektu"
+        title="Upraviť"
         placement="left"
         disableFocusListener
       >
@@ -46,10 +47,10 @@ const ActionButtons = props =>
     )}
   </div>;
 
-ActionButtons.propTypes = {
+EditModeActionButtons.propTypes = {
   editMode: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
   settingsChanged: propTypes.func.isRequired,
 };
 
-export default ActionButtons;
+export default EditModeActionButtons;

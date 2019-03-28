@@ -12,6 +12,10 @@
   div[class*="FormControl"] {
     margin-bottom: 2 * $spacing-unit;
   }
+
+  div[class*="InputBase"] {
+    color: rgb(84, 84, 84) !important;
+  }
 }
 
 @media (max-width: $media-query-1) {

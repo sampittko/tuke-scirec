@@ -52,7 +52,10 @@ class Project extends React.Component {
                   <Overview/>
                 </Grid>
                 <Grid item xs={12} sm={8} className="col">
-                  <LatestVersion newVersionView={this.state.newVersionView} activeProject={this.props.activeProject}/>
+                  <LatestVersion
+                    newVersionView={this.state.newVersionView}
+                    activeProject={this.props.activeProject}
+                  />
                 </Grid>
               </Grid>
               {!this.state.newVersionView && (

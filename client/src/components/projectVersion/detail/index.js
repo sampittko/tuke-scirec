@@ -3,56 +3,85 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {Paper} from "@material-ui/core";
 import './index.scss';
-import File from "../file";
-import {getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
+import EditModeActionButtons from "../../common/EditModeActionButtons";
+import Editables from "./Editables";
+import Readables from "./Readables";
 import {projectVersionConfig} from "../../../config/app";
-import ActionButtons from "../../common/ActionButtons";
-
-const projectVersionStates = [
-  {value: projectVersionConfig.states.values.NOT_SET},
-  {value: projectVersionConfig.states.values.WORK_IN_PROGRESS},
-  {value: projectVersionConfig.states.values.WAITING_FOR_REVIEW},
-  {value: projectVersionConfig.states.values.REJECTED},
-  {value: projectVersionConfig.states.values.ACCEPTED},
-];
 
 class Detail extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      editMode: false,
+      changesSaved: false,
+      state: projectVersionConfig.states.values.NOT_SET,
+      notes: "",
+    }
+  }
+
+  // TODO
+  settingsChanged = () => {
+    // return this.props.activeProject.data().state !== this.state.state ||
+    //   this.props.activeProject.data().deadline !== this.state.deadline ||
+    //   this.props.activeProject.data().recipient !== this.state.recipient ||
+    //   this.props.activeProject.data().description !== this.state.description
+    return false;
+  };
+
+  handleClick = async (event, action) => {
+    switch (action) {
+      case 'edit':
+        this.setState({
+          editMode: true,
+        });
+        break;
+      case 'save':
+        // TODO
+        this.setState({
+          changesSaved: true,
+          editMode: false,
+        });
+        break;
+      case 'cancel':
+        // TODO
+        this.setState((prevState, props) => ({
+          editMode: false,
+        }));
+        break;
+      default:
+        console.log("Bad action");
+        break;
+    }
+  };
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    })
+  };
+
   render() {
     return (
       <div className="detail">
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
         <Paper className="paper">
-          <TextField
-            select
-            label="Stav verzie"
-            name="state"
-            // onChange={props.onChange}
-            value={0}
-            fullWidth
-          >
-            {projectVersionStates.map(state => (
-              <MenuItem key={state.value} value={state.value}>
-                {getReadableProjectVersionState(state.value)}
-              </MenuItem>
-            ))}
-          </TextField>
-          <TextField
-            label="Poznámky"
-            name="notes"
-            // onChange={props.onChange}
-            // value={props.description}
-            rows={2}
-            rowsMax={2}
-            multiline
-            fullWidth
+          {this.state.editMode ? (
+            <Editables
+              state={this.state.state}
+              notes={this.state.notes}
+              onChange={this.handleChange}
+            />
+          ) : (
+            <Readables
+              state={this.state.state}
+              notes={this.state.notes}
+            />
+          )}
+          <EditModeActionButtons
+            editMode={this.state.editMode}
+            settingsChanged={this.settingsChanged}
+            onClick={(event, action) => this.handleClick(event, action)}
           />
-          <File/>
-          <ActionButtons
-            editMode={true}
-            onClick={() => ""}
-            settingsChanged={() => ""}/>
         </Paper>
       </div>
     )

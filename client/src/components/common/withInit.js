@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const withInit = (WrappedComponent) => {
+const withInit = WrappedComponent => {
   class HOC extends React.Component {
     render() {
       return (
@@ -11,7 +11,7 @@ const withInit = (WrappedComponent) => {
       );
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
       if (this.props.isAuth && !this.props.dashboards && !this.props.isDashboardLoading) {
         this.props.getDashboards();
       }

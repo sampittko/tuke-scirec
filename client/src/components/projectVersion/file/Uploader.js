@@ -6,6 +6,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import CloseIcon from '@material-ui/icons/Close';
 import Button from "@material-ui/core/Button";
+import propTypes from 'prop-types';
 import './Uploader.scss';
 
 // TODO handle max files size
@@ -45,7 +46,7 @@ class Uploader extends React.Component {
         <Typography>Nahrávanie súborov</Typography>
         <FormControl className="select-file-button">
           <FormControlLabel
-            disabled={this.state.files.length >= 5}
+            disabled={this.state.files.length >= 5 || !this.props.editable}
             control={(
               <input
                 style={{display: 'none'}}
@@ -57,7 +58,7 @@ class Uploader extends React.Component {
             )}
             label={(
               <Button
-                disabled={this.state.files.length >= 5}
+                disabled={this.state.files.length >= 5 || !this.props.editable}
                 size="small"
                 color="secondary"
                 component="span"
@@ -92,5 +93,9 @@ class Uploader extends React.Component {
     );
   }
 }
+
+Uploader.propTypes = {
+  editable: propTypes.bool,
+};
 
 export default Uploader;

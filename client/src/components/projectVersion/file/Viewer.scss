@@ -1,0 +1,16 @@
+@import "../../../variables";
+
+.file-viewer {
+  .small-title {
+    font-size: 12px;
+    color: lighten($light-gray-color-text-color, 20%);
+  }
+
+  .list-item-text {
+    text-align: center;
+  }
+
+  .add-files-button {
+    top: -12px;
+  }
+}

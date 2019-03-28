@@ -76,7 +76,7 @@ App.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     getAuth: () => dispatch(getAuth()),
-    getDashboards: () => dispatch(getDashboards()),
+    getDashboards: async () => dispatch(getDashboards()),
   }
 };
 
