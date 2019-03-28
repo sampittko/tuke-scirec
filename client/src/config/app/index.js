@@ -44,3 +44,22 @@ export const projectConfig = {
     }
   }
 };
+
+export const projectVersionConfig = {
+  states: {
+    values: {
+      NOT_SET: 0,
+      WORK_IN_PROGRESS: 1,
+      WAITING_FOR_REVIEW: 2,
+      REJECTED: 3,
+      ACCEPTED: 4,
+    },
+    labels: {
+      NOT_SET: 'nenastavený',
+      WORK_IN_PROGRESS: 'práca prebieha',
+      WAITING_FOR_REVIEW: 'čaká sa na posudok',
+      REJECTED: 'odmietnutá',
+      ACCEPTED: 'prijatá',
+    }
+  }
+};

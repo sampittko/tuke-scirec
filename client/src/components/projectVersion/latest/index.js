@@ -16,7 +16,7 @@ const Latest = props =>
           <Typography variant="h6" className="page-title">
             Najnovšia verzia
           </Typography>
-          <ProjectVersion newVersionView={props.newVersionView} current/>
+          <ProjectVersion newVersionView={props.newVersionView} latest/>
         </div>
       </Fade>
     ) : (

@@ -8,6 +8,10 @@
     position: relative;
     padding: 3 * $spacing-unit;
   }
+
+  div[class*="FormControl"] {
+    margin-bottom: 2 * $spacing-unit;
+  }
 }
 
 @media (max-width: $media-query-1) {

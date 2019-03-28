@@ -8,6 +8,14 @@
   .review {
     padding-left: $spacing-unit;
   }
+
+  .detail .paper, .review .paper {
+    overflow-y: hidden;
+
+    &:hover {
+      overflow-y: scroll;
+    }
+  }
 }
 
 @media (max-width: $media-query-1) {

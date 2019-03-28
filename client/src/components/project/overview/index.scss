@@ -10,10 +10,6 @@
     max-height: $height;
   }
 
-  div[class*="FormControl"] {
-    margin-bottom: 2 * $spacing-unit;
-  }
-
   div[class*="InputBase"] {
     color: rgb(84, 84, 84) !important;
   }

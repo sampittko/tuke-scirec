@@ -8,7 +8,7 @@ import {updateProjectOverview} from "../../../store/actions/projectActions";
 import Notification from "../../common/Notification";
 import Editables from "./Editables";
 import Readables from "./Readables";
-import ActionButtons from "./ActionButtons";
+import ActionButtons from "../../common/ActionButtons";
 
 class Overview extends React.Component {
   constructor(props) {

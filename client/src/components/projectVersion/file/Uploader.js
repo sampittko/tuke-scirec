@@ -1,20 +1,20 @@
 import React from 'react';
 import {FormControl, FormControlLabel, IconButton, List, Typography} from "@material-ui/core";
-import {fileConfig} from "../../config/app";
+import {fileConfig} from "../../../config/app";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import CloseIcon from '@material-ui/icons/Close';
 import Button from "@material-ui/core/Button";
-import './FileUpload.scss';
+import './Uploader.scss';
 
 // TODO handle max files size
-class FileUpload extends React.Component {
+class Uploader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       files: [],
-      open: false,
+      filesCountError: false,
     }
   }
 
@@ -29,17 +29,21 @@ class FileUpload extends React.Component {
     if (files.length <= fileConfig.MAX_FILES) {
       this.setState({
         files,
+        filesCountError: false,
       });
     } else {
-      // TODO alert for selecting too many files
-      console.log("too many files selected");
+      this.setState({
+        files: [],
+        filesCountError: true,
+      })
     }
   };
 
   render() {
     return (
-      <div className="file-upload">
-        <FormControl>
+      <div className="file-uploader">
+        <Typography>Nahrávanie súborov</Typography>
+        <FormControl className="select-file-button">
           <FormControlLabel
             disabled={this.state.files.length >= 5}
             control={(
@@ -64,9 +68,11 @@ class FileUpload extends React.Component {
             )}
           />
         </FormControl>
+        {this.state.filesCountError &&
+        <Typography variant="caption" className="many-files-message">Vybrali ste veľa súborov.</Typography>}
+        <Typography className="file-counter">{this.state.files.length}/{fileConfig.MAX_FILES}</Typography>
         {this.state.files.length > 0 && (
           <div>
-            <Typography className="file-counter">{this.state.files.length}/{fileConfig.MAX_FILES}</Typography>
             <List dense className="files">
               {this.state.files.map((file, i) => (
                 <ListItem key={i} className="file">
@@ -79,6 +85,7 @@ class FileUpload extends React.Component {
                 </ListItem>
               ))}
             </List>
+            <Typography variant="caption" className="files-size-sum">X z 15MB</Typography>
           </div>
         )}
       </div>
@@ -86,4 +93,4 @@ class FileUpload extends React.Component {
   }
 }
 
-export default FileUpload;
+export default Uploader;

@@ -8,7 +8,7 @@ import './index.scss';
 
 const ProjectVersion = props =>
   <div className="project-version">
-    {!props.current && (
+    {!props.latest && (
       <Grid container>
         <Grid item>
           <Typography variant="h5" className="page-title">
@@ -19,16 +19,16 @@ const ProjectVersion = props =>
     )}
     <Grid container>
       <Grid item xs={12} sm={6}>
-        <Detail current={props.current}/>
+        <Detail latest={props.latest}/>
       </Grid>
       <Grid item xs={12} sm={6}>
-        <Review current={props.current}/>
+        <Review latest={props.latest}/>
       </Grid>
     </Grid>
   </div>;
 
 ProjectVersion.propTypes = {
-  current: propTypes.bool,
+  latest: propTypes.bool,
   newVersionView: propTypes.bool,
 };
 
