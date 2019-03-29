@@ -19,9 +19,10 @@ const ExpansionPanelComponent = props =>
   >
     <ExpansionPanelSummary
       expandIcon={<ExpandMoreIcon/>}
+      IconButtonProps={{disableRipple: true}}
       className="summary"
     >
-      <Typography>{props.settingType}</Typography>
+      <Typography>{props.title}</Typography>
     </ExpansionPanelSummary>
     <ExpansionPanelDetails className="details">
       {props.panelContent}
@@ -33,7 +34,7 @@ const ExpansionPanelComponent = props =>
   </ExpansionPanel>;
 
 ExpansionPanelComponent.propTypes = {
-  settingType: propTypes.string.isRequired,
+  title: propTypes.string.isRequired,
   panelContent: propTypes.any.isRequired,
   panelActions: propTypes.any.isRequired,
   expanded: propTypes.bool.isRequired,

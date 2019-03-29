@@ -5,7 +5,7 @@
     padding-right: $spacing-unit;
   }
 
-  .review {
+  .reviews {
     padding-left: $spacing-unit;
   }
 }
@@ -15,8 +15,9 @@
     margin-left: $spacing-unit;
   }
 
-  .review {
+  .reviews {
     padding-left: 0 !important;
     margin: 2 * $spacing-unit 0 !important;
+    padding-right: $spacing-unit;
   }
 }

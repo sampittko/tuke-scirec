@@ -102,7 +102,7 @@ class UploaderDialog extends React.Component {
                     <ListItem key={i} className="file">
                       <ListItemText primary={file.name}/>
                       <ListItemSecondaryAction onClick={(event) => this.handleClick(event, file)}>
-                        <IconButton>
+                        <IconButton disableRipple>
                           <CloseIcon fontSize="small"/>
                         </IconButton>
                       </ListItemSecondaryAction>

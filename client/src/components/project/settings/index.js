@@ -1,9 +1,9 @@
-import '../../common/settings/settings.scss';
+import './index.scss';
 
 import {Fade, IconButton, Tooltip, Typography} from '@material-ui/core';
 
 import DeleteIcon from '@material-ui/icons/Delete';
-import ExpansionPanel from '../../common/settings/ExpansionPanel';
+import ExpansionPanel from '../../common/ExpansionPanel';
 import React from 'react';
 import SaveIcon from '@material-ui/icons/Save';
 import {connect} from 'react-redux';
@@ -137,7 +137,7 @@ class Settings extends React.Component {
       <Fade in timeout={timeouts.FADE_IN}>
         <div>
           {this.props.activeProject && (
-            <div className="settings">
+            <div className="project-settings">
               <Typography variant="h5" className="page-title">
                 Nastavenia projektu <span
                 className="text-bolder">{this.state.title.length >= projectConfig.MIN_LENGTH ? this.state.title : this.props.activeProject.data().title}</span>
@@ -146,7 +146,7 @@ class Settings extends React.Component {
                 <ExpansionPanel
                   expanded={this.state.expandedPanel === 1}
                   onChange={(event) => this.handlePanelChange(event, 1)}
-                  settingType="Všeobecné"
+                  title="Všeobecné"
                   panelContent={
                     <div>
                       <TitleInput
@@ -168,7 +168,7 @@ class Settings extends React.Component {
                 <ExpansionPanel
                   expanded={this.state.expandedPanel === 2}
                   onChange={(event) => this.handlePanelChange(event, 2)}
-                  settingType="Vymazanie projektu"
+                  title="Vymazanie projektu"
                   panelContent={(
                     <Typography>
                       Vymazanie projektu je nenávratná akcia a jej vykonaním sa vymažú aj všetky príslušné verzie

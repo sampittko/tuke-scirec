@@ -34,12 +34,12 @@ Container.propTypes = {
   isAppLoading: propTypes.bool.isRequired,
   children: propTypes.array.isRequired,
   location: propTypes.object.isRequired,
-  activeDashboardRoute: propTypes.string,
+  activeDashboardRoute: propTypes.string, 
 };
 
 const mapStateToProps = state => {
   return {
-    isAppLoading: state.auth.isLoading || state.dashboard.isLoading || state.project.isLoading,
+    isAppLoading: state.auth.isLoading || state.dashboard.isLoading || state.project.isLoading || state.projectVersion.isLoading,
     activeDashboardRoute: state.dashboard.selector.activeRoute || "",
   }
 };

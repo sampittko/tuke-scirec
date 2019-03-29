@@ -1,0 +1,29 @@
+@import "../../../variables";
+
+.reviews {
+  .paper {
+    $height: calc(100vh - 128px - 47.2px - (6 * #{$spacing-unit}) - 40px);
+    min-height: calc(459.2px);
+    position: relative;
+    height: $height;
+    max-height: $height;
+    padding: 0;
+    overflow: hidden;
+
+    &:hover {
+      overflow-y: scroll;
+    }
+
+    .expansion-panel {
+      border-bottom: 1px solid lighten($light-gray-color-text-color, 70%);
+      box-shadow: none;
+      margin-bottom: 0;
+
+      .edit-mode-action-buttons {
+        position: relative;
+        bottom: inherit;
+        right: inherit;
+      }
+    }
+  }
+}

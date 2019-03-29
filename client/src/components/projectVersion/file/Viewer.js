@@ -1,10 +1,9 @@
 import React from 'react';
-import {IconButton, ListItem, Tooltip, Typography} from "@material-ui/core";
+import {Button, ListItem, Typography} from "@material-ui/core";
 import propTypes from 'prop-types';
 import './Viewer.scss';
 import List from "@material-ui/core/List";
 import ListItemText from "@material-ui/core/ListItemText";
-import NoteAddIcon from '@material-ui/icons/NoteAdd';
 
 class Viewer extends React.Component {
   render() {
@@ -16,16 +15,12 @@ class Viewer extends React.Component {
             <ListItem>
               <ListItemText
                 primary={(
-                  <Tooltip
-                    title="Pridať súbory"
-                    placement="bottom"
+                  <Button
+                    size="small"
                     onClick={this.props.onClick}
-                    disableFocusListener
                   >
-                    <IconButton className="add-files-button">
-                      <NoteAddIcon fontSize="small"/>
-                    </IconButton>
-                  </Tooltip>
+                    Pridať súbory
+                  </Button>
                 )}
                 className="list-item-text"
               />

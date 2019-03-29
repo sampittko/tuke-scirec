@@ -1,0 +1,38 @@
+@import '../../../variables';
+
+.project-settings {
+  margin: 4 * $spacing-unit auto;
+  width: $page-width;
+
+  .title-description {
+    padding-top: $spacing-unit;
+    color: $light-gray-color-text-color;
+    font-size: 12.3px;
+    text-align: right;
+  }
+
+  .changes-not-saved {
+    display: inline;
+    margin-right: 16px;
+    font-style: italic;
+    color: $light-gray-color-text-color;
+    vertical-align: middle;
+  }
+
+  .tooltip {
+    display: inline;
+  }
+}
+
+@media (max-width: $media-query-1) {
+  .settings {
+    margin: 2 * $spacing-unit auto;
+  }
+}
+
+@media (max-width: $media-query-2) {
+  .settings {
+    margin: 2 * $spacing-unit $spacing-unit;
+    width: $small-page-media-query-2-width;
+  }
+}

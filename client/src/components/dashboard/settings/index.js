@@ -1,7 +1,7 @@
-import '../../common/settings/settings.scss';
+import './index.scss';
 import {Fade, IconButton, Tooltip, Typography} from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ExpansionPanel from '../../common/settings/ExpansionPanel';
+import ExpansionPanel from '../../common/ExpansionPanel';
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
@@ -174,7 +174,7 @@ class Settings extends React.Component {
       <Fade in timeout={timeouts.FADE_IN}>
         <div>
           {this.props.dashboards && (
-            <div className="settings">
+            <div className="dashboard-settings">
               <Typography variant="h5" className="page-title">
                 Nastavenia nástenky <span
                 className="text-bolder">{this.state.title.length >= dashboardConfig.MIN_LENGTH ? this.state.title : this.props.activeDashboard.data().title}</span>
@@ -183,7 +183,7 @@ class Settings extends React.Component {
                 <ExpansionPanel
                   expanded={this.state.expandedPanel === 1}
                   onChange={(event) => this.handlePanelChange(event, 1)}
-                  settingType="Všeobecné"
+                  title="Všeobecné"
                   panelContent={
                     <div>
                       <TitleInput
@@ -219,14 +219,14 @@ class Settings extends React.Component {
                 <ExpansionPanel
                   expanded={this.state.expandedPanel === 2}
                   onChange={(event) => this.handlePanelChange(event, 2)}
-                  settingType="Téma"
+                  title="Téma"
                   panelContent={<ThemePicker theme={this.props.activeDashboard.data().theme}/>}
                   panelActions={this.getPanelActions()}
                 />
                 <ExpansionPanel
                   expanded={this.state.expandedPanel === 3}
                   onChange={(event) => this.handlePanelChange(event, 3)}
-                  settingType="Vymazanie nástenky"
+                  title="Vymazanie nástenky"
                   panelContent={(
                     <Typography>
                       Vymazanie nástenky je nenávratná akcia a jej vykonaním sa vymažu aj všetky projekty, ktoré sa v

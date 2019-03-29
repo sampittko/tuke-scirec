@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import React from 'react';
 import './Counter.scss';
 
-class ProjectsListCounter extends React.Component {
+class Counter extends React.Component {
   getProjectWord = () => {
     if (this.props.projectsCount >= 5) {
       return "projektov";
@@ -23,8 +23,8 @@ class ProjectsListCounter extends React.Component {
   }
 }
 
-ProjectsListCounter.propTypes = {
+Counter.propTypes = {
   projectsCount: propTypes.number.isRequired,
 };
 
-export default ProjectsListCounter;
+export default Counter;
