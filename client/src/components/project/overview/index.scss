@@ -3,7 +3,7 @@
 .overview {
   .paper {
     min-height: 451.2px;
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px);
+    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
     position: relative;
     margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
     height: $height;

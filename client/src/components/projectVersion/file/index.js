@@ -1,13 +1,38 @@
 import React from 'react';
 import Viewer from "./Viewer";
-// import Uploader from "./Uploader";
+import UploaderDialog from "./UploaderDialog";
 import propTypes from 'prop-types';
 
-const File = props =>
-  <div>
-    <Viewer editable={props.editable}/>
-    {/*<Uploader editable={props.editable}/>*/}
-  </div>;
+class File extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+    }
+  }
+
+  handleClick = () => {
+    this.setState(prevState => ({
+      open: !prevState.open,
+    }))
+  };
+
+  render() {
+    return (
+      <div>
+        <Viewer
+          editable={this.props.editable}
+          onClick={this.handleClick}
+        />
+        <UploaderDialog
+          open={this.state.open}
+          editable={this.props.editable}
+          onClick={this.handleClick}
+        />
+      </div>
+    );
+  }
+}
 
 File.propTypes = {
   editable: propTypes.bool,

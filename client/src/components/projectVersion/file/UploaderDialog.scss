@@ -1,0 +1,73 @@
+@import '../../../variables';
+
+.file-uploader-form {
+  min-width: 304px !important;
+}
+
+.file-uploader-dialog-title {
+  text-align: center;
+}
+
+.file-uploader {
+  position: relative;
+  overflow-x: hidden;
+  padding-top: 0 !important;
+  
+  .files {
+    margin-left: 15px !important;
+  }
+
+  label {
+    margin: 0;
+  }
+
+  .file-counter {
+    position: absolute;
+    right: 5 * $spacing-unit;
+    top: 23px;
+  }
+
+  .files-size-sum {
+    text-align: right;
+    margin-right: $spacing-unit;
+    margin-top: $spacing-unit;
+    color: $light-gray-color-text-color;
+  }
+
+  .many-files-message {
+    margin-top: 10px;
+    color: red;
+    text-align: center;
+  }
+
+  .add-files-area {
+    background-color: lighten($light-gray-color-text-color, 98%);
+    border: 1px dotted lighten($light-gray-color-text-color, 70%);
+
+    &:hover {
+      background-color: inherit;
+      border: 1px dashed lighten($light-gray-color-text-color, 70%);
+    }
+
+    span[class*="MuiFormControlLabel"] {
+      padding-left: 15px;
+      height: 42.8px;
+      line-height: 42.8px;
+    }
+  }
+
+  .files {
+    padding: $spacing-unit;
+    border-top: 1px dashed rgba($light-gray-color-text-color, 0.1);
+    background-color: rgba($light-gray-color-text-color, 0.02);
+    width: 100%;
+    right: 24px;
+
+    .file {
+      span[class*="MuiTypography-subtitle1"] {
+        border-bottom: 1px dashed $light-gray-color-text-color;
+        opacity: 0.7;
+      }
+    }
+  }
+}

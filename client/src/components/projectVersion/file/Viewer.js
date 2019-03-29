@@ -16,7 +16,12 @@ class Viewer extends React.Component {
             <ListItem>
               <ListItemText
                 primary={(
-                  <Tooltip title="Pridať súbory" placement="bottom">
+                  <Tooltip
+                    title="Pridať súbory"
+                    placement="bottom"
+                    onClick={this.props.onClick}
+                    disableFocusListener
+                  >
                     <IconButton className="add-files-button">
                       <NoteAddIcon fontSize="small"/>
                     </IconButton>
@@ -38,6 +43,7 @@ class Viewer extends React.Component {
 
 Viewer.propTypes = {
   editable: propTypes.bool,
+  onClick: propTypes.func.isRequired,
 };
 
 export default Viewer;
