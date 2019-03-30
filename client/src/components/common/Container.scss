@@ -43,6 +43,10 @@ hr[class*="Divider"] {
     font-weight: 500;
 }
 
+.paddingless {
+  padding: 0 !important;
+}
+
 @media (max-width: $media-query-1) {
     div[class*="container"] {
         &.double-toolbar-margin {

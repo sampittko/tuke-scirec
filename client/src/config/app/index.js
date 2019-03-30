@@ -46,6 +46,10 @@ export const projectConfig = {
 };
 
 export const projectVersionConfig = {
+  defaultValues: {
+    STATE: 0,
+    NOTES: '',
+  },
   states: {
     values: {
       NOT_SET: 0,

@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.loader {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: lighten($light-gray-color-text-color, 95%);
+  width: 100%;
+
+  .circular-progress {
+    opacity: 0.3;
+  }
+}

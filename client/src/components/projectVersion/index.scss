@@ -1,11 +1,11 @@
 @import '../../variables';
 
 .project-version {
-  .detail {
+  .project-version-detail {
     padding-right: $spacing-unit;
   }
 
-  .reviews {
+  .project-version-reviews {
     padding-left: $spacing-unit;
   }
 }
@@ -15,7 +15,7 @@
     margin-left: $spacing-unit;
   }
 
-  .reviews {
+  .project-version-reviews {
     padding-left: 0 !important;
     margin: 2 * $spacing-unit 0 !important;
     padding-right: $spacing-unit;

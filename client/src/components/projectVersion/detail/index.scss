@@ -1,11 +1,15 @@
 @import "../../../variables";
 
-.detail {
+.project-version-detail {
   .paper {
     $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px);
     min-height: calc(451.2px - 40px);
     position: relative;
     height: $height;
     max-height: $height;
+
+    &.paddingless {
+      min-height: calc(451.2px + #{$spacing-unit});
+    }
   }
 }

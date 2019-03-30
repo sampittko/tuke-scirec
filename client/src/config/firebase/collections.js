@@ -32,7 +32,16 @@ const firestoreCollections = {
       DESCRIPTION: 'description',
       RECIPIENT: 'recipient',
     }
-  }
+  },
+  projectVersions: {
+    ID: 'projectVersions',
+    fields: {
+      VERSION_NUMBER: 'versionNum',
+      PROJECT: 'project',
+      NOTES: 'notes',
+      STATE: 'state',
+    }
+  },
 };
 
 export default firestoreCollections;

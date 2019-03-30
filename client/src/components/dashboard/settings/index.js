@@ -243,7 +243,7 @@ class Settings extends React.Component {
                 onChange={this.handleSelectChange}
                 history={this.props.history}
               />
-              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli uložené"/>}
+              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli úspešne uložené"/>}
             </div>
           )}
         </div>

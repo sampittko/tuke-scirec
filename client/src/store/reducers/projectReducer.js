@@ -171,6 +171,33 @@ const project = (state = _initialState, action) => {
         error: action.error
       };
 
+    case actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_REQUEST:
+      console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_SUCCESS:
+      console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_SUCCESS);
+      const updatedProjectIndex3 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+      return {
+        ...state,
+        data: {
+          list: [...state.data.list.slice(0, updatedProjectIndex3), action.updatedProject, ...state.data.list.slice(updatedProjectIndex3 + 1)],
+          active: action.updatedProject,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_FAILURE:
+      console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
     case actionTypes.project.RESET_PROJECT_STATE:
       console.log(actionTypes.project.RESET_PROJECT_STATE);
       return _initialState;

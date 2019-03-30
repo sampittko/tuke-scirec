@@ -10,7 +10,7 @@ const NoData = props =>
         Neexistuje ešte žiadna verzia projektu
       </Typography>
       <Typography>
-        Tu sa zobrazí posledná verzia projektu {props.activeProject.data().title}
+        Tu sa zobrazí posledná verzia projektu {props.activeProject.data().title} s jeho posudkami
       </Typography>
     </div>
   </Fade>;

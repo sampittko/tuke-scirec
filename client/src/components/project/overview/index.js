@@ -97,7 +97,7 @@ class Overview extends React.Component {
             style={this.state.editMode ? {opacity: 0.7} : {}}
             label="Počet verzií projektu"
             InputProps={{readOnly: true}}
-            value={0}
+            value={this.props.activeProject.data().versionsCount}
             className="input"
             disabled
             InputLabelProps={{shrink: true}}
@@ -108,7 +108,7 @@ class Overview extends React.Component {
             settingsChanged={this.settingsChanged}
           />
         </Paper>
-        {this.state.changesSaved && <Notification message="Zmeny boli uložené"/>}
+        {this.state.changesSaved && <Notification message="Zmeny boli úspešne uložené"/>}
       </div>
     );
   }

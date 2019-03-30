@@ -1,20 +1,20 @@
-import './NewDashboardDialog.scss';
+import './NewDialog.scss';
 
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider } from '@material-ui/core';
+import {Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider} from '@material-ui/core';
 
 import DialogTransition from '../common/DialogTransition';
 import React from 'react';
 import Switch from '../common/Switch';
 import ThemePicker from '../themePicker';
 import TitleInput from '../common/TitleInput';
-import { connect } from 'react-redux';
-import { dashboardConfig } from '../../config/app';
+import {connect} from 'react-redux';
+import {dashboardConfig} from '../../config/app';
 import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
-import { resetThemePicker } from '../../store/actions/themePickerActions';
+import {resetThemePicker} from '../../store/actions/themePickerActions';
 import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
 
-class NewDashboardDialog extends React.Component {
+class NewDialog extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -100,7 +100,7 @@ class NewDashboardDialog extends React.Component {
   }
 }
 
-NewDashboardDialog.propTypes = {
+NewDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
   isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
@@ -123,4 +123,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewDashboardDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(NewDialog);

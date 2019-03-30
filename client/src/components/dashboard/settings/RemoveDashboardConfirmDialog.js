@@ -12,9 +12,9 @@ import {getDashboardRoute} from "../../../utils/dashboardUtils";
 class RemoveDashboardConfirmDialog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
+    this.props.onClick();
     await this.props.deleteDashboard(this.props.newDefaultDashboardId);
     this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
-    this.props.onClick();
   };
 
   render() {

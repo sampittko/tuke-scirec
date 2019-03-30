@@ -2,6 +2,7 @@ import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import {getRouteFromString} from '../../utils/appConfigUtils';
 import {projectConfig} from "../../config/app";
+import {deleteVersionsInProject} from "./projectVersionActions";
 
 const addProjectFailure = error => ({
   type: actionTypes.project.ADD_PROJECT_FAILURE,
@@ -127,6 +128,10 @@ export const deleteProjectsInDashboard = () => {
             batch.delete(doc.ref);
           });
           batch.commit();
+
+          result.forEach(doc => {
+            dispatch(deleteVersionsInProject(doc.id));
+          });
         }
       })
       .then(() => {
@@ -248,8 +253,6 @@ const deleteProjectSuccess = data => ({
 const deleteProjectRequest = () => ({
   type: actionTypes.project.DELETE_PROJECT_REQUEST
 });
-
-// TODO remove corresponding project versions
 export const deleteProject = () => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteProjectRequest());
@@ -258,6 +261,8 @@ export const deleteProject = () => {
     const state = getState();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const projectId = state.project.data.active.id;
+
+    await dispatch(deleteVersionsInProject(projectId));
 
     await projectsRef
       .doc(projectId)
@@ -274,11 +279,59 @@ export const deleteProject = () => {
   }
 };
 
+const incrementProjectVersionsCountFailure = error => ({
+  type: actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_FAILURE,
+  error
+});
+
+const incrementProjectVersionsCountSuccess = data => ({
+  type: actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_SUCCESS,
+  updatedProject: data.updatedProject,
+});
+
+const incrementProjectVersionsCountRequest = () => ({
+  type: actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_REQUEST
+});
+
+export const incrementProjectVersionsCount = () => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(incrementProjectVersionsCountRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+    const activeProject = state.project.data.active;
+
+    await projectsRef
+      .doc(activeProject.id)
+      .update({
+        versionsCount: activeProject.data().versionsCount + 1,
+      })
+      .then(() => {
+        return projectsRef
+          .doc(activeProject.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(incrementProjectVersionsCountSuccess({
+          updatedProject: result
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(incrementProjectVersionsCountFailure(error));
+      })
+  }
+};
+
 export const resetProjectState = () => {
   return (dispatch) => {
     dispatch({
       type: actionTypes.project.RESET_PROJECT_STATE
-    })
+    });
+    dispatch({
+      type: actionTypes.projectVersion.RESET_PROJECT_VERSION_STATE
+    });
   }
 };
 

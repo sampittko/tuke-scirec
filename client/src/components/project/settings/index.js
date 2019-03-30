@@ -184,7 +184,7 @@ class Settings extends React.Component {
                 history={this.props.history}
                 activeDashboard={this.props.activeDashboard}
               />
-              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli uložené"/>}
+              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli úspešne uložené"/>}
             </div>
           )}
         </div>

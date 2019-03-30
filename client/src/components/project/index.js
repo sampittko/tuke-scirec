@@ -10,15 +10,19 @@ import {withRouter} from 'react-router';
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Overview from "./overview";
-import LatestVersion from "../projectVersion/latest";
+import LatestVersion from "./latestVersion";
 import Fab from "../common/Fab";
 import AddIcon from '@material-ui/icons/Add';
+import NewVersionConfirmDialog from "./NewVersionConfirmDialog";
+import projectVersionPropTypes from '../../propTypes/projectVersionPropTypes';
+import Notification from "../common/Notification";
 
 class Project extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      newVersionView: false,
+      open: false,
+      projectVersionAdded: false,
     }
   }
 
@@ -29,9 +33,9 @@ class Project extends React.Component {
   }
 
   handleClick = () => {
-    this.setState({
-      newVersionView: true,
-    })
+    this.setState((prevState) => ({
+      open: !prevState.open,
+    }))
   };
 
   render() {
@@ -52,36 +56,53 @@ class Project extends React.Component {
                   <Overview/>
                 </Grid>
                 <Grid item xs={12} sm={8} className="col">
-                  <LatestVersion
-                    newVersionView={this.state.newVersionView}
-                    activeProject={this.props.activeProject}
-                  />
+                  <LatestVersion activeProject={this.props.activeProject}/>
                 </Grid>
               </Grid>
-              {!this.state.newVersionView && (
+              {!this.props.isProjectVersionLoading && (
                 <Fab
                   onClick={this.handleClick}
                   icon={<AddIcon/>}
                   tooltipTitle="Pridanie novej verzie projektu"
                 />
               )}
+              <NewVersionConfirmDialog
+                open={this.state.open}
+                onClick={this.handleClick}
+                activeProject={this.props.activeProject}
+              />
             </div>
           )}
+          {this.state.projectVersionAdded &&
+          <Notification message={`Verzia ${this.props.activeProject.data().versionsCount} bola úspešne pridaná`}/>}
         </div>
       </Fade>
     );
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.props.activeProject) {
+      // TODO fix new project version creation notification
+      if (prevProps.activeProject.data().versionsCount < this.props.activeProject.data().versionsCount) {
+        this.setState({
+          projectVersionAdded: true,
+        });
+      }
+    }
   }
 }
 
 Project.propTypes = {
   activeDashboard: propTypes.object,
-  activeProject: propTypes.object
+  activeProject: propTypes.object,
+  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
 };
 
 const mapStateToProps = state => {
   return {
     activeDashboard: state.dashboard.selector.active,
     activeProject: state.project.data.active,
+    isProjectVersionLoading: state.projectVersion.isLoading,
   }
 };
 

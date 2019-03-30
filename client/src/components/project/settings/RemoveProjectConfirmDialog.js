@@ -11,8 +11,8 @@ import {getDashboardRoute} from "../../../utils/dashboardUtils";
 class RemoveProjectConfirmDialog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
-    await this.props.deleteProject();
     this.props.onClick();
+    await this.props.deleteProject();
     this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
   };
 

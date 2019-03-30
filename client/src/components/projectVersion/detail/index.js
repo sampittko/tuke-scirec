@@ -7,6 +7,9 @@ import EditModeActionButtons from "../../common/EditModeActionButtons";
 import Editables from "./Editables";
 import Readables from "./Readables";
 import {projectVersionConfig} from "../../../config/app";
+import {connect} from "react-redux";
+import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
+import Loader from "../../common/Loader";
 
 class Detail extends React.Component {
   constructor(props) {
@@ -44,9 +47,9 @@ class Detail extends React.Component {
         break;
       case 'cancel':
         // TODO
-        this.setState((prevState, props) => ({
+        this.setState({
           editMode: false,
-        }));
+        });
         break;
       default:
         console.log("Bad action");
@@ -62,26 +65,32 @@ class Detail extends React.Component {
 
   render() {
     return (
-      <div className="detail">
+      <div className="project-version-detail">
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
-        <Paper className="paper">
-          {this.state.editMode ? (
-            <Editables
-              state={this.state.state}
-              notes={this.state.notes}
-              onChange={this.handleChange}
-            />
+        <Paper className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''}`}>
+          {!this.props.isProjectVersionLoading ? (
+            <div>
+              {this.state.editMode ? (
+                <Editables
+                  state={this.state.state}
+                  notes={this.state.notes}
+                  onChange={this.handleChange}
+                />
+              ) : (
+                <Readables
+                  state={this.state.state}
+                  notes={this.state.notes}
+                />
+              )}
+              <EditModeActionButtons
+                editMode={this.state.editMode}
+                settingsChanged={this.settingsChanged}
+                onClick={(event, action) => this.handleClick(event, action)}
+              />
+            </div>
           ) : (
-            <Readables
-              state={this.state.state}
-              notes={this.state.notes}
-            />
+            <Loader/>
           )}
-          <EditModeActionButtons
-            editMode={this.state.editMode}
-            settingsChanged={this.settingsChanged}
-            onClick={(event, action) => this.handleClick(event, action)}
-          />
         </Paper>
       </div>
     )
@@ -90,6 +99,13 @@ class Detail extends React.Component {
 
 Detail.propTypes = {
   latest: propTypes.bool,
+  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
 };
 
-export default Detail;
+const mapStateToProps = state => {
+  return {
+    isProjectVersionLoading: state.projectVersion.isLoading,
+  }
+};
+
+export default connect(mapStateToProps)(Detail);
