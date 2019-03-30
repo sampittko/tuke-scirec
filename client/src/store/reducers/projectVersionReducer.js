@@ -61,15 +61,15 @@ const projectVersion = (state = _initialState, action) => {
         error: action.error,
       };
 
-    case actionTypes.projectVersion.GET_LATEST_PROJECT_REQUEST:
-      console.log(actionTypes.projectVersion.GET_LATEST_PROJECT_REQUEST);
+    case actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_REQUEST:
+      console.log(actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
-    case actionTypes.projectVersion.GET_LATEST_PROJECT_SUCCESS:
-      console.log(actionTypes.projectVersion.GET_LATEST_PROJECT_SUCCESS);
+    case actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_SUCCESS:
+      console.log(actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_SUCCESS);
       return {
         ...state,
         data: {
@@ -79,8 +79,8 @@ const projectVersion = (state = _initialState, action) => {
         isLoading: false,
       };
 
-    case actionTypes.projectVersion.GET_LATEST_PROJECT_FAILURE:
-      console.log(actionTypes.projectVersion.GET_LATEST_PROJECT_FAILURE);
+    case actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_FAILURE:
+      console.log(actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_FAILURE);
       return {
         ...state,
         isLoading: false,

@@ -31,7 +31,7 @@ class Settings extends React.Component {
       newDefaultDashboardId: "",
       confirmDialogOpen: false,
       expandedPanel: 0,
-      changesSaved: false,
+      notify: false,
     }
   }
 
@@ -69,7 +69,7 @@ class Settings extends React.Component {
     });
     if (this._isMounted) {
       this.setState({
-        changesSaved: true,
+        notify: true,
       })
     }
   };
@@ -114,6 +114,12 @@ class Settings extends React.Component {
     this.setState({
       expandedPanel: this.state.expandedPanel === panel ? 0 : panel
     });
+  };
+
+  handleClose = () => {
+    this.setState({
+      notify: false,
+    })
   };
 
   getPanelActions = () => {
@@ -243,7 +249,12 @@ class Settings extends React.Component {
                 onChange={this.handleSelectChange}
                 history={this.props.history}
               />
-              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli úspešne uložené"/>}
+              {this.state.notify && (
+                <Notification
+                  message="Zmeny v nastaveniach boli úspešne uložené"
+                  onClose={this.handleClose}
+                />
+              )}
             </div>
           )}
         </div>
@@ -260,11 +271,6 @@ class Settings extends React.Component {
     if (prevProps.activeDashboard && this.props.activeDashboard && prevProps.activeDashboard.data().title !== this.props.activeDashboard.data().title) {
       this.props.history.push(getDashboardSettingsRoute(this.props.activeDashboard.data().route));
       document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard)
-    }
-    if (prevState.changesSaved) {
-      this.setState({
-        changesSaved: false,
-      });
     }
   }
 

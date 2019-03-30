@@ -4,6 +4,7 @@ import firestoreCollections from '../../config/firebase/collections';
 import {getRouteFromString} from '../../utils/appConfigUtils';
 import {resetDashboardState} from './dashboardActions';
 import {resetProjectState} from './projectActions';
+import {resetProjectVersionState} from "./projectVersionActions";
 
 const loginFailure = error => ({
   type: actionTypes.auth.LOGIN_FAILURE,
@@ -55,9 +56,8 @@ export const logout = () => {
     firebase.auth()
       .signOut()
       .then(() => {
+        dispatch(resetUserDependentEntities());
         dispatch(logoutSuccess());
-        dispatch(resetDashboardState());
-        dispatch(resetProjectState());
       });
   }
 };
@@ -129,5 +129,14 @@ export const getAuth = () => {
       type: actionTypes.auth.GET_AUTH,
       auth: firebase.auth()
     })
+  }
+};
+
+// TODO add reviews entity reset
+export const resetUserDependentEntities = () => {
+  return dispatch => {
+    dispatch(resetDashboardState());
+    dispatch(resetProjectState());
+    dispatch(resetProjectVersionState());
   }
 };

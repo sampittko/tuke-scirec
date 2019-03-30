@@ -22,7 +22,7 @@ class Project extends React.Component {
     super(props);
     this.state = {
       open: false,
-      projectVersionAdded: false,
+      notify: false,
     }
   }
 
@@ -36,6 +36,12 @@ class Project extends React.Component {
     this.setState((prevState) => ({
       open: !prevState.open,
     }))
+  };
+
+  handleClose = () => {
+    this.setState({
+      notify: false,
+    });
   };
 
   render() {
@@ -73,8 +79,12 @@ class Project extends React.Component {
               />
             </div>
           )}
-          {this.state.projectVersionAdded &&
-          <Notification message={`Verzia ${this.props.activeProject.data().versionsCount} bola úspešne pridaná`}/>}
+          {this.state.notify && (
+            <Notification
+              message={`Verzia ${this.props.activeProject.data().versionsCount} bola úspešne pridaná`}
+              onClose={this.handleClose}
+            />
+          )}
         </div>
       </Fade>
     );
@@ -82,10 +92,9 @@ class Project extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.activeProject) {
-      // TODO fix new project version creation notification
       if (prevProps.activeProject.data().versionsCount < this.props.activeProject.data().versionsCount) {
         this.setState({
-          projectVersionAdded: true,
+          notify: true,
         });
       }
     }

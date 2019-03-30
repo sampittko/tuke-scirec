@@ -72,7 +72,7 @@ class Dashboard extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.activeDashboard !== this.props.activeDashboard) {
       this.setDocumentTitle();
     }

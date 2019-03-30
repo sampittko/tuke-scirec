@@ -22,7 +22,6 @@ class Detail extends React.Component {
     }
   }
 
-  // TODO
   settingsChanged = () => {
     // return this.props.activeProject.data().state !== this.state.state ||
     //   this.props.activeProject.data().deadline !== this.state.deadline ||
@@ -39,14 +38,12 @@ class Detail extends React.Component {
         });
         break;
       case 'save':
-        // TODO
         this.setState({
           changesSaved: true,
           editMode: false,
         });
         break;
       case 'cancel':
-        // TODO
         this.setState({
           editMode: false,
         });

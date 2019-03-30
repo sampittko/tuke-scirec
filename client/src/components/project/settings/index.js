@@ -25,7 +25,7 @@ class Settings extends React.Component {
       title: '',
       confirmDialogOpen: false,
       expandedPanel: 0,
-      changesSaved: false,
+      notify: false,
     }
   }
 
@@ -48,7 +48,7 @@ class Settings extends React.Component {
     await this.props.updateProjectTitle(this.state.title);
     if (this._isMounted) {
       this.setState({
-        changesSaved: true,
+        notify: true,
       })
     }
   };
@@ -77,6 +77,12 @@ class Settings extends React.Component {
         title: event.target.value
       });
     }
+  };
+
+  handleClose = () => {
+    this.setState({
+      notify: false,
+    })
   };
 
   getPanelActions = () => {
@@ -184,7 +190,12 @@ class Settings extends React.Component {
                 history={this.props.history}
                 activeDashboard={this.props.activeDashboard}
               />
-              {this.state.changesSaved && <Notification message="Zmeny v nastaveniach boli úspešne uložené"/>}
+              {this.state.notify && (
+                <Notification
+                  message="Zmeny v nastaveniach boli úspešne uložené"
+                  onClose={this.handleClose}
+                />
+              )}
             </div>
           )}
         </div>
@@ -196,11 +207,6 @@ class Settings extends React.Component {
     if (prevProps.activeProject && this.props.activeProject && prevProps.activeProject.data().title !== this.props.activeProject.data().title) {
       this.props.history.push(getProjectSettingsRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
       document.title = getProjectSettingsDocumentTitle(this.props.activeDashboard, this.props.activeProject)
-    }
-    if (prevState.changesSaved) {
-      this.setState({
-        changesSaved: false,
-      });
     }
   }
 

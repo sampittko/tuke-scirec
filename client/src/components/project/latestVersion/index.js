@@ -36,10 +36,6 @@ class LatestVersion extends React.Component {
       </div>
     );
   }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    // TODO
-  }
 }
 
 LatestVersion.propTypes = {

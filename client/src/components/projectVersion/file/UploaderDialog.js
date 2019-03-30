@@ -14,7 +14,6 @@ import DialogContent from "@material-ui/core/DialogContent";
 import {timeouts} from "../../../config/mui";
 import Fade from "@material-ui/core/Fade";
 
-// TODO handle max files size
 class UploaderDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -62,6 +61,7 @@ class UploaderDialog extends React.Component {
     }
   };
 
+  // TODO handle max files size
   handleSubmit = event => {
     event.preventDefault();
     console.log("Form submitted");

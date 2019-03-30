@@ -97,17 +97,17 @@ export const deleteVersionsInProject = projectId => {
 };
 
 const getLatestProjectVersionFailure = error => ({
-  type: actionTypes.projectVersion.GET_LATEST_PROJECT_FAILURE,
+  type: actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_FAILURE,
   error
 });
 
 const getLatestProjectVersionSuccess = data => ({
-  type: actionTypes.projectVersion.GET_LATEST_PROJECT_SUCCESS,
+  type: actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_SUCCESS,
   latestProjectVersion: data.latestProjectVersion,
 });
 
 const getLatestProjectVersionRequest = () => ({
-  type: actionTypes.projectVersion.GET_LATEST_PROJECT_REQUEST
+  type: actionTypes.projectVersion.GET_LATEST_PROJECT_VERSION_REQUEST
 });
 
 export const getLatestProjectVersion = () => {
@@ -131,5 +131,13 @@ export const getLatestProjectVersion = () => {
         console.log(error);
         dispatch(getLatestProjectVersionFailure(error));
       });
+  }
+};
+
+export const resetProjectVersionState = () => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.RESET_PROJECT_VERSION_STATE
+    });
   }
 };

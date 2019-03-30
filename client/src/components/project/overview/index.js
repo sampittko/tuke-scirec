@@ -15,7 +15,7 @@ class Overview extends React.Component {
     super(props);
     this.state = {
       editMode: false,
-      changesSaved: false,
+      notify: false,
       state: props.activeProject.data().state,
       deadline: props.activeProject.data().deadline,
       recipient: props.activeProject.data().recipient,
@@ -45,7 +45,7 @@ class Overview extends React.Component {
           description: this.state.description,
         });
         this.setState({
-          changesSaved: true,
+          notify: true,
           editMode: false,
         });
         break;
@@ -67,6 +67,12 @@ class Overview extends React.Component {
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value,
+    })
+  };
+
+  handleClose = () => {
+    this.setState({
+      notify: false,
     })
   };
 
@@ -108,17 +114,14 @@ class Overview extends React.Component {
             settingsChanged={this.settingsChanged}
           />
         </Paper>
-        {this.state.changesSaved && <Notification message="Zmeny boli úspešne uložené"/>}
+        {this.state.notify && (
+          <Notification
+            message="Zmeny boli úspešne uložené"
+            onClose={this.handleClose}
+          />
+        )}
       </div>
     );
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevState.changesSaved) {
-      this.setState({
-        changesSaved: false,
-      })
-    }
   }
 }
 

@@ -16,6 +16,7 @@ class Notification extends React.Component {
       this.setState({
         open: false
       });
+      this.props.onClose();
     }
   };
 
@@ -33,7 +34,8 @@ class Notification extends React.Component {
 }
 
 Notification.propTypes = {
-  message: propTypes.string.isRequired
+  message: propTypes.string.isRequired,
+  onClose: propTypes.func.isRequired,
 };
 
 export default Notification;

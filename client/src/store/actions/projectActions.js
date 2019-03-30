@@ -324,6 +324,8 @@ export const incrementProjectVersionsCount = () => {
   }
 };
 
+// TODO updateProjectModified action (and use it everywhere down the project tree)
+
 export const resetProjectState = () => {
   return (dispatch) => {
     dispatch({
@@ -347,7 +349,10 @@ export const setProject = project => {
 export const removeActiveProject = () => {
   return (dispatch) => {
     dispatch({
-      type: actionTypes.project.REMOVE_ACTIVE_PROJECT,
-    })
+      type: actionTypes.project.REMOVE_ACTIVE_PROJECT
+    });
+    dispatch({
+      type: actionTypes.projectVersion.RESET_PROJECT_VERSION_STATE
+    });
   }
 };
