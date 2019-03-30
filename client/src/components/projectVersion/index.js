@@ -8,31 +8,26 @@ import './index.scss';
 import {connect} from "react-redux";
 import {addProjectVersion} from '../../store/actions/projectVersionActions';
 
-class ProjectVersion extends React.Component {
-  render() {
-    return (
-      <div className="project-version">
-        {!this.props.latest && (
-          <Grid container>
-            <Grid item>
-              <Typography variant="h5" className="page-title">
-                Verzia <span className="text-bolder">{this.props.activeProject.data().versionsCount}</span>
-              </Typography>
-            </Grid>
-          </Grid>
-        )}
-        <Grid container>
-          <Grid item xs={12} sm={6}>
-            <Detail latest={this.props.latest}/>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Review latest={this.props.latest}/>
-          </Grid>
+const ProjectVersion = props =>
+  <div className="project-version">
+    {!props.latest && (
+      <Grid container>
+        <Grid item>
+          <Typography variant="h5" className="page-title">
+            Verzia <span className="text-bolder">{props.activeProject.data().versionsCount}</span>
+          </Typography>
         </Grid>
-      </div>
-    );
-  }
-}
+      </Grid>
+    )}
+    <Grid container>
+      <Grid item xs={12} sm={6}>
+        <Detail latest={props.latest}/>
+      </Grid>
+      <Grid item xs={12} sm={6}>
+        <Review latest={props.latest}/>
+      </Grid>
+    </Grid>
+  </div>;
 
 ProjectVersion.propTypes = {
   latest: propTypes.bool,

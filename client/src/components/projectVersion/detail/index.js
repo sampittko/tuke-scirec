@@ -6,28 +6,27 @@ import './index.scss';
 import EditModeActionButtons from "../../common/EditModeActionButtons";
 import Editables from "./Editables";
 import Readables from "./Readables";
-import {projectVersionConfig} from "../../../config/app";
 import {connect} from "react-redux";
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Loader from "../../common/Loader";
+import Notification from "../../common/Notification";
+import {projectVersionConfig} from "../../../config/app";
+import {updateProjectVersion} from "../../../store/actions/projectVersionActions";
 
 class Detail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       editMode: false,
-      changesSaved: false,
-      state: projectVersionConfig.states.values.NOT_SET,
-      notes: "",
+      notify: false,
+      notes: projectVersionConfig.defaultValues.NOTES,
+      state: projectVersionConfig.defaultValues.STATE,
     }
   }
 
   settingsChanged = () => {
-    // return this.props.activeProject.data().state !== this.state.state ||
-    //   this.props.activeProject.data().deadline !== this.state.deadline ||
-    //   this.props.activeProject.data().recipient !== this.state.recipient ||
-    //   this.props.activeProject.data().description !== this.state.description
-    return false;
+    return (this.props.activeProjectVersion.data().state !== this.state.state ||
+      this.props.activeProjectVersion.data().notes !== this.state.notes);
   };
 
   handleClick = async (event, action) => {
@@ -38,15 +37,21 @@ class Detail extends React.Component {
         });
         break;
       case 'save':
+        this.props.updateProjectVersion({
+          state: this.state.state,
+          notes: this.state.notes,
+        });
         this.setState({
-          changesSaved: true,
+          notify: true,
           editMode: false,
         });
         break;
       case 'cancel':
-        this.setState({
+        this.setState((prevState, prevProps) => ({
           editMode: false,
-        });
+          state: prevProps.activeProjectVersion.data().state,
+          notes: prevProps.activeProjectVersion.data().notes,
+        }));
         break;
       default:
         console.log("Bad action");
@@ -60,12 +65,37 @@ class Detail extends React.Component {
     })
   };
 
+  handleClose = () => {
+    this.setState({
+      notify: false,
+    })
+  };
+
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextProps.activeProjectVersion) {
+      if (nextProps.activeProjectVersion.data().notes !== this.state.notes && nextProps.activeProjectVersion.data().state !== this.state.state) {
+        this.setState({
+          notes: nextProps.activeProjectVersion.data().notes,
+          state: nextProps.activeProjectVersion.data().state,
+        });
+      } else if (nextProps.activeProjectVersion.data().state !== this.state.state) {
+        this.setState({
+          state: nextProps.activeProjectVersion.data().state,
+        });
+      } else if (nextProps.activeProjectVersion.data().notes !== this.state.notes) {
+        this.setState({
+          state: nextProps.activeProjectVersion.data().notes,
+        });
+      }
+    }
+  }
+
   render() {
     return (
       <div className="project-version-detail">
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
         <Paper className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''}`}>
-          {!this.props.isProjectVersionLoading ? (
+          {!this.props.isProjectVersionLoading && this.props.activeProjectVersion ? (
             <div>
               {this.state.editMode ? (
                 <Editables
@@ -89,6 +119,12 @@ class Detail extends React.Component {
             <Loader/>
           )}
         </Paper>
+        {this.state.notify && (
+          <Notification
+            message="Zmeny boli úspešne uložené"
+            onClose={this.handleClose}
+          />
+        )}
       </div>
     )
   }
@@ -97,12 +133,20 @@ class Detail extends React.Component {
 Detail.propTypes = {
   latest: propTypes.bool,
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  activeProjectVersion: propTypes.object,
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    updateProjectVersion: data => dispatch(updateProjectVersion(data)),
+  }
 };
 
 const mapStateToProps = state => {
   return {
     isProjectVersionLoading: state.projectVersion.isLoading,
+    activeProjectVersion: state.projectVersion.data.active,
   }
 };
 
-export default connect(mapStateToProps)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);

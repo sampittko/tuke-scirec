@@ -306,6 +306,7 @@ export const incrementProjectVersionsCount = () => {
       .doc(activeProject.id)
       .update({
         versionsCount: activeProject.data().versionsCount + 1,
+        modified: new Date(),
       })
       .then(() => {
         return projectsRef
@@ -324,7 +325,50 @@ export const incrementProjectVersionsCount = () => {
   }
 };
 
-// TODO updateProjectModified action (and use it everywhere down the project tree)
+const updateProjectModifiedFailure = error => ({
+  type: actionTypes.project.UPDATE_PROJECT_MODIFIED_FAILURE,
+  error
+});
+
+const updateProjectModifiedSuccess = data => ({
+  type: actionTypes.project.UPDATE_PROJECT_MODIFIED_SUCCESS,
+  updatedProject: data.updatedProject,
+});
+
+const updateProjectModifiedRequest = () => ({
+  type: actionTypes.project.UPDATE_PROJECT_MODIFIED_REQUEST
+});
+
+export const updateProjectModified = () => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(updateProjectModifiedRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+    const activeProject = state.project.data.active;
+
+    await projectsRef
+      .doc(activeProject.id)
+      .update({
+        modified: new Date(),
+      })
+      .then(() => {
+        return projectsRef
+          .doc(activeProject.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateProjectModifiedSuccess({
+          updatedProject: result
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(updateProjectModifiedFailure(error));
+      })
+  }
+};
 
 export const resetProjectState = () => {
   return (dispatch) => {

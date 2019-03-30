@@ -45,3 +45,7 @@ export const getProjectStateColor = numericState => {
       return "default";
   }
 };
+
+export const getProjectsSortedByModified = projects => {
+  return projects.sort((project1, project2) => project2.data().modified.toDate().getMilliseconds() - project1.data().modified.toDate().getMilliseconds());
+};

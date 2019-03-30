@@ -1,7 +1,7 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
 import {projectVersionConfig} from "../../config/app";
-import {incrementProjectVersionsCount} from "./projectActions";
+import {incrementProjectVersionsCount, updateProjectModified} from "./projectActions";
 
 const addProjectVersionFailure = error => ({
   type: actionTypes.projectVersion.ADD_PROJECT_VERSION_FAILURE,
@@ -130,6 +130,53 @@ export const getLatestProjectVersion = () => {
       .catch(error => {
         console.log(error);
         dispatch(getLatestProjectVersionFailure(error));
+      });
+  }
+};
+
+const updateProjectVersionFailure = error => ({
+  type: actionTypes.projectVersion.UPDATE_PROJECT_VERSION_FAILURE,
+  error
+});
+
+const updateProjectVersionSuccess = data => ({
+  type: actionTypes.projectVersion.UPDATE_PROJECT_VERSION_SUCCESS,
+  updatedProjectVersion: data.updatedProjectVersion,
+});
+
+const updateProjectVersionRequest = () => ({
+  type: actionTypes.projectVersion.UPDATE_PROJECT_VERSION_REQUEST
+});
+
+export const updateProjectVersion = data => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(updateProjectVersionRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const activeProjectVersion = state.projectVersion.data.active;
+    const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
+
+    projectVersionsRef
+      .doc(activeProjectVersion.id)
+      .update({
+        state: data.state,
+        notes: data.notes,
+      })
+      .then(() => {
+        return projectVersionsRef
+          .doc(activeProjectVersion.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateProjectModified());
+        dispatch(updateProjectVersionSuccess({
+          updatedProjectVersion: result
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(updateProjectVersionFailure(error));
       });
   }
 };

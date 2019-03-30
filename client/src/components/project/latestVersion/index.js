@@ -20,12 +20,12 @@ class LatestVersion extends React.Component {
   render() {
     return (
       <div
-        className={`latest-project-version ${this.props.activeProject.data().versionsCount > 0 ? "" : "empty"}`}>
+        className={`latest-project-version ${this.props.activeProject.data().versionsCount > 0 || this.props.isProjectVersionLoading ? "" : "empty"}`}>
         {this.props.activeProject.data().versionsCount > 0 || this.props.isProjectVersionLoading ? (
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
               <Typography variant="h6" className="page-title">
-                Najnovšia verzia
+                Verzia {this.props.activeProject.data().versionsCount}
               </Typography>
               <ProjectVersion latest/>
             </div>

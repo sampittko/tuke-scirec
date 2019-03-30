@@ -26,10 +26,10 @@ class Review extends React.Component {
 
   render() {
     return (
-      <div className="project-version-reviews">
+      <div className="project-version-review">
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Posudky</Typography>
         <Paper className="paper">
-          {!this.props.areReviewsLoading ? (
+          {!this.props.isReviewLoading ? (
             <div>
               <ExpansionPanel
                 expanded={this.state.expandedPanel === 1}
@@ -71,13 +71,13 @@ class Review extends React.Component {
 Review.propTypes = {
   latest: propTypes.bool,
   // TODO add prop-type from projectVersionReviewsPropTypes
-  areReviewsLoading: propTypes.bool.isRequired,
+  isReviewLoading: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {
   return {
     // TODO map to projectVersionReviews reducer
-    areReviewsLoading: true,
+    isReviewLoading: true,
   }
 };
 
