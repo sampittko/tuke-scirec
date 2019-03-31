@@ -40,6 +40,8 @@ const firestoreCollections = {
       PROJECT: 'project',
       NOTES: 'notes',
       STATE: 'state',
+      CREATED: 'created',
+      MODIFIED: 'modified',
     }
   },
 };

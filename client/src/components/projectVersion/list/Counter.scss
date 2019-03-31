@@ -1,0 +1,7 @@
+@import '../../../variables';
+
+.project-versions-list-counter {
+  padding-top: 2 * $spacing-unit;
+  padding-left: 2 * $spacing-unit;
+  color: $light-gray-color-text-color !important;
+}

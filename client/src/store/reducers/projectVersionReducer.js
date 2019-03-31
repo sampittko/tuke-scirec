@@ -1,4 +1,5 @@
 import actionTypes from "../actionTypes";
+import {getProjectVersionsSortedByModified} from "../../utils/projectVersionUtils";
 
 const _initialState = {
   data: {
@@ -100,7 +101,7 @@ const projectVersion = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: [...state.data.list.slice(0, updatedProjectVersionIndex), action.updatedProjectVersion, ...state.data.list.slice(updatedProjectVersionIndex + 1)],
+          list: getProjectVersionsSortedByModified([...state.data.list.slice(0, updatedProjectVersionIndex), action.updatedProjectVersion, ...state.data.list.slice(updatedProjectVersionIndex + 1)]),
           active: action.updatedProjectVersion,
         },
         isLoading: false,
@@ -114,9 +115,54 @@ const projectVersion = (state = _initialState, action) => {
         error: action.error,
       };
 
+    case actionTypes.projectVersion.GET_PROJECT_VERSIONS_REQUEST:
+      console.log(actionTypes.projectVersion.GET_PROJECT_VERSIONS_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.projectVersion.GET_PROJECT_VERSIONS_SUCCESS:
+      console.log(actionTypes.projectVersion.GET_PROJECT_VERSIONS_SUCCESS);
+      return {
+        ...state,
+        data: {
+          list: action.projectVersions,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.projectVersion.GET_PROJECT_VERSIONS_FAILURE:
+      console.log(actionTypes.projectVersion.GET_PROJECT_VERSIONS_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+
     case actionTypes.projectVersion.RESET_PROJECT_VERSION_STATE:
       console.log(actionTypes.projectVersion.RESET_PROJECT_VERSION_STATE);
       return _initialState;
+
+    case actionTypes.projectVersion.SET_ACTIVE_PROJECT_VERSION:
+      console.log(actionTypes.projectVersion.SET_ACTIVE_PROJECT_VERSION);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          active: action.projectVersion,
+        }
+      };
+
+    case actionTypes.projectVersion.REMOVE_ACTIVE_PROJECT_VERSION:
+      console.log(actionTypes.projectVersion.REMOVE_ACTIVE_PROJECT_VERSION);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          active: null,
+        }
+      };
 
     default:
       return state;

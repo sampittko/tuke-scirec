@@ -381,10 +381,10 @@ export const resetProjectState = () => {
   }
 };
 
-export const setProject = project => {
+export const setActiveProject = project => {
   return (dispatch) => {
     dispatch({
-      type: actionTypes.project.SET_PROJECT,
+      type: actionTypes.project.SET_ACTIVE_PROJECT,
       project
     })
   }

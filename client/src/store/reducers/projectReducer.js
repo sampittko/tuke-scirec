@@ -230,8 +230,8 @@ const project = (state = _initialState, action) => {
       console.log(actionTypes.project.RESET_PROJECT_STATE);
       return _initialState;
 
-    case actionTypes.project.SET_PROJECT:
-      console.log(actionTypes.project.SET_PROJECT);
+    case actionTypes.project.SET_ACTIVE_PROJECT:
+      console.log(actionTypes.project.SET_ACTIVE_PROJECT);
       return {
         ...state,
         data: {

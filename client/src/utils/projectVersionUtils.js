@@ -1,4 +1,8 @@
 import {projectVersionConfig} from "../config/app";
+import routes from "../config/app/routes";
+
+export const getProjectVersionRoute = (dashboardRoute, projectRoute, versionNum) =>
+  dashboardRoute !== "" && projectRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}/${routes.PROJECTS}/${projectRoute}/${routes.VERSIONS}/${versionNum}` : dashboardRoute;
 
 export const getReadableProjectVersionState = numericState => {
   switch (numericState) {
@@ -15,4 +19,8 @@ export const getReadableProjectVersionState = numericState => {
     default:
       return projectVersionConfig.states.labels.NOT_SET;
   }
+};
+
+export const getProjectVersionsSortedByModified = projectVersions => {
+  return projectVersions.sort((projectVersion1, projectVersion2) => projectVersion2.data().modified.toDate().getMilliseconds() - projectVersion1.data().modified.toDate().getMilliseconds());
 };

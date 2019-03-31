@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 import {connect} from "react-redux";
 import {addProjectVersion} from "../../store/actions/projectVersionActions";
 
-class NewVersionConfirmDialog extends React.Component {
+class NewConfirmDialog extends React.Component {
   handleSubmit = event => {
     event.preventDefault();
     this.props.onClick();
@@ -46,7 +46,7 @@ class NewVersionConfirmDialog extends React.Component {
   }
 }
 
-NewVersionConfirmDialog.propTypes = {
+NewConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
   activeProject: propTypes.object.isRequired,
@@ -58,4 +58,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default connect(null, mapDispatchToProps)(NewVersionConfirmDialog);
+export default connect(null, mapDispatchToProps)(NewConfirmDialog);

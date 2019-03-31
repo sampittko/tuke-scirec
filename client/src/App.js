@@ -8,7 +8,7 @@ import DashboardSettings from './components/dashboard/settings';
 import Home from './components/Home';
 import Login from './components/auth/Login';
 import Project from './components/project';
-import ProjectVersionsList from './components/projectVersion/List';
+import ProjectVersionsList from './components/projectVersion/list';
 import ProjectSettings from './components/project/settings';
 import React from 'react';
 import Register from './components/auth/Register';

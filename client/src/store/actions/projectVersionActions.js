@@ -33,6 +33,8 @@ export const addProjectVersion = () => {
         state: projectVersionConfig.defaultValues.STATE,
         notes: projectVersionConfig.defaultValues.NOTES,
         versionNum: activeProject.data().versionsCount + 1,
+        modified: new Date(),
+        created: new Date(),
       })
       .then(async (result) => {
         await dispatch(incrementProjectVersionsCount());
@@ -162,6 +164,7 @@ export const updateProjectVersion = data => {
       .update({
         state: data.state,
         notes: data.notes,
+        modified: new Date(),
       })
       .then(() => {
         return projectVersionsRef
@@ -181,10 +184,67 @@ export const updateProjectVersion = data => {
   }
 };
 
+const getProjectVersionsFailure = error => ({
+  type: actionTypes.projectVersion.GET_PROJECT_VERSIONS_FAILURE,
+  error
+});
+
+const getProjectVersionsSuccess = data => ({
+  type: actionTypes.projectVersion.GET_PROJECT_VERSIONS_SUCCESS,
+  projectVersions: data.projectVersions,
+});
+
+const getProjectVersionsRequest = () => ({
+  type: actionTypes.projectVersion.GET_PROJECT_VERSIONS_REQUEST
+});
+
+export const getProjectVersions = () => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(getProjectVersionsRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const activeProject = state.project.data.active;
+    const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+
+    projectVersionsRef
+      .where(firestoreCollections.projectVersions.fields.PROJECT, "==", projectsRef.doc(activeProject.id))
+      .orderBy(firestoreCollections.projectVersions.fields.MODIFIED, "desc")
+      .get()
+      .then(result => {
+        dispatch(getProjectVersionsSuccess({
+          projectVersions: result.docs
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(getProjectVersionsFailure(error));
+      });
+  }
+};
+
 export const resetProjectVersionState = () => {
   return dispatch => {
     dispatch({
       type: actionTypes.RESET_PROJECT_VERSION_STATE
     });
+  }
+};
+
+export const setActiveProjectVersion = projectVersion => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.projectVersion.SET_ACTIVE_PROJECT_VERSION,
+      projectVersion
+    })
+  }
+};
+
+export const removeActiveProjectVersion = () => {
+  return (dispatch) => {
+    dispatch({
+      type: actionTypes.projectVersion.REMOVE_ACTIVE_PROJECT_VERSION
+    })
   }
 };

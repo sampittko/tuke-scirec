@@ -1,0 +1,13 @@
+@import '../../../variables';
+
+.project-version-list {
+  margin: 4 * $spacing-unit auto;
+  width: $page-width;
+}
+
+@media (max-width: $media-query-1) {
+  .project-version-list {
+    margin: 2 * $spacing-unit $spacing-unit;
+    width: inherit;
+  }
+}

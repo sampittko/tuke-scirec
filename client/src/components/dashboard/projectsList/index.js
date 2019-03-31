@@ -1,4 +1,4 @@
-import {Fade, List, ListItem, ListItemText, Paper, Typography} from '@material-ui/core';
+import {Fade, ListItem, ListItemText, Paper, Typography} from '@material-ui/core';
 import propTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
@@ -6,10 +6,9 @@ import {dashboardConfig} from '../../../config/app';
 import {timeouts} from '../../../config/mui';
 import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import projectPropTypes from '../../../propTypes/projectPropTypes';
-import {getProjects, setProject} from '../../../store/actions/projectActions';
+import {getProjects, setActiveProject} from '../../../store/actions/projectActions';
 import {getProjectRoute, getProjectStateColor, getReadableProjectState} from '../../../utils/projectUtils';
-import './index.scss';
-
+import List from '../../common/List';
 import NoData from './NoData';
 import Counter from "./Counter";
 import TimestampText from '../../common/TimestampText';
@@ -30,7 +29,7 @@ class ProjectsList extends React.Component {
 
   render() {
     return (
-      <div className="projects-list">
+      <div>
         {!this.props.isDashboardLoading && this.props.projects && this.props.projects.length > 0 && !this.props.isProjectLoading ? (
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
@@ -41,7 +40,7 @@ class ProjectsList extends React.Component {
                 Projekty
               </Typography>
               <Paper>
-                <List className="list">
+                <List>
                   {this.props.projects.map(project => (
                     <ListItem button
                               key={project.id}
@@ -50,12 +49,14 @@ class ProjectsList extends React.Component {
                     >
                       <ListItemText inset
                                     primary={project.data().title}
-                                    secondary={<TimestampText
-                                      timestamp={project.data().modified}
-                                      frontText="Naposledy upravené:"
-                                    />}
+                                    secondary={(
+                                      <TimestampText
+                                        timestamp={project.data().modified}
+                                        frontText="Naposledy upravené:"
+                                      />
+                                    )}
                       />
-                      <ListItemSecondaryAction className="project-state">
+                      <ListItemSecondaryAction className="state">
                         <Chip
                           variant="outlined"
                           label={getReadableProjectState(project.data().state)}
@@ -80,7 +81,7 @@ class ProjectsList extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.activeDashboard !== this.props.activeDashboard && this.props.activeDashboard !== dashboardConfig.MAX_COUNT) {
       if (!this.props.isDashboardLoading && !this.props.isProjectLoading && !this.props.projects) {
         this.props.getProjects();
@@ -101,7 +102,7 @@ ProjectsList.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     getProjects: () => dispatch(getProjects()),
-    setProject: project => dispatch(setProject(project)),
+    setProject: project => dispatch(setActiveProject(project)),
   }
 };
 

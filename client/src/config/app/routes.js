@@ -11,6 +11,7 @@ const routes = {
   PROJECT_VERSIONS_LIST: '/nastenky/:dashboardRoute/projekty/:projectRoute/verzie',
   PROJECT_VERSION: '/nastenky/:dashboardRoute/projekty/:projectRoute/verzie/:versionId',
   PROJECTS: 'projekty',
+  VERSIONS: 'verzie',
 };
 
 export default routes;
