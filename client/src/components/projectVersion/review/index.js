@@ -26,7 +26,7 @@ class Review extends React.Component {
 
   render() {
     return (
-      <div className="project-version-review">
+      <div className={`project-version-review ${this.props.latest ? "latest" : ""}`}>
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Posudky</Typography>
         <Paper className="paper">
           {!this.props.isReviewLoading ? (

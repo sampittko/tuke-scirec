@@ -92,7 +92,7 @@ class Detail extends React.Component {
 
   render() {
     return (
-      <div className="project-version-detail">
+      <div className={`project-version-detail ${this.props.latest ? "latest" : ""}`}>
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
         <Paper className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''}`}>
           {!this.props.isProjectVersionLoading && this.props.activeProjectVersion ? (

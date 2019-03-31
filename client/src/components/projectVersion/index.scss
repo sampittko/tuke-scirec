@@ -1,6 +1,10 @@
 @import '../../variables';
 
 .project-version {
+  &:not(.latest) {
+    margin: 4 * $spacing-unit;
+  }
+
   .project-version-detail {
     padding-right: $spacing-unit;
   }
@@ -13,11 +17,5 @@
 @media (max-width: $media-query-1) {
   .paper {
     margin-left: $spacing-unit;
-  }
-
-  .project-version-review {
-    padding-left: 0 !important;
-    margin: 2 * $spacing-unit 0 !important;
-    padding-right: $spacing-unit;
   }
 }

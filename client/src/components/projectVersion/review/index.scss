@@ -1,12 +1,22 @@
 @import "../../../variables";
 
 .project-version-review {
-  .paper {
-    $height: calc(100vh - 128px - 47.2px - (6 * #{$spacing-unit}) - 40px);
+  &:not(.latest) .paper {
+    $height: calc(100vh - 128px - 47.2px - (6 * #{$spacing-unit}));
     min-height: calc(459.2px);
-    position: relative;
     height: $height;
     max-height: $height;
+  }
+
+  &.latest .paper {
+    $height: calc(100vh - 128px - 47.2px - (6 * #{$spacing-unit}) - 40px);
+    min-height: calc(459.2px);
+    height: $height;
+    max-height: $height;
+  }
+
+  .paper {
+    position: relative;
     padding: 0;
     overflow: hidden;
 
@@ -29,5 +39,13 @@
         right: inherit;
       }
     }
+  }
+}
+
+@media (max-width: $media-query-1) {
+  .project-version-review {
+    padding-left: 0 !important;
+    margin: 2 * $spacing-unit 0 !important;
+    padding-right: $spacing-unit;
   }
 }
