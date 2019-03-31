@@ -6,39 +6,35 @@ import Detail from "./detail";
 import Review from "./reviews";
 import './index.scss';
 import {connect} from "react-redux";
-import {addProjectVersion} from '../../store/actions/projectVersionActions';
+import {timeouts} from "../../config/mui";
+import Fade from "@material-ui/core/Fade";
 
 const ProjectVersion = props =>
-  <div className="project-version">
-    {!props.latest && (
+  <Fade in timeout={timeouts.FADE_IN}>
+    <div className="project-version">
+      {!props.latest && (
+        <Grid container>
+          <Grid item>
+            <Typography variant="h5" className="page-title">
+              Verzia <span className="text-bolder">{props.activeProject.data().versionsCount}</span>
+            </Typography>
+          </Grid>
+        </Grid>
+      )}
       <Grid container>
-        <Grid item>
-          <Typography variant="h5" className="page-title">
-            Verzia <span className="text-bolder">{props.activeProject.data().versionsCount}</span>
-          </Typography>
+        <Grid item xs={12} sm={6}>
+          <Detail latest={props.latest}/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Review latest={props.latest}/>
         </Grid>
       </Grid>
-    )}
-    <Grid container>
-      <Grid item xs={12} sm={6}>
-        <Detail latest={props.latest}/>
-      </Grid>
-      <Grid item xs={12} sm={6}>
-        <Review latest={props.latest}/>
-      </Grid>
-    </Grid>
-  </div>;
+    </div>
+  </Fade>;
 
 ProjectVersion.propTypes = {
   latest: propTypes.bool,
   activeProject: propTypes.object.isRequired,
-  addProjectVersion: propTypes.func.isRequired,
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addProjectVersion: () => dispatch(addProjectVersion()),
-  }
 };
 
 const mapStateToProps = state => {
@@ -47,4 +43,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProjectVersion);
+export default connect(mapStateToProps)(ProjectVersion);

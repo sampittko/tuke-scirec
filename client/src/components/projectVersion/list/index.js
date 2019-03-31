@@ -11,7 +11,6 @@ import TimestampText from "../../common/TimestampText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/index";
 import Chip from "@material-ui/core/Chip/index";
 import {getProjectVersionRoute, getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
-import Fade from "@material-ui/core/Fade/index";
 import {timeouts} from "../../../config/mui";
 import Counter from './Counter';
 import './index.scss';
@@ -21,6 +20,7 @@ import NewVersionConfirmDialog from "../NewConfirmDialog";
 import Fab from '../../common/Fab';
 import propTypes from 'prop-types';
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
+import Fade from "@material-ui/core/Fade";
 
 class List extends React.Component {
   constructor(props) {
@@ -126,6 +126,7 @@ List.propTypes = {
   history: propTypes.object.isRequired,
   activeProjectVersion: propTypes.object,
   removeActiveProjectVersion: propTypes.func.isRequired,
+  activeDashboard: propTypes.object,
 };
 
 const mapDispatchToProps = dispatch => {
@@ -142,6 +143,7 @@ const mapStateToProps = state => {
     projectVersions: state.projectVersion.data.list,
     isProjectVersionLoading: state.projectVersion.isLoading,
     activeProjectVersion: state.projectVersion.data.active,
+    activeDashboard: state.dashboard.selector.active,
   }
 };
 

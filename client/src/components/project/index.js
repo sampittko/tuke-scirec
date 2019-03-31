@@ -62,7 +62,11 @@ class Project extends React.Component {
                   <Overview/>
                 </Grid>
                 <Grid item xs={12} sm={8} className="col">
-                  <LatestVersion activeProject={this.props.activeProject}/>
+                  <LatestVersion
+                    activeProject={this.props.activeProject}
+                    activeDashboard={this.props.activeDashboard}
+                    history={this.props.history}
+                  />
                 </Grid>
               </Grid>
               {!this.props.isProjectVersionLoading && (
@@ -105,6 +109,7 @@ Project.propTypes = {
   activeDashboard: propTypes.object,
   activeProject: propTypes.object,
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  history: propTypes.object.isRequired,
 };
 
 const mapStateToProps = state => {

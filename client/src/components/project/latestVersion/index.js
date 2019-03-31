@@ -4,11 +4,14 @@ import propTypes from 'prop-types';
 import ProjectVersion from "../../projectVersion";
 import NoData from "./NoData";
 import './index.scss';
-import {Fade} from "@material-ui/core";
+import {Fade, Tooltip} from "@material-ui/core";
 import {timeouts} from "../../../config/mui";
 import {connect} from "react-redux";
 import {getLatestProjectVersion} from "../../../store/actions/projectVersionActions";
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
+import {getProjectsListRoute} from "../../../utils/projectUtils";
+import IconButton from "@material-ui/core/IconButton";
+import ListIcon from '@material-ui/icons/List';
 
 class LatestVersion extends React.Component {
   componentDidMount() {
@@ -16,6 +19,12 @@ class LatestVersion extends React.Component {
       this.props.getLatestProjectVersion();
     }
   }
+
+  handleClick = () => {
+    this.props.history.push(
+      getProjectsListRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route)
+    );
+  };
 
   render() {
     return (
@@ -26,6 +35,14 @@ class LatestVersion extends React.Component {
             <div>
               <Typography variant="h6" className="page-title">
                 Verzia {this.props.activeProject.data().versionsCount}
+                <Tooltip title="Zobraziť zoznam verzií projektu" placement="left">
+                  <IconButton
+                    onClick={this.handleClick}
+                    className="project-versions-list-icon"
+                  >
+                    <ListIcon/>
+                  </IconButton>
+                </Tooltip>
               </Typography>
               <ProjectVersion latest/>
             </div>
@@ -40,8 +57,10 @@ class LatestVersion extends React.Component {
 
 LatestVersion.propTypes = {
   activeProject: propTypes.object.isRequired,
+  activeDashboard: propTypes.object.isRequired,
   latestProjectVersion: propTypes.object,
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  history: propTypes.object.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {

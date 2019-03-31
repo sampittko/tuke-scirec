@@ -11,6 +11,17 @@
   & > .no-data {
     padding: 2 * $spacing-unit;
   }
+
+  .page-title {
+    position: relative;
+
+    .project-versions-list-icon {
+      position: absolute;
+      display: inline-block;
+      top: -7px;
+      right: 0;
+    }
+  }
 }
 
 @media (min-width: $media-query-1) {
