@@ -56,8 +56,8 @@ export const logout = () => {
     firebase.auth()
       .signOut()
       .then(() => {
-        dispatch(resetUserDependentEntities());
         dispatch(logoutSuccess());
+        dispatch(resetUserDependentEntities());
       });
   }
 };

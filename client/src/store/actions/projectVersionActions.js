@@ -210,7 +210,7 @@ export const getProjectVersions = () => {
 
     projectVersionsRef
       .where(firestoreCollections.projectVersions.fields.PROJECT, "==", projectsRef.doc(activeProject.id))
-      .orderBy(firestoreCollections.projectVersions.fields.MODIFIED, "desc")
+      .orderBy(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "desc")
       .get()
       .then(result => {
         dispatch(getProjectVersionsSuccess({
@@ -227,7 +227,7 @@ export const getProjectVersions = () => {
 export const resetProjectVersionState = () => {
   return dispatch => {
     dispatch({
-      type: actionTypes.RESET_PROJECT_VERSION_STATE
+      type: actionTypes.projectVersion.RESET_PROJECT_VERSION_STATE
     });
   }
 };

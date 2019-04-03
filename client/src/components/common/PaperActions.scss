@@ -1,0 +1,22 @@
+@import '../../variables';
+
+.paper-actions {
+  &:not(.relative) {
+    .delete, .edit, .save-and-cancel {
+      position: absolute;
+      padding: 3 * $spacing-unit;
+    }
+  }
+
+  .delete, .edit, .save-and-cancel {
+    bottom: 0;
+  }
+
+  .delete {
+    left: 0;
+  }
+
+  .save-and-cancel, .edit {
+    right: 0;
+  }
+}

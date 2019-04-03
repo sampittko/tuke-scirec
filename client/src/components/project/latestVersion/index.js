@@ -34,7 +34,7 @@ class LatestVersion extends React.Component {
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
               <Typography variant="h6" className="page-title">
-                Verzia {this.props.activeProject.data().versionsCount}
+                Verzia {this.props.activeProject.data().versionsCount > 0 ? this.props.activeProject.data().versionsCount : 1}
                 <Tooltip title="Zobraziť zoznam verzií projektu" placement="left">
                   <IconButton
                     onClick={this.handleClick}

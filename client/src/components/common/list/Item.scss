@@ -1,0 +1,12 @@
+@import '../../../variables';
+
+.list-item .state {
+  margin-right: 7 * $spacing-unit !important;
+  text-align: right;
+}
+
+@media (max-width: 522px) {
+  .list-item .state {
+    display: none;
+  }
+}

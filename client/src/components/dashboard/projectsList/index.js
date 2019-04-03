@@ -1,4 +1,4 @@
-import {Fade, ListItem, ListItemText, Paper, Typography} from '@material-ui/core';
+import {Fade, List, Paper, Typography} from '@material-ui/core';
 import propTypes from 'prop-types';
 import React from 'react';
 import {connect} from 'react-redux';
@@ -8,12 +8,9 @@ import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import projectPropTypes from '../../../propTypes/projectPropTypes';
 import {getProjects, setActiveProject} from '../../../store/actions/projectActions';
 import {getProjectRoute, getProjectStateColor, getReadableProjectState} from '../../../utils/projectUtils';
-import List from '../../common/List';
 import NoData from './NoData';
 import Counter from "./Counter";
-import TimestampText from '../../common/TimestampText';
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import Chip from "@material-ui/core/Chip";
+import ListItem from "../../common/list/Item";
 
 class ProjectsList extends React.Component {
   componentDidMount() {
@@ -41,29 +38,16 @@ class ProjectsList extends React.Component {
               </Typography>
               <Paper>
                 <List>
-                  {this.props.projects.map(project => (
-                    <ListItem button
-                              key={project.id}
-                              className="item"
-                              onClick={(event) => this.handleClick(event, project)}
-                    >
-                      <ListItemText inset
-                                    primary={project.data().title}
-                                    secondary={(
-                                      <TimestampText
-                                        timestamp={project.data().modified}
-                                        frontText="Naposledy upravené:"
-                                      />
-                                    )}
-                      />
-                      <ListItemSecondaryAction className="state">
-                        <Chip
-                          variant="outlined"
-                          label={getReadableProjectState(project.data().state)}
-                          color={getProjectStateColor(project.data().state)}
-                        />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                  {this.props.projects.map((project, i) => (
+                    <ListItem
+                      key={i}
+                      title={project.data().title}
+                      item={project}
+                      modifiedTimestamp={project.data().modified}
+                      onClick={(event) => this.handleClick(event, project)}
+                      chipLabel={getReadableProjectState(project.data().state)}
+                      chipColor={getProjectStateColor(project.data().state)}
+                    />
                   ))}
                 </List>
               </Paper>

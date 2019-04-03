@@ -22,13 +22,17 @@ class Login extends React.Component {
     this.state = {
       email: 'sampittko@gmail.com',
       password: 'testtest',
+      notify: false,
     };
   }
 
   componentDidMount() {
     document.title = getDocumentTitleFromComponent(this);
     // TODO remove automatic login dispatch
-    this.props.login(this.state);
+    this.props.login({
+      email: this.state.email,
+      password: this.state.password,
+    });
   }
 
   handleForgottenPassword = () => {
@@ -44,6 +48,12 @@ class Login extends React.Component {
     this.setState({
       [e.target.name]: e.target.value
     });
+  };
+
+  handleClose = () => {
+    this.setState({
+      notify: false,
+    })
   };
 
   render() {
@@ -102,7 +112,10 @@ class Login extends React.Component {
             </div>
           </form>
           {this.props.location.state && this.props.location.state.registered && (
-            <Notification message="Účet bol úspešne vytvorený"/>
+            <Notification
+              message="Účet bol úspešne vytvorený"
+              onClose={this.handleClose}
+            />
           )}
         </Paper>
       </Fade>

@@ -8,7 +8,7 @@ import {updateProjectOverview} from "../../../store/actions/projectActions";
 import Notification from "../../common/Notification";
 import Editables from "./Editables";
 import Readables from "./Readables";
-import EditModeActionButtons from "../../common/EditModeActionButtons";
+import PaperActions from "../../common/PaperActions";
 
 class Overview extends React.Component {
   constructor(props) {
@@ -108,7 +108,8 @@ class Overview extends React.Component {
             disabled
             InputLabelProps={{shrink: true}}
           />
-          <EditModeActionButtons
+          <PaperActions
+            deleteVisible={false}
             editMode={this.state.editMode}
             onClick={(event, action) => this.handleClick(event, action)}
             settingsChanged={this.settingsChanged}

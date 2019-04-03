@@ -3,7 +3,7 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {Paper} from "@material-ui/core";
 import './index.scss';
-import EditModeActionButtons from "../../common/EditModeActionButtons";
+import PaperActions from "../../common/PaperActions";
 import Editables from "./Editables";
 import Readables from "./Readables";
 import {connect} from "react-redux";
@@ -21,6 +21,25 @@ class Detail extends React.Component {
       notify: false,
       notes: projectVersionConfig.defaultValues.NOTES,
       state: projectVersionConfig.defaultValues.STATE,
+    }
+  }
+
+  componentDidMount() {
+    if (this.props.activeProjectVersion) {
+      if (this.props.activeProjectVersion.data().notes !== this.state.notes && this.props.activeProjectVersion.data().state !== this.state.state) {
+        this.setState({
+          notes: this.props.activeProjectVersion.data().notes,
+          state: this.props.activeProjectVersion.data().state,
+        });
+      } else if (this.props.activeProjectVersion.data().state !== this.state.state) {
+        this.setState({
+          state: this.props.activeProjectVersion.data().state,
+        });
+      } else if (this.props.activeProjectVersion.data().notes !== this.state.notes) {
+        this.setState({
+          state: this.props.activeProjectVersion.data().notes,
+        });
+      }
     }
   }
 
@@ -71,25 +90,6 @@ class Detail extends React.Component {
     })
   };
 
-  componentWillReceiveProps(nextProps, nextContext) {
-    if (nextProps.activeProjectVersion) {
-      if (nextProps.activeProjectVersion.data().notes !== this.state.notes && nextProps.activeProjectVersion.data().state !== this.state.state) {
-        this.setState({
-          notes: nextProps.activeProjectVersion.data().notes,
-          state: nextProps.activeProjectVersion.data().state,
-        });
-      } else if (nextProps.activeProjectVersion.data().state !== this.state.state) {
-        this.setState({
-          state: nextProps.activeProjectVersion.data().state,
-        });
-      } else if (nextProps.activeProjectVersion.data().notes !== this.state.notes) {
-        this.setState({
-          state: nextProps.activeProjectVersion.data().notes,
-        });
-      }
-    }
-  }
-
   render() {
     return (
       <div className={`project-version-detail ${this.props.latest ? "latest" : ""}`}>
@@ -109,7 +109,8 @@ class Detail extends React.Component {
                   notes={this.state.notes}
                 />
               )}
-              <EditModeActionButtons
+              <PaperActions
+                deleteVisible={true}
                 editMode={this.state.editMode}
                 settingsChanged={this.settingsChanged}
                 onClick={(event, action) => this.handleClick(event, action)}
@@ -127,6 +128,25 @@ class Detail extends React.Component {
         )}
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (this.state.activeProjectVersion) {
+      if (this.state.activeProjectVersion.data().notes !== this.state.notes && this.state.activeProjectVersion.data().state !== this.state.state) {
+        this.setState({
+          notes: this.state.activeProjectVersion.data().notes,
+          state: this.state.activeProjectVersion.data().state,
+        });
+      } else if (this.state.activeProjectVersion.data().state !== this.state.state) {
+        this.setState({
+          state: this.state.activeProjectVersion.data().state,
+        });
+      } else if (this.state.activeProjectVersion.data().notes !== this.state.notes) {
+        this.setState({
+          state: this.state.activeProjectVersion.data().notes,
+        });
+      }
+    }
   }
 }
 

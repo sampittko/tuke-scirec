@@ -1,15 +1,11 @@
 import React from 'react';
-import ListComponent from '../../common/List';
 import {connect} from "react-redux";
 import {
   getProjectVersions,
   removeActiveProjectVersion,
   setActiveProjectVersion
 } from "../../../store/actions/projectVersionActions";
-import {ListItem, ListItemText, Paper, Typography} from "@material-ui/core";
-import TimestampText from "../../common/TimestampText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/index";
-import Chip from "@material-ui/core/Chip/index";
+import {List, Paper, Typography} from "@material-ui/core";
 import {getProjectVersionRoute, getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
 import {timeouts} from "../../../config/mui";
 import Counter from './Counter';
@@ -21,8 +17,9 @@ import Fab from '../../common/Fab';
 import propTypes from 'prop-types';
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Fade from "@material-ui/core/Fade";
+import ListItem from "../../common/list/Item";
 
-class List extends React.Component {
+class ListComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -63,31 +60,18 @@ class List extends React.Component {
                 Verzie projektu <span className="text-bolder">{this.props.activeProject.data().title}</span>
               </Typography>
               <Paper>
-                <ListComponent>
-                  {this.props.projectVersions.map(projectVersion => (
-                    <ListItem button
-                              key={projectVersion.id}
-                              className="item"
-                              onClick={(event) => this.handleProjectVersionClick(event, projectVersion)}
-                    >
-                      <ListItemText inset
-                                    primary={`Verzia ${projectVersion.data().versionNum}`}
-                                    secondary={(
-                                      <TimestampText
-                                        timestamp={projectVersion.data().modified}
-                                        frontText="Naposledy upravené:"
-                                      />
-                                    )}
-                      />
-                      <ListItemSecondaryAction className="state">
-                        <Chip
-                          variant="outlined"
-                          label={getReadableProjectVersionState(projectVersion.data().state)}
-                        />
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                <List>
+                  {this.props.projectVersions.map((projectVersion, i) => (
+                    <ListItem
+                      key={i}
+                      title={`Verzia ${String(projectVersion.data().versionNum)}`}
+                      item={projectVersion}
+                      modifiedTimestamp={projectVersion.data().modified}
+                      onClick={(event, projectVersion) => this.handleProjectVersionClick(event, projectVersion)}
+                      chipLabel={getReadableProjectVersionState(projectVersion.data().state)}
+                    />
                   ))}
-                </ListComponent>
+                </List>
               </Paper>
               <Counter projectVersionsCount={this.props.projectVersions.length}/>
             </div>
@@ -117,7 +101,7 @@ class List extends React.Component {
   }
 }
 
-List.propTypes = {
+ListComponent.propTypes = {
   getProjectVersions: propTypes.func.isRequired,
   setProjectVersion: propTypes.func.isRequired,
   activeProject: propTypes.object,
@@ -147,4 +131,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(ListComponent);
