@@ -16,11 +16,9 @@ export const getReadableProjectVersionState = numericState => {
       return projectVersionConfig.states.labels.REJECTED;
     case projectVersionConfig.states.values.ACCEPTED:
       return projectVersionConfig.states.labels.ACCEPTED;
+    case projectVersionConfig.states.values.DELETED:
+      return projectVersionConfig.states.labels.DELETED;
     default:
       return projectVersionConfig.states.labels.NOT_SET;
   }
-};
-
-export const getProjectVersionsSortedByModified = projectVersions => {
-  return projectVersions.sort((projectVersion1, projectVersion2) => projectVersion2.data().modified.toDate().getMilliseconds() - projectVersion1.data().modified.toDate().getMilliseconds());
 };

@@ -31,6 +31,8 @@ const firestoreCollections = {
       DEADLINE: 'deadline',
       DESCRIPTION: 'description',
       RECIPIENT: 'recipient',
+      VERSIONS_COUNT: 'versionsCount',
+      DELETED_VERSIONS_COUNT: 'deletedVersionsCount',
     }
   },
   projectVersions: {

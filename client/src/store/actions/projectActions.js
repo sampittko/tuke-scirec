@@ -39,6 +39,7 @@ export const addProject = title => {
         description: projectConfig.defaultValues.DESCRIPTION,
         recipient: projectConfig.defaultValues.RECIPIENT,
         versionsCount: projectConfig.defaultValues.VERSIONS_COUNT,
+        deletedVersionsCount: projectConfig.defaultValues.DELETED_VERSIONS_COUNT,
       })
       .then(result => {
         return projectsRef
@@ -321,6 +322,52 @@ export const incrementProjectVersionsCount = () => {
       .catch(error => {
         console.log(error);
         dispatch(incrementProjectVersionsCountFailure(error));
+      })
+  }
+};
+
+const incrementDeletedProjectVersionsCountFailure = error => ({
+  type: actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_FAILURE,
+  error
+});
+
+const incrementDeletedProjectVersionsCountSuccess = data => ({
+  type: actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS,
+  updatedProject: data.updatedProject,
+});
+
+const incrementDeletedProjectVersionsCountRequest = () => ({
+  type: actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_REQUEST
+});
+
+export const incrementDeletedProjectVersionsCount = () => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(incrementDeletedProjectVersionsCountRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
+    const activeProject = state.project.data.active;
+
+    await projectsRef
+      .doc(activeProject.id)
+      .update({
+        deletedVersionsCount: activeProject.data().deletedVersionsCount + 1,
+        modified: new Date(),
+      })
+      .then(() => {
+        return projectsRef
+          .doc(activeProject.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(incrementDeletedProjectVersionsCountSuccess({
+          updatedProject: result
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(incrementDeletedProjectVersionsCountFailure(error));
       })
   }
 };

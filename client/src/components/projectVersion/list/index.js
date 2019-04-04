@@ -18,6 +18,7 @@ import propTypes from 'prop-types';
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Fade from "@material-ui/core/Fade";
 import ListItem from "../../common/list/Item";
+import {projectVersionConfig} from "../../../config/app";
 
 class ListComponent extends React.Component {
   constructor(props) {
@@ -64,6 +65,7 @@ class ListComponent extends React.Component {
                   {this.props.projectVersions.map((projectVersion, i) => (
                     <ListItem
                       key={i}
+                      disabled={projectVersion.data().state === projectVersionConfig.states.values.DELETED}
                       title={`Verzia ${String(projectVersion.data().versionNum)}`}
                       item={projectVersion}
                       modifiedTimestamp={projectVersion.data().modified}

@@ -3,6 +3,11 @@
 .list-item .state {
   margin-right: 7 * $spacing-unit !important;
   text-align: right;
+
+  .disabled {
+    color: $light-gray-color-text-color;
+    opacity: 0.6;
+  }
 }
 
 @media (max-width: 522px) {

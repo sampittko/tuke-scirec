@@ -30,6 +30,7 @@ export const projectConfig = {
     DESCRIPTION: '',
     RECIPIENT: '',
     VERSIONS_COUNT: 0,
+    DELETED_VERSIONS_COUNT: 0,
   },
   states: {
     values: {
@@ -57,6 +58,7 @@ export const projectVersionConfig = {
       WAITING_FOR_REVIEW: 2,
       REJECTED: 3,
       ACCEPTED: 4,
+      DELETED: 5,
     },
     labels: {
       NOT_SET: 'nenastavený',
@@ -64,6 +66,7 @@ export const projectVersionConfig = {
       WAITING_FOR_REVIEW: 'čaká sa na posudok',
       REJECTED: 'odmietnutá',
       ACCEPTED: 'prijatá',
+      DELETED: 'odstránená',
     }
   }
 };

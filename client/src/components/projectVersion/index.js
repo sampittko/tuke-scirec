@@ -10,32 +10,28 @@ import {timeouts} from "../../config/mui";
 import Fade from "@material-ui/core/Fade";
 
 const ProjectVersion = props =>
-  <div>
-    {props.activeProjectVersion && (
-      <Fade in timeout={timeouts.FADE_IN}>
-        <div className={`project-version ${props.latest ? "latest" : ""}`}>
-          {!props.latest && (
-            <Grid container>
-              <Grid item>
-                <Typography variant="h5" className="page-title">
-                  Verzia {props.activeProjectVersion.data().versionNum} projektu <span
-                  className="text-bolder">{props.activeProject.data().title}</span>
-                </Typography>
-              </Grid>
-            </Grid>
-          )}
-          <Grid container>
-            <Grid item xs={12} sm={6}>
-              <Detail latest={props.latest}/>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Review latest={props.latest}/>
-            </Grid>
+  <Fade in timeout={timeouts.FADE_IN}>
+    <div className={`project-version ${props.latest ? "latest" : ""}`}>
+      {!props.latest && props.activeProjectVersion && (
+        <Grid container>
+          <Grid item>
+            <Typography variant="h5" className="page-title">
+              Verzia {props.activeProjectVersion.data().versionNum} projektu <span
+              className="text-bolder">{props.activeProject.data().title}</span>
+            </Typography>
           </Grid>
-        </div>
-      </Fade>
-    )}
-  </div>;
+        </Grid>
+      )}
+      <Grid container>
+        <Grid item xs={12} sm={6}>
+          <Detail latest={props.latest}/>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Review latest={props.latest}/>
+        </Grid>
+      </Grid>
+    </div>
+  </Fade>;
 
 ProjectVersion.propTypes = {
   latest: propTypes.bool,

@@ -8,6 +8,7 @@ const Item = props =>
   <div className="list-item">
     <ListItem
       button
+      disabled={props.disabled}
       className="list-item"
       onClick={(event) => props.onClick(event, props.item)}
     >
@@ -21,12 +22,14 @@ const Item = props =>
           variant="outlined"
           label={props.chipLabel}
           color={props.chipColor}
+          className={props.disabled ? "disabled" : ""}
         />
       </ListItemSecondaryAction>
     </ListItem>
   </div>;
 
 Item.propTypes = {
+  disabled: propTypes.bool,
   title: propTypes.string.isRequired,
   item: propTypes.object.isRequired,
   modifiedTimestamp: propTypes.object.isRequired,

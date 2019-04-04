@@ -1,7 +1,11 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
 import {projectVersionConfig} from "../../config/app";
-import {incrementProjectVersionsCount, updateProjectModified} from "./projectActions";
+import {
+  incrementDeletedProjectVersionsCount,
+  incrementProjectVersionsCount,
+  updateProjectModified
+} from "./projectActions";
 
 const addProjectVersionFailure = error => ({
   type: actionTypes.projectVersion.ADD_PROJECT_VERSION_FAILURE,
@@ -119,14 +123,16 @@ export const getLatestProjectVersion = () => {
     const firestore = getFirestore();
     const state = getState();
     const activeProject = state.project.data.active;
+    const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     projectVersionsRef
-      .where(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "==", activeProject.data().versionsCount)
+      .where(firestoreCollections.projectVersions.fields.PROJECT, "==", projectsRef.doc(activeProject.id))
+      .orderBy(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "desc")
       .get()
       .then(result => {
         dispatch(getLatestProjectVersionSuccess({
-          latestProjectVersion: result.docs[0],
+          latestProjectVersion: result.docs.find(projectVersion => projectVersion.data().state !== projectVersionConfig.states.values.DELETED),
         }));
       })
       .catch(error => {
@@ -220,6 +226,48 @@ export const getProjectVersions = () => {
       .catch(error => {
         console.log(error);
         dispatch(getProjectVersionsFailure(error));
+      });
+  }
+};
+
+const deleteProjectVersionFailure = error => ({
+  type: actionTypes.projectVersion.DELETE_PROJECT_VERSION_FAILURE,
+  error
+});
+
+const deleteProjectVersionSuccess = data => ({
+  type: actionTypes.projectVersion.DELETE_PROJECT_VERSION_SUCCESS,
+  deletedProjectVersion: data.deletedProjectVersion,
+});
+
+const deleteProjectVersionRequest = () => ({
+  type: actionTypes.projectVersion.DELETE_PROJECT_VERSION_REQUEST
+});
+
+export const deleteProjectVersion = () => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(deleteProjectVersionRequest());
+
+    const firestore = getFirestore();
+    const state = getState();
+    const projectVersion = state.projectVersion.data.active;
+    const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
+
+    await projectVersionsRef
+      .doc(projectVersion.id)
+      .update({
+        state: projectVersionConfig.states.values.DELETED,
+        modified: new Date(),
+      })
+      .then(() => {
+        dispatch(incrementDeletedProjectVersionsCount());
+        dispatch(deleteProjectVersionSuccess({
+          deletedProjectVersion: projectVersion,
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(deleteProjectVersionFailure(error));
       });
   }
 };

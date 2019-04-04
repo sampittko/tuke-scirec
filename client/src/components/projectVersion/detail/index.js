@@ -12,6 +12,7 @@ import Loader from "../../common/Loader";
 import Notification from "../../common/Notification";
 import {projectVersionConfig} from "../../../config/app";
 import {updateProjectVersion} from "../../../store/actions/projectVersionActions";
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
 
 class Detail extends React.Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class Detail extends React.Component {
       notify: false,
       notes: projectVersionConfig.defaultValues.NOTES,
       state: projectVersionConfig.defaultValues.STATE,
+      open: false,
     }
   }
 
@@ -48,7 +50,7 @@ class Detail extends React.Component {
       this.props.activeProjectVersion.data().notes !== this.state.notes);
   };
 
-  handleClick = async (event, action) => {
+  handleActionClick = async (event, action) => {
     switch (action) {
       case 'edit':
         this.setState({
@@ -72,6 +74,11 @@ class Detail extends React.Component {
           notes: prevProps.activeProjectVersion.data().notes,
         }));
         break;
+      case 'delete':
+        this.setState({
+          open: true,
+        });
+        break;
       default:
         console.log("Bad action");
         break;
@@ -87,6 +94,12 @@ class Detail extends React.Component {
   handleClose = () => {
     this.setState({
       notify: false,
+    })
+  };
+
+  handleDialogClick = () => {
+    this.setState({
+      open: false,
     })
   };
 
@@ -113,7 +126,7 @@ class Detail extends React.Component {
                 deleteVisible={true}
                 editMode={this.state.editMode}
                 settingsChanged={this.settingsChanged}
-                onClick={(event, action) => this.handleClick(event, action)}
+                onClick={(event, action) => this.handleActionClick(event, action)}
               />
             </div>
           ) : (
@@ -124,6 +137,12 @@ class Detail extends React.Component {
           <Notification
             message="Zmeny boli úspešne uložené"
             onClose={this.handleClose}
+          />
+        )}
+        {this.props.activeProjectVersion && (
+          <DeleteConfirmDialog
+            open={this.state.open}
+            onClick={this.handleDialogClick}
           />
         )}
       </div>

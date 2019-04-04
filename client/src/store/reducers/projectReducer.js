@@ -199,6 +199,33 @@ const project = (state = _initialState, action) => {
         error: action.error
       };
 
+    case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_REQUEST:
+      console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS:
+      console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS);
+      const updatedProjectIndex5 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+      return {
+        ...state,
+        data: {
+          list: getProjectsSortedByModified([...state.data.list.slice(0, updatedProjectIndex5), action.updatedProject, ...state.data.list.slice(updatedProjectIndex5 + 1)]),
+          active: action.updatedProject,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_FAILURE:
+      console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
     case actionTypes.project.UPDATE_PROJECT_MODIFIED_REQUEST:
       console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_REQUEST);
       return {

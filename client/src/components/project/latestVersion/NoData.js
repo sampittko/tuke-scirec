@@ -7,7 +7,7 @@ const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
     <div className="no-data" style={{textAlign: 'center', opacity: 0.7}}>
       <Typography variant="h6">
-        Neexistuje ešte žiadna verzia projektu
+        Neexistuje žiadna aktívna verzia projektu
       </Typography>
       <Typography>
         Tu sa zobrazí posledná verzia projektu {props.activeProject.data().title} s jeho posudkami

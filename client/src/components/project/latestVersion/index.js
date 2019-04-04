@@ -15,7 +15,7 @@ import ListIcon from '@material-ui/icons/List';
 
 class LatestVersion extends React.Component {
   componentDidMount() {
-    if (!this.props.latestProjectVersion && this.props.activeProject.data().versionsCount !== 0) {
+    if (!this.props.activeProjectVersion && this.props.activeProject.data().versionsCount !== 0) {
       this.props.getLatestProjectVersion();
     }
   }
@@ -29,12 +29,12 @@ class LatestVersion extends React.Component {
   render() {
     return (
       <div
-        className={`latest-project-version ${this.props.activeProject.data().versionsCount > 0 || this.props.isProjectVersionLoading ? "" : "empty"}`}>
-        {this.props.activeProject.data().versionsCount > 0 || this.props.isProjectVersionLoading ? (
+        className={`latest-project-version ${this.props.activeProject.data().versionsCount - this.props.activeProject.data().deletedVersionsCount > 0 ? "" : "empty"}`}>
+        {this.props.activeProject.data().versionsCount - this.props.activeProject.data().deletedVersionsCount > 0 ? (
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
               <Typography variant="h6" className="page-title">
-                Verzia {this.props.activeProject.data().versionsCount > 0 ? this.props.activeProject.data().versionsCount : 1}
+                {this.props.activeProjectVersion ? `Verzia ${this.props.activeProjectVersion.data().versionNum}` : `Načítava sa..`}
                 <Tooltip title="Zobraziť zoznam verzií projektu" placement="left">
                   <IconButton
                     onClick={this.handleClick}
@@ -53,12 +53,18 @@ class LatestVersion extends React.Component {
       </div>
     );
   }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.activeProjectVersion && !this.props.activeProjectVersion) {
+      this.props.history.push(getProjectsListRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
+    }
+  }
 }
 
 LatestVersion.propTypes = {
   activeProject: propTypes.object.isRequired,
   activeDashboard: propTypes.object.isRequired,
-  latestProjectVersion: propTypes.object,
+  activeProjectVersion: propTypes.object,
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
   history: propTypes.object.isRequired,
 };
@@ -71,7 +77,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    latestProjectVersion: state.projectVersion.data.latest,
+    activeProjectVersion: state.projectVersion.data.active,
     isProjectVersionLoading: state.projectVersion.isLoading,
   }
 };

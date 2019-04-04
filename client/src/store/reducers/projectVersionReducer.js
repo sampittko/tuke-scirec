@@ -1,5 +1,4 @@
 import actionTypes from "../actionTypes";
-import {getProjectVersionsSortedByModified} from "../../utils/projectVersionUtils";
 
 const _initialState = {
   data: {
@@ -101,7 +100,7 @@ const projectVersion = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: getProjectVersionsSortedByModified([...state.data.list.slice(0, updatedProjectVersionIndex), action.updatedProjectVersion, ...state.data.list.slice(updatedProjectVersionIndex + 1)]),
+          list: [...state.data.list.slice(0, updatedProjectVersionIndex), action.updatedProjectVersion, ...state.data.list.slice(updatedProjectVersionIndex + 1)],
           active: action.updatedProjectVersion,
         },
         isLoading: false,
@@ -134,6 +133,33 @@ const projectVersion = (state = _initialState, action) => {
 
     case actionTypes.projectVersion.GET_PROJECT_VERSIONS_FAILURE:
       console.log(actionTypes.projectVersion.GET_PROJECT_VERSIONS_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+
+    case actionTypes.projectVersion.DELETE_PROJECT_VERSION_REQUEST:
+      console.log(actionTypes.projectVersion.DELETE_PROJECT_VERSION_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.projectVersion.DELETE_PROJECT_VERSION_SUCCESS:
+      console.log(actionTypes.projectVersion.DELETE_PROJECT_VERSION_SUCCESS);
+      const deletedProjectVersionIndex2 = state.data.list.findIndex(projectVersion => projectVersion.id === action.deletedProjectVersion.id);
+      return {
+        ...state,
+        data: {
+          list: [...state.data.list.slice(0, deletedProjectVersionIndex2), action.deletedProjectVersion, ...state.data.list.slice(deletedProjectVersionIndex2 + 1)],
+          active: null,
+        },
+        isLoading: false,
+      };
+
+    case actionTypes.projectVersion.DELETE_PROJECT_VERSION_FAILURE:
+      console.log(actionTypes.projectVersion.DELETE_PROJECT_VERSION_FAILURE);
       return {
         ...state,
         isLoading: false,
