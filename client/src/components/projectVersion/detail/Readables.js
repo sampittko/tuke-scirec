@@ -1,7 +1,7 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import TextField from "@material-ui/core/TextField";
-import File from "../file";
+import File from "../../file";
 import {getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
 
 const Readables = props =>

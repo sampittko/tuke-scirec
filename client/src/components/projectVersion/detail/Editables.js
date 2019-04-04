@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from "@material-ui/core/MenuItem";
 import {projectVersionConfig} from "../../../config/app";
 import {getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
-import File from "../file";
+import File from "../../file";
 
 const projectVersionStates = [
   {value: projectVersionConfig.states.values.NOT_SET},

@@ -3,7 +3,7 @@ import propTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import {Typography} from "@material-ui/core";
 import Detail from "./detail";
-import Review from "./review";
+import Review from "../projectVersionReview";
 import './index.scss';
 import {connect} from "react-redux";
 import {timeouts} from "../../config/mui";

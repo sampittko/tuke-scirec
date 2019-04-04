@@ -1,8 +1,8 @@
 import {Fade, Typography} from '@material-ui/core';
 import React from 'react';
 import propTypes from 'prop-types';
-import {timeouts} from '../../../../config/mui';
-import projectPropTypes from "../../../../propTypes/projectPropTypes";
+import {timeouts} from '../../../config/mui';
+import projectPropTypes from "../../../propTypes/projectPropTypes";
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>

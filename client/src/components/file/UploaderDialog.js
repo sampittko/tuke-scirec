@@ -1,17 +1,17 @@
 import React from 'react';
 import {Button, DialogActions, FormControl, FormControlLabel, IconButton, List, Typography} from "@material-ui/core";
-import {fileConfig} from "../../../config/app";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
+import {fileConfig} from "../../config/app";
+import ListItem from "@material-ui/core/ListItem/index";
+import ListItemText from "@material-ui/core/ListItemText/index";
+import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/index";
 import CloseIcon from '@material-ui/icons/Close';
 import propTypes from 'prop-types';
 import './UploaderDialog.scss';
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogTransition from "../../common/DialogTransition";
+import DialogTransition from "../common/DialogTransition";
 import DialogContent from "@material-ui/core/DialogContent";
-import {timeouts} from "../../../config/mui";
+import {timeouts} from "../../config/mui";
 import Fade from "@material-ui/core/Fade";
 
 class UploaderDialog extends React.Component {

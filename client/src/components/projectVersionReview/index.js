@@ -1,10 +1,10 @@
 import propTypes from 'prop-types';
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@material-ui/core/Typography/index";
 import {Paper} from "@material-ui/core";
 import './index.scss';
 import {connect} from "react-redux";
-import Loader from "../../common/Loader";
+import Loader from "../common/Loader";
 import List from "./list";
 import Add from "./Add";
 

@@ -1,7 +1,7 @@
 import React from 'react';
-import ExpansionPanel from '../../../common/ExpansionPanel';
+import ExpansionPanel from '../../common/ExpansionPanel';
 import propTypes from 'prop-types';
-import PaperActions from "../../../common/PaperActions";
+import PaperActions from "../../common/PaperActions";
 import File from "../../file";
 
 const Item = props =>
