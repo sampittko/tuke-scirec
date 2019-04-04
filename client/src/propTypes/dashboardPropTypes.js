@@ -8,7 +8,7 @@ const propTypes = {
       id: PropTypes.number.isRequired,
       inverted: PropTypes.bool.isRequired,
     }),
-    created: PropTypes.instanceOf(Date),
+    created: PropTypes.instanceOf(Date).isRequired,
   }),
   selector: PropTypes.shape({
     active: PropTypes.any,

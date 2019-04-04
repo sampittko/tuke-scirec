@@ -19,6 +19,7 @@ import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes'
 import Fade from "@material-ui/core/Fade";
 import ListItem from "../../common/list/Item";
 import {projectVersionConfig} from "../../../config/app";
+import {getProjectsListDocumentTitle} from "../../../utils/projectUtils";
 
 class ListComponent extends React.Component {
   constructor(props) {
@@ -29,6 +30,9 @@ class ListComponent extends React.Component {
   }
 
   componentDidMount() {
+    if (this.props.activeDashboard && this.props.activeProject) {
+      document.title = getProjectsListDocumentTitle(this.props.activeDashboard, this.props.activeProject);
+    }
     if (this.props.activeProjectVersion) {
       this.props.removeActiveProjectVersion();
     }

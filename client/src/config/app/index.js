@@ -2,11 +2,6 @@ export const APP_NAME = "SCIREC";
 
 export const DOCUMENT_TITLE_BASE = APP_NAME + " -";
 
-export const fileConfig = {
-  SUPPORTED_FORMATS: '.zip, .rar, .pdf, .doc, .docx, .tex',
-  MAX_FILES: 5,
-};
-
 export const dashboardConfig = {
   MAX_COUNT: 10,
   MIN_LENGTH: 3,
@@ -69,4 +64,15 @@ export const projectVersionConfig = {
       DELETED: 'odstránená',
     }
   }
+};
+
+export const projectVersionReviewConfig = {
+  defaultValues: {
+    NOTES: '',
+  },
+};
+
+export const fileConfig = {
+  SUPPORTED_FORMATS: '.zip, .rar, .pdf, .doc, .docx, .tex',
+  MAX_FILES: 5,
 };

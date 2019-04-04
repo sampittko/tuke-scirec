@@ -44,7 +44,10 @@ class LatestVersion extends React.Component {
                   </IconButton>
                 </Tooltip>
               </Typography>
-              <ProjectVersion latest/>
+              <ProjectVersion
+                latest
+                history={this.props.history}
+              />
             </div>
           </Fade>
         ) : (
@@ -52,12 +55,6 @@ class LatestVersion extends React.Component {
         )}
       </div>
     );
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.activeProjectVersion && !this.props.activeProjectVersion) {
-      this.props.history.push(getProjectsListRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
-    }
   }
 }
 

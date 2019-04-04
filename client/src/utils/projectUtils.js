@@ -17,6 +17,12 @@ export const getProjectDocumentTitle = (dashboard, project) =>
 export const getProjectSettingsDocumentTitle = (dashboard, project) =>
   appendTitle(`${dashboard.data().title} - ${project.data().title} - Nastavenia`);
 
+export const getProjectVersionDocumentTitle = (dashboard, project, projectVersion) =>
+  appendTitle(`${dashboard.data().title} - ${project.data().title} - Verzia ${projectVersion.data().versionNum}`);
+
+export const getProjectsListDocumentTitle = (dashboard, project) =>
+  appendTitle(`${dashboard.data().title} - ${project.data().title} - Verzie`);
+
 export const getNewProjectDialogDocumentTitle = dashboard =>
   appendTitle(`${dashboard.data().title} - Vytvorenie nového projektu`);
 

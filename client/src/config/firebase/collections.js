@@ -46,6 +46,22 @@ const firestoreCollections = {
       MODIFIED: 'modified',
     }
   },
+  projectVersionReviews: {
+    ID: 'projectVersionReviews',
+    fields: {
+      PROJECT_VERSION: 'projectVersion',
+      NOTES: 'notes',
+      CREATED: 'created',
+      MODIFIED: 'modified',
+    }
+  },
+  files: {
+    ID: 'files',
+    fields: {
+      BELONGS_TO: 'belongsTo',
+      URL: 'url',
+    },
+  },
 };
 
 export default firestoreCollections;

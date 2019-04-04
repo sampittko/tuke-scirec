@@ -4,8 +4,8 @@ const propTypes = {
   project: PropTypes.shape({
     dashboard: PropTypes.object.isRequired,
     title: PropTypes.string.isRequired,
-    created: PropTypes.instanceOf(Date),
-    modified: PropTypes.instanceOf(Date),
+    created: PropTypes.instanceOf(Date).isRequired,
+    modified: PropTypes.instanceOf(Date).isRequired,
     route: PropTypes.string.isRequired,
     state: PropTypes.number.isRequired,
     deadline: PropTypes.string.isRequired,
