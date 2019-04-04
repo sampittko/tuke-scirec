@@ -30,7 +30,7 @@ class Settings extends React.Component {
       default: false,
       newDefaultDashboardId: "",
       confirmDialogOpen: false,
-      expandedPanel: 0,
+      expandedPanel: -1,
       notify: false,
     }
   }
@@ -112,7 +112,7 @@ class Settings extends React.Component {
 
   handlePanelChange = (event, panel) => {
     this.setState({
-      expandedPanel: this.state.expandedPanel === panel ? 0 : panel
+      expandedPanel: this.state.expandedPanel === panel ? -1 : panel
     });
   };
 

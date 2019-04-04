@@ -126,6 +126,7 @@ const projectVersion = (state = _initialState, action) => {
       return {
         ...state,
         data: {
+          ...state.data,
           list: action.projectVersions,
         },
         isLoading: false,

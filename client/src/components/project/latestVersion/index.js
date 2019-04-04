@@ -15,9 +15,7 @@ import ListIcon from '@material-ui/icons/List';
 
 class LatestVersion extends React.Component {
   componentDidMount() {
-    if (!this.props.activeProjectVersion && this.props.activeProject.data().versionsCount !== 0) {
-      this.props.getLatestProjectVersion();
-    }
+    this.props.getLatestProjectVersion();
   }
 
   handleClick = () => {

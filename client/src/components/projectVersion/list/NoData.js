@@ -18,7 +18,7 @@ const NoData = props =>
             Projekt zatiaľ nemá žiadne verzie
           </Typography>
           <Typography>
-            Tu sa zobrazia Vami vytvorené verzie pre projekt {props.activeProject.data().title}
+            Tu sa zobrazia Vami pridané verzie projektu {props.activeProject.data().title}
           </Typography>
         </div>
       )}

@@ -42,7 +42,7 @@ class ListComponent extends React.Component {
   }
 
   handleProjectVersionClick = (event, projectVersion) => {
-    this.props.setProjectVersion(projectVersion);
+    this.props.setActiveProjectVersion(projectVersion);
     this.props.history.push(getProjectVersionRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route, projectVersion.data().versionNum));
   };
 
@@ -109,7 +109,7 @@ class ListComponent extends React.Component {
 
 ListComponent.propTypes = {
   getProjectVersions: propTypes.func.isRequired,
-  setProjectVersion: propTypes.func.isRequired,
+  setActiveProjectVersion: propTypes.func.isRequired,
   activeProject: propTypes.object,
   projectVersions: propTypes.arrayOf(propTypes.object),
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
@@ -122,7 +122,7 @@ ListComponent.propTypes = {
 const mapDispatchToProps = dispatch => {
   return {
     getProjectVersions: () => dispatch(getProjectVersions()),
-    setProjectVersion: projectVersion => dispatch(setActiveProjectVersion(projectVersion)),
+    setActiveProjectVersion: projectVersion => dispatch(setActiveProjectVersion(projectVersion)),
     removeActiveProjectVersion: () => dispatch(removeActiveProjectVersion()),
   }
 };

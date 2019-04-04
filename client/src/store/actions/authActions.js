@@ -5,6 +5,7 @@ import {getRouteFromString} from '../../utils/appConfigUtils';
 import {resetDashboardState} from './dashboardActions';
 import {resetProjectState} from './projectActions';
 import {resetProjectVersionState} from "./projectVersionActions";
+import {resetProjectVersionReviewState} from "./projectVersionReviewActions";
 
 const loginFailure = error => ({
   type: actionTypes.auth.LOGIN_FAILURE,
@@ -132,11 +133,11 @@ export const getAuth = () => {
   }
 };
 
-// TODO add reviews entity reset
 export const resetUserDependentEntities = () => {
   return dispatch => {
     dispatch(resetDashboardState());
     dispatch(resetProjectState());
     dispatch(resetProjectVersionState());
+    dispatch(resetProjectVersionReviewState());
   }
 };

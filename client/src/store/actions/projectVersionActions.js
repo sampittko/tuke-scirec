@@ -6,6 +6,7 @@ import {
   incrementProjectVersionsCount,
   updateProjectModified
 } from "./projectActions";
+import {deleteReviewsInProjectVersion} from "./projectVersionReviewActions";
 
 const addProjectVersionFailure = error => ({
   type: actionTypes.projectVersion.ADD_PROJECT_VERSION_FAILURE,
@@ -71,7 +72,6 @@ const deleteVersionsInProjectRequest = () => ({
   type: actionTypes.projectVersion.DELETE_VERSIONS_IN_PROJECT_REQUEST
 });
 
-// TODO remove corresponding reviews
 export const deleteVersionsInProject = projectId => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteVersionsInProjectRequest());
@@ -87,6 +87,7 @@ export const deleteVersionsInProject = projectId => {
         if (!result.docs.empty) {
           let batch = firestore.batch();
           result.forEach(doc => {
+            dispatch(deleteReviewsInProjectVersion(doc.id));
             batch.delete(doc.ref);
           });
           batch.commit();
