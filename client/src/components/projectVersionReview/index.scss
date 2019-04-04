@@ -29,6 +29,10 @@
       box-shadow: none;
       margin: 0;
 
+      .details > div:first-child div[class*="FormControl"] {
+        padding-top: 0;
+      }
+
       &:before {
         opacity: 0;
       }
@@ -37,6 +41,10 @@
         position: relative;
         bottom: inherit;
         right: inherit;
+      }
+
+      .file-viewer {
+        padding-top: $spacing-unit;
       }
     }
   }

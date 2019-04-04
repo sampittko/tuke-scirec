@@ -2,10 +2,14 @@
 
 .paper-actions {
   &:not(.relative) {
-    .delete, .edit, .save-and-cancel {
+    .edit, .save-and-cancel {
       position: absolute;
       padding: 3 * $spacing-unit;
     }
+  }
+
+  &:not(.relative) .delete {
+    padding: 3 * $spacing-unit;
   }
 
   .delete, .edit, .save-and-cancel {
@@ -13,6 +17,8 @@
   }
 
   .delete {
+    position: absolute;
+    padding: 2 * $spacing-unit;
     left: 0;
   }
 

@@ -1,15 +1,18 @@
 import React from 'react';
 import propTypes from 'prop-types'
-import ListItem from "./Item";
+import ListItem from "./item";
 import {connect} from "react-redux";
 import projectVersionReviewPropTypes from '../../../propTypes/projectVersionReviewPropTypes';
 import NoData from "./NoData";
+import Notification from "../../common/Notification";
 
 class ListComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       expandedPanel: -1,
+      notifySave: false,
+      notifyDelete: false,
     }
   }
 
@@ -17,6 +20,13 @@ class ListComponent extends React.Component {
     this.setState({
       expandedPanel: this.state.expandedPanel === panel ? -1 : panel
     });
+  };
+
+  handleClose = () => {
+    this.setState({
+      notifySave: false,
+      notifyDelete: false,
+    })
   };
 
   render() {
@@ -33,6 +43,12 @@ class ListComponent extends React.Component {
                 onChange={(event) => this.handleChange(event, i)}
               />
             ))}
+            {this.state.notifySave && (
+              <Notification message="Zmeny boli úspešne uložené" onClose={this.handleClose}/>
+            )}
+            {this.state.notifyDelete && (
+              <Notification message="Posudok bol odstránený" onClose={this.handleClose}/>
+            )}
           </div>
         ) : (
           <NoData/>

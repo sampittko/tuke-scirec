@@ -69,6 +69,7 @@ export const projectVersionConfig = {
 export const projectVersionReviewConfig = {
   defaultValues: {
     NOTES: '',
+    REVIEWER: '',
   },
 };
 

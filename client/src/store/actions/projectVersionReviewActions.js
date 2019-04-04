@@ -30,6 +30,7 @@ export const addProjectVersionReview = () => {
       .add({
         projectVersion: projectVersionsRef.doc(activeProjectVersion.id),
         notes: projectVersionReviewConfig.defaultValues.NOTES,
+        reviewer: projectVersionReviewConfig.defaultValues.REVIEWER,
         modified: new Date(),
         created: new Date(),
       })
