@@ -51,11 +51,6 @@ class ProjectVersion extends React.Component {
       this.props.history.push(getProjectsListRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
     }
   }
-
-  componentWillUnmount() {
-    this.props.resetProjectVersionState();
-    this.props.resetProjectVersionReviewState();
-  }
 }
 
 ProjectVersion.propTypes = {

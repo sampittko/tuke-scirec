@@ -58,7 +58,7 @@ class Detail extends React.Component {
         });
         break;
       case 'save':
-        this.props.updateProjectVersion({
+        await this.props.updateProjectVersion({
           state: this.state.state,
           notes: this.state.notes,
         });
@@ -107,8 +107,9 @@ class Detail extends React.Component {
     return (
       <div className={`project-version-detail ${this.props.latest ? "latest" : ""}`}>
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
-        <Paper className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''}`}>
-          {!this.props.isProjectVersionLoading && this.props.activeProjectVersion ? (
+        <Paper
+          className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''} ${this.props.isProjectVersionUpdating ? "updating" : ""}`}>
+          {(!this.props.isProjectVersionLoading && this.props.activeProjectVersion) || this.props.isProjectVersionUpdating ? (
             <div>
               {this.state.editMode ? (
                 <Editables
@@ -123,6 +124,7 @@ class Detail extends React.Component {
                 />
               )}
               <PaperActions
+                updating={this.props.isProjectVersionUpdating}
                 deleteVisible={true}
                 editMode={this.state.editMode}
                 settingsChanged={this.settingsChanged}
@@ -172,18 +174,20 @@ class Detail extends React.Component {
 Detail.propTypes = {
   latest: propTypes.bool,
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  isProjectVersionUpdating: projectVersionPropTypes.isUpdating.isRequired,
   activeProjectVersion: propTypes.object,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    updateProjectVersion: data => dispatch(updateProjectVersion(data)),
+    updateProjectVersion: async (data) => dispatch(updateProjectVersion(data)),
   }
 };
 
 const mapStateToProps = state => {
   return {
     isProjectVersionLoading: state.projectVersion.isLoading,
+    isProjectVersionUpdating: state.projectVersion.isUpdating,
     activeProjectVersion: state.projectVersion.data.active,
   }
 };

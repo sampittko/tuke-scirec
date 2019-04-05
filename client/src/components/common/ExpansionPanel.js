@@ -15,7 +15,7 @@ const ExpansionPanelComponent = props =>
   <ExpansionPanel
     expanded={props.expanded}
     onChange={props.onChange}
-    className="expansion-panel"
+    className={`expansion-panel ${props.updating && props.expanded ? "updating" : ""}`}
   >
     <ExpansionPanelSummary
       expandIcon={<ExpandMoreIcon/>}
@@ -39,6 +39,7 @@ ExpansionPanelComponent.propTypes = {
   panelActions: propTypes.any.isRequired,
   expanded: propTypes.bool.isRequired,
   onChange: propTypes.func.isRequired,
+  updating: propTypes.bool,
 };
 
 export default ExpansionPanelComponent;

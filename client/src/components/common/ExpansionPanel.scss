@@ -27,4 +27,9 @@
             margin-right: $spacing-unit;
         }
     }
+
+  &.updating {
+    opacity: $updating-opacity;
+    cursor: default !important;
+  }
 }

@@ -158,7 +158,7 @@ const updateProjectVersionRequest = () => ({
 });
 
 export const updateProjectVersion = data => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(updateProjectVersionRequest());
 
     const firestore = getFirestore();
@@ -166,7 +166,7 @@ export const updateProjectVersion = data => {
     const activeProjectVersion = state.projectVersion.data.active;
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
-    projectVersionsRef
+    await projectVersionsRef
       .doc(activeProjectVersion.id)
       .update({
         state: data.state,

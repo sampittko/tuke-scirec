@@ -18,7 +18,10 @@ const PaperActions = props =>
               placement="right"
               disableFocusListener
             >
-              <IconButton onClick={(event) => props.onClick(event, 'delete')}>
+              <IconButton
+                onClick={(event) => props.onClick(event, 'delete')}
+                disabled={props.updating}
+              >
                 <DeleteIcon fontSize="small"/>
               </IconButton>
             </Tooltip>
@@ -30,7 +33,10 @@ const PaperActions = props =>
             placement="left"
             disableFocusListener
           >
-            <IconButton onClick={(event) => props.onClick(event, 'cancel')}>
+            <IconButton
+              onClick={(event) => props.onClick(event, 'cancel')}
+              disabled={props.updating}
+            >
               <CloseIcon fontSize="small"/>
             </IconButton>
           </Tooltip>
@@ -42,7 +48,7 @@ const PaperActions = props =>
             <div style={{display: 'inline'}}>
               <IconButton
                 onClick={(event) => props.onClick(event, 'save')}
-                disabled={!props.settingsChanged()}
+                disabled={!props.settingsChanged() || props.updating}
               >
                 <SaveIcon fontSize="small"/>
               </IconButton>
@@ -71,6 +77,7 @@ PaperActions.propTypes = {
   settingsChanged: propTypes.func.isRequired,
   deleteVisible: propTypes.bool,
   relative: propTypes.bool,
+  updating: propTypes.bool,
 };
 
 export default PaperActions;

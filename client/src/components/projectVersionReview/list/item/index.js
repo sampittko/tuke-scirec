@@ -4,6 +4,9 @@ import propTypes from 'prop-types';
 import PaperActions from "../../../common/PaperActions";
 import Editables from "./Editables";
 import Readables from "./Readables";
+import {updateProjectVersionReview} from "../../../../store/actions/projectVersionReviewActions";
+import {connect} from "react-redux";
+import DeleteConfirmDialog from "../../DeleteConfirmDialog";
 
 class Item extends React.Component {
   constructor(props) {
@@ -13,7 +16,6 @@ class Item extends React.Component {
       reviewer: props.projectVersionReview.data().reviewer,
       editMode: false,
       open: false,
-      notify: false,
     }
   }
 
@@ -29,14 +31,14 @@ class Item extends React.Component {
         });
         break;
       case 'save':
-        // await this.props.updateProjectVersionReview({
-        //   reviewer: this.state.reviewer,
-        //   notes: this.state.notes,
-        // });
+        await this.props.updateProjectVersionReview({
+          reviewer: this.state.reviewer,
+          notes: this.state.notes,
+        }, this.props.projectVersionReview);
         this.setState({
-          notify: true,
           editMode: false,
         });
+        this.props.onSave();
         break;
       case 'cancel':
         this.setState((prevState, props) => ({
@@ -72,47 +74,78 @@ class Item extends React.Component {
     this.props.onChange(event, this.props.index);
   };
 
+  handleDialogClick = () => {
+    this.setState({
+      open: false,
+    })
+  };
+
   render() {
     return (
-      <ExpansionPanel
-        expanded={this.props.expanded}
-        onChange={this.handleExpansionPanelChange}
-        panelContent={(
-          <div>
-            {this.state.editMode ? (
-              <Editables
-                notes={this.state.notes}
-                reviewer={this.state.reviewer}
-                onChange={this.handleFormChange}
-              />
-            ) : (
-              <Readables
-                notes={this.state.notes}
-                reviewer={this.state.reviewer}
-              />
-            )}
-          </div>
-        )}
-        panelActions={(
-          <PaperActions
-            relative
-            deleteVisible
-            editMode={this.state.editMode}
-            onClick={(event, action) => this.handleClick(event, action)}
-            settingsChanged={this.settingsChanged}
-          />
-        )}
-        title={`Posudok ${this.props.index + 1}`}
-      />
+      <div>
+        <ExpansionPanel
+          updating={this.props.isProjectVersionReviewUpdating}
+          expanded={this.props.expanded}
+          onChange={this.handleExpansionPanelChange}
+          panelContent={(
+            <div>
+              {this.state.editMode ? (
+                <Editables
+                  notes={this.state.notes}
+                  reviewer={this.state.reviewer}
+                  onChange={this.handleFormChange}
+                />
+              ) : (
+                <Readables
+                  notes={this.state.notes}
+                  reviewer={this.state.reviewer}
+                />
+              )}
+            </div>
+          )}
+          panelActions={(
+            <PaperActions
+              updating={this.props.isProjectVersionReviewUpdating}
+              relative
+              deleteVisible={this.state.editMode && this.props.expanded}
+              editMode={this.state.editMode}
+              onClick={(event, action) => this.handleClick(event, action)}
+              settingsChanged={this.settingsChanged}
+            />
+          )}
+          title={`Posudok ${this.props.index + 1}`}
+        />
+        <DeleteConfirmDialog
+          open={this.state.open}
+          onClick={this.handleDialogClick}
+          projectVersionReview={this.props.projectVersionReview}
+        />
+      </div>
     )
   }
 }
+
 
 Item.propTypes = {
   index: propTypes.number.isRequired,
   projectVersionReview: propTypes.object.isRequired,
   expanded: propTypes.bool.isRequired,
   onChange: propTypes.func.isRequired,
+  onSave: propTypes.func.isRequired,
+  updateProjectVersionReview: propTypes.func.isRequired,
+  isProjectVersionReviewUpdating: propTypes.bool.isRequired,
 };
 
-export default Item;
+const mapDispatchToProps = dispatch => {
+  return {
+    updateProjectVersionReview: async (data, projectVersionReview) => dispatch(updateProjectVersionReview(data, projectVersionReview)),
+  }
+};
+
+const mapStateToProps = state => {
+  return {
+    isProjectVersionReviewUpdating: state.projectVersionReview.isUpdating,
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Item);

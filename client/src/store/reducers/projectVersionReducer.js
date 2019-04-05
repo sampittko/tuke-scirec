@@ -5,6 +5,7 @@ const _initialState = {
     list: [],
     active: null,
   },
+  isUpdating: false,
   isLoading: false,
   error: null
 };
@@ -21,6 +22,7 @@ const projectVersion = (state = _initialState, action) => {
     case actionTypes.projectVersion.ADD_PROJECT_VERSION_SUCCESS:
       console.log(actionTypes.projectVersion.ADD_PROJECT_VERSION_SUCCESS);
       return {
+        ...state,
         data: {
           ...state.data,
           list: [
@@ -91,7 +93,7 @@ const projectVersion = (state = _initialState, action) => {
       console.log(actionTypes.projectVersion.UPDATE_PROJECT_VERSION_REQUEST);
       return {
         ...state,
-        isLoading: true,
+        isUpdating: true,
       };
 
     case actionTypes.projectVersion.UPDATE_PROJECT_VERSION_SUCCESS:
@@ -103,14 +105,14 @@ const projectVersion = (state = _initialState, action) => {
           list: [...state.data.list.slice(0, updatedProjectVersionIndex), action.updatedProjectVersion, ...state.data.list.slice(updatedProjectVersionIndex + 1)],
           active: action.updatedProjectVersion,
         },
-        isLoading: false,
+        isUpdating: false,
       };
 
     case actionTypes.projectVersion.UPDATE_PROJECT_VERSION_FAILURE:
       console.log(actionTypes.projectVersion.UPDATE_PROJECT_VERSION_FAILURE);
       return {
         ...state,
-        isLoading: false,
+        isUpdating: false,
         error: action.error,
       };
 

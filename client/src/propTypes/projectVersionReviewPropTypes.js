@@ -8,6 +8,7 @@ const propTypes = {
     created: PropTypes.instanceOf(Date).isRequired,
     modified: PropTypes.instanceOf(Date).isRequired,
   }),
+  isUpdating: PropTypes.bool,
   isLoading: PropTypes.bool,
   error: PropTypes.bool,
 };

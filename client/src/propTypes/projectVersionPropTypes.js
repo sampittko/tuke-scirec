@@ -9,6 +9,7 @@ const propTypes = {
     projectNum: PropTypes.number.isRequired,
     state: PropTypes.number.isRequired,
   }),
+  isUpdating: PropTypes.bool,
   isLoading: PropTypes.bool,
   error: PropTypes.bool,
 };

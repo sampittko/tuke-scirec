@@ -18,11 +18,7 @@
   .paper {
     position: relative;
     padding: 0;
-    overflow: hidden;
-
-    &:hover {
-      overflow-y: scroll;
-    }
+    overflow-y: scroll;
 
     .expansion-panel {
       border-bottom: 1px solid lighten($light-gray-color-text-color, 70%);

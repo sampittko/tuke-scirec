@@ -11,8 +11,7 @@ class ListComponent extends React.Component {
     super(props);
     this.state = {
       expandedPanel: -1,
-      notifySave: false,
-      notifyDelete: false,
+      notify: false,
     }
   }
 
@@ -24,9 +23,14 @@ class ListComponent extends React.Component {
 
   handleClose = () => {
     this.setState({
-      notifySave: false,
-      notifyDelete: false,
+      notify: false,
     })
+  };
+
+  handleSave = () => {
+    this.setState({
+      notify: true,
+    });
   };
 
   render() {
@@ -36,6 +40,7 @@ class ListComponent extends React.Component {
           <div>
             {this.props.projectVersionReviews.map((projectVersionReview, i) => (
               <ListItem
+                onSave={this.handleSave}
                 key={i}
                 projectVersionReview={projectVersionReview}
                 index={i}
@@ -43,15 +48,12 @@ class ListComponent extends React.Component {
                 onChange={(event) => this.handleChange(event, i)}
               />
             ))}
-            {this.state.notifySave && (
-              <Notification message="Zmeny boli úspešne uložené" onClose={this.handleClose}/>
-            )}
-            {this.state.notifyDelete && (
-              <Notification message="Posudok bol odstránený" onClose={this.handleClose}/>
-            )}
           </div>
         ) : (
           <NoData/>
+        )}
+        {this.state.notify && (
+          <Notification message="Zmeny boli úspešne uložené" onClose={this.handleClose}/>
         )}
       </div>
     )

@@ -134,6 +134,87 @@ export const deleteReviewsInProjectVersion = projectVersionId => {
   }
 };
 
+const deleteProjectVersionReviewFailure = error => ({
+  type: actionTypes.projectVersionReview.DELETE_PROJECT_VERSION_REVIEW_FAILURE,
+  error
+});
+
+const deleteProjectVersionReviewSuccess = data => ({
+  type: actionTypes.projectVersionReview.DELETE_PROJECT_VERSION_REVIEW_SUCCESS,
+  deletedProjectVersionReview: data.deletedProjectVersionReview,
+});
+
+const deleteProjectVersionReviewRequest = () => ({
+  type: actionTypes.projectVersionReview.DELETE_PROJECT_VERSION_REVIEW_REQUEST
+});
+
+export const deleteProjectVersionReview = projectVersionReview => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(deleteProjectVersionReviewRequest());
+
+    const firestore = getFirestore();
+    const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
+
+    await projectVersionReviewsRef
+      .doc(projectVersionReview.id)
+      .delete()
+      .then(() => {
+        dispatch(deleteProjectVersionReviewSuccess({
+          deletedProjectVersionReview: projectVersionReview,
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(deleteProjectVersionReviewFailure(error));
+      });
+  }
+};
+
+const updateProjectVersionReviewFailure = error => ({
+  type: actionTypes.projectVersionReview.UPDATE_PROJECT_VERSION_REVIEW_FAILURE,
+  error
+});
+
+const updateProjectVersionReviewSuccess = data => ({
+  type: actionTypes.projectVersionReview.UPDATE_PROJECT_VERSION_REVIEW_SUCCESS,
+  updatedProjectVersionReview: data.updatedProjectVersionReview,
+});
+
+const updateProjectVersionReviewRequest = () => ({
+  type: actionTypes.projectVersionReview.UPDATE_PROJECT_VERSION_REVIEW_REQUEST
+});
+
+export const updateProjectVersionReview = (data, projectVersionReview) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(updateProjectVersionReviewRequest());
+
+    const firestore = getFirestore();
+    const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
+
+    await projectVersionReviewsRef
+      .doc(projectVersionReview.id)
+      .update({
+        reviewer: data.reviewer,
+        notes: data.notes,
+        modified: new Date(),
+      })
+      .then(() => {
+        return projectVersionReviewsRef
+          .doc(projectVersionReview.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateProjectVersionReviewSuccess({
+          updatedProjectVersionReview: result
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(updateProjectVersionReviewFailure(error));
+      });
+  }
+};
+
 export const resetProjectVersionReviewState = () => {
   return dispatch => {
     dispatch({

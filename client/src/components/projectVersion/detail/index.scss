@@ -20,11 +20,19 @@
     max-height: $height;
 
     &.paddingless {
+      $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px + 48px);
       min-height: calc(451.2px + #{$spacing-unit});
+      height: $height;
+      max-height: $height;
     }
   }
 
   .paper {
     position: relative;
+
+    &.updating {
+      opacity: $updating-opacity;
+      cursor: default !important;
+    }
   }
 }
