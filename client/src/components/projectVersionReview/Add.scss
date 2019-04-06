@@ -2,6 +2,9 @@
 
 .add-project-version-review {
   text-align: center;
-  color: $light-gray-color-text-color;
   padding: 2 * $spacing-unit 0;
+
+  button {
+    opacity: 0.7;
+  }
 }

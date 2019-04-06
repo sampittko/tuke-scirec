@@ -2,7 +2,7 @@
 
 .project-version {
   &:not(.latest) {
-    margin: 4 * $spacing-unit;
+    margin: 4 * $spacing-unit 3 * $spacing-unit;
   }
 
   .project-version-detail {
@@ -12,9 +12,21 @@
   .project-version-review {
     padding-left: $spacing-unit;
   }
+
+  div[class*="FormControl"]:not(:first-child) {
+    margin-top: $spacing-unit;
+  }
+
+  &:not(.latest) .file-viewer {
+    padding-top: $spacing-unit;
+  }
 }
 
 @media (max-width: $media-query-1) {
+  .project-version:not(.latest) {
+    margin: 2 * $spacing-unit $spacing-unit $spacing-unit $spacing-unit;
+  }
+
   .paper {
     margin-left: $spacing-unit;
   }

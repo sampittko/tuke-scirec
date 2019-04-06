@@ -39,7 +39,7 @@ class Detail extends React.Component {
         });
       } else if (this.props.activeProjectVersion.data().notes !== this.state.notes) {
         this.setState({
-          state: this.props.activeProjectVersion.data().notes,
+          notes: this.props.activeProjectVersion.data().notes,
         });
       }
     }
@@ -152,19 +152,19 @@ class Detail extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (this.state.activeProjectVersion) {
-      if (this.state.activeProjectVersion.data().notes !== this.state.notes && this.state.activeProjectVersion.data().state !== this.state.state) {
+    if (prevProps.activeProjectVersion !== this.props.activeProjectVersion) {
+      if (this.props.activeProjectVersion.data().notes !== this.state.notes && this.props.activeProjectVersion.data().state !== this.state.state) {
         this.setState({
-          notes: this.state.activeProjectVersion.data().notes,
-          state: this.state.activeProjectVersion.data().state,
+          notes: this.props.activeProjectVersion.data().notes,
+          state: this.props.activeProjectVersion.data().state,
         });
-      } else if (this.state.activeProjectVersion.data().state !== this.state.state) {
+      } else if (this.props.activeProjectVersion.data().state !== this.state.state) {
         this.setState({
-          state: this.state.activeProjectVersion.data().state,
+          state: this.props.activeProjectVersion.data().state,
         });
-      } else if (this.state.activeProjectVersion.data().notes !== this.state.notes) {
+      } else if (this.props.activeProjectVersion.data().notes !== this.state.notes) {
         this.setState({
-          state: this.state.activeProjectVersion.data().notes,
+          notes: this.props.activeProjectVersion.data().notes,
         });
       }
     }

@@ -25,7 +25,8 @@ class ProjectVersionReview extends React.Component {
     return (
       <div className={`project-version-review ${this.props.latest ? "latest" : ""}`}>
         <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Posudky</Typography>
-        <Paper className="paper">
+        <Paper
+          className={`paper ${this.props.projectVersionReviews && this.props.projectVersionReviews.length === 0 && !this.props.isProjectVersionReviewLoading && !this.props.isProjectVersionLoading ? "empty" : ""}`}>
           {this.props.activeProjectVersion && !this.props.isProjectVersionReviewLoading && !this.props.isProjectVersionLoading ? (
             <div>
               <List/>
@@ -53,6 +54,7 @@ ProjectVersionReview.propTypes = {
   activeProjectVersion: propTypes.object,
   getProjectVersionReviews: propTypes.func.isRequired,
   resetProjectVersionReviewState: propTypes.func.isRequired,
+  projectVersionReviews: propTypes.arrayOf(propTypes.object),
 };
 
 const mapDispatchToProps = dispatch => {
@@ -64,6 +66,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
+    projectVersionReviews: state.projectVersionReview.data.list,
     isProjectVersionReviewLoading: state.projectVersionReview.isLoading,
     isProjectVersionLoading: state.projectVersion.isLoading,
     activeProjectVersion: state.projectVersion.data.active,

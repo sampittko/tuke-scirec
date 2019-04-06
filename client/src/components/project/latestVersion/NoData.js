@@ -5,7 +5,7 @@ import propTypes from 'prop-types';
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
-    <div className="no-data" style={{textAlign: 'center', opacity: 0.7}}>
+    <div className="no-data">
       <Typography variant="h6">
         Neexistuje žiadna aktívna verzia projektu
       </Typography>

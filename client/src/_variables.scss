@@ -1,25 +1,10 @@
 //
-//  colors
+// colors
 //
 
-// ThemePicker
-$themepicker-scirec-theme-color: #0097a7;
-$themepicker-scirec-theme-inverted-color: #669966;
-$themepicker-custom-theme-1-color: #006064;
-$themepicker-custom-theme-1-inverted-color: #ff5252;
-$themepicker-custom-theme-2-color: #01579b;
-$themepicker-custom-theme-2-inverted-color: #827717;
-$themepicker-custom-theme-3-color: #d32f2f;
-$themepicker-custom-theme-3-inverted-color: #039be5;
-$themepicker-custom-theme-4-color: #f06292;
-$themepicker-custom-theme-4-inverted-color: #00796b;
-$themepicker-custom-theme-5-color: #536dfe;
-$themepicker-custom-theme-5-inverted-color: #33691e;
-$themepicker-custom-theme-6-color: #26a69a;
-$themepicker-custom-theme-6-inverted-color: #00897b;
-
-// others
+//general
 $light-gray-color-text-color: rgba(0, 0, 0, 0.6);
+$updating-opacity: 0.5;
 
 //
 //  relative measurements
@@ -27,11 +12,11 @@ $light-gray-color-text-color: rgba(0, 0, 0, 0.6);
 
 // general
 $spacing-unit: 8px;
-$selector-width: 280px;
 
 // media queries
 $media-query-1: 599px;
-$media-query-2: 399px;
+$media-query-2: 501px;
+$media-query-3: 399px;
 
 // small page
 $small-page-width: 400px;
@@ -40,5 +25,13 @@ $small-page-media-query-2-width: inherit;
 
 // regular page
 $page-width: 75%;
+$page-title-height: 47.2px;
+$page-subtitle-height: 48px;
+$page-subsubtitle-height: 40px;
+$page-media-query-1-width: inherit;
 
-$updating-opacity: 0.5;
+// project
+$project-margin-height: 64px;
+
+// project version
+$project-version-paper-padding-height: 48px;

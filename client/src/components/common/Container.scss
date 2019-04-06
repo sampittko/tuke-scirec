@@ -1,6 +1,8 @@
 @import '../../variables';
 
 .container {
+  min-width: 418px;
+
     div[class*="LinearProgress"] {
         position: absolute;
         width: 100%;
@@ -22,6 +24,7 @@
     margin: {
         left: 2 * $spacing-unit !important;
         bottom: 2 * $spacing-unit !important;
+      right: 2 * $spacing-unit !important;
     }
 
     font-weight: 400 !important;
@@ -47,7 +50,25 @@ hr[class*="Divider"] {
   padding: 0 !important;
 }
 
+.no-data {
+  text-align: center;
+  opacity: 0.7 !important;
+  padding: 0 2 * $spacing-unit 2 * $spacing-unit 2 * $spacing-unit;
+}
+
 @media (max-width: $media-query-1) {
+  div[class*="container"] {
+    &.double-toolbar-margin {
+      margin-top: 96px;
+    }
+
+    &.toolbar-margin {
+      margin-top: 48px;
+    }
+  }
+}
+
+@media (max-width: $media-query-2) {
     div[class*="container"] {
         &.double-toolbar-margin {
             margin-top: 112px;

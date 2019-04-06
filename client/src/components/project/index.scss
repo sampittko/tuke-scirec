@@ -1,8 +1,7 @@
 @import '../../variables';
 
 .project {
-  height: 100%;
-  margin: 4 * $spacing-unit;
+  margin: 3 * $spacing-unit;
 
   .paper {
     position: relative;
@@ -20,7 +19,6 @@
 
 @media (max-width: $media-query-1) {
   .project {
-    height: calc(100vh - 32px);
-    padding: 2 * $spacing-unit $spacing-unit $spacing-unit $spacing-unit;
+    margin: 2 * $spacing-unit $spacing-unit $spacing-unit $spacing-unit;
   }
 }

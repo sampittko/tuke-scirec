@@ -8,7 +8,7 @@ import projectPropTypes from "../../../propTypes/projectPropTypes";
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
-    <div style={{textAlign: 'center', opacity: 0.7}}>
+    <div className="no-data">
       {props.isProjectLoading || props.isDashboardLoading ? (
         <Typography>
           Nástenka sa načítava..

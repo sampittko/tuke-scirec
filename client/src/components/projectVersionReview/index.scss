@@ -1,24 +1,27 @@
 @import "../../variables";
 
 .project-version-review {
+  $bulharsko: 16px;
+  $height: calc(100vh - #{$bulharsko} - #{$page-title-height} - #{$page-subtitle-height} - #{$project-version-paper-padding-height} - #{$project-margin-height});
+  $latest-height: calc(#{$height} - #{$page-subsubtitle-height});
+
   &:not(.latest) .paper {
-    $height: calc(100vh - 128px - 47.2px - (6 * #{$spacing-unit}));
     min-height: calc(459.2px);
     height: $height;
     max-height: $height;
   }
 
   &.latest .paper {
-    $height: calc(100vh - 128px - 47.2px - (6 * #{$spacing-unit}) - 40px);
     min-height: calc(459.2px);
-    height: $height;
-    max-height: $height;
+    height: $latest-height;
+    max-height: $latest-height;
   }
 
   .paper {
     position: relative;
     padding: 0;
     overflow-y: scroll;
+    overflow-x: hidden;
 
     .expansion-panel {
       border-bottom: 1px solid lighten($light-gray-color-text-color, 70%);
@@ -38,9 +41,21 @@
         bottom: inherit;
         right: inherit;
       }
+    }
 
-      .file-viewer {
-        padding-top: $spacing-unit;
+    &.empty {
+      background-color: transparent;
+      box-shadow: none;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+
+      div {
+        width: 100%;
+      }
+
+      .no-data {
+        padding: 0;
       }
     }
   }

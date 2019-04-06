@@ -1,13 +1,13 @@
 @import '../../variables';
 
 .dashboard {
-    margin: 4 * $spacing-unit auto;
+  margin: 3 * $spacing-unit auto;
     width: $page-width;
 }
 
 @media (max-width: $media-query-1) {
     .dashboard {
         margin: 2 * $spacing-unit $spacing-unit;
-        width: inherit;
+      width: $page-media-query-1-width;
     }
 }

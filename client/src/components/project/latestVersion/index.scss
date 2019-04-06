@@ -19,13 +19,7 @@
       position: absolute;
       display: inline-block;
       top: -7px;
-      right: 0;
+      right: $spacing-unit;
     }
-  }
-}
-
-@media (min-width: $media-query-1) {
-  .latest-project-version .page-title {
-    margin-left: 0 !important;
   }
 }

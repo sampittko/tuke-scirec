@@ -7,7 +7,7 @@ import projectPropTypes from "../../../propTypes/projectPropTypes";
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
-    <div style={{textAlign: 'center', opacity: 0.7}}>
+    <div className="no-data">
       {!props.activeProject || props.isProjectVersionLoading ? (
         <Typography>
           Verzie sa načítavajú..

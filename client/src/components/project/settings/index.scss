@@ -1,7 +1,7 @@
 @import '../../../variables';
 
 .project-settings {
-  margin: 4 * $spacing-unit auto;
+  margin: 3 * $spacing-unit auto;
   width: $page-width;
 
   .title-description {
@@ -25,13 +25,14 @@
 }
 
 @media (max-width: $media-query-1) {
-  .settings {
-    margin: 2 * $spacing-unit auto;
+  .project-settings {
+    margin: 2 * $spacing-unit $spacing-unit;
+    width: $page-media-query-1-width;
   }
 }
 
-@media (max-width: $media-query-2) {
-  .settings {
+@media (max-width: $media-query-3) {
+  .project-settings {
     margin: 2 * $spacing-unit $spacing-unit;
     width: $small-page-media-query-2-width;
   }

@@ -1,8 +1,12 @@
 @import "../../../variables";
 
 .project-version-detail {
+  $bulharsko: 64px;
+  $height: calc(100vh - #{$bulharsko} - #{$page-title-height} - #{$page-subtitle-height} - #{$project-version-paper-padding-height} - #{$project-margin-height});
+  $latest-height: calc(#{$height} - #{$page-subsubtitle-height});
+  $latest-height-paddingless: calc(#{$latest-height} + #{$project-version-paper-padding-height});
+
   &:not(.latest) .paper {
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
     min-height: calc(451.2px);
     height: $height;
     max-height: $height;
@@ -14,16 +18,14 @@
   }
 
   &.latest .paper {
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px);
     min-height: calc(451.2px - 40px);
-    height: $height;
-    max-height: $height;
+    height: $latest-height;
+    max-height: $latest-height;
 
     &.paddingless {
-      $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}) - 40px + 48px);
       min-height: calc(451.2px + #{$spacing-unit});
-      height: $height;
-      max-height: $height;
+      height: $latest-height-paddingless;
+      max-height: $latest-height-paddingless;
     }
   }
 

@@ -4,9 +4,9 @@ import {timeouts} from '../../../config/mui';
 
 const NoData = () =>
   <Fade in timeouts={timeouts.FADE_IN}>
-    <div style={{textAlign: 'center', opacity: 0.7, paddingTop: '24px'}}>
+    <div className="no-data">
       <Typography>
-        Verzia projektu zatiaľ nemá žiadne posudky
+        Verzia projektu zatiaľ nemá posudky
       </Typography>
     </div>
   </Fade>;

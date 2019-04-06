@@ -2,12 +2,14 @@
 
 .overview {
   .paper {
+    $paper-padding-height: 32px;
+    $bulharsko: 80px;
+    $height: calc(100vh - #{$bulharsko} - #{$page-subtitle-height} - #{$page-title-height} - #{$paper-padding-height} - #{$project-margin-height});
     min-height: 451.2px;
-    $height: calc(100vh - 128px - 47.2px - (12 * #{$spacing-unit}));
-    position: relative;
-    margin: 0 2 * $spacing-unit 0 2 * $spacing-unit;
     height: $height;
     max-height: $height;
+    position: relative;
+    margin: 0 2 * $spacing-unit 0 0;
   }
 }
 
