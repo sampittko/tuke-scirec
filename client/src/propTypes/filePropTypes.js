@@ -4,6 +4,8 @@ const propTypes = {
   projectVersionReview: PropTypes.shape({
     belongsTo: PropTypes.object.isRequired,
     url: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    size: PropTypes.number.isRequired,
   }),
   isLoading: PropTypes.bool,
   error: PropTypes.bool,

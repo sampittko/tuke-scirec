@@ -28,6 +28,7 @@ class File extends React.Component {
           open={this.state.open}
           editable={this.props.editable}
           onClick={this.handleClick}
+          ownerEntity={this.props.ownerEntity}
         />
       </div>
     );
@@ -36,6 +37,7 @@ class File extends React.Component {
 
 File.propTypes = {
   editable: propTypes.bool,
+  ownerEntity: propTypes.object.isRequired,
 };
 
 export default File;

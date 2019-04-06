@@ -116,11 +116,13 @@ class Detail extends React.Component {
                   state={this.state.state}
                   notes={this.state.notes}
                   onChange={this.handleChange}
+                  filesOwnerEntity={this.props.activeProjectVersion}
                 />
               ) : (
                 <Readables
                   state={this.state.state}
                   notes={this.state.notes}
+                  filesOwnerEntity={this.props.activeProjectVersion}
                 />
               )}
               <PaperActions
@@ -152,7 +154,7 @@ class Detail extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (prevProps.activeProjectVersion !== this.props.activeProjectVersion) {
+    if (prevProps.activeProjectVersion !== this.props.activeProjectVersion && this.props.activeProjectVersion) {
       if (this.props.activeProjectVersion.data().notes !== this.state.notes && this.props.activeProjectVersion.data().state !== this.state.state) {
         this.setState({
           notes: this.props.activeProjectVersion.data().notes,

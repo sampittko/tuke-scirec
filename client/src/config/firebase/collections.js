@@ -61,6 +61,8 @@ const firestoreCollections = {
     fields: {
       BELONGS_TO: 'belongsTo',
       URL: 'url',
+      NAME: 'name',
+      SIZE: 'size',
     },
   },
 };

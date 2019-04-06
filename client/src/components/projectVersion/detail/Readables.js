@@ -25,12 +25,13 @@ const Readables = props =>
       fullWidth
       disabled
     />
-    <File/>
+    <File ownerEntity={props.filesOwnerEntity}/>
   </div>;
 
 Readables.propTypes = {
   state: propTypes.number.isRequired,
   notes: propTypes.string.isRequired,
+  filesOwnerEntity: propTypes.object.isRequired,
 };
 
 export default Readables;

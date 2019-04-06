@@ -24,13 +24,14 @@ const Editables = props =>
       multiline
       fullWidth
     />
-    <File editable/>
+    <File ownerEntity={props.filesOwnerEntity} editable/>
   </div>;
 
 Editables.propTypes = {
   reviewer: propTypes.string.isRequired,
   notes: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,
+  filesOwnerEntity: propTypes.object.isRequired,
 };
 
 export default Editables;

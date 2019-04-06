@@ -13,6 +13,9 @@ import DialogTransition from "../common/DialogTransition";
 import DialogContent from "@material-ui/core/DialogContent";
 import {timeouts} from "../../config/mui";
 import Fade from "@material-ui/core/Fade";
+import {connect} from "react-redux";
+import {uploadFiles} from "../../store/actions/fileActions";
+import {convertBtoMB, countFilesSize} from "../../utils/fileUtils";
 
 class UploaderDialog extends React.Component {
   constructor(props) {
@@ -28,20 +31,8 @@ class UploaderDialog extends React.Component {
     const newFiles = this.state.files.filter(file => file.lastModified !== fileToRemove.lastModified && file.name !== fileToRemove.name);
     this.setState({
       files: newFiles,
-      filesSize: this.countFilesSize(newFiles),
+      filesSize: countFilesSize(newFiles),
     })
-  };
-
-  convertBtoMB = bytes => {
-    return Math.round((bytes / 1000000) * 1000) / 1000;
-  };
-
-  countFilesSize = files => {
-    let bytes = 0;
-    files.forEach(file => {
-      bytes += file.size;
-    });
-    return this.convertBtoMB(bytes);
   };
 
   handleChange = event => {
@@ -50,7 +41,7 @@ class UploaderDialog extends React.Component {
       this.setState({
         files,
         filesCountError: false,
-        filesSize: this.countFilesSize(files),
+        filesSize: countFilesSize(files),
       });
     } else {
       this.setState({
@@ -61,10 +52,9 @@ class UploaderDialog extends React.Component {
     }
   };
 
-  // TODO handle max files size
   handleSubmit = event => {
     event.preventDefault();
-    console.log("Form submitted");
+    this.props.uploadFiles(this.state.files, this.props.ownerEntity);
     this.props.onClick();
   };
 
@@ -86,7 +76,7 @@ class UploaderDialog extends React.Component {
                     onChange={this.handleChange}
                   />
                 )}
-                label="Pridať súbory"
+                label="Vybrať súbory"
               />
             </FormControl>
             {this.state.filesCountError && (
@@ -124,7 +114,7 @@ class UploaderDialog extends React.Component {
             <Button
               type="submit"
               color="secondary"
-              disabled={this.state.files.length === 0}
+              disabled={this.state.files.length === 0 || convertBtoMB(this.props.filesSize) > 15}
             >
               Nahrať
             </Button>
@@ -149,6 +139,14 @@ UploaderDialog.propTypes = {
   editable: propTypes.bool,
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
+  uploadFiles: propTypes.func.isRequired,
+  ownerEntity: propTypes.object.isRequired,
 };
 
-export default UploaderDialog;
+const mapDispatchToProps = dispatch => {
+  return {
+    uploadFiles: (files, ownerEntity) => dispatch(uploadFiles(files, ownerEntity)),
+  }
+};
+
+export default connect(null, mapDispatchToProps)(UploaderDialog);

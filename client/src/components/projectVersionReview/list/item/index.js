@@ -94,11 +94,13 @@ class Item extends React.Component {
                   notes={this.state.notes}
                   reviewer={this.state.reviewer}
                   onChange={this.handleFormChange}
+                  filesOwnerEntity={this.props.projectVersionReview}
                 />
               ) : (
                 <Readables
                   notes={this.state.notes}
                   reviewer={this.state.reviewer}
+                  filesOwnerEntity={this.props.projectVersionReview}
                 />
               )}
             </div>
