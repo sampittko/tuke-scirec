@@ -13,6 +13,7 @@ import Notification from "../../common/Notification";
 import {projectVersionConfig} from "../../../config/app";
 import {updateProjectVersion} from "../../../store/actions/projectVersionActions";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
+import File from "../../file";
 
 class Detail extends React.Component {
   constructor(props) {
@@ -116,15 +117,18 @@ class Detail extends React.Component {
                   state={this.state.state}
                   notes={this.state.notes}
                   onChange={this.handleChange}
-                  filesOwnerEntity={this.props.activeProjectVersion}
                 />
               ) : (
                 <Readables
                   state={this.state.state}
                   notes={this.state.notes}
-                  filesOwnerEntity={this.props.activeProjectVersion}
                 />
               )}
+              <File
+                ownerEntity={this.props.activeProjectVersion}
+                editable={this.state.editMode}
+                filesIndex={this.props.filesIndex}
+              />
               <PaperActions
                 updating={this.props.isProjectVersionUpdating}
                 deleteVisible={true}
@@ -191,6 +195,7 @@ const mapStateToProps = state => {
     isProjectVersionLoading: state.projectVersion.isLoading,
     isProjectVersionUpdating: state.projectVersion.isUpdating,
     activeProjectVersion: state.projectVersion.data.active,
+    filesIndex: state.file.data.listIndex,
   }
 };
 

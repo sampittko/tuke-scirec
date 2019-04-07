@@ -6,6 +6,7 @@ const propTypes = {
     path: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
+    uploaded: PropTypes.instanceOf(Date).isRequired,
   }),
   isLoading: PropTypes.bool,
   error: PropTypes.bool,

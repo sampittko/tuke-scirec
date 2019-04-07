@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
-import File from "../../../file";
 
 const Editables = props =>
   <div style={{opacity: 0.7}}>
@@ -19,19 +18,17 @@ const Editables = props =>
       onChange={props.onChange}
       InputProps={{readOnly: false}}
       value={props.notes}
-      rows={7}
-      rowsMax={7}
+      rows={4}
+      rowsMax={4}
       multiline
       fullWidth
     />
-    <File ownerEntity={props.filesOwnerEntity} editable/>
   </div>;
 
 Editables.propTypes = {
   reviewer: propTypes.string.isRequired,
   notes: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,
-  filesOwnerEntity: propTypes.object.isRequired,
 };
 
 export default Editables;

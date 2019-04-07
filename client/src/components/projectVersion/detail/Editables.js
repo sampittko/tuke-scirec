@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from "@material-ui/core/MenuItem";
 import {projectVersionConfig} from "../../../config/app";
 import {getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
-import File from "../../file";
 
 const projectVersionStates = [
   {value: projectVersionConfig.states.values.NOT_SET},
@@ -37,19 +36,18 @@ const Editables = props =>
       onChange={props.onChange}
       InputProps={{readOnly: false}}
       value={props.notes}
-      rows={7}
-      rowsMax={7}
+      rows={4}
+      rowsMax={4}
       multiline
       fullWidth
     />
-    <File ownerEntity={props.filesOwnerEntity} editable/>
+
   </div>;
 
 Editables.propTypes = {
   state: propTypes.number.isRequired,
   notes: propTypes.string.isRequired,
   onChange: propTypes.func.isRequired,
-  filesOwnerEntity: propTypes.object.isRequired,
 };
 
 export default Editables;

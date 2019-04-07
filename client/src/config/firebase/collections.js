@@ -63,6 +63,7 @@ const firestoreCollections = {
       PATH: 'path',
       NAME: 'name',
       SIZE: 'size',
+      UPLOADED: 'uploaded',
     },
   },
 };

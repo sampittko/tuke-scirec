@@ -7,6 +7,7 @@ import Readables from "./Readables";
 import {updateProjectVersionReview} from "../../../../store/actions/projectVersionReviewActions";
 import {connect} from "react-redux";
 import DeleteConfirmDialog from "../../DeleteConfirmDialog";
+import File from "../../../file";
 
 class Item extends React.Component {
   constructor(props) {
@@ -51,7 +52,6 @@ class Item extends React.Component {
         this.setState({
           open: true,
         });
-        console.log('delete me');
         break;
       default:
         console.log("Bad action");
@@ -94,15 +94,18 @@ class Item extends React.Component {
                   notes={this.state.notes}
                   reviewer={this.state.reviewer}
                   onChange={this.handleFormChange}
-                  filesOwnerEntity={this.props.projectVersionReview}
                 />
               ) : (
                 <Readables
                   notes={this.state.notes}
                   reviewer={this.state.reviewer}
-                  filesOwnerEntity={this.props.projectVersionReview}
                 />
               )}
+              <File
+                ownerEntity={this.props.projectVersionReview}
+                filesIndex={this.props.filesIndex}
+                editable={this.state.editMode}
+              />
             </div>
           )}
           panelActions={(
@@ -136,6 +139,7 @@ Item.propTypes = {
   onSave: propTypes.func.isRequired,
   updateProjectVersionReview: propTypes.func.isRequired,
   isProjectVersionReviewUpdating: propTypes.bool.isRequired,
+  filesIndex: propTypes.number.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
@@ -147,6 +151,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isProjectVersionReviewUpdating: state.projectVersionReview.isUpdating,
+    filesIndex: state.file.data.listIndex,
   }
 };
 

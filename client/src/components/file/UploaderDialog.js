@@ -54,7 +54,7 @@ class UploaderDialog extends React.Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.uploadFiles(this.state.files, this.props.ownerEntity);
+    this.props.uploadFiles(this.state.files, this.props.ownerEntity, this.props.filesIndex);
     this.props.onClick();
   };
 
@@ -141,11 +141,12 @@ UploaderDialog.propTypes = {
   onClick: propTypes.func.isRequired,
   uploadFiles: propTypes.func.isRequired,
   ownerEntity: propTypes.object.isRequired,
+  filesIndex: propTypes.number.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    uploadFiles: (files, ownerEntity) => dispatch(uploadFiles(files, ownerEntity)),
+    uploadFiles: (files, ownerEntity, filesIndex) => dispatch(uploadFiles(files, ownerEntity, filesIndex)),
   }
 };
 
