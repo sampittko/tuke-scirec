@@ -60,7 +60,7 @@ const firestoreCollections = {
     ID: 'files',
     fields: {
       BELONGS_TO: 'belongsTo',
-      URL: 'url',
+      PATH: 'path',
       NAME: 'name',
       SIZE: 'size',
     },

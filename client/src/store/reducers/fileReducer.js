@@ -30,6 +30,29 @@ const file = (state = _initialState, action) => {
         error: action.error,
       };
 
+    case actionTypes.file.DOWNLOAD_FILE_REQUEST:
+      console.log(actionTypes.file.DOWNLOAD_FILE_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.file.DOWNLOAD_FILE_SUCCESS:
+      console.log(actionTypes.file.DOWNLOAD_FILE_SUCCESS);
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+      };
+
+    case actionTypes.file.DOWNLOAD_FILE_FAILURE:
+      console.log(actionTypes.file.DOWNLOAD_FILE_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+
     default:
       return state
   }

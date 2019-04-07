@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
   projectVersionReview: PropTypes.shape({
     belongsTo: PropTypes.object.isRequired,
-    url: PropTypes.string.isRequired,
+    path: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     size: PropTypes.number.isRequired,
   }),
