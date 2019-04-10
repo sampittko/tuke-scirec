@@ -5,14 +5,6 @@ import TextField from "@material-ui/core/TextField";
 const Readables = props =>
   <div>
     <TextField
-      label="Recenzent"
-      name="reviewer"
-      InputProps={{readOnly: true}}
-      value={props.reviewer}
-      fullWidth
-      disabled
-    />
-    <TextField
       label="Poznámky"
       name="notes"
       InputProps={{readOnly: true}}
@@ -26,7 +18,6 @@ const Readables = props =>
   </div>;
 
 Readables.propTypes = {
-  reviewer: propTypes.string.isRequired,
   notes: propTypes.string.isRequired,
 };
 

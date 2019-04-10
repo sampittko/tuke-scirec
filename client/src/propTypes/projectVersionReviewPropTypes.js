@@ -4,7 +4,6 @@ const propTypes = {
   projectVersionReview: PropTypes.shape({
     projectVersion: PropTypes.object.isRequired,
     notes: PropTypes.string.isRequired,
-    reviewer: PropTypes.string.isRequired,
     created: PropTypes.instanceOf(Date).isRequired,
     modified: PropTypes.instanceOf(Date).isRequired,
   }),

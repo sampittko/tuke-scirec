@@ -53,7 +53,6 @@ const firestoreCollections = {
       NOTES: 'notes',
       CREATED: 'created',
       MODIFIED: 'modified',
-      REVIEWER: 'reviewer',
     }
   },
   files: {

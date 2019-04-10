@@ -30,7 +30,6 @@ export const addProjectVersionReview = () => {
       .add({
         projectVersion: projectVersionsRef.doc(activeProjectVersion.id),
         notes: projectVersionReviewConfig.defaultValues.NOTES,
-        reviewer: projectVersionReviewConfig.defaultValues.REVIEWER,
         modified: new Date(),
         created: new Date(),
       })
@@ -194,7 +193,6 @@ export const updateProjectVersionReview = (data, projectVersionReview) => {
     await projectVersionReviewsRef
       .doc(projectVersionReview.id)
       .update({
-        reviewer: data.reviewer,
         notes: data.notes,
         modified: new Date(),
       })

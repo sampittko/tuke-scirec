@@ -14,14 +14,13 @@ class Item extends React.Component {
     super(props);
     this.state = {
       notes: props.projectVersionReview.data().notes,
-      reviewer: props.projectVersionReview.data().reviewer,
       editMode: false,
       open: false,
     }
   }
 
   settingsChanged = () => {
-    return this.state.notes !== this.props.projectVersionReview.data().notes || this.state.reviewer !== this.props.projectVersionReview.data().reviewer;
+    return this.state.notes !== this.props.projectVersionReview.data().notes;
   };
 
   handleClick = async (event, action) => {
@@ -33,7 +32,6 @@ class Item extends React.Component {
         break;
       case 'save':
         await this.props.updateProjectVersionReview({
-          reviewer: this.state.reviewer,
           notes: this.state.notes,
         }, this.props.projectVersionReview);
         this.setState({
@@ -44,7 +42,6 @@ class Item extends React.Component {
       case 'cancel':
         this.setState((prevState, props) => ({
           editMode: false,
-          reviewer: props.projectVersionReview.data().reviewer,
           notes: props.projectVersionReview.data().notes,
         }));
         break;
@@ -92,14 +89,10 @@ class Item extends React.Component {
               {this.state.editMode ? (
                 <Editables
                   notes={this.state.notes}
-                  reviewer={this.state.reviewer}
                   onChange={this.handleFormChange}
                 />
               ) : (
-                <Readables
-                  notes={this.state.notes}
-                  reviewer={this.state.reviewer}
-                />
+                <Readables notes={this.state.notes}/>
               )}
               <File
                 ownerEntity={this.props.projectVersionReview}

@@ -100,7 +100,7 @@ const file = (state = _initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          lists: [...state.data.lists.slice(0, action.filesIndex), null, ...state.data.lists.slice(action.filesIndex + 1)],
+          lists: [...state.data.lists.slice(0, action.filesIndex), [], ...state.data.lists.slice(action.filesIndex + 1)],
         }
       };
 
