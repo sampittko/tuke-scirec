@@ -83,6 +83,37 @@ const file = (state = _initialState, action) => {
         error: action.error,
       };
 
+    case actionTypes.file.DELETE_FILE_REQUEST:
+      console.log(actionTypes.file.DELETE_FILE_REQUEST);
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case actionTypes.file.DELETE_FILE_SUCCESS:
+      console.log(actionTypes.file.DELETE_FILE_SUCCESS);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            state.data.lists[action.filesIndex].filter(file => file.id !== action.file.id),
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
+        isLoading: false,
+        error: null,
+      };
+
+    case actionTypes.file.DELETE_FILE_FAILURE:
+      console.log(actionTypes.file.DELETE_FILE_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error,
+      };
+
     case actionTypes.file.REMOVE_FILES_AT_INDEX:
       console.log(actionTypes.file.REMOVE_FILES_AT_INDEX);
       return {

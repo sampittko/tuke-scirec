@@ -9,12 +9,27 @@ import {downloadFile, getFiles} from "../../../store/actions/fileActions";
 import Add from "./Add";
 import DeleteIcon from '@material-ui/icons/Delete';
 import {convertBtoMB} from "../../../utils/fileUtils";
-
+import DeleteConfirmDialog from "../DeleteConfirmDialog";
 
 class Viewer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
+      toDelete: null,
+    }
+  }
+
   componentDidMount() {
     this.props.getFiles(this.props.ownerEntity, this.props.filesIndex);
   }
+
+  handleClick = (event, file) => {
+    this.setState(prevState => ({
+      open: !prevState.open,
+      toDelete: file ? file : null,
+    }))
+  };
 
   render() {
     return (
@@ -33,7 +48,7 @@ class Viewer extends React.Component {
                   {this.props.editable && (
                     <ListItemSecondaryAction>
                       <Tooltip title="Vymazať súbor">
-                        <IconButton>
+                        <IconButton onClick={(event) => this.handleClick(event, file)}>
                           <DeleteIcon fontSize="small"/>
                         </IconButton>
                       </Tooltip>
@@ -56,6 +71,14 @@ class Viewer extends React.Component {
             </ListItem>
           )}
         </List>
+        {this.state.toDelete && (
+          <DeleteConfirmDialog
+            open={this.state.open}
+            fileToDelete={this.state.toDelete}
+            filesIndex={this.props.filesIndex}
+            onClick={this.handleClick}
+          />
+        )}
       </div>
     );
   }

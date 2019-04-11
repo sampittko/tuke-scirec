@@ -29,7 +29,7 @@ const PaperActions = props =>
         )}
         <div className="save-and-cancel">
           <Tooltip
-            title="Zrušiť zmeny"
+            title="Zrušiť režim úprav"
             placement="left"
             disableFocusListener
           >
@@ -59,7 +59,7 @@ const PaperActions = props =>
     ) : (
       <div className="edit">
         <Tooltip
-          title="Upraviť"
+          title="Režim úprav"
           placement="left"
           disableFocusListener
         >

@@ -1,7 +1,8 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
 import {projectVersionReviewConfig} from "../../config/app";
-import {removeFilesAtIndex} from "./fileActions";
+import {deleteFilesInEntity, removeFilesAtIndex} from "./fileActions";
+import {updateProjectModified} from "./projectActions";
 
 const addProjectVersionReviewFailure = error => ({
   type: actionTypes.projectVersionReview.ADD_PROJECT_VERSION_REVIEW_FAILURE,
@@ -40,6 +41,7 @@ export const addProjectVersionReview = () => {
           .get()
       })
       .then(result => {
+        dispatch(updateProjectModified());
         dispatch(addProjectVersionReviewSuccess({
           addedProjectVersionReview: result,
         }));
@@ -120,11 +122,13 @@ export const deleteReviewsInProjectVersion = projectVersionId => {
           let batch = firestore.batch();
           result.forEach(doc => {
             batch.delete(doc.ref);
+            dispatch(deleteFilesInEntity(doc));
           });
           batch.commit();
         }
       })
       .then(() => {
+        dispatch(updateProjectModified());
         dispatch(deleteReviewsInProjectVersionSuccess());
       })
       .catch(error => {
@@ -149,17 +153,19 @@ const deleteProjectVersionReviewRequest = () => ({
 });
 
 export const deleteProjectVersionReview = (projectVersionReview, filesIndex) => {
-  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteProjectVersionReviewRequest());
 
     const firestore = getFirestore();
     const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
 
-    await projectVersionReviewsRef
+    projectVersionReviewsRef
       .doc(projectVersionReview.id)
       .delete()
-      .then(() => {
+      .then(async () => {
+        await dispatch(deleteFilesInEntity(projectVersionReview));
         dispatch(removeFilesAtIndex(filesIndex));
+        dispatch(updateProjectModified());
         dispatch(deleteProjectVersionReviewSuccess({
           deletedProjectVersionReview: projectVersionReview,
         }));
@@ -204,6 +210,7 @@ export const updateProjectVersionReview = (data, projectVersionReview) => {
           .get()
       })
       .then(result => {
+        dispatch(updateProjectModified());
         dispatch(updateProjectVersionReviewSuccess({
           updatedProjectVersionReview: result
         }));

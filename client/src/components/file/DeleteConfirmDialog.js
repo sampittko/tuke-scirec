@@ -4,13 +4,13 @@ import DialogTransition from '../common/DialogTransition';
 import React from 'react';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
-import {deleteProjectVersion} from "../../store/actions/projectVersionActions";
+import {deleteFile} from "../../store/actions/fileActions";
 
 class DeleteConfirmDialog extends React.Component {
-  handleSubmit = event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     this.props.onClick();
-    this.props.deleteProjectVersion();
+    this.props.deleteFile(this.props.fileToDelete, this.props.filesIndex);
   };
 
   render() {
@@ -20,10 +20,11 @@ class DeleteConfirmDialog extends React.Component {
         TransitionComponent={DialogTransition}
       >
         <form onSubmit={this.handleSubmit}>
-          <DialogTitle>Vymazanie verzie projektu</DialogTitle>
+          <DialogTitle>Vymazanie súboru</DialogTitle>
           <DialogContent>
             <Typography>
-              Naozaj si prajete vykonať túto akciu? <span className="text-bolder">Akcia je nenávratná!</span>
+              Naozaj si prajete vymazať súbor <span
+              className="text-italic">{this.props.fileToDelete.data().name}</span>? <span className="text-bolder">Akcia je nenávratná!</span>
             </Typography>
           </DialogContent>
           <DialogActions>
@@ -35,7 +36,7 @@ class DeleteConfirmDialog extends React.Component {
               Zrušiť
             </Button>
             <Button type="submit" color="secondary">
-              Vymazať verziu {this.props.activeProjectVersion.data().versionNum}
+              Vymazať súbor
             </Button>
           </DialogActions>
         </form>
@@ -46,21 +47,15 @@ class DeleteConfirmDialog extends React.Component {
 
 DeleteConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
-  activeProjectVersion: propTypes.object.isRequired,
-  deleteProjectVersion: propTypes.func.isRequired,
+  fileToDelete: propTypes.object,
+  filesIndex: propTypes.number.isRequired,
   onClick: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteProjectVersion: () => dispatch(deleteProjectVersion()),
+    deleteFile: (file, filesIndex) => dispatch(deleteFile(file, filesIndex)),
   }
 };
 
-const mapStateToProps = state => {
-  return {
-    activeProjectVersion: state.projectVersion.data.active,
-  }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteConfirmDialog);
+export default connect(null, mapDispatchToProps)(DeleteConfirmDialog);

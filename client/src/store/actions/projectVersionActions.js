@@ -7,6 +7,7 @@ import {
   updateProjectModified
 } from "./projectActions";
 import {deleteReviewsInProjectVersion} from "./projectVersionReviewActions";
+import {deleteFilesInEntity} from "./fileActions";
 
 const addProjectVersionFailure = error => ({
   type: actionTypes.projectVersion.ADD_PROJECT_VERSION_FAILURE,
@@ -89,6 +90,7 @@ export const deleteVersionsInProject = projectId => {
           result.forEach(doc => {
             dispatch(deleteReviewsInProjectVersion(doc.id));
             batch.delete(doc.ref);
+            dispatch(deleteFilesInEntity(doc));
           });
           batch.commit();
         }
@@ -246,7 +248,7 @@ const deleteProjectVersionRequest = () => ({
 });
 
 export const deleteProjectVersion = () => {
-  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteProjectVersionRequest());
 
     const firestore = getFirestore();
@@ -254,7 +256,7 @@ export const deleteProjectVersion = () => {
     const projectVersion = state.projectVersion.data.active;
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
-    await projectVersionsRef
+    projectVersionsRef
       .doc(projectVersion.id)
       .update({
         state: projectVersionConfig.states.values.DELETED,

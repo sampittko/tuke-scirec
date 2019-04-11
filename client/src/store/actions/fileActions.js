@@ -1,6 +1,7 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
 import {asyncForEach, saveFile} from "../../utils/fileUtils";
+import {updateProjectModified} from "./projectActions";
 
 const uploadFilesFailure = error => ({
   type: actionTypes.file.UPLOAD_FILES_FAILURE,
@@ -48,6 +49,7 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
     })
       .then(async () => {
         await dispatch(getFiles(ownerEntity, filesIndex));
+        dispatch(updateProjectModified());
         dispatch(uploadFilesSuccess())
       })
       .catch(error => {
@@ -142,6 +144,99 @@ export const getFiles = (ownerEntity, filesIndex) => {
       .catch(error => {
         console.log(error);
         dispatch(getFilesFailure(error));
+      });
+  }
+};
+
+const deleteFileFailure = error => ({
+  type: actionTypes.file.DELETE_FILE_FAILURE,
+  error
+});
+
+const deleteFileSuccess = data => ({
+  type: actionTypes.file.DELETE_FILE_SUCCESS,
+  file: data.file,
+  filesIndex: data.filesIndex,
+});
+
+const deleteFileRequest = () => ({
+  type: actionTypes.file.DELETE_FILE_REQUEST
+});
+
+export const deleteFile = (file, filesIndex) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(deleteFileRequest());
+
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    const storageRef = firebase.storage().ref();
+    const storageFileRef = storageRef.child(file.data().path);
+    const filesRef = firestore.collection(firestoreCollections.files.ID);
+
+    storageFileRef
+      .delete()
+      .then(() => {
+        return filesRef
+          .doc(file.id)
+          .delete()
+      })
+      .then(() => {
+        dispatch(updateProjectModified());
+        dispatch(deleteFileSuccess({
+          file,
+          filesIndex
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(deleteFileFailure(error));
+      })
+  }
+};
+
+const deleteFilesInEntityFailure = error => ({
+  type: actionTypes.file.DELETE_FILES_IN_ENTITY_FAILURE,
+  error
+});
+
+const deleteFilesInEntitySuccess = () => ({
+  type: actionTypes.file.DELETE_FILES_IN_ENTITY_SUCCESS,
+});
+
+const deleteFilesInEntityRequest = () => ({
+  type: actionTypes.file.DELETE_FILES_IN_ENTITY_REQUEST
+});
+
+export const deleteFilesInEntity = ownerEntity => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(deleteFilesInEntityRequest());
+
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    const storageRef = firebase.storage().ref();
+    const filesRef = firestore.collection(firestoreCollections.files.ID);
+    const dbOwnerEntity = firestore.collection(ownerEntity.data().versionNum ? firestoreCollections.projectVersions.ID : firestoreCollections.projectVersionReviews.ID);
+
+    await filesRef
+      .where(firestoreCollections.files.fields.BELONGS_TO, "==", dbOwnerEntity.doc(ownerEntity.id))
+      .get()
+      .then(result => {
+        if (!result.docs.empty) {
+          let batch = firestore.batch();
+          result.forEach(doc => {
+            batch.delete(doc.ref);
+            storageRef.child(doc.data().path).delete();
+          });
+          batch.commit();
+        }
+      })
+      .then(() => {
+        dispatch(updateProjectModified());
+        dispatch(deleteFilesInEntitySuccess());
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(deleteFilesInEntityFailure(error));
       });
   }
 };

@@ -7,10 +7,10 @@ import propTypes from 'prop-types';
 import {deleteProjectVersionReview} from "../../store/actions/projectVersionReviewActions";
 
 class DeleteConfirmDialog extends React.Component {
-  handleSubmit = async (event) => {
+  handleSubmit = event => {
     event.preventDefault();
     this.props.onClick();
-    await this.props.deleteProjectVersionReview(this.props.projectVersionReview, this.props.filesIndex);
+    this.props.deleteProjectVersionReview(this.props.projectVersionReview, this.props.filesIndex);
   };
 
   render() {
@@ -23,7 +23,7 @@ class DeleteConfirmDialog extends React.Component {
           <DialogTitle>Vymazanie posudku verzie projektu</DialogTitle>
           <DialogContent>
             <Typography>
-              Naozaj si prajete vykonať túto akciu? <span style={{fontWeight: 500}}>Akcia je nenávratná!</span>
+              Naozaj si prajete vykonať túto akciu? <span className="text-bolder">Akcia je nenávratná!</span>
             </Typography>
           </DialogContent>
           <DialogActions>
@@ -54,7 +54,7 @@ DeleteConfirmDialog.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteProjectVersionReview: async (projectVersionReview, filesIndex) => dispatch(deleteProjectVersionReview(projectVersionReview, filesIndex)),
+    deleteProjectVersionReview: (projectVersionReview, filesIndex) => dispatch(deleteProjectVersionReview(projectVersionReview, filesIndex)),
   }
 };
 

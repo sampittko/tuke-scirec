@@ -70,10 +70,10 @@ class Detail extends React.Component {
         });
         break;
       case 'cancel':
-        this.setState((prevState, prevProps) => ({
+        this.setState((prevState, props) => ({
           editMode: false,
-          state: prevProps.activeProjectVersion.data().state,
-          notes: prevProps.activeProjectVersion.data().notes,
+          state: props.activeProjectVersion.data().state,
+          notes: props.activeProjectVersion.data().notes,
         }));
         break;
       case 'delete':

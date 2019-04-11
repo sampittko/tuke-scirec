@@ -26,7 +26,7 @@ class RemoveProjectConfirmDialog extends React.Component {
           <DialogTitle>Vymazanie projektu</DialogTitle>
           <DialogContent>
             <Typography>
-              Naozaj si prajete vykonať túto akciu? <span style={{fontWeight: 500}}>Akcia je nenávratná!</span>
+              Naozaj si prajete vykonať túto akciu? <span className="text-bolder">Akcia je nenávratná!</span>
             </Typography>
           </DialogContent>
           <DialogActions>
