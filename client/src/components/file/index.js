@@ -21,6 +21,7 @@ class File extends React.Component {
     return (
       <div>
         <Viewer
+          latest={this.props.latest}
           editable={this.props.editable}
           onClick={this.handleClick}
           filesIndex={this.props.filesIndex}
@@ -39,6 +40,7 @@ class File extends React.Component {
 }
 
 File.propTypes = {
+  latest: propTypes.bool,
   editable: propTypes.bool,
   ownerEntity: propTypes.object.isRequired,
   filesIndex: propTypes.number.isRequired,

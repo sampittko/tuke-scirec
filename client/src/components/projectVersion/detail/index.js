@@ -126,6 +126,7 @@ class Detail extends React.Component {
                 />
               )}
               <File
+                latest={this.props.latest}
                 ownerEntity={this.props.activeProjectVersion}
                 editable={this.state.editMode}
                 filesIndex={fileConfig.PROJECT_VERSION_FILES_INDEX}

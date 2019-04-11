@@ -10,7 +10,7 @@ import {getProjects, setActiveProject} from '../../../store/actions/projectActio
 import {getProjectRoute, getProjectStateColor, getReadableProjectState} from '../../../utils/projectUtils';
 import NoData from './NoData';
 import Counter from "./Counter";
-import ListItem from "../../common/list/Item";
+import ListItem from "../../common/ListItem";
 
 class ProjectsList extends React.Component {
   componentDidMount() {

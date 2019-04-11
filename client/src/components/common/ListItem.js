@@ -1,10 +1,10 @@
 import React from 'react';
 import {Chip, ListItem, ListItemSecondaryAction, ListItemText} from "@material-ui/core";
-import ModifiedTimestampText from "./ModifiedTimestampText";
+import TimestampText from "./TimestampText";
 import propTypes from 'prop-types';
-import './Item.scss';
+import './ListItem.scss';
 
-const Item = props =>
+const ListItemComponent = props =>
   <div className="list-item">
     <ListItem
       button
@@ -15,7 +15,7 @@ const Item = props =>
       <ListItemText
         inset
         primary={props.title}
-        secondary={<ModifiedTimestampText modifiedTimestamp={props.modifiedTimestamp}/>}
+        secondary={<TimestampText label="Naposledy upravené" timestamp={props.modifiedTimestamp}/>}
       />
       <ListItemSecondaryAction className="state">
         <Chip
@@ -28,7 +28,7 @@ const Item = props =>
     </ListItem>
   </div>;
 
-Item.propTypes = {
+ListItemComponent.propTypes = {
   disabled: propTypes.bool,
   title: propTypes.string.isRequired,
   item: propTypes.object.isRequired,
@@ -38,4 +38,4 @@ Item.propTypes = {
   chipColor: propTypes.string,
 };
 
-export default Item;
+export default ListItemComponent;

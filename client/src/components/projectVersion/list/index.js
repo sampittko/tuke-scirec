@@ -17,7 +17,7 @@ import Fab from '../../common/Fab';
 import propTypes from 'prop-types';
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Fade from "@material-ui/core/Fade";
-import ListItem from "../../common/list/Item";
+import ListItem from "../../common/ListItem";
 import {projectVersionConfig} from "../../../config/app";
 import {getProjectsListDocumentTitle} from "../../../utils/projectUtils";
 

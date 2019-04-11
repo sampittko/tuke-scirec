@@ -1,11 +1,11 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-class ModifiedTimestampText extends React.Component {
+class TimestampText extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      date: new Date(props.modifiedTimestamp.toDate()),
+      date: new Date(props.timestamp.toDate()),
     }
   }
 
@@ -28,12 +28,13 @@ class ModifiedTimestampText extends React.Component {
 
   render() {
     let formattedTimestamp = `${this.getHoursFromDate()}:${this.getMinutesFromDate()}, ${this.getDMYFromDate()}`;
-    return `Naposledy upravené: ${formattedTimestamp}`;
+    return `${this.props.label}: ${formattedTimestamp}`;
   }
 }
 
-ModifiedTimestampText.propTypes = {
-  modifiedTimestamp: propTypes.object.isRequired,
+TimestampText.propTypes = {
+  label: propTypes.string.isRequired,
+  timestamp: propTypes.object.isRequired,
 };
 
-export default ModifiedTimestampText;
+export default TimestampText;

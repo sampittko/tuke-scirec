@@ -1,6 +1,28 @@
 @import "../../../variables";
 
 .file-viewer {
+  $bulharsko: 200.4px;
+  $contents: 188.4px;
+  $height: calc(100vh - #{$bulharsko} - #{$page-title-height} - #{$page-subtitle-height} - #{$project-version-paper-padding-height} - #{$project-margin-height} - #{$contents});
+  $latest-height: calc(#{$height} - #{$page-subsubtitle-height});
+  $latest-height-paddingless: calc(#{$latest-height} + #{$project-version-paper-padding-height});
+
+  .list {
+    top: $spacing-unit;
+    height: $height;
+    max-height: $height;
+    overflow-y: hidden;
+    border-bottom: 1px dotted $light-gray-color-text-color;
+
+    &:not(.latest) {
+      min-height: calc(#{$height} + 60px);
+    }
+
+    &:hover {
+      overflow-y: scroll;
+    }
+  }
+
   .small-title {
     font-size: 12px;
     color: lighten($light-gray-color-text-color, 20%);
@@ -9,6 +31,10 @@
   .list-item-text {
     text-align: left;
     padding-right: 0;
+
+    &.no-data {
+      text-align: center !important;
+    }
   }
 
   .add-files-button {
