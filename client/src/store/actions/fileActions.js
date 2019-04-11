@@ -231,7 +231,6 @@ export const deleteFilesInEntity = ownerEntity => {
         }
       })
       .then(() => {
-        dispatch(updateProjectModified());
         dispatch(deleteFilesInEntitySuccess());
       })
       .catch(error => {

@@ -128,7 +128,6 @@ export const deleteReviewsInProjectVersion = projectVersionId => {
         }
       })
       .then(() => {
-        dispatch(updateProjectModified());
         dispatch(deleteReviewsInProjectVersionSuccess());
       })
       .catch(error => {
