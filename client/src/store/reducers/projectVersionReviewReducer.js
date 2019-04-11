@@ -25,8 +25,8 @@ const projectVersionReview = (state = _initialState, action) => {
         data: {
           ...state.data,
           list: [
-            action.addedProjectVersionReview,
-            ...state.data.list
+            ...state.data.list,
+            action.addedProjectVersionReview
           ],
         },
         isLoading: false,

@@ -10,7 +10,7 @@ class DeleteConfirmDialog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     this.props.onClick();
-    await this.props.deleteProjectVersionReview(this.props.projectVersionReview);
+    await this.props.deleteProjectVersionReview(this.props.projectVersionReview, this.props.filesIndex);
   };
 
   render() {
@@ -46,6 +46,7 @@ class DeleteConfirmDialog extends React.Component {
 
 DeleteConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
+  filesIndex: propTypes.number.isRequired,
   projectVersionReview: propTypes.object.isRequired,
   deleteProjectVersionReview: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
@@ -53,7 +54,7 @@ DeleteConfirmDialog.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteProjectVersionReview: async (projectVersionReview) => dispatch(deleteProjectVersionReview(projectVersionReview)),
+    deleteProjectVersionReview: async (projectVersionReview, filesIndex) => dispatch(deleteProjectVersionReview(projectVersionReview, filesIndex)),
   }
 };
 

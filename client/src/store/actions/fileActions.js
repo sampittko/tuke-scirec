@@ -47,9 +47,7 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
         });
     })
       .then(async () => {
-        return await getFiles(ownerEntity, filesIndex)
-      })
-      .then(() => {
+        await dispatch(getFiles(ownerEntity, filesIndex));
         dispatch(uploadFilesSuccess())
       })
       .catch(error => {
@@ -148,19 +146,19 @@ export const getFiles = (ownerEntity, filesIndex) => {
   }
 };
 
-export const incrementFilesId = () => {
-  return dispatch => {
-    dispatch({
-      type: actionTypes.file.INCREMENT_FILES_ID,
-    });
-  }
-};
-
 export const removeFilesAtIndex = filesIndex => {
   return dispatch => {
     dispatch({
       type: actionTypes.file.REMOVE_FILES_AT_INDEX,
       filesIndex,
+    });
+  }
+};
+
+export const resetFileState = () => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.file.RESET_FILE_STATE,
     });
   }
 };

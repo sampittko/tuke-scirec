@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 import {timeouts} from "../../config/mui";
 import Fade from "@material-ui/core/Fade";
 import {getProjectsListRoute, getProjectVersionDocumentTitle} from "../../utils/projectUtils";
-import {resetProjectVersionState} from "../../store/actions/projectVersionActions";
 import {resetProjectVersionReviewState} from "../../store/actions/projectVersionReviewActions";
 
 class ProjectVersion extends React.Component {
@@ -58,13 +57,11 @@ ProjectVersion.propTypes = {
   activeProject: propTypes.object,
   activeProjectVersion: propTypes.object,
   history: propTypes.object.isRequired,
-  resetProjectVersionState: propTypes.func.isRequired,
   resetProjectVersionReviewState: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    resetProjectVersionState: () => dispatch(resetProjectVersionState()),
     resetProjectVersionReviewState: () => dispatch(resetProjectVersionReviewState()),
   }
 };

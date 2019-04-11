@@ -40,10 +40,11 @@ class ListComponent extends React.Component {
           <div>
             {this.props.projectVersionReviews.map((projectVersionReview, i) => (
               <ListItem
-                onSave={this.handleSave}
                 key={i}
+                onSave={this.handleSave}
                 projectVersionReview={projectVersionReview}
                 index={i}
+                filesIndex={i + 1}
                 expanded={this.state.expandedPanel === i}
                 onChange={(event) => this.handleChange(event, i)}
               />

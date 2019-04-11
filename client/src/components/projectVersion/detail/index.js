@@ -10,10 +10,11 @@ import {connect} from "react-redux";
 import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Loader from "../../common/Loader";
 import Notification from "../../common/Notification";
-import {projectVersionConfig} from "../../../config/app";
+import {fileConfig, projectVersionConfig} from "../../../config/app";
 import {updateProjectVersion} from "../../../store/actions/projectVersionActions";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 import File from "../../file";
+import {resetFileState} from "../../../store/actions/fileActions";
 
 class Detail extends React.Component {
   constructor(props) {
@@ -127,7 +128,7 @@ class Detail extends React.Component {
               <File
                 ownerEntity={this.props.activeProjectVersion}
                 editable={this.state.editMode}
-                filesIndex={this.props.filesIndex}
+                filesIndex={fileConfig.PROJECT_VERSION_FILES_INDEX}
               />
               <PaperActions
                 updating={this.props.isProjectVersionUpdating}
@@ -175,6 +176,10 @@ class Detail extends React.Component {
       }
     }
   }
+
+  componentWillUnmount() {
+    this.props.resetFileState();
+  }
 }
 
 Detail.propTypes = {
@@ -182,11 +187,14 @@ Detail.propTypes = {
   isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
   isProjectVersionUpdating: projectVersionPropTypes.isUpdating.isRequired,
   activeProjectVersion: propTypes.object,
+  updateProjectVersion: propTypes.func.isRequired,
+  resetFileState: propTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     updateProjectVersion: async (data) => dispatch(updateProjectVersion(data)),
+    resetFileState: () => dispatch(resetFileState()),
   }
 };
 
@@ -195,7 +203,6 @@ const mapStateToProps = state => {
     isProjectVersionLoading: state.projectVersion.isLoading,
     isProjectVersionUpdating: state.projectVersion.isUpdating,
     activeProjectVersion: state.projectVersion.data.active,
-    filesIndex: state.file.data.listIndex,
   }
 };
 

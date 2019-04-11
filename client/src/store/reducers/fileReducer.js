@@ -3,7 +3,6 @@ import actionTypes from "../actionTypes";
 const _initialState = {
   data: {
     lists: [],
-    listIndex: 0,
   },
   isLoading: false,
   error: null,
@@ -84,28 +83,22 @@ const file = (state = _initialState, action) => {
         error: action.error,
       };
 
-    case actionTypes.file.INCREMENT_FILES_ID:
-      console.log(actionTypes.file.INCREMENT_FILES_ID);
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          listIndex: state.data.listIndex + 1,
-        }
-      };
-
     case actionTypes.file.REMOVE_FILES_AT_INDEX:
       console.log(actionTypes.file.REMOVE_FILES_AT_INDEX);
       return {
         ...state,
         data: {
           ...state.data,
-          lists: [...state.data.lists.slice(0, action.filesIndex), [], ...state.data.lists.slice(action.filesIndex + 1)],
+          lists: state.data.lists.filter((fileList, i) => i !== action.filesIndex),
         }
       };
 
+    case actionTypes.file.RESET_FILE_STATE:
+      console.log(actionTypes.file.RESET_FILE_STATE);
+      return _initialState;
+
     default:
-      return state
+      return state;
   }
 };
 

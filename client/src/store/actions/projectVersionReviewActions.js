@@ -1,6 +1,7 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
 import {projectVersionReviewConfig} from "../../config/app";
+import {removeFilesAtIndex} from "./fileActions";
 
 const addProjectVersionReviewFailure = error => ({
   type: actionTypes.projectVersionReview.ADD_PROJECT_VERSION_REVIEW_FAILURE,
@@ -76,7 +77,7 @@ export const getProjectVersionReviews = () => {
 
     projectVersionReviewsRef
       .where(firestoreCollections.projectVersionReviews.fields.PROJECT_VERSION, "==", projectVersionsRef.doc(activeProjectVersion.id))
-      .orderBy(firestoreCollections.projectVersionReviews.fields.CREATED, "desc")
+      .orderBy(firestoreCollections.projectVersionReviews.fields.CREATED, "asc")
       .get()
       .then(result => {
         dispatch(getProjectVersionReviewsSuccess({
@@ -147,7 +148,7 @@ const deleteProjectVersionReviewRequest = () => ({
   type: actionTypes.projectVersionReview.DELETE_PROJECT_VERSION_REVIEW_REQUEST
 });
 
-export const deleteProjectVersionReview = projectVersionReview => {
+export const deleteProjectVersionReview = (projectVersionReview, filesIndex) => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteProjectVersionReviewRequest());
 
@@ -158,6 +159,7 @@ export const deleteProjectVersionReview = projectVersionReview => {
       .doc(projectVersionReview.id)
       .delete()
       .then(() => {
+        dispatch(removeFilesAtIndex(filesIndex));
         dispatch(deleteProjectVersionReviewSuccess({
           deletedProjectVersionReview: projectVersionReview,
         }));

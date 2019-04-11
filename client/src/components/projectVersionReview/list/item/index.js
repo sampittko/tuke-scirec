@@ -116,6 +116,7 @@ class Item extends React.Component {
         <DeleteConfirmDialog
           open={this.state.open}
           onClick={this.handleDialogClick}
+          filesIndex={this.props.filesIndex}
           projectVersionReview={this.props.projectVersionReview}
         />
       </div>
@@ -144,7 +145,6 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     isProjectVersionReviewUpdating: state.projectVersionReview.isUpdating,
-    filesIndex: state.file.data.listIndex,
   }
 };
 
