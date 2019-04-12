@@ -1,5 +1,5 @@
 {
-  "name": "client",
+  "name": "scirec",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,7 @@
     "dashify": "^2.0.0",
     "firebase": "^5.7.0",
     "prop-types": "^15.6.2",
+    "node-sass": "^4.11.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-redux": "^5.0.7",
@@ -19,10 +20,6 @@
     "redux-firestore": "^0.6.3",
     "redux-thunk": "^2.3.0",
     "remove-accents": "^0.4.2"
-  },
-  "devDependencies": {
-    "node-sass": "^4.11.0",
-    "sass-loader": "^7.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -21,35 +21,14 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
     dispatch(uploadFilesRequest());
 
     const firebase = getFirebase();
-    const firestore = getFirestore();
     const userId = firebase.auth().currentUser.uid;
-    const storageRef = firebase.storage().ref();
     const dbOwnerEntity = ownerEntity.data().versionNum ? firestoreCollections.projectVersions.ID : firestoreCollections.projectVersionReviews.ID;
     const storagePath = `${userId}/${dbOwnerEntity}/${ownerEntity.id}/`;
-    const filesRef = firestore.collection(firestoreCollections.files.ID);
-    let storageFileRef = null;
 
     asyncForEach(files, async (file) => {
-      storageFileRef = storageRef.child(storagePath + file.name);
-      await storageFileRef
-        .put(file)
-        .then(async (result) => {
-          return await filesRef
-            .add({
-              path: storageFileRef.fullPath,
-              size: result.bytesTransferred,
-              name: result.ref.name,
-              belongsTo: firestore.collection(dbOwnerEntity).doc(ownerEntity.id),
-              uploaded: new Date(),
-            });
-        })
-        .catch(error => {
-          console.log(error);
-        });
+      await dispatch(uploadFile(storagePath + file.name, file, dbOwnerEntity, ownerEntity, filesIndex));
     })
-      .then(async () => {
-        await dispatch(getFiles(ownerEntity, filesIndex));
-        dispatch(updateProjectModified());
+      .then(() => {
         dispatch(uploadFilesSuccess())
       })
       .catch(error => {
@@ -59,22 +38,92 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
   }
 };
 
-const downloadFileFailure = error => ({
-  type: actionTypes.file.DOWNLOAD_FILE_FAILURE,
+const uploadFileFailure = error => ({
+  type: actionTypes.file.UPLOAD_FILE_FAILURE,
   error
 });
 
-const downloadFileSuccess = () => ({
-  type: actionTypes.file.DOWNLOAD_FILE_SUCCESS
+const uploadFileSuccess = data => ({
+  type: actionTypes.file.UPLOAD_FILE_SUCCESS,
+  uploadedFile: data.uploadedFile,
+  filesIndex: data.filesIndex,
 });
 
-const downloadFileRequest = () => ({
-  type: actionTypes.file.DOWNLOAD_FILE_REQUEST
+const uploadFileRequest = data => ({
+  type: actionTypes.file.UPLOAD_FILE_REQUEST,
+  fileName: data.fileName,
+  filesIndex: data.filesIndex,
 });
 
-export const downloadFile = file => {
+export const uploadFile = (path, file, dbOwnerEntity, ownerEntity, filesIndex) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(uploadFileRequest({
+      fileName: file.name,
+      filesIndex
+    }));
+
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+    const storageRef = firebase.storage().ref();
+    const filesRef = firestore.collection(firestoreCollections.files.ID);
+    let storageFileRef = storageRef.child(path);
+
+    await storageFileRef
+      .put(file)
+      .then(result => {
+        return filesRef
+          .add({
+            path: storageFileRef.fullPath,
+            size: result.bytesTransferred,
+            name: result.ref.name,
+            belongsTo: firestore.collection(dbOwnerEntity).doc(ownerEntity.id),
+            uploaded: new Date(),
+          });
+      })
+      .then(result => {
+        return filesRef
+          .doc(result.id)
+          .get()
+      })
+      .then(result => {
+        dispatch(updateProjectModified());
+        dispatch(uploadFileSuccess({
+          uploadedFile: result,
+          filesIndex,
+        }));
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(uploadFileFailure());
+      })
+  }
+};
+
+const downloadFileFailure = (data, error) => ({
+  type: actionTypes.file.DOWNLOAD_FILE_FAILURE,
+  file: data.file,
+  filesIndex: data.filesIndex,
+  error,
+});
+
+const downloadFileSuccess = data => ({
+  type: actionTypes.file.DOWNLOAD_FILE_SUCCESS,
+  file: data.file,
+  filesIndex: data.filesIndex,
+});
+
+const downloadFileRequest = data => ({
+  type: actionTypes.file.DOWNLOAD_FILE_REQUEST,
+  file: data.file,
+  filesIndex: data.filesIndex,
+});
+
+export const downloadFile = (file, filesIndex) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    dispatch(downloadFileRequest());
+    dispatch(downloadFileRequest({
+      file,
+      filesIndex,
+    }));
 
     const firebase = getFirebase();
     const storageRef = firebase.storage().ref();
@@ -88,22 +137,34 @@ export const downloadFile = file => {
         xhr.onload = () => {
           const blob = xhr.response;
           saveFile(blob, file.data().name);
-          dispatch(downloadFileSuccess());
+          dispatch(downloadFileSuccess({
+            file,
+            filesIndex,
+          }));
         };
         xhr.onerror = error => {
           console.log(error);
-          dispatch(downloadFileFailure(error));
+          dispatch(downloadFileFailure({
+            file,
+            filesIndex,
+          }, error));
         };
         xhr.onabort = reason => {
           console.log(reason);
-          dispatch(downloadFileFailure(reason));
+          dispatch(downloadFileFailure({
+            file,
+            filesIndex,
+          }, reason));
         };
         xhr.open('GET', url);
         xhr.send();
       })
       .catch(error => {
         console.log(error);
-        dispatch(downloadFileFailure(error));
+        dispatch(downloadFileFailure({
+          file,
+          filesIndex,
+        }, error));
       });
   }
 };
@@ -148,24 +209,29 @@ export const getFiles = (ownerEntity, filesIndex) => {
   }
 };
 
-const deleteFileFailure = error => ({
+const deleteFileFailure = (data, error) => ({
   type: actionTypes.file.DELETE_FILE_FAILURE,
+  file: data.file,
+  filesIndex: data.filesIndex,
   error
 });
 
-const deleteFileSuccess = data => ({
+const deleteFileSuccess = () => ({
   type: actionTypes.file.DELETE_FILE_SUCCESS,
+});
+
+const deleteFileRequest = data => ({
+  type: actionTypes.file.DELETE_FILE_REQUEST,
   file: data.file,
   filesIndex: data.filesIndex,
 });
 
-const deleteFileRequest = () => ({
-  type: actionTypes.file.DELETE_FILE_REQUEST
-});
-
 export const deleteFile = (file, filesIndex) => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    dispatch(deleteFileRequest());
+    dispatch(deleteFileRequest({
+      file,
+      filesIndex
+    }));
 
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -182,14 +248,14 @@ export const deleteFile = (file, filesIndex) => {
       })
       .then(() => {
         dispatch(updateProjectModified());
-        dispatch(deleteFileSuccess({
-          file,
-          filesIndex
-        }));
+        dispatch(deleteFileSuccess());
       })
       .catch(error => {
         console.log(error);
-        dispatch(deleteFileFailure(error));
+        dispatch(deleteFileFailure({
+          file,
+          filesIndex
+        }, error));
       })
   }
 };

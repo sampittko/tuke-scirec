@@ -1,5 +1,5 @@
 import React from 'react';
-import {IconButton, ListItem, ListItemSecondaryAction, Tooltip, Typography} from "@material-ui/core";
+import {CircularProgress, IconButton, ListItem, ListItemSecondaryAction, Tooltip, Typography} from "@material-ui/core";
 import propTypes from 'prop-types';
 import './index.scss';
 import List from "@material-ui/core/List";
@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {downloadFile, getFiles} from "../../../store/actions/fileActions";
 import Add from "./Add";
 import DeleteIcon from '@material-ui/icons/Delete';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import {convertBtoMB} from "../../../utils/fileUtils";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
 
@@ -39,13 +40,13 @@ class Viewer extends React.Component {
           {this.props.filesLists[this.props.filesIndex] && this.props.filesLists[this.props.filesIndex].length !== 0 ? (
             <div>
               {this.props.filesLists[this.props.filesIndex].map((file, i) => (
-                <ListItem key={i} button onClick={() => this.props.downloadFile(file)}>
+                <ListItem key={i}>
                   <ListItemText
-                    primary={file.data().name}
-                    secondary={`${convertBtoMB(file.data().size)}MB`}
+                    primary={file.futureFileName ? file.futureFileName : file.data().name}
+                    secondary={file.futureFileName ? "" : `${convertBtoMB(file.data().size)}MB`}
                     className="list-item-text"
                   />
-                  {this.props.editable && (
+                  {this.props.editable && !file.futureFileName ? (
                     <ListItemSecondaryAction>
                       <Tooltip title="Vymazať súbor">
                         <IconButton onClick={(event) => this.handleClick(event, file)}>
@@ -53,6 +54,25 @@ class Viewer extends React.Component {
                         </IconButton>
                       </Tooltip>
                     </ListItemSecondaryAction>
+                  ) : (
+                    <div>
+                      {file.futureFileName ? (
+                        <ListItemSecondaryAction>
+                          <CircularProgress
+                            size={20}
+                            color="secondary"
+                          />
+                        </ListItemSecondaryAction>
+                      ) : (
+                        <ListItemSecondaryAction>
+                          <Tooltip title="Stiahnuť súbor">
+                            <IconButton onClick={() => this.props.downloadFile(file, this.props.filesIndex)}>
+                              <CloudDownloadIcon fontSize="small"/>
+                            </IconButton>
+                          </Tooltip>
+                        </ListItemSecondaryAction>
+                      )}
+                    </div>
                   )}
                 </ListItem>
               ))}
@@ -96,7 +116,7 @@ Viewer.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    downloadFile: file => dispatch(downloadFile(file)),
+    downloadFile: (file, filesIndex) => dispatch(downloadFile(file, filesIndex)),
     getFiles: (ownerEntity, filesIndex) => dispatch(getFiles(ownerEntity, filesIndex)),
   }
 };

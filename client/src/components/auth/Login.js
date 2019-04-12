@@ -18,8 +18,8 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: '',
-      password: '',
+      email: 'sampittko@gmail.com',
+      password: 'testtest',
       notify: false,
     };
   }
@@ -72,6 +72,7 @@ class Login extends React.Component {
               autoComplete="email"
               error={this.props.error}
               onChange={this.handleChange}
+              value={this.state.email}
               autoFocus
               required
             />
@@ -85,6 +86,7 @@ class Login extends React.Component {
               helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
               error={this.props.error}
               onChange={this.handleChange}
+              value={this.state.password}
               required
             />
             <div className="action-buttons">

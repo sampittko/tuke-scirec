@@ -33,25 +33,104 @@ const file = (state = _initialState, action) => {
         error: action.error,
       };
 
-    case actionTypes.file.DOWNLOAD_FILE_REQUEST:
-      console.log(actionTypes.file.DOWNLOAD_FILE_REQUEST);
+    case actionTypes.file.UPLOAD_FILE_REQUEST:
+      console.log(actionTypes.file.UPLOAD_FILE_REQUEST);
       return {
         ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            [...state.data.lists[action.filesIndex], {
+              futureFileName: action.fileName,
+            }],
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
+        isLoading: true,
+      };
+
+    case actionTypes.file.UPLOAD_FILE_SUCCESS:
+      console.log(actionTypes.file.UPLOAD_FILE_SUCCESS);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            [...state.data.lists[action.filesIndex].slice(0, state.data.lists[action.filesIndex].length - 1), action.uploadedFile],
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
+        isLoading: false,
+        error: null,
+      };
+
+    case actionTypes.file.UPLOAD_FILE_FAILURE:
+      console.log(actionTypes.file.UPLOAD_FILE_FAILURE);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            state.data.lists[action.filesIndex].filter(file => !file.futureFileName),
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
+        isLoading: false,
+        error: action.error,
+      };
+
+    case actionTypes.file.DOWNLOAD_FILE_REQUEST:
+      console.log(actionTypes.file.DOWNLOAD_FILE_REQUEST);
+      const downloadingFileIndex = state.data.lists[action.filesIndex].findIndex(file => file.id === action.file.id);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            [...state.data.lists[action.filesIndex].slice(0, downloadingFileIndex), {
+              id: action.file.id,
+              futureFileName: action.file.data().name,
+            }, ...state.data.lists[action.filesIndex].slice(downloadingFileIndex + 1)],
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
         isLoading: true,
       };
 
     case actionTypes.file.DOWNLOAD_FILE_SUCCESS:
       console.log(actionTypes.file.DOWNLOAD_FILE_SUCCESS);
+      const downloadingFileIndex2 = state.data.lists[action.filesIndex].findIndex(file => file.id === action.file.id);
       return {
         ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            [...state.data.lists[action.filesIndex].slice(0, downloadingFileIndex2), action.file, ...state.data.lists[action.filesIndex].slice(downloadingFileIndex2 + 1)],
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
         isLoading: false,
         error: null,
       };
 
     case actionTypes.file.DOWNLOAD_FILE_FAILURE:
       console.log(actionTypes.file.DOWNLOAD_FILE_FAILURE);
+      const downloadingFileIndex3 = state.data.lists[action.filesIndex].findIndex(file => file.id === action.file.id);
       return {
         ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            [...state.data.lists[action.filesIndex].slice(0, downloadingFileIndex3), action.file, ...state.data.lists[action.filesIndex].slice(downloadingFileIndex3 + 1)],
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
         isLoading: false,
         error: action.error,
       };
@@ -87,13 +166,6 @@ const file = (state = _initialState, action) => {
       console.log(actionTypes.file.DELETE_FILE_REQUEST);
       return {
         ...state,
-        isLoading: true,
-      };
-
-    case actionTypes.file.DELETE_FILE_SUCCESS:
-      console.log(actionTypes.file.DELETE_FILE_SUCCESS);
-      return {
-        ...state,
         data: {
           ...state.data,
           lists: [
@@ -102,6 +174,13 @@ const file = (state = _initialState, action) => {
             ...state.data.lists.slice(action.filesIndex + 1)
           ],
         },
+        isLoading: true,
+      };
+
+    case actionTypes.file.DELETE_FILE_SUCCESS:
+      console.log(actionTypes.file.DELETE_FILE_SUCCESS);
+      return {
+        ...state,
         isLoading: false,
         error: null,
       };
@@ -110,6 +189,14 @@ const file = (state = _initialState, action) => {
       console.log(actionTypes.file.DELETE_FILE_FAILURE);
       return {
         ...state,
+        data: {
+          ...state.data,
+          lists: [
+            ...state.data.lists.slice(0, action.filesIndex),
+            [...state.data.lists[action.filesIndex], action.file],
+            ...state.data.lists.slice(action.filesIndex + 1)
+          ],
+        },
         isLoading: false,
         error: action.error,
       };
@@ -120,7 +207,7 @@ const file = (state = _initialState, action) => {
         ...state,
         data: {
           ...state.data,
-          lists: state.data.lists.filter((fileList, i) => i !== action.filesIndex),
+          lists: state.data.lists.filter((filesList, i) => i !== action.filesIndex),
         }
       };
 
