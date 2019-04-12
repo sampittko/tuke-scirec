@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from "@material-ui/core/MenuItem";
 import {projectConfig} from "../../../config/app";
 import {getReadableProjectState} from "../../../utils/projectUtils";
+import {Checkbox, FormControl, Input, InputAdornment, InputLabel, Tooltip} from "@material-ui/core";
 
 const projectStates = [
   {value: projectConfig.states.values.NOT_SET},
@@ -28,16 +29,34 @@ const Editables = props =>
         </MenuItem>
       ))}
     </TextField>
-    <TextField
-      label="Termín odovzdania"
-      name="deadline"
-      onChange={props.onChange}
-      InputProps={{readOnly: false}}
-      value={props.deadline}
-      fullWidth
-      type="date"
-      InputLabelProps={{shrink: true}}
-    />
+    <FormControl style={{width: '100%'}}>
+      <InputLabel shrink>
+        Termín odovzdania
+      </InputLabel>
+      <Input
+        name="deadline"
+        value={props.deadline}
+        endAdornment={(
+          <InputAdornment position="end">
+            <Tooltip
+              title="Zobrazovať pole"
+              placement="top"
+            >
+              <Checkbox
+                checked={Boolean(props.deadlineVisible)}
+                value={props.deadlineVisible ? "true" : "false"}
+                color="default"
+                name="deadlineVisible"
+                onChange={props.onChange}
+              />
+            </Tooltip>
+          </InputAdornment>
+        )}
+        type="date"
+        fullWidth
+        onChange={props.onChange}
+      />
+    </FormControl>
     <TextField
       label="Adresát"
       name="recipient"
@@ -64,6 +83,7 @@ Editables.propTypes = {
   deadline: propTypes.string.isRequired,
   recipient: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
+  deadlineVisible: propTypes.bool.isRequired,
   onChange: propTypes.func.isRequired,
 };
 

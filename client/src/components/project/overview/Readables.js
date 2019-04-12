@@ -12,15 +12,17 @@ const Readables = props =>
       disabled
       fullWidth
     />
-    <TextField
-      label="Termín odovzdania"
-      InputProps={{readOnly: true}}
-      value={props.deadline}
-      fullWidth
-      type="date"
-      disabled
-      InputLabelProps={{shrink: true}}
-    />
+    {props.deadlineVisible && (
+      <TextField
+        label="Termín odovzdania"
+        InputProps={{readOnly: true}}
+        value={props.deadline}
+        fullWidth
+        type="date"
+        disabled
+        InputLabelProps={{shrink: true}}
+      />
+    )}
     <TextField
       label="Adresát"
       InputProps={{readOnly: true}}
@@ -45,6 +47,7 @@ Readables.propTypes = {
   deadline: propTypes.string.isRequired,
   recipient: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
+  deadlineVisible: propTypes.bool.isRequired,
 };
 
 export default Readables;

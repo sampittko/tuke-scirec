@@ -12,7 +12,7 @@ import {timeouts} from '../../../config/mui';
 import Notification from "../../common/Notification";
 import {getProjectSettingsDocumentTitle, getProjectSettingsRoute} from "../../../utils/projectUtils";
 import {projectConfig} from "../../../config/app";
-import RemoveProjectConfirmDialog from "./RemoveProjectConfirmDialog";
+import RemoveProjectConfirmDialog from "./DeleteConfirmDialog";
 import TitleInput from '../../common/TitleInput';
 import {updateProjectTitle} from "../../../store/actions/projectActions";
 
@@ -86,55 +86,54 @@ class Settings extends React.Component {
   };
 
   getPanelActions = () => {
-    switch (this.state.expandedPanel) {
-      case 2:
-        return (
+    if (this.state.expandedPanel === 2) {
+      return (
+        <Tooltip
+          title="Vymazať projekt"
+          placement="right"
+          disableFocusListener
+          className="tooltip"
+        >
+          <div>
+            <IconButton
+              onClick={this.handleDeleteClick}
+              color="secondary"
+              size="small"
+            >
+              <DeleteIcon fontSize="small"/>
+            </IconButton>
+          </div>
+        </Tooltip>
+      );
+    } else {
+      return (
+        <div>
+          {this.settingsChanged() && (
+            <Fade in timeout={timeouts.FADE_IN}>
+              <Typography className="changes-not-saved">
+                Zmeny ešte neboli uložené
+              </Typography>
+            </Fade>
+          )}
           <Tooltip
-            title="Vymazať projekt"
+            title="Uložiť zmeny"
             placement="right"
             disableFocusListener
             className="tooltip"
           >
             <div>
               <IconButton
-                onClick={this.handleDeleteClick}
+                disabled={this.state.title.length < projectConfig.MIN_LENGTH || !this.settingsChanged()}
+                type="submit"
                 color="secondary"
                 size="small"
               >
-                <DeleteIcon fontSize="small"/>
+                <SaveIcon fontSize="small"/>
               </IconButton>
             </div>
           </Tooltip>
-        );
-      default:
-        return (
-          <div>
-            {this.settingsChanged() && (
-              <Fade in timeout={timeouts.FADE_IN}>
-                <Typography className="changes-not-saved">
-                  Zmeny ešte neboli uložené
-                </Typography>
-              </Fade>
-            )}
-            <Tooltip
-              title="Uložiť zmeny"
-              placement="right"
-              disableFocusListener
-              className="tooltip"
-            >
-              <div>
-                <IconButton
-                  disabled={this.state.title.length < projectConfig.MIN_LENGTH || !this.settingsChanged()}
-                  type="submit"
-                  color="secondary"
-                  size="small"
-                >
-                  <SaveIcon fontSize="small"/>
-                </IconButton>
-              </div>
-            </Tooltip>
-          </div>
-        );
+        </div>
+      );
     }
   };
 

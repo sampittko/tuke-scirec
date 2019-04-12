@@ -20,6 +20,7 @@ class Overview extends React.Component {
       deadline: props.activeProject.data().deadline,
       recipient: props.activeProject.data().recipient,
       description: props.activeProject.data().description,
+      deadlineVisible: props.activeProject.data().deadlineVisible,
     }
   }
 
@@ -27,7 +28,8 @@ class Overview extends React.Component {
     return this.props.activeProject.data().state !== this.state.state ||
       this.props.activeProject.data().deadline !== this.state.deadline ||
       this.props.activeProject.data().recipient !== this.state.recipient ||
-      this.props.activeProject.data().description !== this.state.description
+      this.props.activeProject.data().description !== this.state.description ||
+      this.props.activeProject.data().deadlineVisible !== this.state.deadlineVisible
   };
 
   handleClick = async (event, action) => {
@@ -43,6 +45,7 @@ class Overview extends React.Component {
           deadline: this.state.deadline,
           recipient: this.state.recipient,
           description: this.state.description,
+          deadlineVisible: this.state.deadlineVisible,
         });
         this.setState({
           notify: true,
@@ -56,18 +59,24 @@ class Overview extends React.Component {
           deadline: props.activeProject.data().deadline,
           recipient: props.activeProject.data().recipient,
           description: props.activeProject.data().description,
+          deadlineVisible: props.activeProject.data().deadlineVisible,
         }));
         break;
       default:
-        console.log("Bad action");
         break;
     }
   };
 
   handleChange = event => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    })
+    if (event.target.name === "deadlineVisible") {
+      this.setState((prevState) => ({
+        deadlineVisible: !prevState.deadlineVisible,
+      }))
+    } else {
+      this.setState({
+        [event.target.name]: event.target.value,
+      })
+    }
   };
 
   handleClose = () => {
@@ -89,6 +98,7 @@ class Overview extends React.Component {
               deadline={this.state.deadline}
               recipient={this.state.recipient}
               description={this.state.description}
+              deadlineVisible={this.state.deadlineVisible}
               onChange={this.handleChange}
             />
           ) : (
@@ -97,6 +107,7 @@ class Overview extends React.Component {
               deadline={this.state.deadline}
               recipient={this.state.recipient}
               description={this.state.description}
+              deadlineVisible={this.state.deadlineVisible}
             />
           )}
           <TextField

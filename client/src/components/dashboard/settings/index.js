@@ -4,7 +4,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import ExpansionPanel from '../../common/ExpansionPanel';
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
-import RemoveDashboardConfirmDialog from './RemoveDashboardConfirmDialog';
+import RemoveDashboardConfirmDialog from './DeleteConfirmDialog';
 import SaveIcon from '@material-ui/icons/Save';
 import Switch from '../../common/Switch';
 import ThemePicker from '../../themePicker';
@@ -123,55 +123,54 @@ class Settings extends React.Component {
   };
 
   getPanelActions = () => {
-    switch (this.state.expandedPanel) {
-      case 3:
-        return (
+    if (this.state.expandedPanel === 3) {
+      return (
+        <Tooltip
+          title="Vymazať nástenku"
+          placement="right"
+          disableFocusListener
+          className="tooltip"
+        >
+          <div>
+            <IconButton
+              onClick={this.handleDeleteClick}
+              color="secondary"
+              size="small"
+            >
+              <DeleteIcon fontSize="small"/>
+            </IconButton>
+          </div>
+        </Tooltip>
+      );
+    } else {
+      return (
+        <div>
+          {this.settingsChanged() && (
+            <Fade in timeout={timeouts.FADE_IN}>
+              <Typography className="changes-not-saved">
+                Zmeny ešte neboli uložené
+              </Typography>
+            </Fade>
+          )}
           <Tooltip
-            title="Vymazať nástenku"
+            title="Uložiť zmeny"
             placement="right"
             disableFocusListener
             className="tooltip"
           >
             <div>
               <IconButton
-                onClick={this.handleDeleteClick}
+                disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
+                type="submit"
                 color="secondary"
                 size="small"
               >
-                <DeleteIcon fontSize="small"/>
+                <SaveIcon fontSize="small"/>
               </IconButton>
             </div>
           </Tooltip>
-        );
-      default:
-        return (
-          <div>
-            {this.settingsChanged() && (
-              <Fade in timeout={timeouts.FADE_IN}>
-                <Typography className="changes-not-saved">
-                  Zmeny ešte neboli uložené
-                </Typography>
-              </Fade>
-            )}
-            <Tooltip
-              title="Uložiť zmeny"
-              placement="right"
-              disableFocusListener
-              className="tooltip"
-            >
-              <div>
-                <IconButton
-                  disabled={this.state.title.length < dashboardConfig.MIN_LENGTH || !this.settingsChanged()}
-                  type="submit"
-                  color="secondary"
-                  size="small"
-                >
-                  <SaveIcon fontSize="small"/>
-                </IconButton>
-              </div>
-            </Tooltip>
-          </div>
-        );
+        </div>
+      );
     }
   };
 

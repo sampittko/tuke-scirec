@@ -17,6 +17,10 @@
     margin-top: $spacing-unit;
   }
 
+  div[class*="MuiInputBase-disabled"] {
+    color: #545454;
+  }
+
   &:not(.latest) .file-viewer {
     padding-top: $spacing-unit;
   }

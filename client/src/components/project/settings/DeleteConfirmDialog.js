@@ -8,7 +8,7 @@ import projectPropTypes from '../../../propTypes/projectPropTypes';
 import propTypes from 'prop-types';
 import {getDashboardRoute} from "../../../utils/dashboardUtils";
 
-class RemoveProjectConfirmDialog extends React.Component {
+class DeleteConfirmDialog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     this.props.onClick();
@@ -38,7 +38,7 @@ class RemoveProjectConfirmDialog extends React.Component {
               Zrušiť
             </Button>
             <Button type="submit" color="secondary">
-              Vymazať {this.props.activeProject.data().title}
+              Vymazať projekt
             </Button>
           </DialogActions>
         </form>
@@ -47,9 +47,8 @@ class RemoveProjectConfirmDialog extends React.Component {
   }
 }
 
-RemoveProjectConfirmDialog.propTypes = {
+DeleteConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
-  activeProject: propTypes.any.isRequired,
   isProjectLoading: projectPropTypes.isLoading.isRequired,
   deleteProject: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
@@ -65,9 +64,8 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
-    activeProject: state.project.data.active,
     isProjectLoading: state.project.isLoading,
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveProjectConfirmDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteConfirmDialog);

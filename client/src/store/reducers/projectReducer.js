@@ -1,5 +1,4 @@
 import actionTypes from "../actionTypes";
-import {getProjectsSortedByModified} from "../../utils/projectUtils";
 
 const _initialState = {
   data: {
@@ -105,7 +104,7 @@ const project = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: getProjectsSortedByModified([...state.data.list.slice(0, updatedProjectIndex1), action.updatedProject, ...state.data.list.slice(updatedProjectIndex1 + 1)]),
+          list: [action.updatedProject, ...state.data.list.slice(0, updatedProjectIndex1), ...state.data.list.slice(updatedProjectIndex1 + 1)],
           active: action.updatedProject,
         },
         isLoading: false,
@@ -132,7 +131,7 @@ const project = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: getProjectsSortedByModified([...state.data.list.slice(0, updatedProjectIndex2), action.updatedProject, ...state.data.list.slice(updatedProjectIndex2 + 1)]),
+          list: [action.updatedProject, ...state.data.list.slice(0, updatedProjectIndex2), ...state.data.list.slice(updatedProjectIndex2 + 1)],
           active: action.updatedProject,
         },
         isLoading: false,
@@ -185,7 +184,7 @@ const project = (state = _initialState, action) => {
       return {
         ...state,
         data: {
-          list: getProjectsSortedByModified([...state.data.list.slice(0, updatedProjectIndex3), action.updatedProject, ...state.data.list.slice(updatedProjectIndex3 + 1)]),
+          list: [action.updatedProject, ...state.data.list.slice(0, updatedProjectIndex3), ...state.data.list.slice(updatedProjectIndex3 + 1)],
           active: action.updatedProject,
         },
         isLoading: false,
@@ -208,11 +207,11 @@ const project = (state = _initialState, action) => {
 
     case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS:
       console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS);
-      const updatedProjectIndex5 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+      const updatedProjectIndex4 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
         data: {
-          list: getProjectsSortedByModified([...state.data.list.slice(0, updatedProjectIndex5), action.updatedProject, ...state.data.list.slice(updatedProjectIndex5 + 1)]),
+          list: [action.updatedProject, ...state.data.list.slice(0, updatedProjectIndex4), ...state.data.list.slice(updatedProjectIndex4 + 1)],
           active: action.updatedProject,
         },
         isLoading: false,
@@ -235,11 +234,11 @@ const project = (state = _initialState, action) => {
 
     case actionTypes.project.UPDATE_PROJECT_MODIFIED_SUCCESS:
       console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_SUCCESS);
-      const updatedProjectIndex4 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
+      const updatedProjectIndex5 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
         data: {
-          list: getProjectsSortedByModified([...state.data.list.slice(0, updatedProjectIndex4), action.updatedProject, ...state.data.list.slice(updatedProjectIndex4 + 1)]),
+          list: [action.updatedProject, ...state.data.list.slice(0, updatedProjectIndex5), ...state.data.list.slice(updatedProjectIndex5 + 1)],
           active: action.updatedProject,
         },
         isLoading: false,

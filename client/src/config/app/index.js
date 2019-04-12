@@ -22,6 +22,7 @@ export const projectConfig = {
   defaultValues: {
     STATE: 0,
     DEADLINE: '',
+    DEADLINE_VISIBLE: true,
     DESCRIPTION: '',
     RECIPIENT: '',
     VERSIONS_COUNT: 0,

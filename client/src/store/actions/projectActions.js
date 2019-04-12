@@ -36,6 +36,7 @@ export const addProject = title => {
         title,
         state: projectConfig.defaultValues.STATE,
         deadline: projectConfig.defaultValues.DEADLINE,
+        deadlineVisible: projectConfig.defaultValues.DEADLINE_VISIBLE,
         description: projectConfig.defaultValues.DESCRIPTION,
         recipient: projectConfig.defaultValues.RECIPIENT,
         versionsCount: projectConfig.defaultValues.VERSIONS_COUNT,
@@ -175,6 +176,7 @@ export const updateProjectOverview = data => {
         deadline: data.deadline,
         recipient: data.recipient,
         description: data.description,
+        deadlineVisible: data.deadlineVisible,
         modified: new Date(),
       })
       .then(() => {

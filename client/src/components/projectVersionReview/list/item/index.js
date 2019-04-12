@@ -51,7 +51,6 @@ class Item extends React.Component {
         });
         break;
       default:
-        console.log("Bad action");
         break;
     }
   };

@@ -1,5 +1,13 @@
 import React from 'react';
-import {CircularProgress, IconButton, ListItem, ListItemSecondaryAction, Tooltip, Typography} from "@material-ui/core";
+import {
+  CircularProgress,
+  Fade,
+  IconButton,
+  ListItem,
+  ListItemSecondaryAction,
+  Tooltip,
+  Typography
+} from "@material-ui/core";
 import propTypes from 'prop-types';
 import './index.scss';
 import List from "@material-ui/core/List";
@@ -11,6 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 import {convertBtoMB} from "../../../utils/fileUtils";
 import DeleteConfirmDialog from "../DeleteConfirmDialog";
+import {timeouts} from "../../../config/mui";
 
 class Viewer extends React.Component {
   constructor(props) {
@@ -34,74 +43,79 @@ class Viewer extends React.Component {
 
   render() {
     return (
-      <div className="file-viewer">
-        <Typography className="small-title">Súbory</Typography>
-        <List dense className={`list ${this.props.latest ? "latest" : ""}`}>
-          {this.props.filesLists[this.props.filesIndex] && this.props.filesLists[this.props.filesIndex].length !== 0 ? (
-            <div>
-              {this.props.filesLists[this.props.filesIndex].map((file, i) => (
-                <ListItem key={i}>
-                  <ListItemText
-                    primary={file.futureFileName ? file.futureFileName : file.data().name}
-                    secondary={file.futureFileName ? "Načítava sa.." : `${convertBtoMB(file.data().size)}MB`}
-                    className="list-item-text"
-                  />
-                  {this.props.editable && !file.futureFileName ? (
-                    <ListItemSecondaryAction className="action">
-                      <Tooltip title="Vymazať súbor">
-                        <IconButton onClick={(event) => this.handleClick(event, file)}>
-                          <DeleteIcon fontSize="small"/>
-                        </IconButton>
-                      </Tooltip>
-                    </ListItemSecondaryAction>
-                  ) : (
-                    <div>
-                      {file.futureFileName ? (
+      <Fade in timeout={timeouts.FADE_IN}>
+        <div className="file-viewer">
+          <Typography className="small-title">Súbory</Typography>
+          <List dense
+                className={`list ${this.props.latest ? "latest" : ""} ${this.props.filesLists[this.props.filesIndex] && this.props.filesLists[this.props.filesIndex].length === 0 ? "empty" : ""}`}>
+            {this.props.filesLists[this.props.filesIndex] && this.props.filesLists[this.props.filesIndex].length !== 0 ? (
+              <Fade in timeout={timeouts.FADE_IN}>
+                <div>
+                  {this.props.filesLists[this.props.filesIndex].map((file, i) => (
+                    <ListItem key={i}>
+                      <ListItemText
+                        primary={file.futureFileName ? file.futureFileName : file.data().name}
+                        secondary={file.futureFileName ? "Načítava sa.." : `${convertBtoMB(file.data().size)}MB`}
+                        className="list-item-text"
+                      />
+                      {this.props.editable && !file.futureFileName ? (
                         <ListItemSecondaryAction className="action">
-                          <IconButton disabled>
-                            <CircularProgress
-                              size={20}
-                              color="secondary"
-                            />
-                          </IconButton>
-                        </ListItemSecondaryAction>
-                      ) : (
-                        <ListItemSecondaryAction className="action">
-                          <Tooltip title="Stiahnuť súbor">
-                            <IconButton onClick={() => this.props.downloadFile(file, this.props.filesIndex)}>
-                              <CloudDownloadIcon fontSize="small"/>
+                          <Tooltip title="Vymazať súbor">
+                            <IconButton onClick={(event) => this.handleClick(event, file)}>
+                              <DeleteIcon fontSize="small"/>
                             </IconButton>
                           </Tooltip>
                         </ListItemSecondaryAction>
+                      ) : (
+                        <div>
+                          {file.futureFileName ? (
+                            <ListItemSecondaryAction className="action">
+                              <IconButton disabled>
+                                <CircularProgress
+                                  size={20}
+                                  color="secondary"
+                                />
+                              </IconButton>
+                            </ListItemSecondaryAction>
+                          ) : (
+                            <ListItemSecondaryAction className="action">
+                              <Tooltip title="Stiahnuť súbor">
+                                <IconButton onClick={() => this.props.downloadFile(file, this.props.filesIndex)}>
+                                  <CloudDownloadIcon fontSize="small"/>
+                                </IconButton>
+                              </Tooltip>
+                            </ListItemSecondaryAction>
+                          )}
+                        </div>
                       )}
-                    </div>
-                  )}
-                </ListItem>
-              ))}
-            </div>
-          ) : (
-            <ListItem>
-              <ListItemText primary="Žiadne súbory" className="list-item-text no-data"/>
-            </ListItem>
+                    </ListItem>
+                  ))}
+                </div>
+              </Fade>
+            ) : (
+              <ListItem>
+                <ListItemText primary="Žiadne súbory" className="list-item-text no-data"/>
+              </ListItem>
+            )}
+            {this.props.editable && (
+              <ListItem>
+                <ListItemText
+                  primary={<Add onClick={this.props.onClick}/>}
+                  className="list-item-text"
+                />
+              </ListItem>
+            )}
+          </List>
+          {this.state.toDelete && (
+            <DeleteConfirmDialog
+              open={this.state.open}
+              fileToDelete={this.state.toDelete}
+              filesIndex={this.props.filesIndex}
+              onClick={this.handleClick}
+            />
           )}
-          {this.props.editable && (
-            <ListItem>
-              <ListItemText
-                primary={<Add onClick={this.props.onClick}/>}
-                className="list-item-text"
-              />
-            </ListItem>
-          )}
-        </List>
-        {this.state.toDelete && (
-          <DeleteConfirmDialog
-            open={this.state.open}
-            fileToDelete={this.state.toDelete}
-            filesIndex={this.props.filesIndex}
-            onClick={this.handleClick}
-          />
-        )}
-      </div>
+        </div>
+      </Fade>
     );
   }
 }

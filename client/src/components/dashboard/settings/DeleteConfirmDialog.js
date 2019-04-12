@@ -9,7 +9,7 @@ import {deleteDashboard} from '../../../store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import {getDashboardRoute} from "../../../utils/dashboardUtils";
 
-class RemoveDashboardConfirmDialog extends React.Component {
+class DeleteConfirmDialog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     this.props.onClick();
@@ -65,7 +65,7 @@ class RemoveDashboardConfirmDialog extends React.Component {
   }
 }
 
-RemoveDashboardConfirmDialog.propTypes = {
+DeleteConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
   isDefault: propTypes.bool.isRequired,
   newDefaultDashboardId: propTypes.string.isRequired,
@@ -93,4 +93,4 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveDashboardConfirmDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteConfirmDialog);
