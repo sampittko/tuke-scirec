@@ -43,11 +43,11 @@ class Viewer extends React.Component {
                 <ListItem key={i}>
                   <ListItemText
                     primary={file.futureFileName ? file.futureFileName : file.data().name}
-                    secondary={file.futureFileName ? "" : `${convertBtoMB(file.data().size)}MB`}
+                    secondary={file.futureFileName ? "Načítava sa.." : `${convertBtoMB(file.data().size)}MB`}
                     className="list-item-text"
                   />
                   {this.props.editable && !file.futureFileName ? (
-                    <ListItemSecondaryAction>
+                    <ListItemSecondaryAction className="action">
                       <Tooltip title="Vymazať súbor">
                         <IconButton onClick={(event) => this.handleClick(event, file)}>
                           <DeleteIcon fontSize="small"/>
@@ -57,14 +57,16 @@ class Viewer extends React.Component {
                   ) : (
                     <div>
                       {file.futureFileName ? (
-                        <ListItemSecondaryAction>
-                          <CircularProgress
-                            size={20}
-                            color="secondary"
-                          />
+                        <ListItemSecondaryAction className="action">
+                          <IconButton disabled>
+                            <CircularProgress
+                              size={20}
+                              color="secondary"
+                            />
+                          </IconButton>
                         </ListItemSecondaryAction>
                       ) : (
-                        <ListItemSecondaryAction>
+                        <ListItemSecondaryAction className="action">
                           <Tooltip title="Stiahnuť súbor">
                             <IconButton onClick={() => this.props.downloadFile(file, this.props.filesIndex)}>
                               <CloudDownloadIcon fontSize="small"/>

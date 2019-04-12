@@ -29,6 +29,7 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
       await dispatch(uploadFile(storagePath + file.name, file, dbOwnerEntity, ownerEntity, filesIndex));
     })
       .then(() => {
+        dispatch(updateProjectModified());
         dispatch(uploadFilesSuccess())
       })
       .catch(error => {
@@ -64,9 +65,15 @@ export const uploadFile = (path, file, dbOwnerEntity, ownerEntity, filesIndex) =
 
     const firebase = getFirebase();
     const firestore = getFirestore();
+    const state = getState();
     const storageRef = firebase.storage().ref();
     const filesRef = firestore.collection(firestoreCollections.files.ID);
     let storageFileRef = storageRef.child(path);
+    const fileWithSameName = state.file.data.lists[filesIndex].find(existingFile => !existingFile.futureFileName && existingFile.data().name === file.name);
+
+    if (fileWithSameName) {
+      await dispatch(deleteFile(fileWithSameName, filesIndex));
+    }
 
     await storageFileRef
       .put(file)
@@ -86,7 +93,6 @@ export const uploadFile = (path, file, dbOwnerEntity, ownerEntity, filesIndex) =
           .get()
       })
       .then(result => {
-        dispatch(updateProjectModified());
         dispatch(uploadFileSuccess({
           uploadedFile: result,
           filesIndex,
@@ -227,7 +233,7 @@ const deleteFileRequest = data => ({
 });
 
 export const deleteFile = (file, filesIndex) => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteFileRequest({
       file,
       filesIndex
@@ -239,7 +245,7 @@ export const deleteFile = (file, filesIndex) => {
     const storageFileRef = storageRef.child(file.data().path);
     const filesRef = firestore.collection(firestoreCollections.files.ID);
 
-    storageFileRef
+    await storageFileRef
       .delete()
       .then(() => {
         return filesRef

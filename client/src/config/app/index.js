@@ -73,7 +73,7 @@ export const projectVersionReviewConfig = {
 };
 
 export const fileConfig = {
-  SUPPORTED_FORMATS: '.zip, .rar, .pdf, .doc, .docx, .tex, .jpg, .png',
+  SUPPORTED_FORMATS: '*',
   MAX_FILES: 30,
   PROJECT_VERSION_FILES_INDEX: 0,
 };

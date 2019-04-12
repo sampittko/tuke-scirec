@@ -1,5 +1,14 @@
 import React from 'react';
-import {Button, DialogActions, FormControl, FormControlLabel, IconButton, List, Typography} from "@material-ui/core";
+import {
+  Button,
+  DialogActions,
+  DialogContentText,
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  List,
+  Typography
+} from "@material-ui/core";
 import {fileConfig} from "../../config/app";
 import ListItem from "@material-ui/core/ListItem/index";
 import ListItemText from "@material-ui/core/ListItemText/index";
@@ -64,6 +73,10 @@ class UploaderDialog extends React.Component {
         <DialogTitle className="file-uploader-dialog-title">Nahrávanie súborov</DialogTitle>
         <form onSubmit={this.handleSubmit} className="file-uploader-form">
           <DialogContent className="file-uploader">
+            <DialogContentText>
+              Naraz je možné nahrať {fileConfig.MAX_FILES} súborov. Ak majú dva súbory rovnaký názov vrátane prípony,
+              bude predošlý nahratý súbor nahradený posledným nahratým súborom.
+            </DialogContentText>
             <FormControl className="add-files-area">
               <FormControlLabel
                 disabled={this.state.files.length >= 5 || !this.props.editable}

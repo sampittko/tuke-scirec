@@ -11,15 +11,12 @@
     top: $spacing-unit;
     height: $height;
     max-height: $height;
-    overflow-y: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
     border-bottom: 1px dotted $light-gray-color-text-color;
 
     &:not(.latest) {
       min-height: calc(#{$height} + 60px);
-    }
-
-    &:hover {
-      overflow-y: scroll;
     }
   }
 
@@ -28,11 +25,20 @@
     color: lighten($light-gray-color-text-color, 20%);
   }
 
+  .action {
+    right: 16px;
+  }
+
   .list-item-text {
     text-align: left;
-    padding-right: 0;
+    padding-right: 50px;
+
+    & > span {
+      word-wrap: break-word;
+    }
 
     &.no-data {
+      padding-left: 50px;
       text-align: center !important;
     }
   }
