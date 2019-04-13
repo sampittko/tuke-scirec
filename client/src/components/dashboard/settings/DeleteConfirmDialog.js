@@ -4,7 +4,6 @@ import DialogTransition from '../../common/DialogTransition';
 import NewDefaultDashboardSelectMenu from './NewDefaultDashboardSelectMenu';
 import React from 'react';
 import {connect} from 'react-redux';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import {deleteDashboard} from '../../../store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import {getDashboardRoute} from "../../../utils/dashboardUtils";
@@ -71,7 +70,7 @@ DeleteConfirmDialog.propTypes = {
   newDefaultDashboardId: propTypes.string.isRequired,
   activeDashboard: propTypes.any.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object).isRequired,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   deleteDashboard: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
   onChange: propTypes.func.isRequired,

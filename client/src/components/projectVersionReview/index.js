@@ -7,8 +7,6 @@ import {connect} from "react-redux";
 import Loader from "../common/Loader";
 import List from "./list";
 import Add from "./Add";
-import projectVersionReviewPropTypes from '../../propTypes/projectVersionReviewPropTypes';
-import projectVersionPropTypes from '../../propTypes/projectVersionReviewPropTypes';
 import {
   getProjectVersionReviews,
   resetProjectVersionReviewState
@@ -49,8 +47,8 @@ class ProjectVersionReview extends React.Component {
 
 ProjectVersionReview.propTypes = {
   latest: propTypes.bool,
-  isProjectVersionReviewLoading: projectVersionReviewPropTypes.isLoading.isRequired,
-  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  isProjectVersionReviewLoading: propTypes.bool.isRequired,
+  isProjectVersionLoading: propTypes.bool.isRequired,
   activeProjectVersion: propTypes.object,
   getProjectVersionReviews: propTypes.func.isRequired,
   resetProjectVersionReviewState: propTypes.func.isRequired,

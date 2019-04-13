@@ -7,7 +7,6 @@ import React from 'react';
 import Switch from '../common/Switch';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
-import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
 
 class ThemePicker extends React.Component {
   componentDidMount() {
@@ -82,7 +81,7 @@ class ThemePicker extends React.Component {
 }
 
 ThemePicker.propTypes = {
-  themePicker: themePickerPropTypes.themePicker.isRequired,
+  themePicker: propTypes.object.isRequired,
   pickTheme: propTypes.func.isRequired,
   invertTheme: propTypes.func.isRequired,
   theme: propTypes.object,

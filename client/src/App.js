@@ -13,16 +13,13 @@ import ProjectVersion from './components/projectVersion';
 import ProjectSettings from './components/project/settings';
 import React from 'react';
 import Register from './components/auth/Register';
-import authPropTypes from './propTypes/authPropTypes';
 import {compose} from 'redux';
 import {connect} from 'react-redux';
-import dashboardPropTypes from './propTypes/dashboardPropTypes';
 import {getAppTheme} from './utils/muiConfigUtils';
 import {getAuth} from './store/actions/authActions';
 import {getDashboards} from './store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import routes from './config/app/routes';
-import themePickerPropTypes from './propTypes/themePickerPropTypes';
 import withInit from './components/common/withInit';
 
 const PrivateRoute = ({component: Component, isAuth, ...rest}) =>
@@ -66,10 +63,10 @@ class App extends React.Component {
 }
 
 App.propTypes = {
-  isAuth: authPropTypes.success.isRequired,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isAuth: propTypes.bool.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
-  themePicker: themePickerPropTypes.themePicker.isRequired,
+  themePicker: propTypes.object.isRequired,
   getAuth: propTypes.func.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object),
   getDashboards: propTypes.func.isRequired,

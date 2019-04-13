@@ -8,7 +8,6 @@ import {Fade, Tooltip} from "@material-ui/core";
 import {timeouts} from "../../../config/mui";
 import {connect} from "react-redux";
 import {getLatestProjectVersion} from "../../../store/actions/projectVersionActions";
-import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import {getProjectsListRoute} from "../../../utils/projectUtils";
 import IconButton from "@material-ui/core/IconButton";
 import ListIcon from '@material-ui/icons/List';
@@ -60,7 +59,7 @@ LatestVersion.propTypes = {
   activeProject: propTypes.object.isRequired,
   activeDashboard: propTypes.object.isRequired,
   activeProjectVersion: propTypes.object,
-  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  isProjectVersionLoading: propTypes.bool.isRequired,
   history: propTypes.object.isRequired,
 };
 

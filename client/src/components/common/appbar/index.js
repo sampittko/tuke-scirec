@@ -9,9 +9,7 @@ import Links from './Links';
 import React from 'react';
 import Sidebar from '../sidebar';
 import UserLinks from './UserLinks';
-import authPropTypes from '../../../propTypes/authPropTypes';
 import {connect} from 'react-redux';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import {getDashboardRoute} from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
@@ -76,12 +74,12 @@ class AppbarComponent extends React.Component {
 }
 
 AppbarComponent.propTypes = {
-  isAuth: authPropTypes.success.isRequired,
+  isAuth: propTypes.bool.isRequired,
   location: propTypes.object.isRequired,
   history: propTypes.object.isRequired,
   activeDashboardRoute: propTypes.string,
   dashboards: propTypes.arrayOf(propTypes.object),
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {

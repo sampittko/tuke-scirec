@@ -4,7 +4,6 @@ import DialogTransition from '../../common/DialogTransition';
 import React from 'react';
 import {connect} from 'react-redux';
 import {deleteProject} from '../../../store/actions/projectActions';
-import projectPropTypes from '../../../propTypes/projectPropTypes';
 import propTypes from 'prop-types';
 import {getDashboardRoute} from "../../../utils/dashboardUtils";
 
@@ -49,7 +48,7 @@ class DeleteConfirmDialog extends React.Component {
 
 DeleteConfirmDialog.propTypes = {
   open: propTypes.bool.isRequired,
-  isProjectLoading: projectPropTypes.isLoading.isRequired,
+  isProjectLoading: propTypes.bool.isRequired,
   deleteProject: propTypes.func.isRequired,
   onClick: propTypes.func.isRequired,
   history: propTypes.object.isRequired,

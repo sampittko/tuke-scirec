@@ -7,7 +7,6 @@ import NewDashboardDialog from './NewDialog';
 import React from 'react';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';
-import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import {getDashboardRoute} from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 
@@ -99,7 +98,7 @@ class Selector extends React.Component {
 Selector.propTypes = {
   createDashboard: propTypes.func.isRequired,
   defaultDashboard: propTypes.object,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   dashboards: propTypes.arrayOf(propTypes.object),
   history: propTypes.object.isRequired,
   activeDashboard: propTypes.any

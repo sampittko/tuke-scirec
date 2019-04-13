@@ -7,7 +7,6 @@ import PaperActions from "../../common/PaperActions";
 import Editables from "./Editables";
 import Readables from "./Readables";
 import {connect} from "react-redux";
-import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Loader from "../../common/Loader";
 import Notification from "../../common/Notification";
 import {fileConfig, projectVersionConfig} from "../../../config/app";
@@ -184,8 +183,8 @@ class Detail extends React.Component {
 
 Detail.propTypes = {
   latest: propTypes.bool,
-  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
-  isProjectVersionUpdating: projectVersionPropTypes.isUpdating.isRequired,
+  isProjectVersionLoading: propTypes.bool.isRequired,
+  isProjectVersionUpdating: propTypes.bool.isRequired,
   activeProjectVersion: propTypes.object,
   updateProjectVersion: propTypes.func.isRequired,
   resetFileState: propTypes.func.isRequired,

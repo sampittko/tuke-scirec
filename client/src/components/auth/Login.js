@@ -5,7 +5,6 @@ import {Button, Fade, Paper, TextField, Typography} from '@material-ui/core';
 import Notification from '../common/Notification';
 import React from 'react';
 import {Redirect} from 'react-router';
-import authPropTypes from '../../propTypes/authPropTypes';
 import {connect} from 'react-redux';
 import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
 import {login} from '../../store/actions/authActions';
@@ -123,10 +122,10 @@ class Login extends React.Component {
 
 Login.propTypes = {
   login: propTypes.func.isRequired,
-  isAuth: authPropTypes.success.isRequired,
-  isAuthLoading: authPropTypes.isLoading.isRequired,
+  isAuth: propTypes.bool.isRequired,
+  isAuthLoading: propTypes.bool.isRequired,
   location: propTypes.object.isRequired,
-  error: authPropTypes.error.isRequired
+  error: propTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {

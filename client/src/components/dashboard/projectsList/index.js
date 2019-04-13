@@ -4,8 +4,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../../config/app';
 import {timeouts} from '../../../config/mui';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
-import projectPropTypes from '../../../propTypes/projectPropTypes';
 import {getProjects, setActiveProject} from '../../../store/actions/projectActions';
 import {getProjectRoute, getProjectStateColor, getReadableProjectState} from '../../../utils/projectUtils';
 import NoData from './NoData';
@@ -75,8 +73,8 @@ class ProjectsList extends React.Component {
 }
 
 ProjectsList.propTypes = {
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
-  isProjectLoading: projectPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
+  isProjectLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.any,
   history: propTypes.object.isRequired,
   getProjects: propTypes.func.isRequired,

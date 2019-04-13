@@ -5,7 +5,6 @@ import {Button, Checkbox, Fade, Paper, TextField, Typography} from '@material-ui
 import {Link} from 'react-router-dom';
 import React from 'react';
 import {Redirect} from 'react-router';
-import authPropTypes from '../../propTypes/authPropTypes';
 import {connect} from 'react-redux';
 import {firebaseErrorCodes} from '../../config/firebase/errorCodes';
 import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
@@ -163,8 +162,8 @@ class Register extends React.Component {
 
 Register.propTypes = {
   register: propTypes.func.isRequired,
-  isAuth: authPropTypes.success.isRequired,
-  isAuthLoading: authPropTypes.isLoading.isRequired,
+  isAuth: propTypes.bool.isRequired,
+  isAuthLoading: propTypes.bool.isRequired,
   errorCode: propTypes.string.isRequired
 };
 

@@ -11,10 +11,8 @@ import ThemePicker from '../../themePicker';
 import TitleInput from '../../common/TitleInput';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../../config/app';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import {getDashboardSettingsDocumentTitle, getDashboardSettingsRoute} from '../../../utils/dashboardUtils';
 import propTypes from 'prop-types';
-import themePickerPropTypes from '../../../propTypes/themePickerPropTypes';
 import {timeouts} from '../../../config/mui';
 import {updateDashboard} from '../../../store/actions/dashboardActions';
 import {resetThemePicker, toggleDashboardSettingsMode} from "../../../store/actions/themePickerActions";
@@ -281,10 +279,10 @@ class Settings extends React.Component {
 
 Settings.propTypes = {
   activeDashboard: propTypes.object,
-  themePicker: themePickerPropTypes.themePicker.isRequired,
+  themePicker: propTypes.object.isRequired,
   isDefault: propTypes.bool,
   dashboards: propTypes.arrayOf(propTypes.object),
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   resetThemePicker: propTypes.func.isRequired,
   history: propTypes.object.isRequired,
 };

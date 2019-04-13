@@ -15,7 +15,6 @@ import AddIcon from "@material-ui/icons/Add";
 import NewVersionConfirmDialog from "../NewConfirmDialog";
 import Fab from '../../common/Fab';
 import propTypes from 'prop-types';
-import projectVersionPropTypes from '../../../propTypes/projectVersionPropTypes';
 import Fade from "@material-ui/core/Fade";
 import ListItem from "../../common/ListItem";
 import {projectVersionConfig} from "../../../config/app";
@@ -112,7 +111,7 @@ ListComponent.propTypes = {
   setActiveProjectVersion: propTypes.func.isRequired,
   activeProject: propTypes.object,
   projectVersions: propTypes.arrayOf(propTypes.object),
-  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  isProjectVersionLoading: propTypes.bool.isRequired,
   history: propTypes.object.isRequired,
   activeProjectVersion: propTypes.object,
   removeActiveProjectVersion: propTypes.func.isRequired,

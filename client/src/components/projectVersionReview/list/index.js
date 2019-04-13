@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types'
 import ListItem from "./item";
 import {connect} from "react-redux";
-import projectVersionReviewPropTypes from '../../../propTypes/projectVersionReviewPropTypes';
 import NoData from "./NoData";
 import Notification from "../../common/Notification";
 
@@ -63,7 +62,7 @@ class ListComponent extends React.Component {
 
 ListComponent.propTypes = {
   projectVersionReviews: propTypes.arrayOf(propTypes.object),
-  isProjectVersionReviewLoading: projectVersionReviewPropTypes.isLoading.isRequired,
+  isProjectVersionReviewLoading: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {

@@ -8,7 +8,6 @@ import ProjectsList from './projectsList';
 import React from 'react';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';
-import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import {getDashboardDocumentTitle} from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
 import {timeouts} from '../../config/mui';
@@ -81,7 +80,7 @@ class Dashboard extends React.Component {
 
 Dashboard.propTypes = {
   activeDashboard: propTypes.any,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = dispatch => {

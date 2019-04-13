@@ -9,10 +9,8 @@ import ThemePicker from '../themePicker';
 import TitleInput from '../common/TitleInput';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';
-import dashboardPropTypes from '../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 import {resetThemePicker} from '../../store/actions/themePickerActions';
-import themePickerPropTypes from '../../propTypes/themePickerPropTypes';
 
 class NewDialog extends React.Component {
   constructor(props) {
@@ -103,10 +101,10 @@ class NewDialog extends React.Component {
 NewDialog.propTypes = {
   open: propTypes.bool.isRequired,
   onClick: propTypes.func.isRequired,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   handleTitleChange: propTypes.func.isRequired,
   title: propTypes.string.isRequired,
-  themePicker: themePickerPropTypes.themePicker.isRequired,
+  themePicker: propTypes.object.isRequired,
   resetThemePicker: propTypes.func.isRequired,
 };
 

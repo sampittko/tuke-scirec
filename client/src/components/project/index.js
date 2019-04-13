@@ -14,7 +14,6 @@ import LatestVersion from "./latestVersion";
 import Fab from "../common/Fab";
 import AddIcon from '@material-ui/icons/Add';
 import NewVersionConfirmDialog from "../projectVersion/NewConfirmDialog";
-import projectVersionPropTypes from '../../propTypes/projectVersionPropTypes';
 import Notification from "../common/Notification";
 
 class Project extends React.Component {
@@ -108,7 +107,7 @@ class Project extends React.Component {
 Project.propTypes = {
   activeDashboard: propTypes.object,
   activeProject: propTypes.object,
-  isProjectVersionLoading: projectVersionPropTypes.isLoading.isRequired,
+  isProjectVersionLoading: propTypes.bool.isRequired,
   history: propTypes.object.isRequired,
 };
 

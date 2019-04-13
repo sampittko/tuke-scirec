@@ -6,7 +6,6 @@ import {Link} from 'react-router-dom';
 import React from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
-import dashboardPropTypes from '../propTypes/dashboardPropTypes';
 import {getDashboardRoute} from '../utils/dashboardUtils';
 import {getDocumentTitleFromComponent} from '../utils/appConfigUtils';
 import logo from '../static/media/logo.png';
@@ -83,7 +82,7 @@ class Home extends React.Component {
 Home.propTypes = {
   dashboards: propTypes.array,
   activeDashboardRoute: propTypes.string,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => {

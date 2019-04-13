@@ -1,10 +1,8 @@
 import {Fade, Typography} from '@material-ui/core';
 
 import React from 'react';
-import dashboardPropTypes from '../../../propTypes/dashboardPropTypes';
 import propTypes from 'prop-types';
 import {timeouts} from '../../../config/mui';
-import projectPropTypes from "../../../propTypes/projectPropTypes";
 
 const NoData = props =>
   <Fade in timeouts={timeouts.FADE_IN}>
@@ -27,8 +25,8 @@ const NoData = props =>
   </Fade>;
 
 NoData.propTypes = {
-  isProjectLoading: projectPropTypes.isLoading.isRequired,
-  isDashboardLoading: dashboardPropTypes.isLoading.isRequired,
+  isProjectLoading: propTypes.bool.isRequired,
+  isDashboardLoading: propTypes.bool.isRequired,
   activeDashboard: propTypes.object,
 };
 
