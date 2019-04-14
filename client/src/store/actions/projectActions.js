@@ -1,6 +1,5 @@
 import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
-import {getRouteFromString} from '../../utils/appConfigUtils';
 import {projectConfig} from "../../config/app";
 import {deleteVersionsInProject} from "./projectVersionActions";
 
@@ -23,24 +22,30 @@ export const addProject = title => {
     dispatch(addProjectRequest());
 
     const firestore = getFirestore();
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const dashboardId = getState().dashboard.selector.activeId;
 
     projectsRef
       .add({
-        route: getRouteFromString(title),
-        created: new Date(),
-        modified: new Date(),
-        dashboard: dashboardsRef.doc(dashboardId),
-        title,
-        state: projectConfig.defaultValues.STATE,
-        deadline: projectConfig.defaultValues.DEADLINE,
-        deadlineVisible: projectConfig.defaultValues.DEADLINE_VISIBLE,
-        description: projectConfig.defaultValues.DESCRIPTION,
-        recipient: projectConfig.defaultValues.RECIPIENT,
-        versionsCount: projectConfig.defaultValues.VERSIONS_COUNT,
-        deletedVersionsCount: projectConfig.defaultValues.DELETED_VERSIONS_COUNT,
+        [firestoreCollections.projects.fields.OVERVIEW]: {
+          [firestoreCollections.projects.fields.overview.STATE]: projectConfig.defaultValues.overview.STATE,
+          [firestoreCollections.projects.fields.overview.DEADLINE]: projectConfig.defaultValues.overview.DEADLINE,
+          [firestoreCollections.projects.fields.overview.DESCRIPTION]: projectConfig.defaultValues.overview.DESCRIPTION,
+          [firestoreCollections.projects.fields.overview.RECIPIENT]: projectConfig.defaultValues.overview.RECIPIENT,
+          [firestoreCollections.projects.fields.overview.DEADLINE_VISIBLE]: projectConfig.defaultValues.overview.DEADLINE_VISIBLE,
+        },
+        [firestoreCollections.projects.fields.META]: {
+          [firestoreCollections.projects.fields.meta.AUTHOR_ID]: userId,
+          [firestoreCollections.projects.fields.meta.CREATED]: new Date(),
+          [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
+          [firestoreCollections.projects.fields.meta.VERSIONS_COUNT]: projectConfig.defaultValues.meta.VERSIONS_COUNT,
+          [firestoreCollections.projects.fields.meta.DELETED_VERSIONS_COUNT]: projectConfig.defaultValues.meta.DELETED_VERSIONS_COUNT,
+          [firestoreCollections.projects.fields.meta.PARENT_REFERENCE]: dashboardsRef.doc(dashboardId),
+        },
+        [firestoreCollections.projects.fields.TITLE]: title,
       })
       .then(result => {
         return projectsRef
@@ -83,8 +88,8 @@ export const getProjects = () => {
     const dashboardId = getState().dashboard.selector.activeId;
 
     projectsRef
-      .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
-      .orderBy(firestoreCollections.projects.fields.MODIFIED, "desc")
+      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_REFERENCE}`, "==", dashboardsRef.doc(dashboardId))
+      .orderBy(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.MODIFIED}`, "desc")
       .get()
       .then(result => {
         dispatch(getProjectsSuccess({
@@ -121,7 +126,7 @@ export const deleteProjectsInDashboard = () => {
     const dashboardId = getState().dashboard.selector.activeId;
 
     await projectsRef
-      .where(firestoreCollections.projects.fields.DASHBOARD, "==", dashboardsRef.doc(dashboardId))
+      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_REFERENCE}`, "==", dashboardsRef.doc(dashboardId))
       .get()
       .then(result => {
         if (!result.docs.empty) {
@@ -168,16 +173,23 @@ export const updateProjectOverview = data => {
     const state = getState();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const projectId = state.project.data.active.id;
+    const activeProject = state.project.data.active;
 
     await projectsRef
       .doc(projectId)
       .update({
-        state: data.state,
-        deadline: data.deadline,
-        recipient: data.recipient,
-        description: data.description,
-        deadlineVisible: data.deadlineVisible,
-        modified: new Date(),
+        [firestoreCollections.projects.fields.META]: {
+          ...activeProject.data().meta,
+          [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
+        },
+        [firestoreCollections.projects.fields.OVERVIEW]: {
+          ...activeProject.data().overview,
+          [firestoreCollections.projects.fields.overview.STATE]: data.state,
+          [firestoreCollections.projects.fields.overview.DEADLINE]: data.deadline,
+          [firestoreCollections.projects.fields.overview.RECIPIENT]: data.recipient,
+          [firestoreCollections.projects.fields.overview.DESCRIPTION]: data.description,
+          [firestoreCollections.projects.fields.overview.DEADLINE_VISIBLE]: data.deadlineVisible,
+        },
       })
       .then(() => {
         return projectsRef
@@ -217,18 +229,20 @@ export const updateProjectTitle = title => {
     const firestore = getFirestore();
     const state = getState();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
-    const projectId = state.project.data.active.id;
+    const activeProject = state.project.data.active;
 
     await projectsRef
-      .doc(projectId)
+      .doc(activeProject.id)
       .update({
-        title,
-        route: getRouteFromString(title),
-        modified: new Date(),
+        [firestoreCollections.projects.fields.META]: {
+          ...activeProject.data().meta,
+          [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
+        },
+        [firestoreCollections.projects.fields.TITLE]: title,
       })
       .then(() => {
         return projectsRef
-          .doc(projectId)
+          .doc(activeProject.id)
           .get()
       })
       .then(result => {
@@ -308,8 +322,11 @@ export const incrementProjectVersionsCount = () => {
     await projectsRef
       .doc(activeProject.id)
       .update({
-        versionsCount: activeProject.data().versionsCount + 1,
-        modified: new Date(),
+        [firestoreCollections.projects.fields.META]: {
+          ...activeProject.data().meta,
+          [firestoreCollections.projects.fields.meta.VERSIONS_COUNT]: activeProject.data().meta.versionsCount + 1,
+          [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
+        },
       })
       .then(() => {
         return projectsRef
@@ -354,8 +371,11 @@ export const incrementDeletedProjectVersionsCount = () => {
     await projectsRef
       .doc(activeProject.id)
       .update({
-        deletedVersionsCount: activeProject.data().deletedVersionsCount + 1,
-        modified: new Date(),
+        [firestoreCollections.projects.fields.META]: {
+          ...activeProject.data().meta,
+          [firestoreCollections.projects.fields.meta.DELETED_VERSIONS_COUNT]: activeProject.data().meta.deletedVersionsCount + 1,
+          [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
+        },
       })
       .then(() => {
         return projectsRef
@@ -400,7 +420,10 @@ export const updateProjectModified = () => {
     await projectsRef
       .doc(activeProject.id)
       .update({
-        modified: new Date(),
+        [firestoreCollections.projects.fields.META]: {
+          ...activeProject.data().meta,
+          [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
+        },
       })
       .then(() => {
         return projectsRef

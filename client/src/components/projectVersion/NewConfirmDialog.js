@@ -22,7 +22,7 @@ class NewConfirmDialog extends React.Component {
           <DialogTitle>Pridanie novej verzie projektu</DialogTitle>
           <DialogContent>
             <Typography>
-              Naozaj si prajete pridať {this.props.activeProject.data().versionsCount + 1}. verziu
+              Naozaj si prajete pridať {this.props.activeProject.data().meta.versionsCount + 1}. verziu
               projektu {this.props.activeProject.data().title}?
             </Typography>
           </DialogContent>
@@ -37,7 +37,7 @@ class NewConfirmDialog extends React.Component {
               type="submit"
               color="secondary"
             >
-              Pridať {this.props.activeProject.data().versionsCount + 1}. verziu
+              Pridať {this.props.activeProject.data().meta.versionsCount + 1}. verziu
             </Button>
           </DialogActions>
         </form>

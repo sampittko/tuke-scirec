@@ -1,7 +1,6 @@
 import actionTypes from '../actionTypes';
 import {dashboardConfig} from '../../config/app';
 import firestoreCollections from '../../config/firebase/collections';
-import {getRouteFromString} from '../../utils/appConfigUtils';
 import {resetDashboardState} from './dashboardActions';
 import {resetProjectState} from './projectActions';
 import {resetProjectVersionState} from "./projectVersionActions";
@@ -95,21 +94,23 @@ export const register = newUser => {
         newRegisteredUserId = result.user.uid;
         return dashboardsRef
           .add({
-            user: usersRef.doc(newRegisteredUserId),
-            title: dashboardConfig.defaultDashboard.TITLE,
-            theme: {
-              id: dashboardConfig.defaultDashboard.THEME.ID,
-              inverted: dashboardConfig.defaultDashboard.THEME.INVERTED
+            [firestoreCollections.dashboards.fields.META]: {
+              [firestoreCollections.dashboards.fields.meta.AUTHOR_ID]: newRegisteredUserId,
+              [firestoreCollections.dashboards.fields.meta.CREATED]: new Date(),
+              [firestoreCollections.dashboards.fields.meta.PARENT_REFERENCE]: usersRef.doc(newRegisteredUserId),
             },
-            route: getRouteFromString(dashboardConfig.defaultDashboard.TITLE),
-            created: new Date(),
+            [firestoreCollections.dashboards.fields.THEME]: {
+              [firestoreCollections.dashboards.fields.theme.ID]: dashboardConfig.defaultValues.theme.ID,
+              [firestoreCollections.dashboards.fields.theme.INVERTED]: dashboardConfig.defaultValues.theme.INVERTED,
+            },
+            [firestoreCollections.dashboards.fields.TITLE]: dashboardConfig.defaultValues.TITLE,
           })
       })
       .then(result => {
         return usersRef
           .doc(newRegisteredUserId)
           .set({
-            defaultDashboard: dashboardsRef.doc(result.id)
+            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_REFERENCE]: dashboardsRef.doc(result.id)
           })
       })
       .then(() => {

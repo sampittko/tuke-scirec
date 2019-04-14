@@ -6,13 +6,14 @@ import {connect} from 'react-redux';
 import {deleteProject} from '../../../store/actions/projectActions';
 import propTypes from 'prop-types';
 import {getDashboardRoute} from "../../../utils/dashboardUtils";
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class DeleteConfirmDialog extends React.Component {
   handleSubmit = async (event) => {
     event.preventDefault();
     this.props.onClick();
     await this.props.deleteProject();
-    this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
+    this.props.history.push(getDashboardRoute(getRouteFromString(this.props.activeDashboard.data().title)));
   };
 
   render() {

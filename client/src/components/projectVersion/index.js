@@ -10,6 +10,7 @@ import {timeouts} from "../../config/mui";
 import Fade from "@material-ui/core/Fade";
 import {getProjectsListRoute, getProjectVersionDocumentTitle} from "../../utils/projectUtils";
 import {resetProjectVersionReviewState} from "../../store/actions/projectVersionReviewActions";
+import {getRouteFromString} from "../../utils/appConfigUtils";
 
 class ProjectVersion extends React.Component {
   componentDidMount() {
@@ -47,7 +48,7 @@ class ProjectVersion extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.activeProjectVersion && !this.props.activeProjectVersion) {
-      this.props.history.push(getProjectsListRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
+      this.props.history.push(getProjectsListRoute(getRouteFromString(this.props.activeDashboard.data().title), getRouteFromString(this.props.activeProject.data().title)));
     }
   }
 }

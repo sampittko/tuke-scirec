@@ -16,20 +16,20 @@ class Overview extends React.Component {
     this.state = {
       editMode: false,
       notify: false,
-      state: props.activeProject.data().state,
-      deadline: props.activeProject.data().deadline,
-      recipient: props.activeProject.data().recipient,
-      description: props.activeProject.data().description,
-      deadlineVisible: props.activeProject.data().deadlineVisible,
+      state: props.activeProject.data().overview.state,
+      deadline: props.activeProject.data().overview.deadline,
+      recipient: props.activeProject.data().overview.recipient,
+      description: props.activeProject.data().overview.description,
+      deadlineVisible: props.activeProject.data().overview.deadlineVisible,
     }
   }
 
   settingsChanged = () => {
-    return this.props.activeProject.data().state !== this.state.state ||
-      this.props.activeProject.data().deadline !== this.state.deadline ||
-      this.props.activeProject.data().recipient !== this.state.recipient ||
-      this.props.activeProject.data().description !== this.state.description ||
-      this.props.activeProject.data().deadlineVisible !== this.state.deadlineVisible
+    return this.props.activeProject.data().overview.state !== this.state.state ||
+      this.props.activeProject.data().overview.deadline !== this.state.deadline ||
+      this.props.activeProject.data().overview.recipient !== this.state.recipient ||
+      this.props.activeProject.data().overview.description !== this.state.description ||
+      this.props.activeProject.data().overview.deadlineVisible !== this.state.deadlineVisible
   };
 
   handleClick = async (event, action) => {
@@ -55,11 +55,11 @@ class Overview extends React.Component {
       case 'cancel':
         this.setState((prevState, props) => ({
           editMode: false,
-          state: props.activeProject.data().state,
-          deadline: props.activeProject.data().deadline,
-          recipient: props.activeProject.data().recipient,
-          description: props.activeProject.data().description,
-          deadlineVisible: props.activeProject.data().deadlineVisible,
+          state: props.activeProject.data().overview.state,
+          deadline: props.activeProject.data().overview.deadline,
+          recipient: props.activeProject.data().overview.recipient,
+          description: props.activeProject.data().overview.description,
+          deadlineVisible: props.activeProject.data().overview.deadlineVisible,
         }));
         break;
       default:
@@ -114,7 +114,7 @@ class Overview extends React.Component {
             style={this.state.editMode ? {opacity: 0.7} : {}}
             label="Počet verzií projektu"
             InputProps={{readOnly: true}}
-            value={this.props.activeProject.data().versionsCount}
+            value={this.props.activeProject.data().meta.versionsCount}
             className="input"
             disabled
             InputLabelProps={{shrink: true}}

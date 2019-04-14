@@ -84,7 +84,7 @@ class Project extends React.Component {
           )}
           {this.state.notify && (
             <Notification
-              message={`Verzia ${this.props.activeProject.data().versionsCount} bola úspešne pridaná`}
+              message={`Verzia ${this.props.activeProject.data().meta.versionsCount} bola úspešne pridaná`}
               onClose={this.handleClose}
             />
           )}
@@ -95,7 +95,7 @@ class Project extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (this.props.activeProject) {
-      if (prevProps.activeProject.data().versionsCount < this.props.activeProject.data().versionsCount) {
+      if (prevProps.activeProject.data().meta.versionsCount < this.props.activeProject.data().meta.versionsCount) {
         this.setState({
           notify: true,
         });

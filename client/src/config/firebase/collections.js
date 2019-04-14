@@ -2,67 +2,92 @@ const firestoreCollections = {
   users: {
     ID: 'users',
     fields: {
-      DEFAULT_DASHBOARD: 'defaultDashboard',
+      DEFAULT_DASHBOARD_REFERENCE: 'default_dashboard_ref',
     }
   },
   dashboards: {
     ID: 'dashboards',
     fields: {
-      USER: 'user',
-      TITLE: 'title',
+      META: 'meta',
+      meta: {
+        AUTHOR_ID: 'authorId',
+        CREATED: 'created',
+        PARENT_REFERENCE: 'parent_ref',
+      },
+      THEME: 'theme',
       theme: {
         ID: 'id',
         INVERTED: 'inverted',
       },
-      ROUTE: 'route',
-      CREATED: 'created',
-      PROJECTS: 'projects',
+      TITLE: 'title',
     }
   },
   projects: {
     ID: 'projects',
     fields: {
-      ROUTE: 'route',
-      CREATED: 'created',
-      MODIFIED: 'modified',
+      META: 'meta',
+      meta: {
+        AUTHOR_ID: 'authorId',
+        CREATED: 'created',
+        MODIFIED: 'modified',
+        VERSIONS_COUNT: 'versionsCount',
+        DELETED_VERSIONS_COUNT: 'deletedVersionsCount',
+        PARENT_REFERENCE: 'parent_ref',
+      },
+      OVERVIEW: 'overview',
+      overview: {
+        STATE: 'state',
+        DEADLINE: 'deadline',
+        DEADLINE_VISIBLE: 'deadlineVisible',
+        DESCRIPTION: 'description',
+        RECIPIENT: 'recipient',
+      },
       TITLE: 'title',
-      DASHBOARD: 'dashboard',
-      STATE: 'state',
-      DEADLINE: 'deadline',
-      DESCRIPTION: 'description',
-      RECIPIENT: 'recipient',
-      VERSIONS_COUNT: 'versionsCount',
-      DELETED_VERSIONS_COUNT: 'deletedVersionsCount',
     }
   },
   projectVersions: {
     ID: 'projectVersions',
     fields: {
+      META: 'meta',
+      meta: {
+        CREATED: 'created',
+        MODIFIED: 'modified',
+        AUTHOR_ID: 'authorId',
+        PARENT_REFERENCE: 'parent_ref',
+      },
+      DETAIL: 'detail',
+      detail: {
+        NOTES: 'notes',
+        STATE: 'state',
+      },
       VERSION_NUMBER: 'versionNum',
-      PROJECT: 'project',
-      NOTES: 'notes',
-      STATE: 'state',
-      CREATED: 'created',
-      MODIFIED: 'modified',
     }
   },
   projectVersionReviews: {
     ID: 'projectVersionReviews',
     fields: {
-      PROJECT_VERSION: 'projectVersion',
+      META: 'meta',
+      meta: {
+        AUTHOR_ID: 'authorId',
+        CREATED: 'created',
+        MODIFIED: 'modified',
+        PARENT_REFERENCE: 'parent_ref',
+      },
       NOTES: 'notes',
-      CREATED: 'created',
-      MODIFIED: 'modified',
     }
   },
   files: {
     ID: 'files',
     fields: {
-      BELONGS_TO: 'belongsTo',
-      PATH: 'path',
+      META: 'meta',
+      meta: {
+        AUTHOR_ID: 'authorId',
+        SIZE: 'size',
+        UPLOADED: 'uploaded',
+        PATH: 'path',
+        PARENT_REFERENCE: 'parent_ref',
+      },
       NAME: 'name',
-      SIZE: 'size',
-      UPLOADED: 'uploaded',
     },
   },
 };

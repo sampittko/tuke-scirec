@@ -6,9 +6,9 @@ export const dashboardConfig = {
   MAX_COUNT: 10,
   MIN_LENGTH: 3,
   MAX_LENGTH: 25,
-  defaultDashboard: {
+  defaultValues: {
     TITLE: "Nástenka 1",
-    THEME: {
+    theme: {
       ID: 0,
       INVERTED: false
     },
@@ -20,13 +20,17 @@ export const projectConfig = {
   MIN_LENGTH: 3,
   MAX_LENGTH: 80,
   defaultValues: {
-    STATE: 0,
-    DEADLINE: '',
-    DEADLINE_VISIBLE: true,
-    DESCRIPTION: '',
-    RECIPIENT: '',
-    VERSIONS_COUNT: 0,
-    DELETED_VERSIONS_COUNT: 0,
+    meta: {
+      VERSIONS_COUNT: 0,
+      DELETED_VERSIONS_COUNT: 0,
+    },
+    overview: {
+      STATE: 0,
+      DEADLINE: '',
+      DEADLINE_VISIBLE: true,
+      DESCRIPTION: '',
+      RECIPIENT: '',
+    },
   },
   states: {
     values: {
@@ -44,8 +48,10 @@ export const projectConfig = {
 
 export const projectVersionConfig = {
   defaultValues: {
-    STATE: 0,
-    NOTES: '',
+    detail: {
+      STATE: 0,
+      NOTES: '',
+    },
   },
   states: {
     values: {

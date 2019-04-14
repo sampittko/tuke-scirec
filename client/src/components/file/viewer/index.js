@@ -55,7 +55,7 @@ class Viewer extends React.Component {
                     <ListItem key={i}>
                       <ListItemText
                         primary={file.futureFileName ? file.futureFileName : file.data().name}
-                        secondary={file.futureFileName ? "Načítava sa.." : `${convertBtoMB(file.data().size)}MB`}
+                        secondary={file.futureFileName ? "Načítava sa.." : `${convertBtoMB(file.data().meta.size)}MB`}
                         className="list-item-text"
                       />
                       {this.props.editable && !file.futureFileName ? (

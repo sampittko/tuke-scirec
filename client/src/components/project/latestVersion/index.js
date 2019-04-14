@@ -11,6 +11,7 @@ import {getLatestProjectVersion} from "../../../store/actions/projectVersionActi
 import {getProjectsListRoute} from "../../../utils/projectUtils";
 import IconButton from "@material-ui/core/IconButton";
 import ListIcon from '@material-ui/icons/List';
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class LatestVersion extends React.Component {
   componentDidMount() {
@@ -19,15 +20,15 @@ class LatestVersion extends React.Component {
 
   handleClick = () => {
     this.props.history.push(
-      getProjectsListRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route)
+      getProjectsListRoute(getRouteFromString(this.props.activeDashboard.data().title), getRouteFromString(this.props.activeProject.data().title))
     );
   };
 
   render() {
     return (
       <div
-        className={`latest-project-version ${this.props.activeProject.data().versionsCount - this.props.activeProject.data().deletedVersionsCount > 0 ? "" : "empty"}`}>
-        {this.props.activeProject.data().versionsCount - this.props.activeProject.data().deletedVersionsCount > 0 ? (
+        className={`latest-project-version ${this.props.activeProject.data().meta.versionsCount - this.props.activeProject.data().meta.deletedVersionsCount > 0 ? "" : "empty"}`}>
+        {this.props.activeProject.data().meta.versionsCount - this.props.activeProject.data().meta.deletedVersionsCount > 0 ? (
           <Fade in timeout={timeouts.FADE_IN}>
             <div>
               <Typography variant="h6" className="page-title">

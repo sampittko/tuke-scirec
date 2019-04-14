@@ -15,6 +15,7 @@ import {projectConfig} from "../../../config/app";
 import RemoveProjectConfirmDialog from "./DeleteConfirmDialog";
 import TitleInput from '../../common/TitleInput';
 import {updateProjectTitle} from "../../../store/actions/projectActions";
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class Settings extends React.Component {
   _isMounted = false;
@@ -204,7 +205,7 @@ class Settings extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.activeProject && this.props.activeProject && prevProps.activeProject.data().title !== this.props.activeProject.data().title) {
-      this.props.history.push(getProjectSettingsRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route));
+      this.props.history.push(getProjectSettingsRoute(getRouteFromString(this.props.activeDashboard.data().title), getRouteFromString(this.props.activeProject.data().title)));
       document.title = getProjectSettingsDocumentTitle(this.props.activeDashboard, this.props.activeProject)
     }
   }

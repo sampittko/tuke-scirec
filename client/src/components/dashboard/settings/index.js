@@ -17,6 +17,7 @@ import {timeouts} from '../../../config/mui';
 import {updateDashboard} from '../../../store/actions/dashboardActions';
 import {resetThemePicker, toggleDashboardSettingsMode} from "../../../store/actions/themePickerActions";
 import Notification from "../../common/Notification";
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class Settings extends React.Component {
   _isMounted = false;
@@ -266,7 +267,7 @@ class Settings extends React.Component {
       }));
     }
     if (prevProps.activeDashboard && this.props.activeDashboard && prevProps.activeDashboard.data().title !== this.props.activeDashboard.data().title) {
-      this.props.history.push(getDashboardSettingsRoute(this.props.activeDashboard.data().route));
+      this.props.history.push(getDashboardSettingsRoute(getRouteFromString(this.props.activeDashboard.data().title)));
       document.title = getDashboardSettingsDocumentTitle(this.props.activeDashboard)
     }
   }

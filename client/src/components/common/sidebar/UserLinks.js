@@ -12,12 +12,13 @@ import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
 import {getProjectRoute, getProjectSettingsRoute, getProjectsListRoute} from "../../../utils/projectUtils";
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 const UserLinks = props =>
   <div>
     <Link
       location={props.location}
-      route={getDashboardRoute(props.activeDashboardRoute)}
+      route={getDashboardRoute(getRouteFromString(props.activeDashboardTitle))}
       text={props.activeDashboardTitle}
       icon={<DashboardIcon/>}
     >
@@ -25,19 +26,19 @@ const UserLinks = props =>
         <div>
           <Link
             location={props.location}
-            route={getProjectRoute(props.activeDashboardRoute, props.activeProject.data().route)}
+            route={getProjectRoute(getRouteFromString(props.activeDashboardTitle), getRouteFromString(props.activeProject.data().title))}
             text={props.activeProject.data().title}
             icon={<CollectionsBookmarkIcon/>}
           />
           <Link
             location={props.location}
-            route={getProjectsListRoute(props.activeDashboardRoute, props.activeProject.data().route)}
+            route={getProjectsListRoute(getRouteFromString(props.activeDashboardTitle), getRouteFromString(props.activeProject.data().title))}
             text="Zoznam verzií"
             icon={<ViewListIcon/>}
           />
           <Link
             location={props.location}
-            route={getProjectSettingsRoute(props.activeDashboardRoute, props.activeProject.data().route)}
+            route={getProjectSettingsRoute(getRouteFromString(props.activeDashboardTitle), getRouteFromString(props.activeProject.data().title))}
             text="Nastavenia projektu"
             icon={<SettingsIcon/>}
           />
@@ -46,7 +47,7 @@ const UserLinks = props =>
     </Link>
     <Link
       location={props.location}
-      route={getDashboardSettingsRoute(props.activeDashboardRoute)}
+      route={getDashboardSettingsRoute(getRouteFromString(props.activeDashboardTitle))}
       text="Nastavenia nástenky"
       icon={<SettingsIcon/>}
     />
@@ -61,7 +62,6 @@ const UserLinks = props =>
 
 UserLinks.propTypes = {
   location: propTypes.object.isRequired,
-  activeDashboardRoute: propTypes.string.isRequired,
   activeDashboardTitle: propTypes.string.isRequired,
   activeProject: propTypes.object,
 };
@@ -69,7 +69,6 @@ UserLinks.propTypes = {
 const mapStateToProps = state => {
   return {
     activeDashboardTitle: state.dashboard.selector.active.data().title || "Nástenka",
-    activeDashboardRoute: state.dashboard.selector.activeRoute || "",
     activeProject: state.project.data.active,
   }
 };

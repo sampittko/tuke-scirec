@@ -19,6 +19,7 @@ import Fade from "@material-ui/core/Fade";
 import ListItem from "../../common/ListItem";
 import {projectVersionConfig} from "../../../config/app";
 import {getProjectsListDocumentTitle} from "../../../utils/projectUtils";
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class ListComponent extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class ListComponent extends React.Component {
 
   handleProjectVersionClick = (event, projectVersion) => {
     this.props.setActiveProjectVersion(projectVersion);
-    this.props.history.push(getProjectVersionRoute(this.props.activeDashboard.data().route, this.props.activeProject.data().route, projectVersion.data().versionNum));
+    this.props.history.push(getProjectVersionRoute(getRouteFromString(this.props.activeDashboard.data().title), getRouteFromString(this.props.activeProject.data().title), projectVersion.data().versionNum));
   };
 
   handleDialogClick = () => {
@@ -68,12 +69,12 @@ class ListComponent extends React.Component {
                   {this.props.projectVersions.map((projectVersion, i) => (
                     <ListItem
                       key={i}
-                      disabled={projectVersion.data().state === projectVersionConfig.states.values.DELETED}
+                      disabled={projectVersion.data().detail.state === projectVersionConfig.states.values.DELETED}
                       title={`Verzia ${String(projectVersion.data().versionNum)}`}
                       item={projectVersion}
-                      modifiedTimestamp={projectVersion.data().modified}
+                      modifiedTimestamp={projectVersion.data().meta.modified}
                       onClick={(event, projectVersion) => this.handleProjectVersionClick(event, projectVersion)}
-                      chipLabel={getReadableProjectVersionState(projectVersion.data().state)}
+                      chipLabel={getReadableProjectVersionState(projectVersion.data().detail.state)}
                     />
                   ))}
                 </List>

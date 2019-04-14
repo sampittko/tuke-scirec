@@ -22,7 +22,9 @@ export const addProjectVersionReview = () => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(addProjectVersionReviewRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
+    const userId = firebase.auth().currentUser.uid;
     const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
     const state = getState();
@@ -30,10 +32,13 @@ export const addProjectVersionReview = () => {
 
     projectVersionReviewsRef
       .add({
-        projectVersion: projectVersionsRef.doc(activeProjectVersion.id),
-        notes: projectVersionReviewConfig.defaultValues.NOTES,
-        modified: new Date(),
-        created: new Date(),
+        [firestoreCollections.projectVersionReviews.fields.META]: {
+          [firestoreCollections.projectVersionReviews.fields.meta.AUTHOR_ID]: userId,
+          [firestoreCollections.projectVersionReviews.fields.meta.MODIFIED]: new Date(),
+          [firestoreCollections.projectVersionReviews.fields.meta.CREATED]: new Date(),
+          [firestoreCollections.projectVersionReviews.fields.meta.PARENT_REFERENCE]: projectVersionsRef.doc(activeProjectVersion.id),
+        },
+        [firestoreCollections.projectVersionReviews.fields.NOTES]: projectVersionReviewConfig.defaultValues.NOTES,
       })
       .then(result => {
         return projectVersionReviewsRef
@@ -78,8 +83,8 @@ export const getProjectVersionReviews = () => {
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     projectVersionReviewsRef
-      .where(firestoreCollections.projectVersionReviews.fields.PROJECT_VERSION, "==", projectVersionsRef.doc(activeProjectVersion.id))
-      .orderBy(firestoreCollections.projectVersionReviews.fields.CREATED, "asc")
+      .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.PARENT_REFERENCE}`, "==", projectVersionsRef.doc(activeProjectVersion.id))
+      .orderBy(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.CREATED}`, "asc")
       .get()
       .then(result => {
         dispatch(getProjectVersionReviewsSuccess({
@@ -115,7 +120,7 @@ export const deleteReviewsInProjectVersion = projectVersionId => {
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     projectVersionReviewsRef
-      .where(firestoreCollections.projectVersionReviews.fields.PROJECT_VERSION, "==", projectVersionsRef.doc(projectVersionId))
+      .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.PARENT_REFERENCE}`, "==", projectVersionsRef.doc(projectVersionId))
       .get()
       .then(result => {
         if (!result.docs.empty) {
@@ -200,8 +205,11 @@ export const updateProjectVersionReview = (data, projectVersionReview) => {
     await projectVersionReviewsRef
       .doc(projectVersionReview.id)
       .update({
-        notes: data.notes,
-        modified: new Date(),
+        [firestoreCollections.projectVersionReviews.fields.META]: {
+          ...projectVersionReview.data().meta,
+          [firestoreCollections.projectVersionReviews.fields.meta.MODIFIED]: new Date(),
+        },
+        [firestoreCollections.projectVersionReviews.fields.NOTES]: data.notes,
       })
       .then(() => {
         return projectVersionReviewsRef

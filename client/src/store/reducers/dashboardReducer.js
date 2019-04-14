@@ -1,6 +1,7 @@
 import actionTypes from '../actionTypes';
 import {dashboardConfig} from '../../config/app';
 import {getActiveDashboard} from '../../utils/dashboardUtils';
+import {getRouteFromString} from "../../utils/appConfigUtils";
 
 const _initialState = {
   data: {
@@ -46,7 +47,7 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: action.createdDashboard,
-          activeRoute: action.createdDashboard.data().route,
+          activeRoute: getRouteFromString(action.createdDashboard.data().title),
           activeId: action.createdDashboard.id,
           previousId: state.selector.activeId
         },
@@ -79,7 +80,7 @@ const dashboard = (state = _initialState, action) => {
         },
         selector: {
           active: action.defaultDashboard,
-          activeRoute: action.defaultDashboard.data().route,
+          activeRoute: getRouteFromString(action.defaultDashboard.data().title),
           activeId: action.defaultDashboard.id,
           previousId: null
         },
@@ -115,7 +116,7 @@ const dashboard = (state = _initialState, action) => {
         selector: {
           ...state.selector,
           active: action.updatedDashboard,
-          activeRoute: action.updatedDashboard.data().route,
+          activeRoute: getRouteFromString(action.updatedDashboard.data().title),
         },
         isLoading: false,
       };
@@ -146,7 +147,7 @@ const dashboard = (state = _initialState, action) => {
         },
         selector: {
           active: newDefaultDashboard ? newDefaultDashboard : state.data.default,
-          activeRoute: newDefaultDashboard ? newDefaultDashboard.data().route : state.data.default.data().route,
+          activeRoute: newDefaultDashboard ? getRouteFromString(newDefaultDashboard.data().title) : getRouteFromString(state.data.default.data().title),
           activeId: newDefaultDashboard ? newDefaultDashboard.id : state.data.default.id,
           previousId: null
         },
@@ -168,7 +169,7 @@ const dashboard = (state = _initialState, action) => {
         ...state,
         selector: {
           active: newActive,
-          activeRoute: newActive === dashboardConfig.MAX_COUNT ? state.selector.activeRoute : newActive.data().route,
+          activeRoute: newActive === dashboardConfig.MAX_COUNT ? state.selector.activeRoute : getRouteFromString(newActive.data().title),
           activeId: action.activeId ? action.activeId : state.selector.previousId,
           previousId: state.selector.activeId
         }

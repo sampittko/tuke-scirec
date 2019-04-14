@@ -27,7 +27,9 @@ export const addProjectVersion = () => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(addProjectVersionRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
+    const userId = firebase.auth().currentUser.uid;
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const state = getState();
@@ -35,12 +37,17 @@ export const addProjectVersion = () => {
 
     projectVersionsRef
       .add({
-        project: projectsRef.doc(activeProject.id),
-        state: projectVersionConfig.defaultValues.STATE,
-        notes: projectVersionConfig.defaultValues.NOTES,
-        versionNum: activeProject.data().versionsCount + 1,
-        modified: new Date(),
-        created: new Date(),
+        [firestoreCollections.projectVersions.fields.META]: {
+          [firestoreCollections.projectVersions.fields.meta.AUTHOR_ID]: userId,
+          [firestoreCollections.projectVersions.fields.meta.MODIFIED]: new Date(),
+          [firestoreCollections.projectVersions.fields.meta.CREATED]: new Date(),
+          [firestoreCollections.projectVersions.fields.meta.PARENT_REFERENCE]: projectsRef.doc(activeProject.id),
+        },
+        [firestoreCollections.projectVersions.fields.DETAIL]: {
+          [firestoreCollections.projectVersions.fields.detail.STATE]: projectVersionConfig.defaultValues.detail.STATE,
+          [firestoreCollections.projectVersions.fields.detail.NOTES]: projectVersionConfig.defaultValues.detail.NOTES,
+        },
+        [firestoreCollections.projectVersions.fields.VERSION_NUMBER]: activeProject.data().meta.versionsCount + 1,
       })
       .then(async (result) => {
         await dispatch(incrementProjectVersionsCount());
@@ -82,7 +89,7 @@ export const deleteVersionsInProject = projectId => {
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
 
     await projectVersionsRef
-      .where(firestoreCollections.projectVersions.fields.PROJECT, "==", projectsRef.doc(projectId))
+      .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_REFERENCE}`, "==", projectsRef.doc(projectId))
       .get()
       .then(result => {
         if (!result.docs.empty) {
@@ -130,12 +137,12 @@ export const getLatestProjectVersion = () => {
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     projectVersionsRef
-      .where(firestoreCollections.projectVersions.fields.PROJECT, "==", projectsRef.doc(activeProject.id))
+      .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_REFERENCE}`, "==", projectsRef.doc(activeProject.id))
       .orderBy(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "desc")
       .get()
       .then(result => {
         dispatch(getLatestProjectVersionSuccess({
-          latestProjectVersion: result.docs.find(projectVersion => projectVersion.data().state !== projectVersionConfig.states.values.DELETED),
+          latestProjectVersion: result.docs.find(projectVersion => projectVersion.data().detail.state !== projectVersionConfig.states.values.DELETED),
         }));
       })
       .catch(error => {
@@ -171,9 +178,15 @@ export const updateProjectVersion = data => {
     await projectVersionsRef
       .doc(activeProjectVersion.id)
       .update({
-        state: data.state,
-        notes: data.notes,
-        modified: new Date(),
+        [firestoreCollections.projectVersions.fields.META]: {
+          ...activeProjectVersion.data().meta,
+          [firestoreCollections.projectVersions.fields.meta.MODIFIED]: new Date(),
+        },
+        [firestoreCollections.projectVersions.fields.DETAIL]: {
+          ...activeProjectVersion.data().detail,
+          [firestoreCollections.projectVersions.fields.detail.STATE]: data.state,
+          [firestoreCollections.projectVersions.fields.detail.NOTES]: data.notes,
+        },
       })
       .then(() => {
         return projectVersionsRef
@@ -218,7 +231,7 @@ export const getProjectVersions = () => {
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
 
     projectVersionsRef
-      .where(firestoreCollections.projectVersions.fields.PROJECT, "==", projectsRef.doc(activeProject.id))
+      .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_REFERENCE}`, "==", projectsRef.doc(activeProject.id))
       .orderBy(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "desc")
       .get()
       .then(result => {
@@ -259,8 +272,14 @@ export const deleteProjectVersion = () => {
     projectVersionsRef
       .doc(projectVersion.id)
       .update({
-        state: projectVersionConfig.states.values.DELETED,
-        modified: new Date(),
+        [firestoreCollections.projectVersions.fields.META]: {
+          ...projectVersion.data().meta,
+          [firestoreCollections.projectVersions.fields.meta.MODIFIED]: new Date(),
+        },
+        [firestoreCollections.projectVersions.fields.DETAIL]: {
+          ...projectVersion.data().detail,
+          [firestoreCollections.projectVersions.fields.detail.STATE]: projectVersionConfig.states.values.DELETED,
+        },
       })
       .then(() => {
         dispatch(incrementDeletedProjectVersionsCount());

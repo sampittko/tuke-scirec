@@ -21,34 +21,34 @@ class Detail extends React.Component {
     this.state = {
       editMode: false,
       notify: false,
-      notes: projectVersionConfig.defaultValues.NOTES,
-      state: projectVersionConfig.defaultValues.STATE,
+      notes: projectVersionConfig.defaultValues.detail.NOTES,
+      state: projectVersionConfig.defaultValues.detail.STATE,
       open: false,
     }
   }
 
   componentDidMount() {
     if (this.props.activeProjectVersion) {
-      if (this.props.activeProjectVersion.data().notes !== this.state.notes && this.props.activeProjectVersion.data().state !== this.state.state) {
+      if (this.props.activeProjectVersion.data().detail.notes !== this.state.notes && this.props.activeProjectVersion.data().detail.state !== this.state.state) {
         this.setState({
-          notes: this.props.activeProjectVersion.data().notes,
-          state: this.props.activeProjectVersion.data().state,
+          notes: this.props.activeProjectVersion.data().detail.notes,
+          state: this.props.activeProjectVersion.data().detail.state,
         });
-      } else if (this.props.activeProjectVersion.data().state !== this.state.state) {
+      } else if (this.props.activeProjectVersion.data().detail.state !== this.state.state) {
         this.setState({
-          state: this.props.activeProjectVersion.data().state,
+          state: this.props.activeProjectVersion.data().detail.state,
         });
-      } else if (this.props.activeProjectVersion.data().notes !== this.state.notes) {
+      } else if (this.props.activeProjectVersion.data().detail.notes !== this.state.notes) {
         this.setState({
-          notes: this.props.activeProjectVersion.data().notes,
+          notes: this.props.activeProjectVersion.data().detail.notes,
         });
       }
     }
   }
 
   settingsChanged = () => {
-    return (this.props.activeProjectVersion.data().state !== this.state.state ||
-      this.props.activeProjectVersion.data().notes !== this.state.notes);
+    return (this.props.activeProjectVersion.data().detail.state !== this.state.state ||
+      this.props.activeProjectVersion.data().detail.notes !== this.state.notes);
   };
 
   handleActionClick = async (event, action) => {
@@ -71,8 +71,8 @@ class Detail extends React.Component {
       case 'cancel':
         this.setState((prevState, props) => ({
           editMode: false,
-          state: props.activeProjectVersion.data().state,
-          notes: props.activeProjectVersion.data().notes,
+          state: props.activeProjectVersion.data().detail.state,
+          notes: props.activeProjectVersion.data().detail.notes,
         }));
         break;
       case 'delete':
@@ -159,18 +159,18 @@ class Detail extends React.Component {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.activeProjectVersion !== this.props.activeProjectVersion && this.props.activeProjectVersion) {
-      if (this.props.activeProjectVersion.data().notes !== this.state.notes && this.props.activeProjectVersion.data().state !== this.state.state) {
+      if (this.props.activeProjectVersion.data().detail.notes !== this.state.notes && this.props.activeProjectVersion.data().detail.state !== this.state.state) {
         this.setState({
-          notes: this.props.activeProjectVersion.data().notes,
-          state: this.props.activeProjectVersion.data().state,
+          notes: this.props.activeProjectVersion.data().detail.notes,
+          state: this.props.activeProjectVersion.data().detail.state,
         });
-      } else if (this.props.activeProjectVersion.data().state !== this.state.state) {
+      } else if (this.props.activeProjectVersion.data().detail.state !== this.state.state) {
         this.setState({
-          state: this.props.activeProjectVersion.data().state,
+          state: this.props.activeProjectVersion.data().detail.state,
         });
-      } else if (this.props.activeProjectVersion.data().notes !== this.state.notes) {
+      } else if (this.props.activeProjectVersion.data().detail.notes !== this.state.notes) {
         this.setState({
-          notes: this.props.activeProjectVersion.data().notes,
+          notes: this.props.activeProjectVersion.data().detail.notes,
         });
       }
     }

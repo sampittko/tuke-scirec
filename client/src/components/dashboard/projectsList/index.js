@@ -9,6 +9,7 @@ import {getProjectRoute, getProjectStateColor, getReadableProjectState} from '..
 import NoData from './NoData';
 import Counter from "./Counter";
 import ListItem from "../../common/ListItem";
+import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class ProjectsList extends React.Component {
   componentDidMount() {
@@ -19,7 +20,7 @@ class ProjectsList extends React.Component {
 
   handleClick = (event, project) => {
     this.props.setProject(project);
-    this.props.history.push(getProjectRoute(this.props.activeDashboard.data().route, project.data().route));
+    this.props.history.push(getProjectRoute(getRouteFromString(this.props.activeDashboard.data().title), getRouteFromString(project.data().title)));
   };
 
   render() {
@@ -41,10 +42,10 @@ class ProjectsList extends React.Component {
                       key={i}
                       title={project.data().title}
                       item={project}
-                      modifiedTimestamp={project.data().modified}
+                      modifiedTimestamp={project.data().meta.modified}
                       onClick={(event) => this.handleClick(event, project)}
-                      chipLabel={getReadableProjectState(project.data().state)}
-                      chipColor={getProjectStateColor(project.data().state)}
+                      chipLabel={getReadableProjectState(project.data().overview.state)}
+                      chipColor={getProjectStateColor(project.data().overview.state)}
                     />
                   ))}
                 </List>

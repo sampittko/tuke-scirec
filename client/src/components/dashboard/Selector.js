@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';
 import {getDashboardRoute} from '../../utils/dashboardUtils';
 import propTypes from 'prop-types';
+import {getRouteFromString} from "../../utils/appConfigUtils";
 
 class Selector extends React.Component {
   constructor(props) {
@@ -42,7 +43,7 @@ class Selector extends React.Component {
   handleSelectChange = event => {
     if (this.props.activeDashboard.id !== event.target.value) {
       this.props.changeDashboard(event.target.value);
-      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
+      event.target.value !== dashboardConfig.MAX_COUNT && this.props.history.push(getDashboardRoute(getRouteFromString(this.props.activeDashboard.data().title)));
     }
   };
 
@@ -88,9 +89,9 @@ class Selector extends React.Component {
     )
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.dashboards.length !== this.props.dashboards.length) {
-      this.props.history.push(getDashboardRoute(this.props.activeDashboard.data().route));
+      this.props.history.push(getDashboardRoute(getRouteFromString(this.props.activeDashboard.data().title)));
     }
   }
 }
