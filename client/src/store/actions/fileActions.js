@@ -26,7 +26,7 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
     const storagePath = `${userId}/${dbOwnerEntity}/${ownerEntity.id}/`;
 
     asyncForEach(files, async (file) => {
-      await dispatch(uploadFile(storagePath + file.name, file, ownerEntity, filesIndex));
+      await dispatch(uploadFile(storagePath + file.name, file, ownerEntity, dbOwnerEntity, filesIndex));
     })
       .then(() => {
         dispatch(updateProjectModified());
@@ -56,7 +56,7 @@ const uploadFileRequest = data => ({
   filesIndex: data.filesIndex,
 });
 
-export const uploadFile = (path, file, ownerEntity, filesIndex) => {
+export const uploadFile = (path, file, ownerEntity, dbOwnerEntity, filesIndex) => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(uploadFileRequest({
       fileName: file.name,
@@ -86,7 +86,10 @@ export const uploadFile = (path, file, ownerEntity, filesIndex) => {
               [firestoreCollections.files.fields.meta.PATH]: storageFileRef.fullPath,
               [firestoreCollections.files.fields.meta.SIZE]: result.bytesTransferred,
               [firestoreCollections.files.fields.meta.UPLOADED]: new Date(),
-              [firestoreCollections.files.fields.meta.PARENT_ID]: ownerEntity.id,
+              [firestoreCollections.files.fields.meta.PARENT]: {
+                [firestoreCollections.files.fields.meta.parent.ID]: ownerEntity.id,
+                [firestoreCollections.files.fields.meta.parent.COLLECTION]: dbOwnerEntity,
+              },
             },
             [firestoreCollections.files.fields.NAME]: result.ref.name,
           });
@@ -179,8 +182,9 @@ export const downloadFile = (file, filesIndex) => {
   }
 };
 
-const getFilesFailure = error => ({
+const getFilesFailure = (data, error) => ({
   type: actionTypes.file.GET_FILES_FAILURE,
+  filesIndex: data.filesIndex,
   error
 });
 
@@ -205,7 +209,7 @@ export const getFiles = (ownerEntity, filesIndex) => {
 
     await filesRef
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
-      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
+      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT}.${firestoreCollections.files.fields.meta.parent.ID}`, "==", ownerEntity.id)
       .orderBy(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.UPLOADED}`, "asc")
       .get()
       .then(result => {
@@ -216,7 +220,9 @@ export const getFiles = (ownerEntity, filesIndex) => {
       })
       .catch(error => {
         console.log(error);
-        dispatch(getFilesFailure(error));
+        dispatch(getFilesFailure({
+          filesIndex
+        }, error));
       });
   }
 };
@@ -297,7 +303,7 @@ export const deleteFilesInEntity = ownerEntity => {
 
     await filesRef
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
-      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
+      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT}.${firestoreCollections.files.fields.meta.parent.ID}`, "==", ownerEntity.id)
       .get()
       .then(result => {
         if (!result.docs.empty) {

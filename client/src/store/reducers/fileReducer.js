@@ -158,6 +158,10 @@ const file = (state = _initialState, action) => {
       console.log(actionTypes.file.GET_FILES_FAILURE);
       return {
         ...state,
+        data: {
+          ...state.data,
+          lists: [...state.data.lists.slice(0, action.filesIndex), [], ...state.data.lists.slice(action.filesIndex + 1)],
+        },
         isLoading: false,
         error: action.error,
       };
