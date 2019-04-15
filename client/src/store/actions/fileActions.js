@@ -198,10 +198,13 @@ export const getFiles = (ownerEntity, filesIndex) => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(getFilesRequest());
 
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const filesRef = firestore.collection(firestoreCollections.files.ID);
 
     await filesRef
+      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
       .orderBy(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.UPLOADED}`, "asc")
       .get()
@@ -287,11 +290,13 @@ export const deleteFilesInEntity = ownerEntity => {
     dispatch(deleteFilesInEntityRequest());
 
     const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const storageRef = firebase.storage().ref();
     const filesRef = firestore.collection(firestoreCollections.files.ID);
 
     await filesRef
+      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
       .get()
       .then(result => {

@@ -75,12 +75,15 @@ export const getProjectVersionReviews = () => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(getProjectVersionReviewsRequest());
 
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const state = getState();
     const activeProjectVersion = state.projectVersion.data.active;
     const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
 
     projectVersionReviewsRef
+      .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.PARENT_ID}`, "==", activeProjectVersion.id)
       .orderBy(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.CREATED}`, "asc")
       .get()
@@ -113,10 +116,13 @@ export const deleteReviewsInProjectVersion = projectVersionId => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteReviewsInProjectVersionRequest());
 
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
 
     projectVersionReviewsRef
+      .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.PARENT_ID}`, "==", projectVersionId)
       .get()
       .then(result => {

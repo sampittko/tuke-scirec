@@ -83,10 +83,13 @@ export const deleteVersionsInProject = projectId => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteVersionsInProjectRequest());
 
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     await projectVersionsRef
+      .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_ID}`, "==", projectId)
       .get()
       .then(result => {
@@ -128,12 +131,15 @@ export const getLatestProjectVersion = () => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(getLatestProjectVersionRequest());
 
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const state = getState();
     const activeProject = state.project.data.active;
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     projectVersionsRef
+      .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_ID}`, "==", activeProject.id)
       .orderBy(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "desc")
       .get()
@@ -221,12 +227,15 @@ export const getProjectVersions = () => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(getProjectVersionsRequest());
 
+    const firebase = getFirebase();
+    const userId = firebase.auth().currentUser.uid;
     const firestore = getFirestore();
     const state = getState();
     const activeProject = state.project.data.active;
     const projectVersionsRef = firestore.collection(firestoreCollections.projectVersions.ID);
 
     projectVersionsRef
+      .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_ID}`, "==", activeProject.id)
       .orderBy(firestoreCollections.projectVersions.fields.VERSION_NUMBER, "desc")
       .get()

@@ -81,11 +81,14 @@ export const getProjects = () => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(getProjectsRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardId = getState().dashboard.selector.activeId;
+    const userId = firebase.auth().currentUser.uid;
 
     projectsRef
+      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_ID}`, "==", dashboardId)
       .orderBy(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.MODIFIED}`, "desc")
       .get()
@@ -118,11 +121,14 @@ export const deleteProjectsInDashboard = () => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteProjectsInDashboardRequest());
 
+    const firebase = getFirebase();
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
     const dashboardId = getState().dashboard.selector.activeId;
+    const userId = firebase.auth().currentUser.uid;
 
     await projectsRef
+      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_ID}`, "==", dashboardId)
       .get()
       .then(result => {

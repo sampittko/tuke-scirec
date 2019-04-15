@@ -28,7 +28,7 @@ class Home extends React.Component {
             {!this.props.isDashboardLoading && (
               <Fade in timeout={timeouts.FADE_IN}>
                 <Card className="home">
-                  <CardActionArea>
+                  <CardActionArea disableRipple>
                     <CardMedia
                       className="media"
                       image={logo}
