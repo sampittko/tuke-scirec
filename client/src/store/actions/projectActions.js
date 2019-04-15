@@ -25,7 +25,6 @@ export const addProject = title => {
     const firebase = getFirebase();
     const userId = firebase.auth().currentUser.uid;
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const dashboardId = getState().dashboard.selector.activeId;
 
     projectsRef
@@ -43,7 +42,7 @@ export const addProject = title => {
           [firestoreCollections.projects.fields.meta.MODIFIED]: new Date(),
           [firestoreCollections.projects.fields.meta.VERSIONS_COUNT]: projectConfig.defaultValues.meta.VERSIONS_COUNT,
           [firestoreCollections.projects.fields.meta.DELETED_VERSIONS_COUNT]: projectConfig.defaultValues.meta.DELETED_VERSIONS_COUNT,
-          [firestoreCollections.projects.fields.meta.PARENT_REFERENCE]: dashboardsRef.doc(dashboardId),
+          [firestoreCollections.projects.fields.meta.PARENT_ID]: dashboardId,
         },
         [firestoreCollections.projects.fields.TITLE]: title,
       })
@@ -84,11 +83,10 @@ export const getProjects = () => {
 
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const dashboardId = getState().dashboard.selector.activeId;
 
     projectsRef
-      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_REFERENCE}`, "==", dashboardsRef.doc(dashboardId))
+      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_ID}`, "==", dashboardId)
       .orderBy(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.MODIFIED}`, "desc")
       .get()
       .then(result => {
@@ -122,11 +120,10 @@ export const deleteProjectsInDashboard = () => {
 
     const firestore = getFirestore();
     const projectsRef = firestore.collection(firestoreCollections.projects.ID);
-    const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const dashboardId = getState().dashboard.selector.activeId;
 
     await projectsRef
-      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_REFERENCE}`, "==", dashboardsRef.doc(dashboardId))
+      .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_ID}`, "==", dashboardId)
       .get()
       .then(result => {
         if (!result.docs.empty) {

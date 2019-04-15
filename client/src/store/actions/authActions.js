@@ -26,7 +26,8 @@ export const login = user => {
 
     const firebase = getFirebase();
 
-    firebase.auth()
+    firebase
+      .auth()
       .signInWithEmailAndPassword(
         user.email,
         user.password
@@ -53,7 +54,8 @@ export const logout = () => {
   return (dispatch, getState, {getFirebase}) => {
     dispatch(logoutRequest());
     const firebase = getFirebase();
-    firebase.auth()
+    firebase
+      .auth()
       .signOut()
       .then(() => {
         dispatch(logoutSuccess());
@@ -85,19 +87,28 @@ export const register = newUser => {
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     let newRegisteredUserId = '';
 
-    firebase.auth()
+    firebase
+      .auth()
       .createUserWithEmailAndPassword(
         newUser.email,
         newUser.password
       )
       .then(result => {
         newRegisteredUserId = result.user.uid;
+        return firebase
+          .auth()
+          .signInWithEmailAndPassword(
+            newUser.email,
+            newUser.password
+          )
+      })
+      .then(() => {
         return dashboardsRef
           .add({
             [firestoreCollections.dashboards.fields.META]: {
               [firestoreCollections.dashboards.fields.meta.AUTHOR_ID]: newRegisteredUserId,
               [firestoreCollections.dashboards.fields.meta.CREATED]: new Date(),
-              [firestoreCollections.dashboards.fields.meta.PARENT_REFERENCE]: usersRef.doc(newRegisteredUserId),
+              [firestoreCollections.dashboards.fields.meta.PARENT_ID]: newRegisteredUserId,
             },
             [firestoreCollections.dashboards.fields.THEME]: {
               [firestoreCollections.dashboards.fields.theme.ID]: dashboardConfig.defaultValues.theme.ID,
@@ -110,8 +121,13 @@ export const register = newUser => {
         return usersRef
           .doc(newRegisteredUserId)
           .set({
-            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_REFERENCE]: dashboardsRef.doc(result.id)
+            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: result.id
           })
+      })
+      .then(() => {
+        return firebase
+          .auth()
+          .signOut()
       })
       .then(() => {
         dispatch(registerSuccess());

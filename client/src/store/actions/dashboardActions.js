@@ -35,13 +35,14 @@ export const getDashboards = () => {
       .get()
       .then(result => {
         return dashboardsRef
-          .doc(result.data().default_dashboard_ref.id)
+          .doc(result.data().defaultDashboardId)
           .get()
       })
       .then(result => {
         defaultDashboard = result;
         return dashboardsRef
-          .where(`${firestoreCollections.dashboards.fields.META}.${firestoreCollections.dashboards.fields.meta.PARENT_REFERENCE}`, "==", usersRef.doc(userId))
+          .where(`${firestoreCollections.dashboards.fields.META}.${firestoreCollections.dashboards.fields.meta.AUTHOR_ID}`, "==", userId)
+          .where(`${firestoreCollections.dashboards.fields.META}.${firestoreCollections.dashboards.fields.meta.PARENT_ID}`, "==", userId)
           .orderBy(`${firestoreCollections.dashboards.fields.META}.${firestoreCollections.dashboards.fields.meta.CREATED}`, "desc")
           .get()
       })
@@ -95,7 +96,7 @@ export const createDashboard = newDashboard => {
         [firestoreCollections.dashboards.fields.META]: {
           [firestoreCollections.dashboards.fields.meta.AUTHOR_ID]: userId,
           [firestoreCollections.dashboards.fields.meta.CREATED]: new Date(),
-          [firestoreCollections.dashboards.fields.meta.PARENT_REFERENCE]: usersRef.doc(userId),
+          [firestoreCollections.dashboards.fields.meta.PARENT_ID]: userId,
         },
         [firestoreCollections.dashboards.fields.THEME]: newDashboard.theme,
         [firestoreCollections.dashboards.fields.TITLE]: newDashboard.title,
@@ -111,7 +112,7 @@ export const createDashboard = newDashboard => {
           return usersRef
             .doc(userId)
             .update({
-              [firestoreCollections.users.fields.DEFAULT_DASHBOARD_REFERENCE]: dashboardsRef.doc(result.id)
+              [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: result.id
             })
         } else {
           return Promise.resolve();
@@ -166,7 +167,7 @@ export const updateDashboard = (newDefaultDashboardId, data) => {
       await usersRef
         .doc(userId)
         .update({
-          [firestoreCollections.users.fields.DEFAULT_DASHBOARD_REFERENCE]: dashboardsRef.doc(newDefaultDashboardId === "" ? dashboardId : newDefaultDashboardId)
+          [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: newDefaultDashboardId === "" ? dashboardId : newDefaultDashboardId
         })
         .catch(error => {
           console.log(error);
@@ -231,7 +232,7 @@ export const deleteDashboard = newDefaultDashboardId => {
         await usersRef
           .doc(userId)
           .update({
-            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_REFERENCE]: dashboardsRef.doc(newDefaultDashboardId)
+            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: newDefaultDashboardId
           })
       } catch (error) {
         console.error(error);

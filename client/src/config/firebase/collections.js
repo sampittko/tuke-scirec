@@ -2,7 +2,7 @@ const firestoreCollections = {
   users: {
     ID: 'users',
     fields: {
-      DEFAULT_DASHBOARD_REFERENCE: 'default_dashboard_ref',
+      DEFAULT_DASHBOARD_ID: 'defaultDashboardId',
     }
   },
   dashboards: {
@@ -12,7 +12,7 @@ const firestoreCollections = {
       meta: {
         AUTHOR_ID: 'authorId',
         CREATED: 'created',
-        PARENT_REFERENCE: 'parent_ref',
+        PARENT_ID: 'parentId',
       },
       THEME: 'theme',
       theme: {
@@ -32,7 +32,7 @@ const firestoreCollections = {
         MODIFIED: 'modified',
         VERSIONS_COUNT: 'versionsCount',
         DELETED_VERSIONS_COUNT: 'deletedVersionsCount',
-        PARENT_REFERENCE: 'parent_ref',
+        PARENT_ID: 'parentId',
       },
       OVERVIEW: 'overview',
       overview: {
@@ -53,7 +53,7 @@ const firestoreCollections = {
         CREATED: 'created',
         MODIFIED: 'modified',
         AUTHOR_ID: 'authorId',
-        PARENT_REFERENCE: 'parent_ref',
+        PARENT_ID: 'parentId',
       },
       DETAIL: 'detail',
       detail: {
@@ -71,7 +71,7 @@ const firestoreCollections = {
         AUTHOR_ID: 'authorId',
         CREATED: 'created',
         MODIFIED: 'modified',
-        PARENT_REFERENCE: 'parent_ref',
+        PARENT_ID: 'parentId',
       },
       NOTES: 'notes',
     }
@@ -85,7 +85,7 @@ const firestoreCollections = {
         SIZE: 'size',
         UPLOADED: 'uploaded',
         PATH: 'path',
-        PARENT_REFERENCE: 'parent_ref',
+        PARENT_ID: 'parentId',
       },
       NAME: 'name',
     },
