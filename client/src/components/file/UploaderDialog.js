@@ -14,7 +14,7 @@ import {fileConfig} from "../../config/app";
 import ListItem from "@material-ui/core/ListItem/index";
 import ListItemText from "@material-ui/core/ListItemText/index";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction/index";
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from 'mdi-material-ui/Close';
 import propTypes from 'prop-types';
 import './UploaderDialog.scss';
 import Dialog from "@material-ui/core/Dialog";

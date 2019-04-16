@@ -3,7 +3,7 @@ import './index.scss';
 import {IconButton, List, SwipeableDrawer} from '@material-ui/core';
 
 import Links from './Links';
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from 'mdi-material-ui/Menu';
 import React from 'react';
 import UserLinks from './UserLinks';
 import propTypes from 'prop-types';

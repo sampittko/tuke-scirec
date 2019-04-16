@@ -1,6 +1,6 @@
 import './index.scss';
 
-import AddIcon from '@material-ui/icons/Add';
+import PlusIcon from 'mdi-material-ui/Plus';
 import Fab from '../common/Fab';
 import {Fade} from '@material-ui/core';
 import NewProjectDialog from './NewProjectDialog';
@@ -56,7 +56,7 @@ class Dashboard extends React.Component {
               {!this.props.isDashboardLoading && (
                 <Fab
                   onClick={this.handleOpen}
-                  icon={<AddIcon/>}
+                  icon={<PlusIcon/>}
                   tooltipTitle="Vytvorenie nového projektu"
                 />
               )}

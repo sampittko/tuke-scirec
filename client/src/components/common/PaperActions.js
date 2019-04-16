@@ -1,10 +1,10 @@
 import React from 'react';
 import {IconButton, Tooltip} from "@material-ui/core";
 import propTypes from 'prop-types';
-import EditIcon from '@material-ui/icons/Edit';
-import SaveIcon from '@material-ui/icons/Save';
-import CloseIcon from '@material-ui/icons/Close';
-import DeleteIcon from '@material-ui/icons/Delete';
+import PencilIcon from 'mdi-material-ui/Pencil';
+import ContentSaveIcon from 'mdi-material-ui/ContentSave';
+import CloseIcon from 'mdi-material-ui/Close';
+import DeleteIcon from 'mdi-material-ui/Delete';
 import './PaperActions.scss';
 
 const PaperActions = props =>
@@ -50,7 +50,7 @@ const PaperActions = props =>
                 onClick={(event) => props.onClick(event, 'save')}
                 disabled={!props.settingsChanged() || props.updating}
               >
-                <SaveIcon fontSize="small"/>
+                <ContentSaveIcon fontSize="small"/>
               </IconButton>
             </div>
           </Tooltip>
@@ -64,7 +64,7 @@ const PaperActions = props =>
           disableFocusListener
         >
           <IconButton onClick={(event) => props.onClick(event, 'edit')}>
-            <EditIcon fontSize="small"/>
+            <PencilIcon fontSize="small"/>
           </IconButton>
         </Tooltip>
       </div>

@@ -11,7 +11,7 @@ import {timeouts} from "../../../config/mui";
 import Counter from './Counter';
 import './index.scss';
 import NoData from "./NoData";
-import AddIcon from "@material-ui/icons/Add";
+import PlusIcon from "mdi-material-ui/Plus";
 import NewVersionConfirmDialog from "../NewConfirmDialog";
 import Fab from '../../common/Fab';
 import propTypes from 'prop-types';
@@ -92,7 +92,7 @@ class ListComponent extends React.Component {
           <div>
             <Fab
               onClick={this.handleDialogClick}
-              icon={<AddIcon/>}
+              icon={<PlusIcon/>}
               tooltipTitle="Pridanie novej verzie projektu"
             />
             <NewVersionConfirmDialog

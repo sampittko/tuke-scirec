@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import Overview from "./overview";
 import LatestVersion from "./latestVersion";
 import Fab from "../common/Fab";
-import AddIcon from '@material-ui/icons/Add';
+import PlusIcon from 'mdi-material-ui/Plus';
 import NewVersionConfirmDialog from "../projectVersion/NewConfirmDialog";
 import Notification from "../common/Notification";
 
@@ -71,7 +71,7 @@ class Project extends React.Component {
               {!this.props.isProjectVersionLoading && (
                 <Fab
                   onClick={this.handleClick}
-                  icon={<AddIcon/>}
+                  icon={<PlusIcon/>}
                   tooltipTitle="Pridanie novej verzie projektu"
                 />
               )}

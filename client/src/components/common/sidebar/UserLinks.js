@@ -1,13 +1,13 @@
 import {getDashboardRoute, getDashboardSettingsRoute} from '../../../utils/dashboardUtils';
 
-import DashboardIcon from '@material-ui/icons/Dashboard';
+import ViewDashboardIcon from 'mdi-material-ui/ViewDashboard';
 import {Divider} from '@material-ui/core';
-import InfoIcon from '@material-ui/icons/Info';
+import InformationIcon from 'mdi-material-ui/Information';
 import Link from './Link';
 import React from 'react';
-import SettingsIcon from '@material-ui/icons/Settings';
-import CollectionsBookmarkIcon from '@material-ui/icons/CollectionsBookmark';
-import ViewListIcon from '@material-ui/icons/ViewList';
+import SettingsIcon from 'mdi-material-ui/Settings';
+import LibraryBooksIcon from 'mdi-material-ui/LibraryBooks';
+import ViewListIcon from 'mdi-material-ui/ViewList';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
@@ -20,7 +20,7 @@ const UserLinks = props =>
       location={props.location}
       route={getDashboardRoute(getRouteFromString(props.activeDashboardTitle))}
       text={props.activeDashboardTitle}
-      icon={<DashboardIcon/>}
+      icon={<ViewDashboardIcon/>}
     >
       {props.activeProject && (
         <div>
@@ -28,7 +28,7 @@ const UserLinks = props =>
             location={props.location}
             route={getProjectRoute(getRouteFromString(props.activeDashboardTitle), getRouteFromString(props.activeProject.data().title))}
             text={props.activeProject.data().title}
-            icon={<CollectionsBookmarkIcon/>}
+            icon={<LibraryBooksIcon/>}
           />
           <Link
             location={props.location}
@@ -56,7 +56,7 @@ const UserLinks = props =>
       location={props.location}
       route={routes.ABOUT}
       text="O aplikácii"
-      icon={<InfoIcon/>}
+      icon={<InformationIcon/>}
     />
   </div>;
 

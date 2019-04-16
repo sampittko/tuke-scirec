@@ -2,10 +2,10 @@ import './index.scss';
 
 import {Fade, IconButton, Tooltip, Typography} from '@material-ui/core';
 
-import DeleteIcon from '@material-ui/icons/Delete';
+import DeleteIcon from 'mdi-material-ui/Delete';
 import ExpansionPanel from '../../common/ExpansionPanel';
 import React from 'react';
-import SaveIcon from '@material-ui/icons/Save';
+import ContentSaveIcon from 'mdi-material-ui/ContentSave';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import {timeouts} from '../../../config/mui';
@@ -127,7 +127,7 @@ class Settings extends React.Component {
                 color="secondary"
                 size="small"
               >
-                <SaveIcon fontSize="small"/>
+                <ContentSaveIcon fontSize="small"/>
               </IconButton>
             </div>
           </Tooltip>

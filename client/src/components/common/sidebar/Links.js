@@ -1,9 +1,9 @@
 import {Divider} from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import InfoIcon from '@material-ui/icons/Info';
+import HomeIcon from 'mdi-material-ui/Home';
+import InformationIcon from 'mdi-material-ui/Information';
 import Link from './Link';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import PersonIcon from '@material-ui/icons/Person';
+import AccountPlusIcon from 'mdi-material-ui/AccountPlus';
+import AccountIcon from 'mdi-material-ui/Account';
 import React from 'react';
 import propTypes from 'prop-types';
 import routes from '../../../config/app/routes';
@@ -20,20 +20,20 @@ const Links = props =>
       location={props.location}
       route={routes.LOGIN}
       text="Prihlásenie"
-      icon={<PersonIcon/>}
+      icon={<AccountIcon/>}
     />
     <Link
       location={props.location}
       route={routes.REGISTER}
       text="Registrácia"
-      icon={<PersonAddIcon/>}
+      icon={<AccountPlusIcon/>}
     />
     <Divider/>
     <Link
       location={props.location}
       route={routes.ABOUT}
       text="O aplikácii"
-      icon={<InfoIcon/>}
+      icon={<InformationIcon/>}
     />
   </div>;
 

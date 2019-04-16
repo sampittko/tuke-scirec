@@ -7,7 +7,7 @@ import {
   ExpansionPanelSummary,
   Typography
 } from '@material-ui/core';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronDown from 'mdi-material-ui/ChevronDown';
 import React from 'react';
 import propTypes from 'prop-types';
 
@@ -18,7 +18,7 @@ const ExpansionPanelComponent = props =>
     className={`expansion-panel ${props.updating && props.expanded ? "updating" : ""}`}
   >
     <ExpansionPanelSummary
-      expandIcon={<ExpandMoreIcon/>}
+      expandIcon={<ChevronDown/>}
       IconButtonProps={{disableRipple: true}}
       className="summary"
     >

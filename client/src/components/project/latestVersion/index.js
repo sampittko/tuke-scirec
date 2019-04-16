@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 import {getLatestProjectVersion} from "../../../store/actions/projectVersionActions";
 import {getProjectsListRoute} from "../../../utils/projectUtils";
 import IconButton from "@material-ui/core/IconButton";
-import ListIcon from '@material-ui/icons/List';
+import FormatListBulletedIcon from 'mdi-material-ui/FormatListBulleted';
 import {getRouteFromString} from "../../../utils/appConfigUtils";
 
 class LatestVersion extends React.Component {
@@ -38,7 +38,7 @@ class LatestVersion extends React.Component {
                     onClick={this.handleClick}
                     className="project-versions-list-icon"
                   >
-                    <ListIcon/>
+                    <FormatListBulletedIcon fontSize="small"/>
                   </IconButton>
                 </Tooltip>
               </Typography>

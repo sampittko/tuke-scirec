@@ -1,12 +1,10 @@
 import './index.scss';
-
 import {Divider, IconButton, Menu} from '@material-ui/core';
-
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import AccountIcon from 'mdi-material-ui/Account';
 import MenuItem from './MenuItem';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
+import DotsVerticalIcon from 'mdi-material-ui/DotsVertical';
 import React from 'react';
-import RemoveCircleIcon from '@material-ui/icons/RemoveCircle';
+import AccountArrowLeft from 'mdi-material-ui/AccountArrowLeft';
 import {connect} from 'react-redux';
 import {logout} from '../../../store/actions/authActions';
 import propTypes from 'prop-types';
@@ -35,7 +33,7 @@ class UserLinks extends React.Component {
     return (
       <div>
         <IconButton onClick={this.handleClick}>
-          <MoreVertIcon/>
+          <DotsVerticalIcon/>
         </IconButton>
         <Menu
           anchorEl={this.state.anchorEl}
@@ -43,12 +41,12 @@ class UserLinks extends React.Component {
           onClose={this.handleClose}>
           <MenuItem
             disabled
-            icon={<AccountCircleIcon/>}
+            icon={<AccountIcon/>}
             text={this.props.userEmail ? this.props.userEmail : "Odhlasujem.."}
           />
           <Divider/>
           <MenuItem
-            icon={<RemoveCircleIcon/>}
+            icon={<AccountArrowLeft/>}
             text="Odhlásiť"
             onClick={this.props.logout}
           />
