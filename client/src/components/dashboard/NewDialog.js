@@ -6,11 +6,11 @@ import DialogTransition from '../common/DialogTransition';
 import React from 'react';
 import Switch from '../common/Switch';
 import ThemePicker from '../themePicker';
-import TitleInput from '../common/TitleInput';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../config/app';
 import propTypes from 'prop-types';
 import {resetThemePicker} from '../../store/actions/themePickerActions';
+import StringInput from "../common/StringInput";
 
 class NewDialog extends React.Component {
   constructor(props) {
@@ -60,12 +60,12 @@ class NewDialog extends React.Component {
             <DialogContentText>
               Pre vytvorenie novej nástenky zadajte nižšie jej názov pričom jeho dĺžka musí byť od {dashboardConfig.MIN_LENGTH} do {dashboardConfig.MAX_LENGTH} znakov. Maximálny počet násteniek je {dashboardConfig.MAX_COUNT}.
             </DialogContentText>
-            <TitleInput
+            <StringInput
               required
-              title={this.props.title}
               onChange={this.props.handleTitleChange}
               label="Názov nástenky"
-              maxTitleLength={dashboardConfig.MAX_LENGTH}
+              maxLength={dashboardConfig.MAX_LENGTH}
+              value={this.props.title}
             />
             <Switch
               checked={this.state.default}

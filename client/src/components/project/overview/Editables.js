@@ -5,6 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {projectConfig} from "../../../config/app";
 import {getReadableProjectState} from "../../../utils/projectUtils";
 import {Checkbox, FormControl, Input, InputAdornment, InputLabel, Tooltip} from "@material-ui/core";
+import StringInput from "../../common/StringInput";
 
 const projectStates = [
   {value: projectConfig.states.values.NOT_SET},
@@ -19,7 +20,6 @@ const Editables = props =>
       label="Stav projektu"
       name="state"
       onChange={props.onChange}
-      InputProps={{readOnly: false}}
       value={props.state}
       fullWidth
     >
@@ -29,7 +29,7 @@ const Editables = props =>
         </MenuItem>
       ))}
     </TextField>
-    <FormControl style={{width: '100%'}}>
+    <FormControl className="full-width">
       <InputLabel shrink>
         Termín odovzdania
       </InputLabel>
@@ -61,20 +61,18 @@ const Editables = props =>
       label="Adresát"
       name="recipient"
       onChange={props.onChange}
-      InputProps={{readOnly: false}}
       value={props.recipient}
       fullWidth
     />
-    <TextField
+    <StringInput
       label="Popis"
-      name="description"
       onChange={props.onChange}
-      InputProps={{readOnly: false}}
+      maxLength={projectConfig.MAX_DESCRIPTION_LENGTH}
       value={props.description}
-      rows={7}
-      rowsMax={7}
+      name="description"
       multiline
-      fullWidth
+      rowsMax={7}
+      rows={7}
     />
   </div>;
 

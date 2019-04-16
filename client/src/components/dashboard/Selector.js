@@ -33,11 +33,9 @@ class Selector extends React.Component {
   };
 
   handleTitleChange = event => {
-    if (this.state.title.length !== dashboardConfig.MAX_LENGTH || event.target.value.length < dashboardConfig.MAX_LENGTH) {
-      this.setState({
-        title: event.target.value
-      });
-    }
+    this.setState({
+      title: event.target.value
+    });
   };
 
   handleSelectChange = event => {

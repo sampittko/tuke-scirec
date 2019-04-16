@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from "@material-ui/core/MenuItem";
 import {projectVersionConfig} from "../../../config/app";
 import {getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
+import StringInput from "../../common/StringInput";
 
 const projectVersionStates = [
   {value: projectVersionConfig.states.values.NOT_SET},
@@ -20,7 +21,6 @@ const Editables = props =>
       label="Stav verzie"
       name="state"
       onChange={props.onChange}
-      InputProps={{readOnly: false}}
       value={props.state}
       fullWidth
     >
@@ -30,18 +30,16 @@ const Editables = props =>
         </MenuItem>
       ))}
     </TextField>
-    <TextField
+    <StringInput
       label="Poznámky"
       name="notes"
       onChange={props.onChange}
-      InputProps={{readOnly: false}}
+      maxLength={projectVersionConfig.MAX_NOTES_LENGTH}
       value={props.notes}
       rows={4}
       rowsMax={4}
       multiline
-      fullWidth
     />
-
   </div>;
 
 Editables.propTypes = {

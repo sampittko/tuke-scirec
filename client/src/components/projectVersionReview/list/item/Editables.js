@@ -1,19 +1,19 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
+import StringInput from "../../../common/StringInput";
+import {projectVersionReviewConfig} from "../../../../config/app";
 
 const Editables = props =>
   <div style={{opacity: 0.7}}>
-    <TextField
+    <StringInput
       label="Poznámky"
       name="notes"
       onChange={props.onChange}
-      InputProps={{readOnly: false}}
       value={props.notes}
       rows={4}
       rowsMax={4}
       multiline
-      fullWidth
+      maxLength={projectVersionReviewConfig.MAX_NOTES_LENGTH}
     />
   </div>;
 

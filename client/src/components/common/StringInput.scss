@@ -1,0 +1,14 @@
+@import '../../variables';
+
+.string-input {
+  &.multiline {
+    width: 100%;
+  }
+
+  .adornment.multiline {
+    position: absolute;
+    top: -5px;
+    right: $spacing-unit;
+    font-size: 0.7rem;
+  }
+}

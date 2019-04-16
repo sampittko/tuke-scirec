@@ -13,7 +13,7 @@ import Notification from "../../common/Notification";
 import {getProjectSettingsDocumentTitle, getProjectSettingsRoute} from "../../../utils/projectUtils";
 import {projectConfig} from "../../../config/app";
 import RemoveProjectConfirmDialog from "./DeleteConfirmDialog";
-import TitleInput from '../../common/TitleInput';
+import StringInput from '../../common/StringInput';
 import {updateProjectTitle} from "../../../store/actions/projectActions";
 import {getRouteFromString} from "../../../utils/appConfigUtils";
 
@@ -73,11 +73,9 @@ class Settings extends React.Component {
   };
 
   handleFormChange = event => {
-    if (this.state.title.length !== projectConfig.MAX_LENGTH || event.target.value.length < projectConfig.MAX_LENGTH) {
-      this.setState({
-        title: event.target.value
-      });
-    }
+    this.setState({
+      title: event.target.value
+    });
   };
 
   handleClose = () => {
@@ -155,12 +153,12 @@ class Settings extends React.Component {
                   title="Všeobecné"
                   panelContent={
                     <div>
-                      <TitleInput
+                      <StringInput
                         required
                         name="title"
-                        title={this.state.title}
+                        value={this.state.title}
                         onChange={this.handleFormChange}
-                        maxTitleLength={projectConfig.MAX_LENGTH}
+                        maxLength={projectConfig.MAX_LENGTH}
                         label="Názov projektu"
                       />
                       <Typography className="title-description">

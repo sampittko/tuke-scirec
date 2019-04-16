@@ -8,7 +8,6 @@ import RemoveDashboardConfirmDialog from './DeleteConfirmDialog';
 import SaveIcon from '@material-ui/icons/Save';
 import Switch from '../../common/Switch';
 import ThemePicker from '../../themePicker';
-import TitleInput from '../../common/TitleInput';
 import {connect} from 'react-redux';
 import {dashboardConfig} from '../../../config/app';
 import {getDashboardSettingsDocumentTitle, getDashboardSettingsRoute} from '../../../utils/dashboardUtils';
@@ -18,6 +17,7 @@ import {updateDashboard} from '../../../store/actions/dashboardActions';
 import {resetThemePicker, toggleDashboardSettingsMode} from "../../../store/actions/themePickerActions";
 import Notification from "../../common/Notification";
 import {getRouteFromString} from "../../../utils/appConfigUtils";
+import StringInput from "../../common/StringInput";
 
 class Settings extends React.Component {
   _isMounted = false;
@@ -89,11 +89,9 @@ class Settings extends React.Component {
 
   handleFormChange = event => {
     if (event.target.type !== "checkbox") {
-      if (this.state.title.length !== dashboardConfig.MAX_LENGTH || event.target.value.length < dashboardConfig.MAX_LENGTH) {
-        this.setState({
-          title: event.target.value
-        });
-      }
+      this.setState({
+        title: event.target.value
+      });
     } else {
       this.setState({
         default: !this.state.default
@@ -190,13 +188,13 @@ class Settings extends React.Component {
                   title="Všeobecné"
                   panelContent={
                     <div>
-                      <TitleInput
+                      <StringInput
                         required
                         name="title"
-                        title={this.state.title}
                         onChange={this.handleFormChange}
-                        maxTitleLength={dashboardConfig.MAX_LENGTH}
                         label="Názov nástenky"
+                        maxLength={dashboardConfig.MAX_LENGTH}
+                        value={this.state.title}
                       />
                       <Typography className="title-description">
                         Dĺžka názvu nástenky musí mať

@@ -3,12 +3,12 @@ import {dashboardConfig, projectConfig} from '../../config/app';
 
 import DialogTransition from '../common/DialogTransition';
 import React from 'react';
-import TitleInput from '../common/TitleInput';
 import {addProject} from '../../store/actions/projectActions';
 import {connect} from 'react-redux';
 import propTypes from 'prop-types';
 import {getNewProjectDialogDocumentTitle} from "../../utils/projectUtils";
 import {getDashboardDocumentTitle} from "../../utils/dashboardUtils";
+import StringInput from "../common/StringInput";
 
 class NewProjectDialog extends React.Component {
   constructor(props) {
@@ -19,11 +19,9 @@ class NewProjectDialog extends React.Component {
   }
 
   handleChange = event => {
-    if (this.state.title.length !== projectConfig.MAX_LENGTH || event.target.value.length < projectConfig.MAX_LENGTH) {
-      this.setState({
-        title: event.target.value
-      });
-    }
+    this.setState({
+      title: event.target.value
+    });
   };
 
   handleClick = () => {
@@ -52,12 +50,12 @@ class NewProjectDialog extends React.Component {
               Pre vytvorenie nového projektu zadajte nižšie jeho názov pričom jeho dĺžka musí byť
               od {projectConfig.MIN_LENGTH} do {projectConfig.MAX_LENGTH} znakov.
             </DialogContentText>
-            <TitleInput
+            <StringInput
               required
               onChange={this.handleChange}
-              maxTitleLength={projectConfig.MAX_LENGTH}
               label="Názov projektu"
-              title={this.state.title}
+              value={this.state.title}
+              maxLength={projectConfig.MAX_LENGTH}
             />
           </DialogContent>
           <DialogActions>
