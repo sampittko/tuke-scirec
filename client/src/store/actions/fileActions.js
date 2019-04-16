@@ -28,7 +28,7 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
 
     asyncForEach(files, async (file) => {
       if (convertBtoMB(file.size) <= fileConfig.MAX_SINGLE_FILE_SIZE_MB) {
-        await dispatch(uploadFile(storagePath + file.name, file, ownerEntity, dbOwnerEntity, filesIndex));
+        await dispatch(uploadFile(storagePath + file.name, file, ownerEntity, filesIndex));
       }
     })
       .then(() => {
@@ -60,7 +60,7 @@ const uploadFileRequest = data => ({
   filesIndex: data.filesIndex,
 });
 
-export const uploadFile = (path, file, ownerEntity, dbOwnerEntity, filesIndex) => {
+export const uploadFile = (path, file, ownerEntity, filesIndex) => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(uploadFileRequest({
       fileName: file.name,
@@ -90,10 +90,7 @@ export const uploadFile = (path, file, ownerEntity, dbOwnerEntity, filesIndex) =
               [firestoreCollections.files.fields.meta.PATH]: storageFileRef.fullPath,
               [firestoreCollections.files.fields.meta.SIZE]: result.bytesTransferred,
               [firestoreCollections.files.fields.meta.UPLOADED]: new Date(),
-              [firestoreCollections.files.fields.meta.PARENT]: {
-                [firestoreCollections.files.fields.meta.parent.ID]: ownerEntity.id,
-                [firestoreCollections.files.fields.meta.parent.COLLECTION]: dbOwnerEntity,
-              },
+              [firestoreCollections.files.fields.meta.PARENT_ID]: ownerEntity.id,
             },
             [firestoreCollections.files.fields.NAME]: result.ref.name,
           });
@@ -215,7 +212,7 @@ export const getFiles = (ownerEntity, filesIndex) => {
 
     await filesRef
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
-      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT}.${firestoreCollections.files.fields.meta.parent.ID}`, "==", ownerEntity.id)
+      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
       .orderBy(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.UPLOADED}`, "asc")
       .get()
       .then(result => {
@@ -309,7 +306,7 @@ export const deleteFilesInEntity = ownerEntity => {
 
     await filesRef
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
-      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT}.${firestoreCollections.files.fields.meta.parent.ID}`, "==", ownerEntity.id)
+      .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
       .get()
       .then(result => {
         if (!result.docs.empty) {

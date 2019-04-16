@@ -86,11 +86,7 @@ const firestoreCollections = {
         SIZE: 'size',
         UPLOADED: 'uploaded',
         PATH: 'path',
-        PARENT: 'parent',
-        parent: {
-          ID: 'id',
-          COLLECTION: 'collection',
-        },
+        PARENT_ID: 'parentId',
       },
       NAME: 'name',
     },
