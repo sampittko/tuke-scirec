@@ -8,6 +8,7 @@ import {
 } from "./projectActions";
 import {deleteReviewsInProjectVersion} from "./projectVersionReviewActions";
 import {deleteFilesInEntity} from "./fileActions";
+import {asyncForEach} from "../../utils/appConfigUtils";
 
 const addProjectVersionFailure = error => ({
   type: actionTypes.projectVersion.ADD_PROJECT_VERSION_FAILURE,
@@ -92,15 +93,15 @@ export const deleteVersionsInProject = projectId => {
       .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersions.fields.META}.${firestoreCollections.projectVersions.fields.meta.PARENT_ID}`, "==", projectId)
       .get()
-      .then(result => {
+      .then(async (result) => {
         if (!result.docs.empty) {
           let batch = firestore.batch();
-          result.forEach(doc => {
-            dispatch(deleteReviewsInProjectVersion(doc.id));
-            batch.delete(doc.ref);
-            dispatch(deleteFilesInEntity(doc));
+          await asyncForEach(result.docs, async (projectVersion) => {
+            await dispatch(deleteReviewsInProjectVersion(projectVersion.id));
+            await dispatch(deleteFilesInEntity(projectVersion));
+            batch.delete(projectVersion.ref);
           });
-          batch.commit();
+          return batch.commit();
         }
       })
       .then(() => {

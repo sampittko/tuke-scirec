@@ -3,6 +3,7 @@ import firestoreCollections from "../../config/firebase/collections";
 import {projectVersionReviewConfig} from "../../config/app";
 import {deleteFilesInEntity, removeFilesAtIndex} from "./fileActions";
 import {updateProjectModified} from "./projectActions";
+import {asyncForEach} from "../../utils/appConfigUtils";
 
 const addProjectVersionReviewFailure = error => ({
   type: actionTypes.projectVersionReview.ADD_PROJECT_VERSION_REVIEW_FAILURE,
@@ -113,7 +114,7 @@ const deleteReviewsInProjectVersionRequest = () => ({
 });
 
 export const deleteReviewsInProjectVersion = projectVersionId => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteReviewsInProjectVersionRequest());
 
     const firebase = getFirebase();
@@ -121,18 +122,18 @@ export const deleteReviewsInProjectVersion = projectVersionId => {
     const firestore = getFirestore();
     const projectVersionReviewsRef = firestore.collection(firestoreCollections.projectVersionReviews.ID);
 
-    projectVersionReviewsRef
+    await projectVersionReviewsRef
       .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projectVersionReviews.fields.META}.${firestoreCollections.projectVersionReviews.fields.meta.PARENT_ID}`, "==", projectVersionId)
       .get()
-      .then(result => {
+      .then(async (result) => {
         if (!result.docs.empty) {
           let batch = firestore.batch();
-          result.forEach(doc => {
-            batch.delete(doc.ref);
-            dispatch(deleteFilesInEntity(doc));
+          await asyncForEach(result.docs, async (projectVersionReview) => {
+            await dispatch(deleteFilesInEntity(projectVersionReview));
+            batch.delete(projectVersionReview.ref);
           });
-          batch.commit();
+          return batch.commit();
         }
       })
       .then(() => {

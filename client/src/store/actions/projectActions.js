@@ -2,6 +2,7 @@ import actionTypes from '../actionTypes';
 import firestoreCollections from '../../config/firebase/collections';
 import {projectConfig} from "../../config/app";
 import {deleteVersionsInProject} from "./projectVersionActions";
+import {asyncForEach} from "../../utils/appConfigUtils";
 
 const addProjectFailure = error => ({
   type: actionTypes.project.ADD_PROJECT_FAILURE,
@@ -131,17 +132,14 @@ export const deleteProjectsInDashboard = () => {
       .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.projects.fields.META}.${firestoreCollections.projects.fields.meta.PARENT_ID}`, "==", dashboardId)
       .get()
-      .then(result => {
+      .then(async (result) => {
         if (!result.docs.empty) {
           let batch = firestore.batch();
-          result.forEach(doc => {
-            batch.delete(doc.ref);
+          await asyncForEach(result.docs, async (project) => {
+            await dispatch(deleteVersionsInProject(project.id));
+            batch.delete(project.ref);
           });
-          batch.commit();
-
-          result.forEach(doc => {
-            dispatch(deleteVersionsInProject(doc.id));
-          });
+          return batch.commit();
         }
       })
       .then(() => {

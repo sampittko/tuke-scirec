@@ -10,12 +10,6 @@ export const countFilesSize = files => {
   return convertBtoMB(bytes);
 };
 
-export const asyncForEach = async (array, callbackFn) => {
-  for (let i = 0; i < array.length; i++) {
-    await callbackFn(array[i]);
-  }
-};
-
 export const saveFile = (function () {
   let a = document.createElement("a");
   document.body.appendChild(a);

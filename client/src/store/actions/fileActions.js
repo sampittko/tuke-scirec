@@ -1,8 +1,9 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
-import {asyncForEach, convertBtoMB, saveFile} from "../../utils/fileUtils";
+import {convertBtoMB, saveFile} from "../../utils/fileUtils";
 import {updateProjectModified} from "./projectActions";
 import {fileConfig} from "../../config/app";
+import {asyncForEach} from "../../utils/appConfigUtils";
 
 const uploadFilesFailure = error => ({
   type: actionTypes.file.UPLOAD_FILES_FAILURE,
@@ -308,14 +309,16 @@ export const deleteFilesInEntity = ownerEntity => {
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.AUTHOR_ID}`, "==", userId)
       .where(`${firestoreCollections.files.fields.META}.${firestoreCollections.files.fields.meta.PARENT_ID}`, "==", ownerEntity.id)
       .get()
-      .then(result => {
+      .then(async (result) => {
         if (!result.docs.empty) {
           let batch = firestore.batch();
-          result.forEach(doc => {
+          await asyncForEach(result.docs, async (doc) => {
+            await storageRef
+              .child(doc.data().meta.path)
+              .delete();
             batch.delete(doc.ref);
-            storageRef.child(doc.data().meta.path).delete();
           });
-          batch.commit();
+          return batch.commit();
         }
       })
       .then(() => {

@@ -30,3 +30,9 @@ export const getRouteFromString = string =>
     removeAccents(string),
     { condense: true }
   );
+
+export const asyncForEach = async (array, callbackFn) => {
+  for (let i = 0; i < array.length; i++) {
+    await callbackFn(array[i]);
+  }
+};
