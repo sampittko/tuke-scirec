@@ -1,8 +1,6 @@
 import './Register.scss';
 
-import {Button, Checkbox, Fade, Paper, TextField, Typography} from '@material-ui/core';
-
-import {Link} from 'react-router-dom';
+import {Button, Fade, Paper, TextField, Typography} from '@material-ui/core';
 import React from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
@@ -10,7 +8,7 @@ import {firebaseErrorCodes} from '../../config/firebase/errorCodes';
 import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
-import {register} from '../../store/actions/authActions';
+import {registerWithPassword} from '../../store/actions/authActions';
 import routes from '../../config/app/routes';
 import {timeouts} from '../../config/mui';
 
@@ -44,7 +42,7 @@ class Register extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.register({
+    this.props.registerWithPassword({
       email: this.state.email,
       password: this.state.password
     });
@@ -105,32 +103,6 @@ class Register extends React.Component {
               value={this.state.verifiedPassword}
               required
             />
-            <div>
-              <Checkbox color="primary" required/>
-              <Typography component="div">
-                Súhlasim s&nbsp;
-                <Link
-                  target="_blank"
-                  rel="noopener"
-                  to={routes.HOME}
-                >
-                  podmienkami pre používateľa SCIREC
-                </Link>
-              </Typography>
-            </div>
-            <div>
-              <Checkbox color="primary" required/>
-              <Typography component="div">
-                Súhlasim so&nbsp;
-                <Link
-                  target="_blank"
-                  rel="noopener"
-                  to={routes.HOME}
-                >
-                  spracovaním poskytnutých údajov
-                </Link>
-              </Typography>
-            </div>
             <div className="action-buttons">
               <Button
                 type="submit"
@@ -161,7 +133,7 @@ class Register extends React.Component {
 }
 
 Register.propTypes = {
-  register: propTypes.func.isRequired,
+  registerWithPassword: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
   isAuthLoading: propTypes.bool.isRequired,
   errorCode: propTypes.string.isRequired
@@ -169,7 +141,7 @@ Register.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    register: newUser => dispatch(register(newUser))
+    registerWithPassword: newUser => dispatch(registerWithPassword(newUser))
   }
 };
 

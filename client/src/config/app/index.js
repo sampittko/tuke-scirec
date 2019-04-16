@@ -2,12 +2,18 @@ export const APP_NAME = "SCIREC";
 
 export const DOCUMENT_TITLE_BASE = APP_NAME + " -";
 
-export const usersConfig = {
-  INITIAL_DASHBOARDS_COUNT: 1,
-};
-
 const MAX_STRING_LIMIT = 50;
 const MAX_NOTES_LIMIT = 600;
+
+export const userConfig = {
+  INITIAL_DASHBOARDS_COUNT: 1,
+  authProviders: {
+    FACEBOOK: 0,
+    TWITTER: 1,
+    GITHUB: 2,
+    GOOGLE: 3,
+  }
+};
 
 export const dashboardConfig = {
   MIN_COUNT: 1,

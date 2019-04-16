@@ -42,8 +42,60 @@
       width: 105.11px !important;
     }
 
-    button + button {
+    & > button + button {
       margin-left: 10px;
+    }
+  }
+
+  .socials-login-buttons {
+    display: grid;
+
+    button {
+      margin-top: 2 * $spacing-unit;
+      padding-left: 40px;
+
+      .icon {
+        position: absolute;
+        left: 20px;
+        padding-left: 20px;
+
+        &.google {
+          padding-left: 40px;
+        }
+      }
+
+      &.facebook {
+        border: 1px solid #3b5998;
+
+        .icon {
+          color: #3b5998;
+        }
+      }
+
+      &.twitter {
+        border: 1px solid #00aced;
+
+        .icon {
+          color: #00aced;
+        }
+      }
+
+      &.github {
+        border: 1px solid #4078c0;
+
+        .icon {
+          color: #4078c0;
+        }
+      }
+
+      &.google {
+        border: 1px solid #dd4b39;
+
+        .icon {
+          padding-left: 23px;
+          color: #dd4b39;
+        }
+      }
     }
   }
 }

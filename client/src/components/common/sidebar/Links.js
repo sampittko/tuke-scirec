@@ -13,7 +13,7 @@ const Links = props =>
     <Link
       location={props.location}
       route={routes.HOME}
-      text="Domov"
+      text="Úvodná stránka"
       icon={<HomeIcon/>}
     />
     <Link

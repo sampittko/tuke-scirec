@@ -1,17 +1,20 @@
 import './Login.scss';
-
 import {Button, Fade, Paper, TextField, Typography} from '@material-ui/core';
-
+import FacebookIcon from 'mdi-material-ui/Facebook';
+import TwitterIcon from 'mdi-material-ui/Twitter';
+import GithubIcon from 'mdi-material-ui/GithubFace';
+import GoogleIcon from 'mdi-material-ui/Google';
 import Notification from '../common/Notification';
 import React from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
-import {login} from '../../store/actions/authActions';
+import {passwordLogin, providerLogin} from '../../store/actions/authActions';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
 import routes from '../../config/app/routes';
 import {timeouts} from '../../config/mui';
+import {userConfig} from "../../config/app";
 
 class Login extends React.Component {
   constructor(props) {
@@ -33,7 +36,7 @@ class Login extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.login(this.state);
+    this.props.passwordLogin(this.state);
   };
 
   handleChange = (e) => {
@@ -82,7 +85,7 @@ class Login extends React.Component {
               margin="normal"
               variant="outlined"
               autoComplete="current-password"
-              helperText={this.props.error ? "Nesprávne prihlasovacie údaje" : ""}
+              helperText={this.props.error ? "Prihlásenie nebolo úspešné" : ""}
               error={this.props.error}
               onChange={this.handleChange}
               value={this.state.password}
@@ -104,6 +107,44 @@ class Login extends React.Component {
                 Prihlásiť
               </Button>
             </div>
+            <div className="socials-login-buttons">
+              <Button
+                className="google"
+                size="small"
+                variant="outlined"
+                onClick={() => this.props.providerLogin(userConfig.authProviders.GOOGLE)}
+              >
+                <GoogleIcon className="icon" fontSize="small"/>
+                Google prihlásenie
+              </Button>
+              <Button
+                className="facebook"
+                size="small"
+                variant="outlined"
+                onClick={() => this.props.providerLogin(userConfig.authProviders.FACEBOOK)}
+              >
+                <FacebookIcon className="icon"/>
+                Facebook prihlásenie
+              </Button>
+              <Button
+                className="twitter"
+                size="small"
+                variant="outlined"
+                onClick={() => this.props.providerLogin(userConfig.authProviders.TWITTER)}
+              >
+                <TwitterIcon className="icon"/>
+                Twitter prihlásenie
+              </Button>
+              <Button
+                className="github"
+                size="small"
+                variant="outlined"
+                onClick={() => this.props.providerLogin(userConfig.authProviders.GITHUB)}
+              >
+                <GithubIcon className="icon"/>
+                GitHub prihlásenie
+              </Button>
+            </div>
           </form>
           {this.props.location.state && this.props.location.state.registered && (
             <Notification
@@ -121,7 +162,8 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
-  login: propTypes.func.isRequired,
+  passwordLogin: propTypes.func.isRequired,
+  providerLogin: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
   isAuthLoading: propTypes.bool.isRequired,
   location: propTypes.object.isRequired,
@@ -130,7 +172,8 @@ Login.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    login: user => dispatch(login(user))
+    passwordLogin: user => dispatch(passwordLogin(user)),
+    providerLogin: authProvider => dispatch(providerLogin(authProvider)),
   }
 };
 
