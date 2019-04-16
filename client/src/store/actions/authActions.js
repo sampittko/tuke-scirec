@@ -1,5 +1,5 @@
 import actionTypes from '../actionTypes';
-import {dashboardConfig} from '../../config/app';
+import {dashboardConfig, usersConfig} from '../../config/app';
 import firestoreCollections from '../../config/firebase/collections';
 import {resetDashboardState} from './dashboardActions';
 import {resetProjectState} from './projectActions';
@@ -121,7 +121,8 @@ export const register = newUser => {
         return usersRef
           .doc(newRegisteredUserId)
           .set({
-            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: result.id
+            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: result.id,
+            [firestoreCollections.users.fields.DASHBOARDS_COUNT]: usersConfig.INITIAL_DASHBOARDS_COUNT,
           })
       })
       .then(() => {

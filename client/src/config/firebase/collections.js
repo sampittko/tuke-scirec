@@ -3,6 +3,7 @@ const firestoreCollections = {
     ID: 'users',
     fields: {
       DEFAULT_DASHBOARD_ID: 'defaultDashboardId',
+      DASHBOARDS_COUNT: 'dashboardsCount',
     }
   },
   dashboards: {

@@ -86,9 +86,11 @@ export const createDashboard = newDashboard => {
 
     const firebase = getFirebase();
     const firestore = getFirestore();
+    const state = getState();
     const usersRef = firestore.collection(firestoreCollections.users.ID);
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
     const userId = firebase.auth().currentUser.uid;
+    const dashboardsCount = state.dashboard.data.list.length;
     let createdDashboard = null;
 
     dashboardsRef
@@ -108,15 +110,14 @@ export const createDashboard = newDashboard => {
       })
       .then(result => {
         createdDashboard = result;
-        if (newDashboard.default) {
-          return usersRef
-            .doc(userId)
-            .update({
-              [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: result.id
-            })
-        } else {
-          return Promise.resolve();
-        }
+        return usersRef
+          .doc(userId)
+          .update(newDashboard.default ? {
+            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: result.id,
+            [firestoreCollections.users.fields.DASHBOARDS_COUNT]: dashboardsCount + 1,
+          } : {
+            [firestoreCollections.users.fields.DASHBOARDS_COUNT]: dashboardsCount + 1,
+          })
       })
       .then(() => {
         dispatch(addCreatedDashboard({
@@ -218,6 +219,8 @@ export const deleteDashboard = newDefaultDashboardId => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
     dispatch(deleteDashboardRequest());
 
+    const state = getState();
+    const dashboardsCount = state.dashboard.data.list.length;
     const firebase = getFirebase();
     const firestore = getFirestore();
     const dashboardsRef = firestore.collection(firestoreCollections.dashboards.ID);
@@ -227,24 +230,24 @@ export const deleteDashboard = newDefaultDashboardId => {
 
     await dispatch(deleteProjectsInDashboard(dashboardId));
 
-    if (newDefaultDashboardId !== "") {
-      try {
-        await usersRef
-          .doc(userId)
-          .update({
-            [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: newDefaultDashboardId
-          })
-      } catch (error) {
-        console.error(error);
-        dispatch(deleteDashboardFailure(error));
-        return;
-      }
-    }
-
     await dashboardsRef
       .doc(dashboardId)
       .delete()
-      .then(() => {
+      .then(async () => {
+        try {
+          await usersRef
+            .doc(userId)
+            .update(newDefaultDashboardId !== "" ? {
+              [firestoreCollections.users.fields.DEFAULT_DASHBOARD_ID]: newDefaultDashboardId,
+              [firestoreCollections.users.fields.DASHBOARDS_COUNT]: dashboardsCount - 1,
+            } : {
+              [firestoreCollections.users.fields.DASHBOARDS_COUNT]: dashboardsCount - 1,
+            })
+        } catch (error) {
+          console.error(error);
+          dispatch(deleteDashboardFailure(error));
+          return;
+        }
         dispatch(deleteDashboardSuccess({
           newDefaultDashboardId,
           deletedDashboardId: dashboardId
