@@ -1,7 +1,8 @@
 import actionTypes from "../actionTypes";
 import firestoreCollections from "../../config/firebase/collections";
-import {asyncForEach, saveFile} from "../../utils/fileUtils";
+import {asyncForEach, convertBtoMB, saveFile} from "../../utils/fileUtils";
 import {updateProjectModified} from "./projectActions";
+import {fileConfig} from "../../config/app";
 
 const uploadFilesFailure = error => ({
   type: actionTypes.file.UPLOAD_FILES_FAILURE,
@@ -26,7 +27,9 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
     const storagePath = `${userId}/${dbOwnerEntity}/${ownerEntity.id}/`;
 
     asyncForEach(files, async (file) => {
-      await dispatch(uploadFile(storagePath + file.name, file, ownerEntity, dbOwnerEntity, filesIndex));
+      if (convertBtoMB(file.size) <= fileConfig.MAX_SINGLE_FILE_SIZE_MB) {
+        await dispatch(uploadFile(storagePath + file.name, file, ownerEntity, dbOwnerEntity, filesIndex));
+      }
     })
       .then(() => {
         dispatch(updateProjectModified());
@@ -39,8 +42,9 @@ export const uploadFiles = (files, ownerEntity, filesIndex) => {
   }
 };
 
-const uploadFileFailure = error => ({
+const uploadFileFailure = (data, error) => ({
   type: actionTypes.file.UPLOAD_FILE_FAILURE,
+  filesIndex: data.filesIndex,
   error
 });
 
@@ -107,7 +111,9 @@ export const uploadFile = (path, file, ownerEntity, dbOwnerEntity, filesIndex) =
       })
       .catch(error => {
         console.log(error);
-        dispatch(uploadFileFailure());
+        dispatch(uploadFileFailure({
+          filesIndex
+        }, error));
       })
   }
 };

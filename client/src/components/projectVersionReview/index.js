@@ -21,19 +21,23 @@ class ProjectVersionReview extends React.Component {
 
   render() {
     return (
-      <div className={`project-version-review ${this.props.latest ? "latest" : ""}`}>
-        <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Posudky</Typography>
-        <Paper
-          className={`paper ${this.props.projectVersionReviews && this.props.projectVersionReviews.length === 0 && !this.props.isProjectVersionReviewLoading && !this.props.isProjectVersionLoading ? "empty" : ""}`}>
-          {this.props.activeProjectVersion && !this.props.isProjectVersionReviewLoading && !this.props.isProjectVersionLoading ? (
-            <div>
-              <List/>
-              <Add/>
-            </div>
-          ) : (
-            <Loader/>
-          )}
-        </Paper>
+      <div>
+        {!this.props.isDashboardLoading && (
+          <div className={`project-version-review ${this.props.latest ? "latest" : ""}`}>
+            <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Posudky</Typography>
+            <Paper
+              className={`paper ${this.props.projectVersionReviews && this.props.projectVersionReviews.length === 0 && !this.props.isProjectVersionReviewLoading && !this.props.isProjectVersionLoading ? "empty" : ""}`}>
+              {this.props.activeProjectVersion && !this.props.isProjectVersionReviewLoading && !this.props.isProjectVersionLoading ? (
+                <div>
+                  <List/>
+                  <Add/>
+                </div>
+              ) : (
+                <Loader/>
+              )}
+            </Paper>
+          </div>
+        )}
       </div>
     );
   }
@@ -47,6 +51,7 @@ class ProjectVersionReview extends React.Component {
 
 ProjectVersionReview.propTypes = {
   latest: propTypes.bool,
+  isDashboardLoading: propTypes.bool.isRequired,
   isProjectVersionReviewLoading: propTypes.bool.isRequired,
   isProjectVersionLoading: propTypes.bool.isRequired,
   activeProjectVersion: propTypes.object,
@@ -65,6 +70,7 @@ const mapDispatchToProps = dispatch => {
 const mapStateToProps = state => {
   return {
     projectVersionReviews: state.projectVersionReview.data.list,
+    isDashboardLoading: state.dashboard.isLoading,
     isProjectVersionReviewLoading: state.projectVersionReview.isLoading,
     isProjectVersionLoading: state.projectVersion.isLoading,
     activeProjectVersion: state.projectVersion.data.active,

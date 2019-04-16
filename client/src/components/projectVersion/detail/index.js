@@ -105,53 +105,57 @@ class Detail extends React.Component {
 
   render() {
     return (
-      <div className={`project-version-detail ${this.props.latest ? "latest" : ""}`}>
-        <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
-        <Paper
-          className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''} ${this.props.isProjectVersionUpdating ? "updating" : ""}`}>
-          {(!this.props.isProjectVersionLoading && this.props.activeProjectVersion) || this.props.isProjectVersionUpdating ? (
-            <div>
-              {this.state.editMode ? (
-                <Editables
-                  state={this.state.state}
-                  notes={this.state.notes}
-                  onChange={this.handleChange}
-                />
+      <div>
+        {!this.props.isDashboardLoading && (
+          <div className={`project-version-detail ${this.props.latest ? "latest" : ""}`}>
+            <Typography variant={this.props.latest ? "body1" : "h6"} className="page-title">Detail</Typography>
+            <Paper
+              className={`paper ${this.props.isProjectVersionLoading ? 'paddingless' : ''} ${this.props.isProjectVersionUpdating ? "updating" : ""}`}>
+              {(!this.props.isProjectVersionLoading && this.props.activeProjectVersion) || this.props.isProjectVersionUpdating ? (
+                <div>
+                  {this.state.editMode ? (
+                    <Editables
+                      state={this.state.state}
+                      notes={this.state.notes}
+                      onChange={this.handleChange}
+                    />
+                  ) : (
+                    <Readables
+                      state={this.state.state}
+                      notes={this.state.notes}
+                    />
+                  )}
+                  <File
+                    latest={this.props.latest}
+                    ownerEntity={this.props.activeProjectVersion}
+                    editable={this.state.editMode}
+                    filesIndex={fileConfig.PROJECT_VERSION_FILES_INDEX}
+                  />
+                  <PaperActions
+                    updating={this.props.isProjectVersionUpdating}
+                    deleteVisible={true}
+                    editMode={this.state.editMode}
+                    settingsChanged={this.settingsChanged}
+                    onClick={(event, action) => this.handleActionClick(event, action)}
+                  />
+                </div>
               ) : (
-                <Readables
-                  state={this.state.state}
-                  notes={this.state.notes}
-                />
+                <Loader/>
               )}
-              <File
-                latest={this.props.latest}
-                ownerEntity={this.props.activeProjectVersion}
-                editable={this.state.editMode}
-                filesIndex={fileConfig.PROJECT_VERSION_FILES_INDEX}
+            </Paper>
+            {this.state.notify && (
+              <Notification
+                message="Zmeny boli úspešne uložené"
+                onClose={this.handleClose}
               />
-              <PaperActions
-                updating={this.props.isProjectVersionUpdating}
-                deleteVisible={true}
-                editMode={this.state.editMode}
-                settingsChanged={this.settingsChanged}
-                onClick={(event, action) => this.handleActionClick(event, action)}
+            )}
+            {this.props.activeProjectVersion && (
+              <DeleteConfirmDialog
+                open={this.state.open}
+                onClick={this.handleDialogClick}
               />
-            </div>
-          ) : (
-            <Loader/>
-          )}
-        </Paper>
-        {this.state.notify && (
-          <Notification
-            message="Zmeny boli úspešne uložené"
-            onClose={this.handleClose}
-          />
-        )}
-        {this.props.activeProjectVersion && (
-          <DeleteConfirmDialog
-            open={this.state.open}
-            onClick={this.handleDialogClick}
-          />
+            )}
+          </div>
         )}
       </div>
     )
@@ -183,6 +187,7 @@ class Detail extends React.Component {
 
 Detail.propTypes = {
   latest: propTypes.bool,
+  isDashboardLoading: propTypes.bool.isRequired,
   isProjectVersionLoading: propTypes.bool.isRequired,
   isProjectVersionUpdating: propTypes.bool.isRequired,
   activeProjectVersion: propTypes.object,
@@ -199,6 +204,7 @@ const mapDispatchToProps = dispatch => {
 
 const mapStateToProps = state => {
   return {
+    isDashboardLoading: state.dashboard.isLoading,
     isProjectVersionLoading: state.projectVersion.isLoading,
     isProjectVersionUpdating: state.projectVersion.isUpdating,
     activeProjectVersion: state.projectVersion.data.active,

@@ -7,6 +7,7 @@ import {
   FormControlLabel,
   IconButton,
   List,
+  Tooltip,
   Typography
 } from "@material-ui/core";
 import {fileConfig} from "../../config/app";
@@ -67,6 +68,11 @@ class UploaderDialog extends React.Component {
     this.props.onClick();
   };
 
+  fileConditionsMet = file => {
+    return file.name.length <= fileConfig.MAX_NAME_LENGTH
+      && convertBtoMB(file.size) <= fileConfig.MAX_SINGLE_FILE_SIZE_MB;
+  };
+
   render() {
     return (
       <Dialog open={this.props.open} TransitionComponent={DialogTransition}>
@@ -74,8 +80,10 @@ class UploaderDialog extends React.Component {
         <form onSubmit={this.handleSubmit} className="file-uploader-form">
           <DialogContent className="file-uploader">
             <DialogContentText>
-              Naraz je možné nahrať {fileConfig.MAX_FILES} súborov. Ak majú dva súbory rovnaký názov vrátane prípony,
-              bude predošlý nahratý súbor nahradený posledným nahratým súborom.
+              Naraz je možné nahrať {fileConfig.MAX_FILES} súborov pričom každý môže mať
+              najviac {fileConfig.MAX_SINGLE_FILE_SIZE_MB}MB. Ak majú dva súbory rovnaký názov vrátane prípony,
+              bude predošlý nahratý súbor nahradený posledným nahratým súborom. Názov súbou môže mať
+              najviac {fileConfig.MAX_NAME_LENGTH} znakov vrátane prípony.
             </DialogContentText>
             <FormControl className="add-files-area">
               <FormControlLabel
@@ -102,17 +110,26 @@ class UploaderDialog extends React.Component {
               <div>
                 <List dense className="files">
                   {this.state.files.map((file, i) => (
-                    <ListItem key={i} className="file">
-                      <ListItemText primary={file.name}/>
-                      <ListItemSecondaryAction onClick={(event) => this.handleClick(event, file)}>
-                        <IconButton disableRipple>
-                          <CloseIcon fontSize="small"/>
-                        </IconButton>
-                      </ListItemSecondaryAction>
-                    </ListItem>
+                    <Tooltip
+                      key={i}
+                      title={this.fileConditionsMet(file) ? "Súbor môže byť nahraný" : "Súbor nemôže byť nahraný kvôli nesplneným podmienkam"}
+                    >
+                      <ListItem
+                        className="file"
+                        disabled={!this.fileConditionsMet(file)}
+                      >
+                        <ListItemText primary={file.name}/>
+                        <ListItemSecondaryAction onClick={(event) => this.handleClick(event, file)}>
+                          <IconButton disableRipple>
+                            <CloseIcon fontSize="small"/>
+                          </IconButton>
+                        </ListItemSecondaryAction>
+                      </ListItem>
+                    </Tooltip>
                   ))}
                 </List>
-                <Typography variant="caption" className="files-size-sum">{this.state.filesSize}MB / 15MB</Typography>
+                <Typography variant="caption" className="files-size-sum">Celková
+                  veľkosť {this.state.files.length > 1 ? "súborov" : "súboru"}: {this.state.filesSize}MB</Typography>
               </div>
             )}
           </DialogContent>
