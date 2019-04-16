@@ -8,7 +8,7 @@ import {firebaseErrorCodes} from '../../config/firebase/errorCodes';
 import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
-import {registerWithPassword} from '../../store/actions/authActions';
+import {passwordRegister} from '../../store/actions/authActions';
 import routes from '../../config/app/routes';
 import {timeouts} from '../../config/mui';
 
@@ -42,7 +42,7 @@ class Register extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.registerWithPassword({
+    this.props.passwordRegister({
       email: this.state.email,
       password: this.state.password
     });
@@ -133,7 +133,7 @@ class Register extends React.Component {
 }
 
 Register.propTypes = {
-  registerWithPassword: propTypes.func.isRequired,
+  passwordRegister: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
   isAuthLoading: propTypes.bool.isRequired,
   errorCode: propTypes.string.isRequired
@@ -141,7 +141,7 @@ Register.propTypes = {
 
 const mapDispatchToProps = dispatch => {
   return {
-    registerWithPassword: newUser => dispatch(registerWithPassword(newUser))
+    passwordRegister: newUser => dispatch(passwordRegister(newUser)),
   }
 };
 

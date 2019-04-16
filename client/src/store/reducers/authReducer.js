@@ -76,46 +76,69 @@ const auth = (state = _initialState, action) => {
         isLoading: false
       };
 
-    case actionTypes.auth.REGISTER_WITH_PASSWORD_REQUEST:
-      console.log(actionTypes.auth.REGISTER_WITH_PASSWORD_REQUEST);
+    case actionTypes.auth.PASSWORD_REGISTER_REQUEST:
+      console.log(actionTypes.auth.PASSWORD_REGISTER_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
-    case actionTypes.auth.REGISTER_WITH_PASSWORD_FAILURE:
-      console.log(actionTypes.auth.REGISTER_WITH_PASSWORD_FAILURE);
+    case actionTypes.auth.PASSWORD_REGISTER_FAILURE:
+      console.log(actionTypes.auth.PASSWORD_REGISTER_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       };
 
-    case actionTypes.auth.REGISTER_WITH_PASSWORD_SUCCESS:
-      console.log(actionTypes.auth.REGISTER_WITH_PASSWORD_SUCCESS);
+    case actionTypes.auth.PASSWORD_REGISTER_SUCCESS:
+      console.log(actionTypes.auth.PASSWORD_REGISTER_SUCCESS);
       return {
         ...state,
         isLoading: false,
         error: null
       };
 
-    case actionTypes.auth.REGISTER_WITH_PROVIDER_REQUEST:
-      console.log(actionTypes.auth.REGISTER_WITH_PROVIDER_REQUEST);
+    case actionTypes.auth.PROVIDER_REGISTER_REQUEST:
+      console.log(actionTypes.auth.PROVIDER_REGISTER_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
-    case actionTypes.auth.REGISTER_WITH_PROVIDER_FAILURE:
-      console.log(actionTypes.auth.REGISTER_WITH_PROVIDER_FAILURE);
+    case actionTypes.auth.PROVIDER_REGISTER_FAILURE:
+      console.log(actionTypes.auth.PROVIDER_REGISTER_FAILURE);
       return {
         ...state,
         isLoading: false,
         error: action.error
       };
 
-    case actionTypes.auth.REGISTER_WITH_PROVIDER_SUCCESS:
-      console.log(actionTypes.auth.REGISTER_WITH_PROVIDER_SUCCESS);
+    case actionTypes.auth.PROVIDER_REGISTER_SUCCESS:
+      console.log(actionTypes.auth.PROVIDER_REGISTER_SUCCESS);
+      return {
+        ...state,
+        isLoading: false,
+        error: null
+      };
+
+    case actionTypes.auth.RESET_PASSWORD_REQUEST:
+      console.log(actionTypes.auth.RESET_PASSWORD_REQUEST);
+      return {
+        ...state,
+        isLoading: true
+      };
+
+    case actionTypes.auth.RESET_PASSWORD_FAILURE:
+      console.log(actionTypes.auth.RESET_PASSWORD_FAILURE);
+      return {
+        ...state,
+        isLoading: false,
+        error: action.error
+      };
+
+    case actionTypes.auth.RESET_PASSWORD_SUCCESS:
+      console.log(actionTypes.auth.RESET_PASSWORD_SUCCESS);
       return {
         ...state,
         isLoading: false,
@@ -129,6 +152,11 @@ const auth = (state = _initialState, action) => {
         ...state,
         success: sessionAccessToken && action.auth.currentUser ? sessionAccessToken === action.auth.currentUser.ra : false
       };
+
+    case actionTypes.auth.RESET_AUTH_STATE:
+      console.log(actionTypes.auth.RESET_AUTH_STATE);
+      sessionStorage.removeItem(USER_KEY);
+      return _initialState;
 
     default:
       return state

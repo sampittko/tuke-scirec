@@ -9,12 +9,13 @@ import React from 'react';
 import {Redirect} from 'react-router';
 import {connect} from 'react-redux';
 import {getDocumentTitleFromComponent} from '../../utils/appConfigUtils';
-import {passwordLogin, providerLogin} from '../../store/actions/authActions';
+import {passwordLogin, providerLogin, resetAuthState} from '../../store/actions/authActions';
 import logo from '../../static/media/logo.png';
 import propTypes from 'prop-types';
 import routes from '../../config/app/routes';
 import {timeouts} from '../../config/mui';
 import {userConfig} from "../../config/app";
+import LostPasswordDialog from "./ResetPasswordDialog";
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,15 +24,31 @@ class Login extends React.Component {
       email: 'sampittko@gmail.com',
       password: 'testtest',
       notify: false,
+      open: false,
     };
   }
 
   componentDidMount() {
     document.title = getDocumentTitleFromComponent(this);
+    if (this.props.error) {
+      this.props.resetAuthState();
+    }
   }
 
   handleForgottenPassword = () => {
+    if (this.props.error) {
+      this.props.resetAuthState();
+    }
+    this.setState((prevState) => ({
+      open: !prevState.open,
+    }))
+  };
 
+  handleForgottenPasswordSubmit = () => {
+    this.handleForgottenPassword();
+    this.setState({
+      notify: true,
+    })
   };
 
   handleSubmit = (e) => {
@@ -152,6 +169,17 @@ class Login extends React.Component {
               onClose={this.handleClose}
             />
           )}
+          {this.state.notify && (
+            <Notification
+              message="E-mail pre obnovenie hesla bol odoslaný"
+              onClose={this.handleClose}
+            />
+          )}
+          <LostPasswordDialog
+            open={this.state.open}
+            onClick={this.handleForgottenPassword}
+            onSent={this.handleForgottenPasswordSubmit}
+          />
         </Paper>
       </Fade>
     ) : (
@@ -162,6 +190,7 @@ class Login extends React.Component {
 }
 
 Login.propTypes = {
+  resetAuthState: propTypes.func.isRequired,
   passwordLogin: propTypes.func.isRequired,
   providerLogin: propTypes.func.isRequired,
   isAuth: propTypes.bool.isRequired,
@@ -174,6 +203,7 @@ const mapDispatchToProps = dispatch => {
   return {
     passwordLogin: user => dispatch(passwordLogin(user)),
     providerLogin: authProvider => dispatch(providerLogin(authProvider)),
+    resetAuthState: () => dispatch(resetAuthState()),
   }
 };
 

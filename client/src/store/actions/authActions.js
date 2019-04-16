@@ -95,7 +95,7 @@ export const providerLogin = authProvider => {
       })
       .then(async (result) => {
         if (!result.exists) {
-          await dispatch(registerWithProvider(providerResult.user.uid));
+          await dispatch(providerRegister(providerResult.user.uid));
         }
         dispatch(providerLoginSuccess(providerResult));
       })
@@ -128,22 +128,22 @@ export const logout = () => {
   }
 };
 
-const registerWithPasswordFailure = error => ({
-  type: actionTypes.auth.REGISTER_WITH_PASSWORD_FAILURE,
+const passwordRegisterFailure = error => ({
+  type: actionTypes.auth.PASSWORD_REGISTER_FAILURE,
   error
 });
 
-const registerWithPasswordSuccess = () => ({
-  type: actionTypes.auth.REGISTER_WITH_PASSWORD_SUCCESS
+const passwordRegisterSuccess = () => ({
+  type: actionTypes.auth.PASSWORD_REGISTER_SUCCESS
 });
 
-const registerWithPasswordRequest = () => ({
-  type: actionTypes.auth.REGISTER_WITH_PASSWORD_REQUEST
+const passwordRegisterRequest = () => ({
+  type: actionTypes.auth.PASSWORD_REGISTER_REQUEST
 });
 
-export const registerWithPassword = newUser => {
+export const passwordRegister = newUser => {
   return (dispatch, getState, {getFirebase, getFirestore}) => {
-    dispatch(registerWithPasswordRequest());
+    dispatch(passwordRegisterRequest());
 
     const firebase = getFirebase();
     const firestore = getFirestore();
@@ -195,31 +195,31 @@ export const registerWithPassword = newUser => {
           .signOut()
       })
       .then(() => {
-        dispatch(registerWithPasswordSuccess());
+        dispatch(passwordRegisterSuccess());
       })
       .catch(error => {
         console.log(error);
-        dispatch(registerWithPasswordFailure(error));
+        dispatch(passwordRegisterFailure(error));
       });
   }
 };
 
-const registerWithProviderFailure = error => ({
-  type: actionTypes.auth.REGISTER_WITH_PROVIDER_FAILURE,
+const providerRegisterFailure = error => ({
+  type: actionTypes.auth.PROVIDER_REGISTER_FAILURE,
   error
 });
 
-const registerWithProviderSuccess = () => ({
-  type: actionTypes.auth.REGISTER_WITH_PROVIDER_SUCCESS
+const providerRegisterSuccess = () => ({
+  type: actionTypes.auth.PROVIDER_REGISTER_SUCCESS
 });
 
-const registerWithProviderRequest = () => ({
-  type: actionTypes.auth.REGISTER_WITH_PROVIDER_REQUEST
+const providerRegisterRequest = () => ({
+  type: actionTypes.auth.PROVIDER_REGISTER_REQUEST
 });
 
-export const registerWithProvider = newUserId => {
+export const providerRegister = newUserId => {
   return async (dispatch, getState, {getFirebase, getFirestore}) => {
-    dispatch(registerWithProviderRequest());
+    dispatch(providerRegisterRequest());
 
     const firestore = getFirestore();
     const usersRef = firestore.collection(firestoreCollections.users.ID);
@@ -247,11 +247,43 @@ export const registerWithProvider = newUserId => {
           })
       })
       .then(() => {
-        dispatch(registerWithProviderSuccess());
+        dispatch(providerRegisterSuccess());
       })
       .catch(error => {
         console.log(error);
-        dispatch(registerWithProviderFailure(error));
+        dispatch(providerRegisterFailure(error));
+      });
+  }
+};
+
+const resetPasswordFailure = error => ({
+  type: actionTypes.auth.RESET_PASSWORD_FAILURE,
+  error
+});
+
+const resetPasswordSuccess = () => ({
+  type: actionTypes.auth.RESET_PASSWORD_SUCCESS
+});
+
+const resetPasswordRequest = () => ({
+  type: actionTypes.auth.RESET_PASSWORD_REQUEST
+});
+
+export const resetPassword = email => {
+  return async (dispatch, getState, {getFirebase, getFirestore}) => {
+    dispatch(resetPasswordRequest());
+
+    const firebase = getFirebase();
+
+    await firebase
+      .auth()
+      .sendPasswordResetEmail(email)
+      .then(() => {
+        dispatch(resetPasswordSuccess());
+      })
+      .catch(error => {
+        console.log(error);
+        dispatch(resetPasswordFailure(error));
       });
   }
 };
@@ -273,5 +305,13 @@ export const resetUserDependentEntities = () => {
     dispatch(resetProjectState());
     dispatch(resetProjectVersionState());
     dispatch(resetProjectVersionReviewState());
+  }
+};
+
+export const resetAuthState = () => {
+  return dispatch => {
+    dispatch({
+      type: actionTypes.auth.RESET_AUTH_STATE,
+    })
   }
 };
