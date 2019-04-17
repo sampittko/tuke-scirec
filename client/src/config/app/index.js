@@ -1,6 +1,6 @@
 export const APP_NAME = "SCIREC";
 
-export const DOCUMENT_TITLE_BASE = APP_NAME + " -";
+export const DOCUMENT_TITLE_BASE = APP_NAME + " •";
 
 const MAX_STRING_LIMIT = 50;
 const MAX_NOTES_LIMIT = 600;

@@ -12,19 +12,19 @@ export const getProjectsListRoute = (dashboardRoute, projectRoute) =>
   dashboardRoute !== "" && projectRoute !== "" ? `/${routes.DASHBOARDS}/${dashboardRoute}/${routes.PROJECTS}/${projectRoute}/verzie` : dashboardRoute;
 
 export const getProjectDocumentTitle = (dashboard, project) =>
-  appendTitle(`${dashboard.data().title} - ${project.data().title}`);
+  appendTitle(`${dashboard.data().title} • ${project.data().title}`);
 
 export const getProjectSettingsDocumentTitle = (dashboard, project) =>
-  appendTitle(`${dashboard.data().title} - ${project.data().title} - Nastavenia`);
+  appendTitle(`${dashboard.data().title} • ${project.data().title} • Nastavenia`);
 
 export const getProjectVersionDocumentTitle = (dashboard, project, projectVersion) =>
-  appendTitle(`${dashboard.data().title} - ${project.data().title} - Verzia ${projectVersion.data().versionNum}`);
+  appendTitle(`${dashboard.data().title} • ${project.data().title} • Verzia ${projectVersion.data().versionNum}`);
 
 export const getProjectsListDocumentTitle = (dashboard, project) =>
-  appendTitle(`${dashboard.data().title} - ${project.data().title} - Verzie`);
+  appendTitle(`${dashboard.data().title} • ${project.data().title} • Verzie`);
 
 export const getNewProjectDialogDocumentTitle = dashboard =>
-  appendTitle(`${dashboard.data().title} - Vytvorenie nového projektu`);
+  appendTitle(`${dashboard.data().title} • Vytvorenie nového projektu`);
 
 export const getReadableProjectState = numericState => {
   switch (numericState) {

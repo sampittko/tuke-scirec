@@ -1,5 +1,5 @@
-import { appendTitle } from './appConfigUtils';
-import { dashboardConfig } from '../config/app';
+import {appendTitle} from './appConfigUtils';
+import {dashboardConfig} from '../config/app';
 import routes from '../config/app/routes';
 
 export const getActiveDashboard = (dashboards, activeId, selector) => {
@@ -26,4 +26,4 @@ export const getDashboardDocumentTitle = dashboard =>
   dashboard !== dashboardConfig.MAX_COUNT ? appendTitle(dashboard.data().title) : appendTitle("Vytvorenie novej nástenky");
 
 export const getDashboardSettingsDocumentTitle = dashboard =>
-  appendTitle(`${dashboard.data().title} - Nastavenia`);
+  appendTitle(`${dashboard.data().title} • Nastavenia`);
