@@ -13,8 +13,13 @@ import path2 from '../static/media/home/views/2.png';
 import path3 from '../static/media/home/views/3.png';
 import path4 from '../static/media/home/views/4.png';
 import path5 from '../static/media/home/views/5.png';
+import logo from '../static/media/logo.png';
 import Fade from "@material-ui/core/Fade";
 import {timeouts} from "../config/mui";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
 
 const AutoPlaySwipeableViews = autoPlay(SwipeableViews);
 
@@ -63,6 +68,26 @@ class Home extends React.Component {
         ) : (
           <Fade in timeout={timeouts.FADE_IN}>
             <div className="home">
+              <Card className="card">
+                <CardActionArea disableRipple>
+                  <CardMedia
+                    className="card-media"
+                    image={logo}
+                    title="SCIREC logo"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      Vitajte
+                    </Typography>
+                    <Typography component="p">
+                      SCIREC je nástroj pre kontrolu verzií vedeckých publikácií a záverečných prác. Systém pomáha s
+                      kategorizáciou projektov, centralizáciou informácií o projektoch, so zálohovaním súborov na Cloud
+                      pričom všetky informácie sú zabezpečené a prístupné len používateľovi, ktorý ich zadal. Pre jeho
+                      používanie je nutné sa prihlásiť.
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
               <AutoPlaySwipeableViews
                 axis={'x'}
                 index={this.state.activeView}

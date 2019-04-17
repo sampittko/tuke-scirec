@@ -6,6 +6,17 @@
     max-height: calc(100vh - 64px);
     overflow: hidden;
 
+    .card {
+        display: none;
+
+        .card-media {
+            width: 100%;
+            padding: 10px;
+            height: 10vh;
+            opacity: 0.3;
+        }
+    }
+
     .view-text {
         position: absolute;
         bottom: 0;
@@ -32,6 +43,7 @@
         overflow: hidden;
 
         img {
+            margin-top: -20px;
             max-width: 1600px;
             width: 100%;
             height: auto;
@@ -39,15 +51,38 @@
     }
 }
 
-@media (max-width: 737px) {
+@media (max-width: 960px) {
     .home .media img {
-        margin-left: -90px;
+        margin-top: 0;
+        margin-left: -100px;
         width: 120%;
     }
 }
 
-@media (max-width: 623px) {
+@media (max-width: 840px) {
     .home .media img {
-        margin-left: -70px;
+        margin-top: 20px;
+    }
+}
+
+
+@media (max-width: 737px) {
+    .home {
+        margin: 2 * $spacing-unit $spacing-unit;
+        width: inherit;
+
+
+        .view-text, .media {
+            display: none;
+
+            & img {
+                margin-left: -90px;
+                width: 120%;
+            }
+        }
+
+        .card {
+            display: inherit
+        }
     }
 }
