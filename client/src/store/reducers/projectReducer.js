@@ -12,14 +12,14 @@ const _initialState = {
 const project = (state = _initialState, action) => {
   switch (action.type) {
     case actionTypes.project.ADD_PROJECT_REQUEST:
-      console.log(actionTypes.project.ADD_PROJECT_REQUEST);
+      // console.log(actionTypes.project.ADD_PROJECT_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.project.ADD_PROJECT_SUCCESS:
-      console.log(actionTypes.project.ADD_PROJECT_SUCCESS);
+      // console.log(actionTypes.project.ADD_PROJECT_SUCCESS);
       return {
         ...state,
         data: {
@@ -34,7 +34,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.ADD_PROJECT_FAILURE:
-      console.log(actionTypes.project.ADD_PROJECT_FAILURE);
+      // console.log(actionTypes.project.ADD_PROJECT_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -42,14 +42,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.GET_PROJECTS_REQUEST:
-      console.log(actionTypes.project.GET_PROJECTS_REQUEST);
+      // console.log(actionTypes.project.GET_PROJECTS_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.project.GET_PROJECTS_SUCCESS:
-      console.log(actionTypes.project.GET_PROJECTS_SUCCESS);
+      // console.log(actionTypes.project.GET_PROJECTS_SUCCESS);
       return {
         ...state,
         data: {
@@ -61,7 +61,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.GET_PROJECTS_FAILURE:
-      console.log(actionTypes.project.GET_PROJECTS_FAILURE);
+      // console.log(actionTypes.project.GET_PROJECTS_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -69,14 +69,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST:
-      console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST);
+      // console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_SUCCESS:
-      console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_SUCCESS);
+      // console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_SUCCESS);
       return {
         ...state,
         isLoading: false,
@@ -84,7 +84,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_FAILURE:
-      console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_FAILURE);
+      // console.log(actionTypes.project.DELETE_PROJECTS_IN_DASHBOARD_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -92,14 +92,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.UPDATE_PROJECT_OVERVIEW_REQUEST:
-      console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_REQUEST);
+      // console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.project.UPDATE_PROJECT_OVERVIEW_SUCCESS:
-      console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_SUCCESS);
+      // console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_SUCCESS);
       const updatedProjectIndex1 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
@@ -111,7 +111,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.UPDATE_PROJECT_OVERVIEW_FAILURE:
-      console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_FAILURE);
+      // console.log(actionTypes.project.UPDATE_PROJECT_OVERVIEW_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -119,14 +119,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.UPDATE_PROJECT_TITLE_REQUEST:
-      console.log(actionTypes.project.UPDATE_PROJECT_TITLE_REQUEST);
+      // console.log(actionTypes.project.UPDATE_PROJECT_TITLE_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.project.UPDATE_PROJECT_TITLE_SUCCESS:
-      console.log(actionTypes.project.UPDATE_PROJECT_TITLE_SUCCESS);
+      // console.log(actionTypes.project.UPDATE_PROJECT_TITLE_SUCCESS);
       const updatedProjectIndex2 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
@@ -138,7 +138,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.UPDATE_PROJECT_TITLE_FAILURE:
-      console.log(actionTypes.project.UPDATE_PROJECT_TITLE_FAILURE);
+      // console.log(actionTypes.project.UPDATE_PROJECT_TITLE_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -146,14 +146,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.DELETE_PROJECT_REQUEST:
-      console.log(actionTypes.project.DELETE_PROJECT_REQUEST);
+      // console.log(actionTypes.project.DELETE_PROJECT_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
     case actionTypes.project.DELETE_PROJECT_SUCCESS:
-      console.log(actionTypes.project.DELETE_PROJECT_SUCCESS);
+      // console.log(actionTypes.project.DELETE_PROJECT_SUCCESS);
       return {
         ...state,
         data: {
@@ -164,7 +164,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.DELETE_PROJECT_FAILURE:
-      console.log(actionTypes.project.DELETE_PROJECT_FAILURE);
+      // console.log(actionTypes.project.DELETE_PROJECT_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -172,14 +172,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_REQUEST:
-      console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_REQUEST);
+      // console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
     case actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_SUCCESS:
-      console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_SUCCESS);
+      // console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_SUCCESS);
       const updatedProjectIndex3 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
@@ -191,7 +191,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_FAILURE:
-      console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_FAILURE);
+      // console.log(actionTypes.project.INCREMENT_PROJECT_VERSIONS_COUNT_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -199,14 +199,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_REQUEST:
-      console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_REQUEST);
+      // console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
     case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS:
-      console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS);
+      // console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_SUCCESS);
       const updatedProjectIndex4 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
@@ -218,7 +218,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_FAILURE:
-      console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_FAILURE);
+      // console.log(actionTypes.project.INCREMENT_DELETED_PROJECT_VERSIONS_COUNT_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -226,14 +226,14 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.UPDATE_PROJECT_MODIFIED_REQUEST:
-      console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_REQUEST);
+      // console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_REQUEST);
       return {
         ...state,
         isLoading: true
       };
 
     case actionTypes.project.UPDATE_PROJECT_MODIFIED_SUCCESS:
-      console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_SUCCESS);
+      // console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_SUCCESS);
       const updatedProjectIndex5 = state.data.list.findIndex(project => project.id === action.updatedProject.id);
       return {
         ...state,
@@ -245,7 +245,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.UPDATE_PROJECT_MODIFIED_FAILURE:
-      console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_FAILURE);
+      // console.log(actionTypes.project.UPDATE_PROJECT_MODIFIED_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -253,11 +253,11 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.RESET_PROJECT_STATE:
-      console.log(actionTypes.project.RESET_PROJECT_STATE);
+      // console.log(actionTypes.project.RESET_PROJECT_STATE);
       return _initialState;
 
     case actionTypes.project.SET_ACTIVE_PROJECT:
-      console.log(actionTypes.project.SET_ACTIVE_PROJECT);
+      // console.log(actionTypes.project.SET_ACTIVE_PROJECT);
       return {
         ...state,
         data: {
@@ -267,7 +267,7 @@ const project = (state = _initialState, action) => {
       };
 
     case actionTypes.project.REMOVE_ACTIVE_PROJECT:
-      console.log(actionTypes.project.REMOVE_ACTIVE_PROJECT);
+      // console.log(actionTypes.project.REMOVE_ACTIVE_PROJECT);
       return {
         ...state,
         data: {

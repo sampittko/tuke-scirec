@@ -11,14 +11,14 @@ const _initialState = {
 const file = (state = _initialState, action) => {
   switch (action.type) {
     case actionTypes.file.UPLOAD_FILES_REQUEST:
-      console.log(actionTypes.file.UPLOAD_FILES_REQUEST);
+      // console.log(actionTypes.file.UPLOAD_FILES_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.file.UPLOAD_FILES_SUCCESS:
-      console.log(actionTypes.file.UPLOAD_FILES_SUCCESS);
+      // console.log(actionTypes.file.UPLOAD_FILES_SUCCESS);
       return {
         ...state,
         isLoading: false,
@@ -26,7 +26,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.UPLOAD_FILES_FAILURE:
-      console.log(actionTypes.file.UPLOAD_FILES_FAILURE);
+      // console.log(actionTypes.file.UPLOAD_FILES_FAILURE);
       return {
         ...state,
         isLoading: false,
@@ -34,7 +34,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.UPLOAD_FILE_REQUEST:
-      console.log(actionTypes.file.UPLOAD_FILE_REQUEST);
+      // console.log(actionTypes.file.UPLOAD_FILE_REQUEST);
       return {
         ...state,
         data: {
@@ -51,7 +51,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.UPLOAD_FILE_SUCCESS:
-      console.log(actionTypes.file.UPLOAD_FILE_SUCCESS);
+      // console.log(actionTypes.file.UPLOAD_FILE_SUCCESS);
       return {
         ...state,
         data: {
@@ -67,7 +67,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.UPLOAD_FILE_FAILURE:
-      console.log(actionTypes.file.UPLOAD_FILE_FAILURE);
+      // console.log(actionTypes.file.UPLOAD_FILE_FAILURE);
       return {
         ...state,
         data: {
@@ -83,7 +83,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.DOWNLOAD_FILE_REQUEST:
-      console.log(actionTypes.file.DOWNLOAD_FILE_REQUEST);
+      // console.log(actionTypes.file.DOWNLOAD_FILE_REQUEST);
       const downloadingFileIndex = state.data.lists[action.filesIndex].findIndex(file => file.id === action.file.id);
       return {
         ...state,
@@ -102,7 +102,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.DOWNLOAD_FILE_SUCCESS:
-      console.log(actionTypes.file.DOWNLOAD_FILE_SUCCESS);
+      // console.log(actionTypes.file.DOWNLOAD_FILE_SUCCESS);
       const downloadingFileIndex2 = state.data.lists[action.filesIndex].findIndex(file => file.id === action.file.id);
       return {
         ...state,
@@ -119,7 +119,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.DOWNLOAD_FILE_FAILURE:
-      console.log(actionTypes.file.DOWNLOAD_FILE_FAILURE);
+      // console.log(actionTypes.file.DOWNLOAD_FILE_FAILURE);
       const downloadingFileIndex3 = state.data.lists[action.filesIndex].findIndex(file => file.id === action.file.id);
       return {
         ...state,
@@ -136,14 +136,14 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.GET_FILES_REQUEST:
-      console.log(actionTypes.file.GET_FILES_REQUEST);
+      // console.log(actionTypes.file.GET_FILES_REQUEST);
       return {
         ...state,
         isLoading: true,
       };
 
     case actionTypes.file.GET_FILES_SUCCESS:
-      console.log(actionTypes.file.GET_FILES_SUCCESS);
+      // console.log(actionTypes.file.GET_FILES_SUCCESS);
       return {
         ...state,
         data: {
@@ -155,7 +155,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.GET_FILES_FAILURE:
-      console.log(actionTypes.file.GET_FILES_FAILURE);
+      // console.log(actionTypes.file.GET_FILES_FAILURE);
       return {
         ...state,
         data: {
@@ -167,7 +167,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.DELETE_FILE_REQUEST:
-      console.log(actionTypes.file.DELETE_FILE_REQUEST);
+      // console.log(actionTypes.file.DELETE_FILE_REQUEST);
       return {
         ...state,
         data: {
@@ -182,7 +182,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.DELETE_FILE_SUCCESS:
-      console.log(actionTypes.file.DELETE_FILE_SUCCESS);
+      // console.log(actionTypes.file.DELETE_FILE_SUCCESS);
       return {
         ...state,
         isLoading: false,
@@ -190,7 +190,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.DELETE_FILE_FAILURE:
-      console.log(actionTypes.file.DELETE_FILE_FAILURE);
+      // console.log(actionTypes.file.DELETE_FILE_FAILURE);
       return {
         ...state,
         data: {
@@ -206,7 +206,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.REMOVE_FILES_AT_INDEX:
-      console.log(actionTypes.file.REMOVE_FILES_AT_INDEX);
+      // console.log(actionTypes.file.REMOVE_FILES_AT_INDEX);
       return {
         ...state,
         data: {
@@ -216,7 +216,7 @@ const file = (state = _initialState, action) => {
       };
 
     case actionTypes.file.RESET_FILE_STATE:
-      console.log(actionTypes.file.RESET_FILE_STATE);
+      // console.log(actionTypes.file.RESET_FILE_STATE);
       return _initialState;
 
     default:
