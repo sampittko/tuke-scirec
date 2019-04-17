@@ -27,7 +27,7 @@ class Register extends React.Component {
   }
 
   componentDidMount() {
-    document.title = getDocumentTitleFromComponent(this);
+    document.title = getDocumentTitleFromComponent("Register");
   }
 
   errorCodesMatches(errorCode) {

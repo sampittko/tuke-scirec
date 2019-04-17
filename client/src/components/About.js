@@ -8,7 +8,7 @@ import {timeouts} from '../config/mui';
 
 class About extends React.Component {
   componentDidMount() {
-    document.title = getDocumentTitleFromComponent(this);
+    document.title = getDocumentTitleFromComponent("About");
   }
 
   render() {

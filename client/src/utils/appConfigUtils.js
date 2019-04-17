@@ -7,11 +7,8 @@ import titles from '../config/app/titles';
 export const appendTitle = title =>
   `${DOCUMENT_TITLE_BASE} ${title}`;
 
-const getComponentName = component =>
-  component._reactInternalFiber.elementType.name;
-
 export const getDocumentTitleFromComponent = component => {
-  switch (getComponentName(component)) {
+  switch (component) {
     case "Login":
       return appendTitle(titles.LOGIN);
     case "Register":

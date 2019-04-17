@@ -46,7 +46,7 @@ class Home extends React.Component {
   }
 
   componentDidMount() {
-    document.title = getDocumentTitleFromComponent(this);
+    document.title = getDocumentTitleFromComponent("Home");
   }
 
   handleChange = view => {

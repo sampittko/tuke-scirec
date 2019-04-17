@@ -29,7 +29,7 @@ class Login extends React.Component {
   }
 
   componentDidMount() {
-    document.title = getDocumentTitleFromComponent(this);
+    document.title = getDocumentTitleFromComponent("Login");
     if (this.props.error) {
       this.props.resetAuthState();
     }

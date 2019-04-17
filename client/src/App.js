@@ -1,6 +1,7 @@
-import {MuiThemeProvider, withTheme} from '@material-ui/core/styles';
+import {createGenerateClassName, jssPreset, MuiThemeProvider, withTheme} from '@material-ui/core/styles';
 import {BrowserRouter as Router, Redirect, Route} from 'react-router-dom';
 
+import {JssProvider} from 'react-jss';
 import About from './components/About';
 import Container from './components/common/Container';
 import Dashboard from './components/dashboard';
@@ -21,6 +22,10 @@ import {getDashboards} from './store/actions/dashboardActions';
 import propTypes from 'prop-types';
 import routes from './config/app/routes';
 import withInit from './components/common/withInit';
+import {create} from 'jss';
+
+const generateClassName = createGenerateClassName({dangerouslyUseGlobalCSS: true});
+const jss = create(jssPreset());
 
 const PrivateRoute = ({component: Component, isAuth, ...rest}) =>
   <Route {...rest} render={(props) => isAuth ? (
@@ -39,25 +44,28 @@ class App extends React.Component {
 
   render() {
     return (
-      <MuiThemeProvider
-        theme={getAppTheme(this.props.activeDashboard, this.props.isAuth, this.props.isDashboardLoading, this.props.themePicker)}>
-        <Router basename={window.basename}>
-          <Container>
-            <PrivateRoute exact path={routes.DASHBOARD} component={Dashboard} isAuth={this.props.isAuth}/>
-            <PrivateRoute exact path={routes.DASHBOARD_SETTINGS} component={DashboardSettings}
-                          isAuth={this.props.isAuth}/>
-            <PrivateRoute exact path={routes.PROJECT} component={Project} isAuth={this.props.isAuth}/>
-            <PrivateRoute exact path={routes.PROJECT_VERSIONS_LIST} component={ProjectVersionsList}
-                          isAuth={this.props.isAuth}/>
-            <PrivateRoute exact path={routes.PROJECT_VERSION} component={ProjectVersion} isAuth={this.props.isAuth}/>
-            <PrivateRoute exact path={routes.PROJECT_SETTINGS} component={ProjectSettings} isAuth={this.props.isAuth}/>
-            <Route exact path={routes.HOME} component={Home}/>
-            <Route exact path={routes.ABOUT} component={About}/>
-            <Route exact path={routes.REGISTER} component={Register}/>
-            <Route exact path={routes.LOGIN} component={Login}/>
-          </Container>
-        </Router>
-      </MuiThemeProvider>
+      <JssProvider jss={jss} generateClassName={generateClassName}>
+        <MuiThemeProvider
+          theme={getAppTheme(this.props.activeDashboard, this.props.isAuth, this.props.isDashboardLoading, this.props.themePicker)}>
+          <Router basename={window.basename}>
+            <Container>
+              <PrivateRoute exact path={routes.DASHBOARD} component={Dashboard} isAuth={this.props.isAuth}/>
+              <PrivateRoute exact path={routes.DASHBOARD_SETTINGS} component={DashboardSettings}
+                            isAuth={this.props.isAuth}/>
+              <PrivateRoute exact path={routes.PROJECT} component={Project} isAuth={this.props.isAuth}/>
+              <PrivateRoute exact path={routes.PROJECT_VERSIONS_LIST} component={ProjectVersionsList}
+                            isAuth={this.props.isAuth}/>
+              <PrivateRoute exact path={routes.PROJECT_VERSION} component={ProjectVersion} isAuth={this.props.isAuth}/>
+              <PrivateRoute exact path={routes.PROJECT_SETTINGS} component={ProjectSettings}
+                            isAuth={this.props.isAuth}/>
+              <Route exact path={routes.HOME} component={Home}/>
+              <Route exact path={routes.ABOUT} component={About}/>
+              <Route exact path={routes.REGISTER} component={Register}/>
+              <Route exact path={routes.LOGIN} component={Login}/>
+            </Container>
+          </Router>
+        </MuiThemeProvider>
+      </JssProvider>
     )
   }
 }
