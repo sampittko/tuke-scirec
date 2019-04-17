@@ -11,6 +11,8 @@ import propTypes from 'prop-types';
 import {passwordRegister} from '../../store/actions/authActions';
 import routes from '../../config/app/routes';
 import {timeouts} from '../../config/mui';
+import Checkbox from "@material-ui/core/Checkbox";
+import {Link} from "react-router-dom";
 
 class Register extends React.Component {
   formSubmitted = false;
@@ -103,6 +105,32 @@ class Register extends React.Component {
               value={this.state.verifiedPassword}
               required
             />
+            <div>
+              <Checkbox color="primary" required/>
+              <Typography component="div">
+                Súhlasim s&nbsp;
+                <Link
+                  target="_blank"
+                  rel="noopener"
+                  to={routes.HOME}
+                >
+                  podmienkami pre používateľa SCIREC
+                </Link>
+              </Typography>
+            </div>
+            <div>
+              <Checkbox color="primary" required/>
+              <Typography component="div">
+                Súhlasim so&nbsp;
+                <Link
+                  target="_blank"
+                  rel="noopener"
+                  to={routes.HOME}
+                >
+                  spracovaním poskytnutých údajov
+                </Link>
+              </Typography>
+            </div>
             <div className="action-buttons">
               <Button
                 type="submit"

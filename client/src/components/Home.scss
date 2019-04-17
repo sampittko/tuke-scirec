@@ -1,20 +1,59 @@
 @import '../variables';
 
 .home {
-    margin: 4 * $spacing-unit auto;
-    width: $page-width;
+    width: 100vw;
+    height: calc(100vh - 64px);
+    max-height: calc(100vh - 64px);
+    overflow: hidden;
+
+    .view-text {
+        position: absolute;
+        bottom: 10vh;
+        left: 10vh;
+        width: 50vw;
+        text-align: center;
+        height: 60px;
+        border-radius: 4px;
+        background-color: #669966;
+
+        .headline {
+            font-size: 2rem;
+            position: relative;
+            font-weight: 500;
+            color: #fff;
+            line-height: 60px;
+        }
+    }
 
     .media {
-        width: 100%;
-        padding: 10px;
-        height: 10vh;
-        opacity: 0.3;
+        text-align: center;
+        overflow: hidden;
+
+        img {
+            max-width: 1600px;
+            width: 100%;
+            height: auto;
+        }
     }
 }
 
-@media (max-width: $media-query-1) {
-    .home {
-        margin: 2 * $spacing-unit $spacing-unit;
-        width: inherit;
+@media (max-width: 927.2px) {
+    .home .view-text {
+        left: 0;
+        width: 100vw;
+        height: 60px;
+    }
+}
+
+@media (max-width: 737px) {
+    .home .media img {
+        margin-left: -90px;
+        width: 120%;
+    }
+}
+
+@media (max-width: 623px) {
+    .home .media img {
+        margin-left: -70px;
     }
 }
