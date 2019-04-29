@@ -12,7 +12,7 @@ import Counter from './Counter';
 import './index.scss';
 import NoData from "./NoData";
 import PlusIcon from "mdi-material-ui/Plus";
-import NewVersionConfirmDialog from "../NewConfirmDialog";
+import NewVersionConfirmDialog from "../../project/NewVersionConfirmDialog";
 import Fab from '../../common/Fab';
 import propTypes from 'prop-types';
 import Fade from "@material-ui/core/Fade";

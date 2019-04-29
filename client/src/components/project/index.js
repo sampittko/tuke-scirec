@@ -13,7 +13,7 @@ import Overview from "./overview";
 import LatestVersion from "./latestVersion";
 import Fab from "../common/Fab";
 import PlusIcon from 'mdi-material-ui/Plus';
-import NewVersionConfirmDialog from "../projectVersion/NewConfirmDialog";
+import NewVersionConfirmDialog from "./NewVersionConfirmDialog";
 import Notification from "../common/Notification";
 
 class Project extends React.Component {
