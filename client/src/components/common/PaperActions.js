@@ -49,6 +49,7 @@ const PaperActions = props =>
               <IconButton
                 onClick={(event) => props.onClick(event, 'save')}
                 disabled={!props.settingsChanged() || props.updating}
+                color="secondary"
               >
                 <ContentSaveIcon fontSize="small"/>
               </IconButton>
@@ -63,7 +64,10 @@ const PaperActions = props =>
           placement="left"
           disableFocusListener
         >
-          <IconButton onClick={(event) => props.onClick(event, 'edit')}>
+          <IconButton
+            onClick={(event) => props.onClick(event, 'edit')}
+            color="secondary"
+          >
             <PencilIcon fontSize="small"/>
           </IconButton>
         </Tooltip>

@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import {Paper, TextField} from "@material-ui/core";
+import {IconButton, Paper, TextField, Tooltip} from "@material-ui/core";
 import {connect} from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import './index.scss';
@@ -9,6 +9,7 @@ import Notification from "../../common/Notification";
 import Editables from "./Editables";
 import Readables from "./Readables";
 import PaperActions from "../../common/PaperActions";
+import AlertCircleOutlineIcon from "mdi-material-ui/AlertCircleOutline";
 
 class Overview extends React.Component {
   constructor(props) {
@@ -112,7 +113,23 @@ class Overview extends React.Component {
           )}
           <TextField
             style={this.state.editMode ? {opacity: 0.7} : {}}
-            label="Počet verzií projektu"
+            label={
+              <div>
+                Počet verzií projektu
+                {this.state.editMode && (
+                  <Tooltip
+                    title="Počet verzií projektu má len informačný charakter, a jeho hodnota sa automaticky zmení ak je vytvorená nová verzia projektu"
+                    placement="right">
+                    <IconButton
+                      style={{cursor: "default", position: "absolute", top: "-15px"}}
+                      disableRipple
+                    >
+                      <AlertCircleOutlineIcon/>
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </div>
+            }
             InputProps={{readOnly: true}}
             value={this.props.activeProject.data().meta.versionsCount}
             className="input"

@@ -5,6 +5,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import {projectVersionConfig} from "../../../config/app";
 import {getReadableProjectVersionState} from "../../../utils/projectVersionUtils";
 import StringInput from "../../common/StringInput";
+import {IconButton, Tooltip} from "@material-ui/core";
+import AlertCircleOutlineIcon from "mdi-material-ui/AlertCircleOutline";
 
 const projectVersionStates = [
   {value: projectVersionConfig.states.values.NOT_SET},
@@ -18,7 +20,19 @@ const Editables = props =>
   <div style={{opacity: 0.7}}>
     <TextField
       select
-      label="Stav verzie"
+      label={
+        <div>
+          Stav verzie
+          <Tooltip title="Stav verzie má len informačný charakter" placement="right">
+            <IconButton
+              style={{cursor: "default", position: "absolute", top: "-15px"}}
+              disableRipple
+            >
+              <AlertCircleOutlineIcon/>
+            </IconButton>
+          </Tooltip>
+        </div>
+      }
       name="state"
       onChange={props.onChange}
       value={props.state}
@@ -31,7 +45,19 @@ const Editables = props =>
       ))}
     </TextField>
     <StringInput
-      label="Poznámky"
+      label={
+        <div>
+          Poznámky
+          <Tooltip title="Poznámky slúžia na uloženie informácií spojenými s touto verziou projektu" placement="right">
+            <IconButton
+              style={{cursor: "default", position: "absolute", top: "-15px"}}
+              disableRipple
+            >
+              <AlertCircleOutlineIcon/>
+            </IconButton>
+          </Tooltip>
+        </div>
+      }
       name="notes"
       onChange={props.onChange}
       maxLength={projectVersionConfig.MAX_NOTES_LENGTH}

@@ -10,6 +10,7 @@
     max-height: $height;
     position: relative;
     margin: 0 2 * $spacing-unit 0 0;
+      background-color: darken(white, 1%);
 
     .full-width {
       width: 100%;

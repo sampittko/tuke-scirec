@@ -42,7 +42,7 @@ class StringInput extends React.Component {
 }
 
 StringInput.propTypes = {
-  label: propTypes.string.isRequired,
+  label: propTypes.any.isRequired,
   onChange: propTypes.func.isRequired,
   maxLength: propTypes.number.isRequired,
   name: propTypes.string,
